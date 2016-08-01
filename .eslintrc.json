@@ -1,4 +1,7 @@
 {
     "parser": "babel-eslint",
-    "extends": "blue-hour"
+    "extends": "blue-hour",
+    "env": {
+        "jasmine": true
+    }
 }

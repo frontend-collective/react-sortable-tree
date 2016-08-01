@@ -1,2 +1,6 @@
 bower.json
 src/examples
+karma.conf.*js
+webpack.config.*.js
+.*
+*.md

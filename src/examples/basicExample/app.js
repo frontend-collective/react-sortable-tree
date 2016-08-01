@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactSortableTree from '../../react-sortable-tree';
+import SortableTree, { hello } from '../../index';
 import styles from './stylesheets/app.scss';
 
 const App = React.createClass({
@@ -26,7 +26,7 @@ const App = React.createClass({
                 <section className={styles['main-content']}>
                     <h3>Demo</h3>
 
-                    <ReactSortableTree myName={authorName} />
+                    <SortableTree myName={authorName} />
 
                     <h3>Features</h3>
                     <ul>

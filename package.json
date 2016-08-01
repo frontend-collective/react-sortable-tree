@@ -10,14 +10,15 @@
     "clean:demo": "rimraf build",
     "clean:umd": "rimraf dist/umd",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.babel.js",
-    "test": "webpack",
     "lint": "eslint src",
+    "test": "npm run lint && npm run test:unit",
+    "test:unit": "cross-env NODE_ENV=test karma start",
     "deploy": "npm run build && gh-pages -d build",
     "prepublish": "npm run lint && npm run build:umd"
   },
   "main": "dist/umd/react-sortable-tree.js",
   "files": [
-      "dist"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
+    "bluebird": "^3.4.1",
     "cross-env": "^2.0.0",
     "css-loader": "^0.23.1",
     "eslint": "^2.9.0",
@@ -53,6 +55,15 @@
     "file-loader": "^0.9.0",
     "gh-pages": "^0.11.0",
     "html-webpack-plugin": "^2.22.0",
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.1.2",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-junit-reporter": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.26",
+    "karma-webpack": "^1.7.0",
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.9.1",
     "react": "^15.2.0",
