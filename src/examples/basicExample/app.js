@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SortableTree, { hello } from '../../index';
+import SortableTree from '../../index';
 import styles from './stylesheets/app.scss';
 
 const App = React.createClass({

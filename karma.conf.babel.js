@@ -5,6 +5,7 @@ import KarmaSpecReporter from 'karma-spec-reporter';
 import KarmaJunitReporter from 'karma-junit-reporter';
 import KarmaSourcemapLoader from 'karma-sourcemap-loader';
 import KarmaPhantomjsLauncher from 'karma-phantomjs-launcher';
+import KarmaNotifyReporter from 'karma-notify-reporter';
 import webpackConfig from './webpack.config.dev.babel';
 
 export default function setConfig(config) {
@@ -26,15 +27,20 @@ export default function setConfig(config) {
             KarmaWebpack,
             KarmaSpecReporter,
             KarmaJunitReporter,
+            KarmaNotifyReporter,
             KarmaSourcemapLoader,
             KarmaPhantomjsLauncher,
         ],
-        reporters: ['progress', 'coverage'],
+        reporters: ['progress', 'coverage', 'notify'],
         webpack: webpackConfig,
         coverageReporter: {
             dir: 'coverage',
             file: 'coverage.json',
             type: 'json'
-        }
+        },
+        notifyReporter: {
+            reportEachFailure: true, // Default: false, Will notify on every failed spec
+            reportSuccess: false, // Default: true, Will notify when a suite was successful
+        },
     });
 }
