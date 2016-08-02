@@ -1,9 +1,9 @@
-import Bluebird from 'bluebird';
+import Bluebird from 'bluebird'; // eslint-disable-line import/no-extraneous-dependencies
 
 // Polyfill a full ES6 environment
 // Reference: https://babeljs.io/docs/usage/polyfill/
 // Reference: https://github.com/zloirock/core-js
-import 'babel-polyfill';
+import 'babel-polyfill'; // eslint-disable-line import/no-extraneous-dependencies
 
 // Replace the scheduler with setImmediate so we can write sync tests
 Bluebird.setScheduler(fn => {

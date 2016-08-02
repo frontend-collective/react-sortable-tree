@@ -6,7 +6,7 @@ import KarmaJunitReporter from 'karma-junit-reporter';
 import KarmaSourcemapLoader from 'karma-sourcemap-loader';
 import KarmaPhantomjsLauncher from 'karma-phantomjs-launcher';
 import KarmaNotifyReporter from 'karma-notify-reporter';
-import webpackConfig from './webpack.config.dev.babel';
+import webpackConfig from './webpack.config.test.babel';
 
 export default function setConfig(config) {
     config.set({
@@ -20,7 +20,6 @@ export default function setConfig(config) {
             outputDir: (process.env.CIRCLE_TEST_REPORTS || 'public') + '/karma',
             suite: 'karma'
         },
-        singleRun: true,
         plugins: [
             KarmaCoverage,
             KarmaJasmine,
@@ -39,7 +38,7 @@ export default function setConfig(config) {
             type: 'json'
         },
         notifyReporter: {
-            reportEachFailure: true, // Default: false, Will notify on every failed spec
+            reportEachFailure: false, // Default: false, Will notify on every failed spec
             reportSuccess: false, // Default: true, Will notify when a suite was successful
         },
     });

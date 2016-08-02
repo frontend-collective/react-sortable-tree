@@ -19,7 +19,6 @@ module.exports = {
             template: './src/examples/basicExample/index.html'
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
     ],
     postcss: [
         autoprefixer,
