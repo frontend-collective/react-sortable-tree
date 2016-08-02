@@ -2,6 +2,10 @@
     "parser": "babel-eslint",
     "extends": "blue-hour",
     "env": {
+        "browser": true,
         "jasmine": true
+    },
+    "rules": {
+        "react/jsx-filename-extension": 0
     }
 }
