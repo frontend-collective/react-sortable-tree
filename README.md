@@ -4,7 +4,7 @@
 
 ### Features
 
-- Highly flexible
+- Works right out of the box, but is highly customizable
 - No external CSS files
 
 ## Example

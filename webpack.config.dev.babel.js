@@ -18,20 +18,12 @@ module.exports = {
             inject: true,
             template: './src/examples/basicExample/index.html'
         }),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
     ],
     postcss: [
         autoprefixer,
     ],
     module: {
-        preLoaders: [
-            {
-                test: /\.jsx?$/,
-                loader: 'eslint-loader',
-                include: path.join(__dirname, 'src')
-            },
-        ],
         loaders: [
             {
                 test: /\.jsx?$/,

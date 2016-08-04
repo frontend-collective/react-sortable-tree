@@ -1,0 +1,97 @@
+.node {
+    list-style-type: none;
+    height: 100%;
+    min-width: 100%;
+    position: relative;
+}
+
+.nodeContent {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   Scaffold
+
+    Line-overlaid blocks used for showing the tree structure
+   ========================================================================== */
+.lineBlock {
+    height: 100%;
+    position: relative;
+    display: inline-block;
+}
+
+.blackLineBase {
+    position: absolute;
+    content: '';
+    background-color: black;
+}
+
+/**
+ * +-----+
+ * |     |
+ * |  +--+
+ * |     |
+ * +-----+
+ */
+.lineHalfHorizontalRight {
+    &::before {
+        @extend .blackLineBase;
+        height: 1px;
+        top: 50%;
+        right: -50%;
+        width: 100%;
+    }
+}
+
+/**
+ * +--+--+
+ * |  |  |
+ * |  |  |
+ * |  |  |
+ * +--+--+
+ */
+.lineFullVertical {
+    &::after {
+        @extend .blackLineBase;
+        width: 1px;
+        left: 50%;
+        top: -50%;
+        height: 200%;
+    }
+}
+
+/**
+ * +-----+
+ * |  |  |
+ * |  +  |
+ * |     |
+ * +-----+
+ */
+.lineHalfVerticalTop {
+    @extend .lineFullVertical;
+
+    &::after {
+        top: -50%;
+        height: 100%;
+    }
+}
+
+
+/**
+ * +-----+
+ * |     |
+ * |  +  |
+ * |  |  |
+ * +-----+
+ */
+.lineHalfVerticalBottom {
+    @extend .lineHalfVerticalTop;
+
+    &::after {
+        top: auto;
+        bottom: -50%;
+    }
+}

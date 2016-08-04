@@ -13,6 +13,68 @@ const App = React.createClass({
         const authorUrl = 'https://github.com/fritz-c';
         const githubUrl = 'https://github.com/fritz-c/react-sortable-tree';
 
+        const treeData = [
+            {
+                key: 'b12314', // string or number. Every key in the tree needs to be unique
+                value: { // Custom value. Can be anything - object, array, string, etc.
+                    id: 'b12314',
+                    title: 'Joe',
+                    subtitle: 'Pancakes',
+                },
+                expanded: true,
+                children: [
+                    {
+                        value: 1,
+                        children: [], // null or undefined also ok
+                    },
+                    {
+                        value: 2,
+                    },
+                    {
+                        key: 2412,
+                        value: 2,
+                        children: (resolve, _reject) => {
+                            setTimeout(() => {
+                                resolve([
+                                    {
+                                        key: 1215,
+                                        value: 5,
+                                    },
+                                    {
+                                        key: 2125,
+                                        value: 215,
+                                    },
+                                ]);
+                            }, 2000);
+                        },
+                    },
+                ],
+            },
+            {
+                key: 'b12315',
+                value: {
+                    id: 'b12315',
+                    title: 'Frank',
+                },
+            },
+            {
+                key: 'b12316',
+                value: {
+                    id: 'b12316',
+                    title: 'Beast Man',
+                    subtitle: 'Pancakes',
+                },
+            },
+            {
+                key: 'b12336',
+                value: {
+                    id: 'b12336',
+                    title: 'Tracy Page',
+                    subtitle: 'Waffles',
+                },
+            },
+        ];
+
         return (
             <div>
                 <section className={styles['page-header']}>
@@ -26,11 +88,24 @@ const App = React.createClass({
                 <section className={styles['main-content']}>
                     <h3>Demo</h3>
 
-                    <SortableTree myName={authorName} />
+                    <SortableTree
+                        treeData={treeData}
+                        generateNodeProps={({
+                            nodeData:           _nodeData,
+                            parentPath:         _parentPath,
+                            lowerSiblingCounts: _lowerSiblingCounts,
+                            listIndex:          _listIndex,
+                        }) => ({
+                            buttons: [
+                                <button>＋</button>,
+                                <button>ℹ</button>,
+                            ],
+                        })}
+                    />
 
                     <h3>Features</h3>
                     <ul>
-                        <li>Excels at displaying an enthusiastic greeting</li>
+                        <li>Works right out of the box, but is highly customizable</li>
                         <li>No external CSS</li>
                     </ul>
 

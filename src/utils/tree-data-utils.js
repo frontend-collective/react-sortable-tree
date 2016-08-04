@@ -23,19 +23,23 @@ export function getVisibleNodeCount(data) {
  * @param {!Object[]} data - Tree data
  * @param {!number} targetIndex - The index of the node to search for
  *
- * @return {Object|null} node - The node at targetIndex, or null if not found
+ * @return {{
+ *      node: Object,
+ *      parentPath: []string|[]number,
+ *      lowerSiblingCounts: []number
+ *  }|null} node - The node at targetIndex, or null if not found
  */
-export function getVisibleNodeAtIndex(data, targetIndex) {
+export function getVisibleNodeInfoAtIndex(data, targetIndex) {
     if (!data || data.length < 1) {
         return null;
     }
 
     // Performs a depth-first traversal over all of the node descendants,
     // incrementing currentIndex by 1 for each
-    const traverse = (node, currentIndex) => {
+    const traverse = (node, currentIndex, parentPath, lowerSiblingCounts) => {
         // Return target node when found
         if (currentIndex === targetIndex) {
-            return { node, currentIndex };
+            return { node, parentPath, lowerSiblingCounts };
         }
 
         // Add one and continue for nodes with no children or hidden children
@@ -45,9 +49,16 @@ export function getVisibleNodeAtIndex(data, targetIndex) {
 
         // Iterate over each child and their ancestors and return the
         // target node if childIndex reaches the targetIndex
-        let childIndex = currentIndex + 1;
-        for (let i = 0; i < node.children.length; i++) {
-            const result = traverse(node.children[i], childIndex);
+        let childIndex   = currentIndex + 1;
+        const childCount = node.children.length;
+        for (let i = 0; i < childCount; i++) {
+            const result = traverse(
+                node.children[i],
+                childIndex,
+                [ ...parentPath, node.key ],
+                [ ...lowerSiblingCounts, childCount - i - 1 ]
+            );
+
             if (result.node) {
                 return result;
             }
@@ -61,10 +72,11 @@ export function getVisibleNodeAtIndex(data, targetIndex) {
 
     // Kick off the search on the top level of the data array
     let currentIndex = 0;
-    for (let i = 0; i < data.length; i++) {
-        const result = traverse(data[i], currentIndex);
+    const nodeCount = data.length;
+    for (let i = 0; i < nodeCount; i++) {
+        const result = traverse(data[i], currentIndex, [], [nodeCount - i - 1]);
         if (result.node) {
-            return result.node;
+            return result;
         }
 
         currentIndex = result.currentIndex;
@@ -72,3 +84,7 @@ export function getVisibleNodeAtIndex(data, targetIndex) {
 
     return null;
 }
+
+// Performs change to every node in the tree
+
+// Passive visit to every node in the tree

@@ -18,7 +18,6 @@ module.exports = {
             inject: true,
             template: './src/examples/basicExample/index.html'
         }),
-        new webpack.HotModuleReplacementPlugin(),
     ],
     postcss: [
         autoprefixer,

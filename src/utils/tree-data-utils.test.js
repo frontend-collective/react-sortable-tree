@@ -1,6 +1,6 @@
 import {
     getVisibleNodeCount,
-    getVisibleNodeAtIndex,
+    getVisibleNodeInfoAtIndex,
 } from './tree-data-utils';
 
 describe('getVisibleNodeCount', () => {
@@ -80,119 +80,131 @@ describe('getVisibleNodeCount', () => {
     });
 });
 
-describe('getVisibleNodeAtIndex', () => {
+describe('getVisibleNodeInfoAtIndex', () => {
     it('should handle empty data', () => {
-        expect(getVisibleNodeAtIndex([], 1)).toEqual(null);
-        expect(getVisibleNodeAtIndex(null, 1)).toEqual(null);
-        expect(getVisibleNodeAtIndex(undefined, 1)).toEqual(null);
+        expect(getVisibleNodeInfoAtIndex([], 1)).toEqual(null);
+        expect(getVisibleNodeInfoAtIndex(null, 1)).toEqual(null);
+        expect(getVisibleNodeInfoAtIndex(undefined, 1)).toEqual(null);
     });
 
     it('should handle flat data', () => {
-        expect(getVisibleNodeAtIndex([ { id: 0 } ], 0).id).toEqual(0);
-        expect(getVisibleNodeAtIndex([ { id: 0 }, { id: 1 } ], 1).id).toEqual(1);
+        expect(getVisibleNodeInfoAtIndex([ { key: 0 } ], 0).node.key).toEqual(0);
+        expect(getVisibleNodeInfoAtIndex([ { key: 0 }, { key: 1 } ], 1).node.key).toEqual(1);
     });
 
     it('should handle hidden nested data', () => {
-        expect(getVisibleNodeAtIndex([
+        const result = getVisibleNodeInfoAtIndex([
             {
-                id: 0,
+                key: 0,
                 children: [
                     {
-                        id: 1,
+                        key: 1,
                         children: [
-                            { id: 2 },
-                            { id: 3 },
+                            { key: 2 },
+                            { key: 3 },
                         ],
                     },
                     {
-                        id: 4,
+                        key: 4,
                         children: [
-                            { id: 5 },
+                            { key: 5 },
                         ],
                     },
                 ],
             },
-            { id: 6 },
-        ], 1).id).toEqual(6);
+            { key: 6 },
+        ], 1);
+
+        expect(result.node.key).toEqual(6);
+        expect(result.parentPath).toEqual([]);
+        expect(result.lowerSiblingCounts).toEqual([0]);
     });
 
     it('should handle partially expanded nested data', () => {
-        expect(getVisibleNodeAtIndex([
+        const result = getVisibleNodeInfoAtIndex([
             {
                 expanded: true,
-                id: 0,
+                key: 0,
                 children: [
                     {
-                        id: 1,
+                        key: 1,
                         children: [
-                            { id: 2 },
-                            { id: 3 },
+                            { key: 2 },
+                            { key: 3 },
                         ],
                     },
                     {
                         expanded: true,
-                        id: 4,
+                        key: 4,
                         children: [
-                            { id: 5 },
+                            { key: 5 },
                         ],
                     },
                 ],
             },
-            { id: 6 },
-        ], 3).id).toEqual(5);
+            { key: 6 },
+        ], 3);
+
+        expect(result.node.key).toEqual(5);
+        expect(result.parentPath).toEqual([0, 4]);
+        expect(result.lowerSiblingCounts).toEqual([1, 0, 0]);
     });
 
     it('should handle fully expanded nested data', () => {
-        expect(getVisibleNodeAtIndex([
+        const result = getVisibleNodeInfoAtIndex([
             {
                 expanded: true,
-                id: 0,
+                key: 0,
                 children: [
                     {
                         expanded: true,
-                        id: 1,
+                        key: 1,
                         children: [
-                            { id: 2 },
-                            { id: 3 },
+                            { key: 2 },
+                            { key: 3 },
                         ],
                     },
                     {
                         expanded: true,
-                        id: 4,
+                        key: 4,
                         children: [
-                            { id: 5 },
+                            { key: 5 },
                         ],
                     },
                 ],
             },
-            { id: 6 },
-        ], 5).id).toEqual(5);
+            { key: 6 },
+        ], 5);
+
+        expect(result.node.key).toEqual(5);
+        expect(result.parentPath).toEqual([0, 4]);
+        expect(result.lowerSiblingCounts).toEqual([1, 0, 0]);
     });
 
     it('should handle an index that is larger than the data', () => {
-        expect(getVisibleNodeAtIndex([
+        expect(getVisibleNodeInfoAtIndex([
             {
                 expanded: true,
-                id: 0,
+                key: 0,
                 children: [
                     {
                         expanded: true,
-                        id: 1,
+                        key: 1,
                         children: [
-                            { id: 2 },
-                            { id: 3 },
+                            { key: 2 },
+                            { key: 3 },
                         ],
                     },
                     {
                         expanded: true,
-                        id: 4,
+                        key: 4,
                         children: [
-                            { id: 5 },
+                            { key: 5 },
                         ],
                     },
                 ],
             },
-            { id: 6 },
+            { key: 6 },
         ], 7)).toEqual(null);
     });
 });

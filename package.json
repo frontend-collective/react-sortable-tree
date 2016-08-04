@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Drag-and-drop sortable representation of hierarchical data",
   "scripts": {
-    "build": "npm run lint && npm run build:demo && npm run build:umd",
+    "build": "npm run lint && npm run test && npm run build:demo && npm run build:umd",
     "build:demo": "npm run clean:demo && cross-env NODE_ENV=production webpack --config webpack.config.demo.babel.js --bail",
     "build:umd": "npm run clean:umd && cross-env NODE_ENV=production webpack --config webpack.config.umd.babel.js --bail",
     "clean": "npm run clean:demo && npm run clean:umd",
@@ -11,7 +11,7 @@
     "clean:umd": "rimraf dist/umd",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.babel.js",
     "lint": "eslint src",
-    "prepublish": "npm run test && npm run build:umd",
+    "prepublish": "npm run lint && npm run test && npm run build:umd",
     "posttest": "[ -z \"$CI\" ] || codecov",
     "test": "cross-env NODE_ENV=test karma start --single-run",
     "test:watch": "cross-env NODE_ENV=test karma start",
@@ -31,10 +31,15 @@
     "Chris Fritz"
   ],
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "react-dnd": "^2.1.4",
+    "react-dnd-html5-backend": "^2.1.2",
+    "react-virtualized": "^7.17.0"
+  },
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react": "^15.3.0",
+    "react-addons-shallow-compare": "^15.3.0",
+    "react-dom": "^15.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
@@ -45,7 +50,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
-    "bluebird": "^3.4.1",
     "cross-env": "^2.0.0",
     "css-loader": "^0.23.1",
     "eslint": "^3.2.2",
@@ -69,13 +73,13 @@
     "karma-webpack": "^1.7.0",
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.9.1",
-    "react": "^15.2.0",
-    "react-dom": "^15.2.0",
+    "react": "^15.3.0",
+    "react-addons-shallow-compare": "^15.3.0",
+    "react-dom": "^15.3.0",
     "react-hot-loader": "^1.3.0",
     "rimraf": "^2.5.3",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
-    "watch": "^0.19.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
