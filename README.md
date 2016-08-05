@@ -1,5 +1,7 @@
 # React Sortable Tree
 
+__Note: This is a work in progress; most of the features are not yet implemented.__
+
 [DEMO](https://fritz-c.github.io/react-sortable-tree/)
 
 ### Features
