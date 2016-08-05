@@ -1,5 +1,18 @@
 import React, { PropTypes } from 'react';
-import styles from './node-renderer-default.scss';
+import { getIEVersion } from './utils/browser-utils';
+import baseStyles from './node-renderer-default.scss';
+
+let styles = baseStyles;
+// Add extra classes in browsers that don't support flex
+if (getIEVersion < 10) {
+    styles = {
+        ...baseStyles,
+        row:         `${styles.row} ${styles.row_NoFlex}`,
+        rowContents: `${styles.rowContents} ${styles.rowContents_NoFlex}`,
+        rowLabel:    `${styles.rowLabel} ${styles.rowLabel_NoFlex}`,
+        rowToolbar:  `${styles.rowToolbar} ${styles.rowToolbar_NoFlex}`,
+    };
+}
 
 const NodeRendererDefault = ({
     scaffoldBlockPxWidth,
@@ -23,9 +36,7 @@ const NodeRendererDefault = ({
         {connectDragPreview(
             <div className={styles.row + (isDragging ? ` ${styles.rowOriginWhileDragging}` : '')}>
                 {connectDragSource(( // Sets this handle as the element to start a drag-and-drop
-                    <div
-                        className={`${styles.rowItem} ${styles.moveHandle}`}
-                    />
+                    <div className={styles.moveHandle} />
                 ), { dropEffect: 'copy' })}
 
                 <div className={styles.rowContents}>
@@ -47,7 +58,7 @@ const NodeRendererDefault = ({
 
                     <div className={styles.rowToolbar}>
                         {buttons && buttons.map((btn, index) => (
-                            <div key={index} className={styles.rowItem}>
+                            <div key={index} className={styles.toolbarButton}>
                                 {btn}
                             </div>
                         ))}
@@ -65,7 +76,7 @@ NodeRendererDefault.propTypes = {
 
     scaffoldBlockPxWidth:     PropTypes.number.isRequired,
     toggleChildrenVisibility: PropTypes.func,
-    buttons:                  PropTypes.object.isRequired,
+    buttons:                  PropTypes.arrayOf(PropTypes.node),
 
     // Drag and drop API functions
     connectDragPreview: PropTypes.func.isRequired,

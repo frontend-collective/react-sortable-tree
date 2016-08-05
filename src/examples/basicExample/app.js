@@ -24,7 +24,12 @@ const App = React.createClass({
                 expanded: true,
                 children: [
                     {
-                        value: 1,
+                        value: {
+                            id: 1,
+                            title: 'Really Long Name Nicholas Who Always Got' +
+                                ' Picked on in School For His Really Long Name',
+                            subtitle: 'Really good icebreaker, though',
+                        },
                         children: [], // null or undefined also ok
                     },
                     {
