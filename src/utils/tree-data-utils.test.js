@@ -1,7 +1,11 @@
 import {
     getVisibleNodeCount,
     getVisibleNodeInfoAtIndex,
+    changeNodeAtPath,
 } from './tree-data-utils';
+
+const keyFromTreeIndex = (node, treeIndex) => treeIndex;
+const keyFromKey       = node => node.key;
 
 describe('getVisibleNodeCount', () => {
     it('should handle flat data', () => {
@@ -82,14 +86,14 @@ describe('getVisibleNodeCount', () => {
 
 describe('getVisibleNodeInfoAtIndex', () => {
     it('should handle empty data', () => {
-        expect(getVisibleNodeInfoAtIndex([], 1)).toEqual(null);
-        expect(getVisibleNodeInfoAtIndex(null, 1)).toEqual(null);
-        expect(getVisibleNodeInfoAtIndex(undefined, 1)).toEqual(null);
+        expect(getVisibleNodeInfoAtIndex([], 1, keyFromTreeIndex)).toEqual(null);
+        expect(getVisibleNodeInfoAtIndex(null, 1, keyFromTreeIndex)).toEqual(null);
+        expect(getVisibleNodeInfoAtIndex(undefined, 1, keyFromTreeIndex)).toEqual(null);
     });
 
     it('should handle flat data', () => {
-        expect(getVisibleNodeInfoAtIndex([ { key: 0 } ], 0).node.key).toEqual(0);
-        expect(getVisibleNodeInfoAtIndex([ { key: 0 }, { key: 1 } ], 1).node.key).toEqual(1);
+        expect(getVisibleNodeInfoAtIndex([ { key: 0 } ], 0, keyFromTreeIndex).node.key).toEqual(0);
+        expect(getVisibleNodeInfoAtIndex([ { key: 0 }, { key: 1 } ], 1, keyFromTreeIndex).node.key).toEqual(1);
     });
 
     it('should handle hidden nested data', () => {
@@ -113,7 +117,7 @@ describe('getVisibleNodeInfoAtIndex', () => {
                 ],
             },
             { key: 6 },
-        ], 1);
+        ], 1, keyFromTreeIndex);
 
         expect(result.node.key).toEqual(6);
         expect(result.parentPath).toEqual([]);
@@ -143,7 +147,7 @@ describe('getVisibleNodeInfoAtIndex', () => {
                 ],
             },
             { key: 6 },
-        ], 3);
+        ], 3, keyFromKey);
 
         expect(result.node.key).toEqual(5);
         expect(result.parentPath).toEqual([0, 4]);
@@ -174,7 +178,7 @@ describe('getVisibleNodeInfoAtIndex', () => {
                 ],
             },
             { key: 6 },
-        ], 5);
+        ], 5, keyFromKey);
 
         expect(result.node.key).toEqual(5);
         expect(result.parentPath).toEqual([0, 4]);
@@ -205,6 +209,93 @@ describe('getVisibleNodeInfoAtIndex', () => {
                 ],
             },
             { key: 6 },
-        ], 7)).toEqual(null);
+        ], 7, keyFromTreeIndex)).toEqual(null);
+    });
+});
+
+describe('changeNodeAtPath', () => {
+    it('should handle empty data', () => {
+        expect(() => changeNodeAtPath([], [1], {}, keyFromTreeIndex)).toThrow();
+        expect(() => changeNodeAtPath(null, [1], {}, keyFromTreeIndex)).toThrow();
+        expect(() => changeNodeAtPath(null, [1, 2], {}, keyFromTreeIndex)).toThrow();
+        expect(() => changeNodeAtPath(undefined, [1], {}, keyFromTreeIndex)).toThrow();
+    });
+
+    it('should handle flat data', () => {
+        expect(changeNodeAtPath([{ key: 0 }], [0], { key: 1 }, keyFromKey)).toEqual([{ key: 1 }]);
+        expect(changeNodeAtPath(
+            [{ key: 0 }, { key: 'a' }],
+            ['a'],
+            { key: 1 },
+            keyFromKey
+        )).toEqual([{ key: 0 }, { key: 1 }]);
+    });
+
+    it('should handle nested data', () => {
+        const result = changeNodeAtPath([
+            {
+                key: 0,
+                children: [
+                    {
+                        key: 'b',
+                        children: [
+                            { key: 2 },
+                            { key: 3 },
+                        ],
+                    },
+                    {
+                        key: 'r',
+                        children: [
+                            { key: 5 },
+                        ],
+                    },
+                ],
+            },
+            { key: 6 },
+        ], [0, 'r', 5], {food: 'pancake'}, keyFromKey);
+
+        expect(result[0].children[1].children[0].food).toEqual('pancake');
+    });
+
+    it('should handle a path that is too long', () => {
+        const treeData = [
+            {
+                expanded: true,
+                key: 0,
+                children: [
+                    {
+                        expanded: true,
+                        key: 1,
+                        children: [
+                            { key: 2 },
+                            { key: 3 },
+                        ],
+                    },
+                ],
+            },
+        ];
+
+        expect(() => changeNodeAtPath(treeData, [0, 1, 2, 4], { a: 1 }, keyFromKey)).toThrow();
+    });
+
+    it('should handle a path that does not exist', () => {
+        const treeData = [
+            {
+                expanded: true,
+                key: 0,
+                children: [
+                    {
+                        expanded: true,
+                        key: 1,
+                        children: [
+                            { key: 2 },
+                            { key: 3 },
+                        ],
+                    },
+                ],
+            },
+        ];
+
+        expect(() => changeNodeAtPath(treeData, [0, 2], { a: 1 }, keyFromKey)).toThrow();
     });
 });

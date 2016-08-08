@@ -53,6 +53,7 @@ class ReactSortableTree extends Component {
         const {
             treeData,
             rowHeight,
+            getNodeKey,
         } = this.props;
 
         return (
@@ -66,7 +67,7 @@ class ReactSortableTree extends Component {
                             estimatedRowSize={rowHeight}
                             rowHeight={rowHeight}
                             rowRenderer={({ index }) =>
-                                this.renderRow(getVisibleNodeInfoAtIndex(treeData, index), index)
+                                this.renderRow(getVisibleNodeInfoAtIndex(treeData, index, getNodeKey), index)
                             }
                         />
                     )}
@@ -113,12 +114,15 @@ ReactSortableTree.propTypes = {
 
     nodeContentRenderer: PropTypes.any,
     generateNodeProps:   PropTypes.func,
+
+    getNodeKey: PropTypes.func,
 };
 
 ReactSortableTree.defaultProps = {
     nodeContentRenderer: require('./node-renderer-default').default, // eslint-disable-line global-require
     rowHeight: 62,
     scaffoldBlockPxWidth: 44,
+    getNodeKey: (nodeData, treeIndex) => treeIndex,
 };
 
 export default dragDropContext(HTML5Backend)(ReactSortableTree);
