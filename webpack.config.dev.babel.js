@@ -18,6 +18,9 @@ module.exports = {
             inject: true,
             template: './src/examples/basicExample/index.html'
         }),
+        new webpack.EnvironmentPlugin([
+            "NODE_ENV",
+        ]),
         new webpack.NoErrorsPlugin(),
     ],
     postcss: [

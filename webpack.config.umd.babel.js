@@ -28,6 +28,9 @@ module.exports = {
     },
     devtool: 'source-map',
     plugins: [
+        new webpack.EnvironmentPlugin([
+            "NODE_ENV",
+        ]),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
