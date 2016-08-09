@@ -47,6 +47,44 @@ function getNodeDataAtTreeIndexOrNextIndex({
 }
 
 
+function getDescendants({
+    node,
+    currentIndex,
+    getNodeKey,
+    parentPath = [],
+    lowerSiblingCounts = [],
+    isPseudoRoot = false,
+}) {
+    const selfInfo = !isPseudoRoot ? [{ node, parentPath, lowerSiblingCounts }] : [];
+
+    // Return self on nodes with no children or hidden children
+    if (!node.children || (node.expanded !== true && !isPseudoRoot)) {
+        return selfInfo;
+    }
+
+    // Get all descendants
+    let childIndex   = currentIndex + 1;
+    const childCount = node.children.length;
+    const descendants = [];
+    const selfKey = !isPseudoRoot ? getNodeKey(node, currentIndex) : null;
+    for (let i = 0; i < childCount; i++) {
+        descendants[i] = getDescendants({
+            getNodeKey,
+            node: node.children[i],
+            currentIndex: childIndex,
+            lowerSiblingCounts: [ ...lowerSiblingCounts, childCount - i - 1 ],
+
+            // The pseudo-root, with a null parent path, is not considered in the parent path
+            parentPath: !isPseudoRoot ? [ ...parentPath, selfKey ] : [],
+        });
+
+        childIndex += descendants[i].length;
+    }
+
+    // Flatten all descendant arrays into a single flat array
+    return selfInfo.concat(...descendants);
+}
+
 /**
  * Count all the visible (expanded) descendants in the tree data.
  *
@@ -122,43 +160,8 @@ export function getVisibleNodeInfoFlattened(treeData, getNodeKey) {
         return [];
     }
 
-    const trav = ({
-        node,
-        currentIndex,
-        parentPath = [],
-        lowerSiblingCounts = [],
-        isPseudoRoot = false,
-    }) => {
-        const selfInfo = !isPseudoRoot ? [{ node, parentPath, lowerSiblingCounts }] : [];
-
-        // Add one and continue for nodes with no children or hidden children
-        if (!node.children || (node.expanded !== true && !isPseudoRoot)) {
-            return selfInfo;
-        }
-
-        // Iterate over each child and their ancestors and return the
-        // target node if childIndex reaches the targetIndex
-        let childIndex   = currentIndex + 1;
-        const childCount = node.children.length;
-        const results = [];
-        const selfKey = !isPseudoRoot ? getNodeKey(node, currentIndex) : null;
-        for (let i = 0; i < childCount; i++) {
-            results[i] = trav({
-                node: node.children[i],
-                currentIndex: childIndex,
-                lowerSiblingCounts: [ ...lowerSiblingCounts, childCount - i - 1 ],
-
-                // The pseudo-root, with a null parent path, is not considered in the parent path
-                parentPath: !isPseudoRoot ? [ ...parentPath, selfKey ] : [],
-            });
-
-            childIndex += results[i].length;
-        }
-
-        return selfInfo.concat(...results);
-    };
-
-    return trav({
+    return getDescendants({
+        getNodeKey,
         node: { children: treeData },
         currentIndex: -1,
         parentPath: [],

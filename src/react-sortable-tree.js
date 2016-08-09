@@ -14,7 +14,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import TreeNode from './tree-node';
 import {
     getVisibleNodeCount,
-    getVisibleNodeInfoAtIndex,
+    getVisibleNodeInfoFlattened,
 } from './utils/tree-data-utils';
 import ItemTypes from './item-types';
 import styles from './react-sortable-tree.scss';
@@ -56,6 +56,8 @@ class ReactSortableTree extends Component {
             getNodeKey,
         } = this.props;
 
+        const rows = getVisibleNodeInfoFlattened(treeData, getNodeKey);
+
         return (
             <div style={{ height: '100%' }} className={styles.tree}>
                 <AutoSizer>
@@ -66,9 +68,7 @@ class ReactSortableTree extends Component {
                             rowCount={getVisibleNodeCount(treeData)}
                             estimatedRowSize={rowHeight}
                             rowHeight={rowHeight}
-                            rowRenderer={({ index }) =>
-                                this.renderRow(getVisibleNodeInfoAtIndex(treeData, index, getNodeKey), index)
-                            }
+                            rowRenderer={({ index }) => this.renderRow(rows[index], index)}
                         />
                     )}
                 </AutoSizer>
