@@ -2,6 +2,7 @@ import {
     getVisibleNodeCount,
     getVisibleNodeInfoAtIndex,
     changeNodeAtPath,
+    getVisibleNodeInfoFlattened,
 } from './tree-data-utils';
 
 const keyFromTreeIndex = (node, treeIndex) => treeIndex;
@@ -210,6 +211,125 @@ describe('getVisibleNodeInfoAtIndex', () => {
             },
             { key: 6 },
         ], 7, keyFromTreeIndex)).toEqual(null);
+    });
+});
+
+
+describe('getVisibleNodeInfoAtIndex', () => {
+    it('should handle empty data', () => {
+        expect(getVisibleNodeInfoFlattened([], keyFromTreeIndex)).toEqual([]);
+        expect(getVisibleNodeInfoFlattened(null, keyFromTreeIndex)).toEqual([]);
+        expect(getVisibleNodeInfoFlattened(undefined, keyFromTreeIndex)).toEqual([]);
+    });
+
+    it('should handle flat data', () => {
+        expect(getVisibleNodeInfoFlattened([ { key: 0 } ], keyFromTreeIndex)).toEqual([
+            { node: { key: 0 }, parentPath: [], lowerSiblingCounts: [ 0 ] },
+        ]);
+        expect(getVisibleNodeInfoFlattened([ { key: 0 }, { key: 1 } ], keyFromTreeIndex)).toEqual([
+            { node: { key: 0 }, parentPath: [], lowerSiblingCounts: [ 1 ] },
+            { node: { key: 1 }, parentPath: [], lowerSiblingCounts: [ 0 ] }
+        ]);
+    });
+
+    it('should handle hidden nested data', () => {
+        const treeData = [
+            {
+                key: 0,
+                children: [
+                    {
+                        key: 1,
+                        children: [
+                            { key: 2 },
+                            { key: 3 },
+                        ],
+                    },
+                    {
+                        key: 4,
+                        children: [
+                            { key: 5 },
+                        ],
+                    },
+                ],
+            },
+            { key: 6 },
+        ];
+
+        expect(getVisibleNodeInfoFlattened(treeData, keyFromTreeIndex)).toEqual([
+            { node: treeData[0], parentPath: [], lowerSiblingCounts: [ 1 ] },
+            { node: treeData[1], parentPath: [], lowerSiblingCounts: [ 0 ] }
+        ]);
+    });
+
+    it('should handle partially expanded nested data', () => {
+        const treeData = [
+            {
+                expanded: true,
+                key: 0,
+                children: [
+                    {
+                        key: 1,
+                        children: [
+                            { key: 2 },
+                            { key: 3 },
+                        ],
+                    },
+                    {
+                        expanded: true,
+                        key: 4,
+                        children: [
+                            { key: 5 },
+                        ],
+                    },
+                ],
+            },
+            { key: 6 },
+        ];
+
+        expect(getVisibleNodeInfoFlattened(treeData, keyFromKey)).toEqual([
+            { node: treeData[0], parentPath: [], lowerSiblingCounts: [ 1 ] },
+            { node: treeData[0].children[0], parentPath: [0], lowerSiblingCounts: [ 1, 1 ] },
+            { node: treeData[0].children[1], parentPath: [0], lowerSiblingCounts: [ 1, 0 ] },
+            { node: treeData[0].children[1].children[0], parentPath: [0, 4], lowerSiblingCounts: [ 1, 0, 0 ] },
+            { node: treeData[1], parentPath: [], lowerSiblingCounts: [ 0 ] },
+        ]);
+    });
+
+    it('should handle fully expanded nested data', () => {
+        const treeData = [
+            {
+                expanded: true,
+                key: 0,
+                children: [
+                    {
+                        expanded: true,
+                        key: 1,
+                        children: [
+                            { key: 2 },
+                            { key: 3 },
+                        ],
+                    },
+                    {
+                        expanded: true,
+                        key: 4,
+                        children: [
+                            { key: 5 },
+                        ],
+                    },
+                ],
+            },
+            { key: 6 },
+        ];
+
+        expect(getVisibleNodeInfoFlattened(treeData, keyFromTreeIndex)).toEqual([
+            { node: treeData[0],                         parentPath: [],     lowerSiblingCounts: [1] },
+            { node: treeData[0].children[0],             parentPath: [0],    lowerSiblingCounts: [1, 1] },
+            { node: treeData[0].children[0].children[0], parentPath: [0, 1], lowerSiblingCounts: [1, 1, 1] },
+            { node: treeData[0].children[0].children[1], parentPath: [0, 1], lowerSiblingCounts: [1, 1, 0] },
+            { node: treeData[0].children[1],             parentPath: [0],    lowerSiblingCounts: [1, 0] },
+            { node: treeData[0].children[1].children[0], parentPath: [0, 4], lowerSiblingCounts: [1, 0, 0] },
+            { node: treeData[1],                         parentPath: [],     lowerSiblingCounts: [0] },
+        ]);
     });
 });
 

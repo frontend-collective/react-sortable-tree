@@ -105,6 +105,69 @@ export function getVisibleNodeInfoAtIndex(data, targetIndex, getNodeKey) {
 }
 
 /**
+ * Get visible node data flattened.
+ *
+ * @param {!Object[]} data - Tree data
+ * @param {!number} targetIndex - The index of the node to search for
+ * @param {function} getNodeKey - Function to get the key from the nodeData and tree index
+ *
+ * @return {{
+ *      node: Object,
+ *      parentPath: []string|[]number,
+ *      lowerSiblingCounts: []number
+ *  }}[] nodes - The node array
+ */
+export function getVisibleNodeInfoFlattened(treeData, getNodeKey) {
+    if (!treeData || treeData.length < 1) {
+        return [];
+    }
+
+    const trav = ({
+        node,
+        currentIndex,
+        parentPath = [],
+        lowerSiblingCounts = [],
+        isPseudoRoot = false,
+    }) => {
+        const selfInfo = !isPseudoRoot ? [{ node, parentPath, lowerSiblingCounts }] : [];
+
+        // Add one and continue for nodes with no children or hidden children
+        if (!node.children || (node.expanded !== true && !isPseudoRoot)) {
+            return selfInfo;
+        }
+
+        // Iterate over each child and their ancestors and return the
+        // target node if childIndex reaches the targetIndex
+        let childIndex   = currentIndex + 1;
+        const childCount = node.children.length;
+        const results = [];
+        const selfKey = !isPseudoRoot ? getNodeKey(node, currentIndex) : null;
+        for (let i = 0; i < childCount; i++) {
+            results[i] = trav({
+                node: node.children[i],
+                currentIndex: childIndex,
+                lowerSiblingCounts: [ ...lowerSiblingCounts, childCount - i - 1 ],
+
+                // The pseudo-root, with a null parent path, is not considered in the parent path
+                parentPath: !isPseudoRoot ? [ ...parentPath, selfKey ] : [],
+            });
+
+            childIndex += results[i].length;
+        }
+
+        return selfInfo.concat(...results);
+    };
+
+    return trav({
+        node: { children: treeData },
+        currentIndex: -1,
+        parentPath: [],
+        isPseudoRoot: true,
+        lowerSiblingCounts: [],
+    });
+}
+
+/**
  * Replaces node at path with object, or callback-defined object
  *
  * @param {!Object[]} treeData
