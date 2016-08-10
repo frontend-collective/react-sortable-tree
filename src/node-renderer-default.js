@@ -20,15 +20,17 @@ const NodeRendererDefault = ({
     connectDragPreview,
     connectDragSource,
     isDragging,
-    nodeData,
+    node,
+    path,
+    treeIndex,
     buttons,
 }) => (
     <div style={{ height: '100%' }}>
-        {toggleChildrenVisibility && nodeData.children && nodeData.children.length > 0 && (
+        {toggleChildrenVisibility && node.children && node.children.length > 0 && (
             <div
-                className={nodeData.expanded ? styles.collapseButton : styles.expandButton}
+                className={node.expanded ? styles.collapseButton : styles.expandButton}
                 style={{ left: -0.5 * scaffoldBlockPxWidth }}
-                onClick={toggleChildrenVisibility}
+                onClick={() => toggleChildrenVisibility({node, path, treeIndex})}
             />
         )}
 
@@ -43,15 +45,15 @@ const NodeRendererDefault = ({
                     <div className={styles.rowLabel}>
                         <span
                             className={styles.rowTitle +
-                                (nodeData.value.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
+                                (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
                             }
                         >
-                            {nodeData.value.title}
+                            {node.title}
                         </span>
 
-                        {nodeData.value.subtitle &&
+                        {node.subtitle &&
                             <span className={styles.rowSubtitle}>
-                                {nodeData.value.subtitle}
+                                {node.subtitle}
                             </span>
                         }
                     </div>
@@ -70,9 +72,10 @@ const NodeRendererDefault = ({
 );
 
 NodeRendererDefault.propTypes = {
-    nodeData:             PropTypes.object.isRequired,
-    parentPath:           PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
-    lowerSiblingCounts:   PropTypes.arrayOf(PropTypes.number).isRequired,
+    node:               PropTypes.object.isRequired,
+    path:               PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
+    treeIndex:          PropTypes.number.isRequired,
+    lowerSiblingCounts: PropTypes.arrayOf(PropTypes.number).isRequired,
 
     scaffoldBlockPxWidth:     PropTypes.number.isRequired,
     toggleChildrenVisibility: PropTypes.func,

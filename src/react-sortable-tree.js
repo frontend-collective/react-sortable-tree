@@ -15,6 +15,7 @@ import TreeNode from './tree-node';
 import {
     getVisibleNodeCount,
     getVisibleNodeInfoFlattened,
+    changeNodeAtPath,
 } from './utils/tree-data-utils';
 import ItemTypes from './item-types';
 import styles from './react-sortable-tree.scss';
@@ -39,24 +40,53 @@ function collect(connect, monitor) {
     };
 }
 
+function defaultGetNodeKey({ node: _node, treeIndex }) {
+    return treeIndex;
+}
+
+function defaultToggleChildrenVisibility({ node: _node, path, treeIndex: _treeIndex }) {
+    this.props.updateTreeData(changeNodeAtPath({
+        treeData: this.props.treeData,
+        path,
+        newNode: ({ node }) => ({ ...node, expanded: !node.expanded }),
+        getNodeKey: this.getNodeKey,
+    }));
+}
+
 class ReactSortableTree extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            nodeContentRenderer: dragSource(ItemTypes.HANDLE, cardSource, collect)(props.nodeContentRenderer),
-            key: 'value',
-        };
+        if (process.env.NODE_ENV === 'development') {
+            /* eslint-disable no-console */
+            const usesDefaultHandlers = (
+                !props.toggleChildrenVisibility
+            );
+
+            if (!props.updateTreeData && usesDefaultHandlers) {
+                console.warn('Need to add specify updateTreeData prop if default event handlers are used');
+            }
+            /* eslint-enable */
+        }
+
+        // Fall back to default event listeners if necessary and bind them to the tree
+        this.getNodeKey = (props.getNodeKey || defaultGetNodeKey).bind(this);
+        this.toggleChildrenVisibility = (
+            props.toggleChildrenVisibility || defaultToggleChildrenVisibility
+        ).bind(this);
+        this.nodeContentRenderer = dragSource(ItemTypes.HANDLE, cardSource, collect)(
+            props.nodeContentRenderer ||
+            require('./node-renderer-default').default // eslint-disable-line global-require
+        );
     }
 
     render() {
         const {
             treeData,
             rowHeight,
-            getNodeKey,
         } = this.props;
 
-        const rows = getVisibleNodeInfoFlattened(treeData, getNodeKey);
+        const rows = getVisibleNodeInfoFlattened(treeData, this.getNodeKey);
 
         return (
             <div style={{ height: '100%' }} className={styles.tree}>
@@ -76,26 +106,27 @@ class ReactSortableTree extends Component {
         );
     }
 
-    renderRow({ node, parentPath, lowerSiblingCounts }, listIndex) {
-        const NodeContentRenderer = this.state.nodeContentRenderer;
+    renderRow({ node, path, lowerSiblingCounts }, treeIndex) {
+        const NodeContentRenderer = this.nodeContentRenderer;
         const nodeProps = !this.props.generateNodeProps ? {} : this.props.generateNodeProps({
-            nodeData: node,
-            parentPath,
+            node,
+            path,
             lowerSiblingCounts,
-            listIndex,
+            treeIndex,
         });
 
         return (
             <TreeNode
-                listIndex={listIndex}
+                treeIndex={treeIndex}
                 lowerSiblingCounts={lowerSiblingCounts}
                 scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
             >
                 <NodeContentRenderer
-                    nodeData={node}
-                    parentPath={parentPath}
+                    node={node}
+                    path={path}
+                    treeIndex={treeIndex}
                     lowerSiblingCounts={lowerSiblingCounts}
-                    toggleChildrenVisibility={() => 1}
+                    toggleChildrenVisibility={this.toggleChildrenVisibility}
                     scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
                     {...nodeProps}
                 />
@@ -115,14 +146,14 @@ ReactSortableTree.propTypes = {
     nodeContentRenderer: PropTypes.any,
     generateNodeProps:   PropTypes.func,
 
-    getNodeKey: PropTypes.func,
+    getNodeKey:               PropTypes.func,
+    updateTreeData:           PropTypes.func,
+    toggleChildrenVisibility: PropTypes.func,
 };
 
 ReactSortableTree.defaultProps = {
-    nodeContentRenderer: require('./node-renderer-default').default, // eslint-disable-line global-require
     rowHeight: 62,
     scaffoldBlockPxWidth: 44,
-    getNodeKey: (nodeData, treeIndex) => treeIndex,
 };
 
 export default dragDropContext(HTML5Backend)(ReactSortableTree);

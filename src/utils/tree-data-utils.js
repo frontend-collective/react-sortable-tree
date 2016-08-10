@@ -1,17 +1,27 @@
-// Performs a depth-first traversal over all of the node descendants,
-// incrementing currentIndex by 1 for each
+/**
+ * Performs a depth-first traversal over all of the node descendants,
+ * incrementing currentIndex by 1 for each
+ */
 function getNodeDataAtTreeIndexOrNextIndex({
     node,
     currentIndex,
     targetIndex,
     getNodeKey,
-    parentPath = [],
+    path = [],
     lowerSiblingCounts = [],
     ignoreCollapsed = true,
+    isPseudoRoot = false,
 }) {
+    // The pseudo-root is not considered in the path
+    const selfPath = !isPseudoRoot ? [...path, getNodeKey({ node, treeIndex: currentIndex })] : [];
+
     // Return target node when found
     if (currentIndex === targetIndex) {
-        return { node, parentPath, lowerSiblingCounts };
+        return {
+            node,
+            lowerSiblingCounts,
+            path: selfPath,
+        };
     }
 
     // Add one and continue for nodes with no children or hidden children
@@ -30,9 +40,7 @@ function getNodeDataAtTreeIndexOrNextIndex({
             node: node.children[i],
             currentIndex: childIndex,
             lowerSiblingCounts: [ ...lowerSiblingCounts, childCount - i - 1 ],
-
-            // The pseudo-root, with a null parent path, is not considered in the parent path
-            parentPath: parentPath !== null ? [ ...parentPath, getNodeKey(node, childIndex) ] : [],
+            path: selfPath,
         });
 
         if (result.node) {
@@ -46,16 +54,20 @@ function getNodeDataAtTreeIndexOrNextIndex({
     return { nextIndex: childIndex };
 }
 
-
+/**
+ * Get all descendants of the given node
+ */
 function getDescendants({
     node,
     currentIndex,
     getNodeKey,
-    parentPath = [],
+    path = [],
     lowerSiblingCounts = [],
     isPseudoRoot = false,
 }) {
-    const selfInfo = !isPseudoRoot ? [{ node, parentPath, lowerSiblingCounts }] : [];
+    // The pseudo-root is not considered in the path
+    const selfPath = !isPseudoRoot ? [ ...path, getNodeKey({ node, treeIndex: currentIndex }) ] : [];
+    const selfInfo = !isPseudoRoot ? [{ node, path: selfPath, lowerSiblingCounts }] : [];
 
     // Return self on nodes with no children or hidden children
     if (!node.children || (node.expanded !== true && !isPseudoRoot)) {
@@ -63,19 +75,16 @@ function getDescendants({
     }
 
     // Get all descendants
-    let childIndex   = currentIndex + 1;
-    const childCount = node.children.length;
+    let childIndex    = currentIndex + 1;
+    const childCount  = node.children.length;
     const descendants = [];
-    const selfKey = !isPseudoRoot ? getNodeKey(node, currentIndex) : null;
     for (let i = 0; i < childCount; i++) {
         descendants[i] = getDescendants({
             getNodeKey,
             node: node.children[i],
             currentIndex: childIndex,
             lowerSiblingCounts: [ ...lowerSiblingCounts, childCount - i - 1 ],
-
-            // The pseudo-root, with a null parent path, is not considered in the parent path
-            parentPath: !isPseudoRoot ? [ ...parentPath, selfKey ] : [],
+            path: selfPath,
         });
 
         childIndex += descendants[i].length;
@@ -113,7 +122,7 @@ export function getVisibleNodeCount(data) {
  *
  * @return {{
  *      node: Object,
- *      parentPath: []string|[]number,
+ *      path: []string|[]number,
  *      lowerSiblingCounts: []number
  *  }|null} node - The node at targetIndex, or null if not found
  */
@@ -131,8 +140,9 @@ export function getVisibleNodeInfoAtIndex(data, targetIndex, getNodeKey) {
             expanded: true,
         },
         currentIndex: -1,
-        parentPath: null,
+        path: [],
         lowerSiblingCounts: [],
+        isPseudoRoot: true,
     });
 
     if (result.node) {
@@ -151,7 +161,7 @@ export function getVisibleNodeInfoAtIndex(data, targetIndex, getNodeKey) {
  *
  * @return {{
  *      node: Object,
- *      parentPath: []string|[]number,
+ *      path: []string|[]number,
  *      lowerSiblingCounts: []number
  *  }}[] nodes - The node array
  */
@@ -164,7 +174,7 @@ export function getVisibleNodeInfoFlattened(treeData, getNodeKey) {
         getNodeKey,
         node: { children: treeData },
         currentIndex: -1,
-        parentPath: [],
+        path: [],
         isPseudoRoot: true,
         lowerSiblingCounts: [],
     });
@@ -180,27 +190,28 @@ export function getVisibleNodeInfoFlattened(treeData, getNodeKey) {
  *
  * @return {Object} changedTreeData - The updated tree data
  */
-export function changeNodeAtPath(treeData, path, newNode, getNodeKey) {
+export function changeNodeAtPath({ treeData, path, newNode, getNodeKey }) {
     const traverse = ({
         node,
         currentTreeIndex,
-        pathIndex = 0,
+        pathIndex,
+        isPseudoRoot = false,
     }) => {
-        if (getNodeKey(node, currentTreeIndex) === path[pathIndex]) {
+        if (isPseudoRoot || getNodeKey({ node, treeIndex: currentTreeIndex }) === path[pathIndex]) {
             if (pathIndex >= path.length - 1) {
                 // If this is the final location in the path, return its changed form
-                return typeof newNode === 'function' ? newNode(node, currentTreeIndex) : newNode;
+                return typeof newNode === 'function' ? newNode({ node, treeIndex: currentTreeIndex }) : newNode;
             } else if (!node.children) {
                 // If this node is part of the path, but has no children, return the unchanged node
                 throw new Error('Path referenced children of node with no children.');
             }
 
-            let nextTreeIndex = currentTreeIndex;
+            let nextTreeIndex = currentTreeIndex + 1;
             for (let i = 0; i < node.children.length; i++) {
                 const result = traverse({
-                    node: node.children[i],
+                    node:             node.children[i],
                     currentTreeIndex: nextTreeIndex,
-                    pathIndex: pathIndex + 1,
+                    pathIndex:        pathIndex + 1,
                 });
 
                 if (result) {
@@ -216,9 +227,9 @@ export function changeNodeAtPath(treeData, path, newNode, getNodeKey) {
 
                 nextTreeIndex = getNodeDataAtTreeIndexOrNextIndex({
                     getNodeKey,
-                    node: treeData[i],
-                    currentIndex: nextTreeIndex + 1,
-                    targetIndex: -1,
+                    node:            node.children[i],
+                    currentIndex:    nextTreeIndex,
+                    targetIndex:     -1,
                     ignoreCollapsed: false,
                 }).nextIndex;
             }
@@ -232,6 +243,7 @@ export function changeNodeAtPath(treeData, path, newNode, getNodeKey) {
         node: { children: treeData },
         currentTreeIndex: -1,
         pathIndex: -1,
+        isPseudoRoot: true,
     });
 
     if (!result) {

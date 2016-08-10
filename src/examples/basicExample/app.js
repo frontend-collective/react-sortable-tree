@@ -5,80 +5,74 @@ import styles from './stylesheets/app.scss';
 
 const App = React.createClass({
     getInitialState() {
-        return {};
+        return {
+            treeData: [
+                {
+                    id: 'b12314',
+                    title: 'Joe',
+                    subtitle: 'Pancakes',
+                    expanded: true,
+                    children: [
+                        {
+                            id: 1,
+                            title: 'Really Long Name Nicholas Who Always Got' +
+                                ' Picked on in School For His Really Long Name',
+                            subtitle: 'Really good icebreaker, though',
+                            children: [], // null or undefined also ok
+                        },
+                        {
+                            title: 2,
+                        },
+                        {
+                            title: 2,
+                            children: [
+                                {
+                                    title: 5,
+                                },
+                                {
+                                    title: 215,
+                                },
+                            ],
+                            // children: (resolve, _reject) => {
+                            //     setTimeout(() => {
+                            //         resolve([
+                            //             {
+                            //                 key: 1215,
+                            //                 value: 5,
+                            //             },
+                            //             {
+                            //                 key: 2125,
+                            //                 value: 215,
+                            //             },
+                            //         ]);
+                            //     }, 2000);
+                            // },
+                        },
+                    ],
+                },
+                {
+                    id: 'b12315',
+                    title: 'Frank',
+                },
+                {
+                    id: 'b12316',
+                    title: 'Beast Man',
+                    subtitle: 'Pancakes',
+                },
+                {
+                    id: 'b12336',
+                    title: 'Tracy Page',
+                    subtitle: 'Waffles',
+                },
+            ],
+        };
     },
+
     render() {
         const projectName = 'React Sortable Tree';
         const authorName = 'Chris Fritz';
         const authorUrl = 'https://github.com/fritz-c';
         const githubUrl = 'https://github.com/fritz-c/react-sortable-tree';
-
-        const treeData = [
-            {
-                key: 'b12314', // string or number. Every key in the tree needs to be unique
-                value: { // Custom value. Can be anything - object, array, string, etc.
-                    id: 'b12314',
-                    title: 'Joe',
-                    subtitle: 'Pancakes',
-                },
-                expanded: true,
-                children: [
-                    {
-                        value: {
-                            id: 1,
-                            title: 'Really Long Name Nicholas Who Always Got' +
-                                ' Picked on in School For His Really Long Name',
-                            subtitle: 'Really good icebreaker, though',
-                        },
-                        children: [], // null or undefined also ok
-                    },
-                    {
-                        value: 2,
-                    },
-                    {
-                        key: 2412,
-                        value: 2,
-                        children: (resolve, _reject) => {
-                            setTimeout(() => {
-                                resolve([
-                                    {
-                                        key: 1215,
-                                        value: 5,
-                                    },
-                                    {
-                                        key: 2125,
-                                        value: 215,
-                                    },
-                                ]);
-                            }, 2000);
-                        },
-                    },
-                ],
-            },
-            {
-                key: 'b12315',
-                value: {
-                    id: 'b12315',
-                    title: 'Frank',
-                },
-            },
-            {
-                key: 'b12316',
-                value: {
-                    id: 'b12316',
-                    title: 'Beast Man',
-                    subtitle: 'Pancakes',
-                },
-            },
-            {
-                key: 'b12336',
-                value: {
-                    id: 'b12336',
-                    title: 'Tracy Page',
-                    subtitle: 'Waffles',
-                },
-            },
-        ];
 
         return (
             <div>
@@ -97,10 +91,11 @@ const App = React.createClass({
                     <h3>Demo</h3>
 
                     <SortableTree
-                        treeData={treeData}
+                        treeData={this.state.treeData}
+                        updateTreeData={treeData => this.setState({ treeData })}
                         generateNodeProps={({
-                            nodeData:           _nodeData,
-                            parentPath:         _parentPath,
+                            node:               _node,
+                            path:               _path,
                             lowerSiblingCounts: _lowerSiblingCounts,
                             listIndex:          _listIndex,
                         }) => ({
