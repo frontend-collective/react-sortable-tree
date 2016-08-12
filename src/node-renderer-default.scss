@@ -78,6 +78,12 @@
     top: 50%;
     transform: translateY(-50%) translateX(-50%);
     cursor: pointer;
+
+    &:hover:not(:active) {
+        background-size: 24px;
+        height: 20px;
+        width: 20px;
+    }
 }
 
 .collapseButton {
