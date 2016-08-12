@@ -50,6 +50,63 @@
     border-radius: 1px;
 }
 
+.loadingHandle {
+    @extend .moveHandle;
+
+    cursor: default;
+    background: #D8D8D8;
+}
+
+@keyframes pointFade {
+    0%, 19.999%, 100% { opacity: 0; }
+    20% { opacity: 1; }
+}
+
+.loadingCircle {
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+    position: relative;
+}
+
+.loadingCirclePoint {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    $point-count: 12;
+    $spin-animation-time: 800ms;
+
+    &:before {
+        content: '';
+        display: block;
+        margin: 0 auto;
+        width: 11%;
+        height: 30%;
+        background-color: #FFF;
+        border-radius: 30%;
+        animation: pointFade $spin-animation-time infinite ease-in-out both;
+    }
+
+    @for $i from 1 through (($point-count + 1) / 2) {
+        &:nth-of-type(#{$i}) {
+            transform: rotate(360deg / $point-count * ($i - 1));
+        }
+
+        &:nth-of-type(#{$i + $point-count / 2}) {
+            transform: rotate(180deg + 360deg / $point-count * ($i - 1));
+        }
+
+        &:nth-of-type(#{$i}), &:nth-of-type(#{$i + $point-count / 2}) {
+            &:before {
+                animation-delay: - $spin-animation-time + ($spin-animation-time / $point-count * 2 * ($i - 1));
+            }
+        }
+    }
+}
+
 .toolbarButton {
     @extend %rowItem;
 }

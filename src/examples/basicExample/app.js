@@ -25,28 +25,20 @@ const App = React.createClass({
                         },
                         {
                             title: 2,
-                            children: [
-                                {
-                                    title: 5,
-                                },
-                                {
-                                    title: 215,
-                                },
-                            ],
-                            // children: (resolve, _reject) => {
-                            //     setTimeout(() => {
-                            //         resolve([
-                            //             {
-                            //                 key: 1215,
-                            //                 value: 5,
-                            //             },
-                            //             {
-                            //                 key: 2125,
-                            //                 value: 215,
-                            //             },
-                            //         ]);
-                            //     }, 2000);
-                            // },
+                            children: ({ done }) => { // Allow for lazy loading of children
+                                setTimeout(() => {
+                                    done([
+                                        {
+                                            key: 1215,
+                                            title: 5,
+                                        },
+                                        {
+                                            key: 2125,
+                                            title: 215,
+                                        },
+                                    ]);
+                                }, 2000);
+                            },
                         },
                     ],
                 },
@@ -58,6 +50,22 @@ const App = React.createClass({
                     id: 'b12316',
                     title: 'Beast Man',
                     subtitle: 'Pancakes',
+                    children: [
+                        {
+                            title: 'Bruce',
+                            children: [
+                                { title: 'Bruce Jr.' },
+                                { title: 'Brucette Jr.' },
+                            ],
+                        },
+                        {
+                            title: 'Trevor',
+                            children: [
+                                { title: 'Trevor Jr.' },
+                                { title: 'Trevor Jr. 2' },
+                            ],
+                        },
+                    ],
                 },
                 {
                     id: 'b12336',

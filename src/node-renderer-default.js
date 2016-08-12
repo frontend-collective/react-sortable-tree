@@ -37,9 +37,29 @@ const NodeRendererDefault = ({
         {/* Set the row preview to be used during drag and drop */}
         {connectDragPreview(
             <div className={styles.row + (isDragging ? ` ${styles.rowOriginWhileDragging}` : '')}>
-                {connectDragSource(( // Sets this handle as the element to start a drag-and-drop
-                    <div className={styles.moveHandle} />
-                ), { dropEffect: 'copy' })}
+                {typeof node.children === 'function' && node.expanded ? (
+                    // Show a loading symbol on the handle when the children are expanded
+                    //  and yet still defined by a function (a callback to fetch the children)
+                    <div className={styles.loadingHandle}>
+                        <div className={styles.loadingCircle}>
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                        </div>
+                    </div>
+                ) : (
+                    // Show the handle used to initiate a drag-and-drop
+                    connectDragSource((<div className={styles.moveHandle} />), { dropEffect: 'copy' })
+                )}
 
                 <div className={styles.rowContents}>
                     <div className={styles.rowLabel}>
