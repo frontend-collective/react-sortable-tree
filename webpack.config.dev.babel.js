@@ -24,7 +24,7 @@ module.exports = {
         new webpack.NoErrorsPlugin(),
     ],
     postcss: [
-        autoprefixer,
+        autoprefixer({ browsers: ['IE >= 9', '> 1%'] }),
     ],
     module: {
         loaders: [

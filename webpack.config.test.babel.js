@@ -23,7 +23,7 @@ module.exports = {
         ]),
     ],
     postcss: [
-        autoprefixer,
+        autoprefixer({ browsers: ['IE >= 9', '> 1%'] }),
     ],
     module: {
         preLoaders: [
