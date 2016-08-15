@@ -20,76 +20,94 @@ const NodeRendererDefault = ({
     connectDragPreview,
     connectDragSource,
     isDragging,
+    isOver,
+    canDrop,
     node,
     path,
     treeIndex,
     buttons,
-}) => (
-    <div style={{ height: '100%' }}>
-        {toggleChildrenVisibility && node.children && node.children.length > 0 && (
-            <div
-                className={node.expanded ? styles.collapseButton : styles.expandButton}
-                style={{ left: -0.5 * scaffoldBlockPxWidth }}
-                onClick={() => toggleChildrenVisibility({node, path, treeIndex})}
-            />
-        )}
+}) => {
+    let handle;
+    if (typeof node.children === 'function' && node.expanded) {
+        // Show a loading symbol on the handle when the children are expanded
+        //  and yet still defined by a function (a callback to fetch the children)
+        handle = (
+            <div className={styles.loadingHandle}>
+                <div className={styles.loadingCircle}>
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                    <div className={styles.loadingCirclePoint} />
+                </div>
+            </div>
+        );
+    } else if (isDragging) {
+        handle = (<div className={styles.loadingHandle} />);
+    } else {
+        let myStyle = {};
+        if (isOver && canDrop) {
+            myStyle = { backgroundColor: 'lightblue' };
+        }
 
-        {/* Set the row preview to be used during drag and drop */}
-        {connectDragPreview(
-            <div className={styles.row + (isDragging ? ` ${styles.rowOriginWhileDragging}` : '')}>
-                {typeof node.children === 'function' && node.expanded ? (
-                    // Show a loading symbol on the handle when the children are expanded
-                    //  and yet still defined by a function (a callback to fetch the children)
-                    <div className={styles.loadingHandle}>
-                        <div className={styles.loadingCircle}>
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
-                            <div className={styles.loadingCirclePoint} />
+        // Show the handle used to initiate a drag-and-drop
+        handle = connectDragSource((
+            <div className={styles.moveHandle} style={myStyle} />
+        ), { dropEffect: 'copy' });
+    }
+
+    return (
+        <div style={{ height: '100%' }}>
+            {toggleChildrenVisibility && node.children && node.children.length > 0 && (
+                <div
+                    className={node.expanded ? styles.collapseButton : styles.expandButton}
+                    style={{ left: -0.5 * scaffoldBlockPxWidth }}
+                    onClick={() => toggleChildrenVisibility({node, path, treeIndex})}
+                />
+            )}
+
+            {/* Set the row preview to be used during drag and drop */}
+            {connectDragPreview(
+                <div className={styles.row + (isDragging ? ` ${styles.rowOriginWhileDragging}` : '')}>
+                    {handle}
+
+                    <div className={styles.rowContents}>
+                        <div className={styles.rowLabel}>
+                            <span
+                                className={styles.rowTitle +
+                                    (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
+                                }
+                            >
+                                {node.title}
+                            </span>
+
+                            {node.subtitle &&
+                                <span className={styles.rowSubtitle}>
+                                    {node.subtitle}
+                                </span>
+                            }
+                        </div>
+
+                        <div className={styles.rowToolbar}>
+                            {buttons && buttons.map((btn, index) => (
+                                <div key={index} className={styles.toolbarButton}>
+                                    {btn}
+                                </div>
+                            ))}
                         </div>
                     </div>
-                ) : (
-                    // Show the handle used to initiate a drag-and-drop
-                    connectDragSource((<div className={styles.moveHandle} />), { dropEffect: 'copy' })
-                )}
-
-                <div className={styles.rowContents}>
-                    <div className={styles.rowLabel}>
-                        <span
-                            className={styles.rowTitle +
-                                (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
-                            }
-                        >
-                            {node.title}
-                        </span>
-
-                        {node.subtitle &&
-                            <span className={styles.rowSubtitle}>
-                                {node.subtitle}
-                            </span>
-                        }
-                    </div>
-
-                    <div className={styles.rowToolbar}>
-                        {buttons && buttons.map((btn, index) => (
-                            <div key={index} className={styles.toolbarButton}>
-                                {btn}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            ️</div>
-        )}
-    </div>
-);
+                ️</div>
+            )}
+        </div>
+    );
+};
 
 NodeRendererDefault.propTypes = {
     node:               PropTypes.object.isRequired,
@@ -102,9 +120,13 @@ NodeRendererDefault.propTypes = {
     buttons:                  PropTypes.arrayOf(PropTypes.node),
 
     // Drag and drop API functions
+    // Drag source
     connectDragPreview: PropTypes.func.isRequired,
     connectDragSource:  PropTypes.func.isRequired,
     isDragging:         PropTypes.bool.isRequired,
+    // Drop target
+    isOver:  PropTypes.bool.isRequired,
+    canDrop: PropTypes.bool.isRequired,
 };
 
 export default NodeRendererDefault;

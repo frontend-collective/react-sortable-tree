@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Children, cloneElement } from 'react';
+import { dndWrapTarget } from './utils/drag-and-drop-utils';
 import styles from './tree-node.scss';
 
 const TreeNode = ({
@@ -6,6 +7,9 @@ const TreeNode = ({
     treeIndex,
     scaffoldBlockPxWidth,
     lowerSiblingCounts,
+    connectDropTarget,
+    isOver,
+    canDrop,
 }) => {
     // Construct the scaffold representing the structure of the tree
     const scaffoldBlockCount = lowerSiblingCounts.length;
@@ -65,7 +69,7 @@ const TreeNode = ({
         );
     });
 
-    return (
+    return connectDropTarget(
         <li className={styles.node}>
             {scaffold}
 
@@ -73,7 +77,10 @@ const TreeNode = ({
                 className={styles.nodeContent}
                 style={{ left: scaffoldBlockPxWidth * scaffoldBlockCount }}
             >
-                {children}
+                {Children.map(children, child => cloneElement(child, {
+                    isOver,
+                    canDrop,
+                }))}
             </div>
         </li>
     );
@@ -81,9 +88,15 @@ const TreeNode = ({
 
 TreeNode.propTypes = {
     treeIndex:            PropTypes.number.isRequired,
+    path:                 PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
     scaffoldBlockPxWidth: PropTypes.number.isRequired,
     children:             PropTypes.node,
     lowerSiblingCounts:   PropTypes.array.isRequired,
+
+    // Drop target
+    connectDropTarget: PropTypes.func.isRequired,
+    isOver:            PropTypes.bool.isRequired,
+    canDrop:           PropTypes.bool.isRequired,
 };
 
-export default TreeNode;
+export default dndWrapTarget(TreeNode);

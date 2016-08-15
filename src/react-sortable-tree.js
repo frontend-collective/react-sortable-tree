@@ -6,39 +6,19 @@
 
 import React, { Component, PropTypes } from 'react';
 import { AutoSizer, VirtualScroll } from 'react-virtualized';
-import {
-    DragDropContext as dragDropContext,
-    DragSource as dragSource,
-} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import TreeNode from './tree-node';
 import {
     walk,
     getVisibleNodeInfoFlattened,
     changeNodeAtPath,
+    removeNodeAtPath,
+    addNodeUnderParentPath,
 } from './utils/tree-data-utils';
-import ItemTypes from './item-types';
+import {
+    dndWrapRoot,
+    dndWrapSource,
+} from './utils/drag-and-drop-utils';
 import styles from './react-sortable-tree.scss';
-
-/**
- * Implements the drag source contract.
- */
-const cardSource = {
-    beginDrag: (props) => ({
-        text: props.text,
-    }),
-};
-
-/**
- * Specifies the props to inject into your component.
- */
-function collect(connect, monitor) {
-    return {
-        connectDragSource:  connect.dragSource(),
-        connectDragPreview: connect.dragPreview(),
-        isDragging:         monitor.isDragging(),
-    };
-}
 
 function defaultGetNodeKey({ node: _node, treeIndex }) {
     return treeIndex;
@@ -49,6 +29,16 @@ function defaultToggleChildrenVisibility({ node: _node, path, treeIndex: _treeIn
         treeData: this.props.treeData,
         path,
         newNode: ({ node }) => ({ ...node, expanded: !node.expanded }),
+        getNodeKey: this.getNodeKey,
+    }));
+}
+
+function defaultMoveNode({ node: newNode, newParentPath, newChildIndex }) {
+    this.props.updateTreeData(addNodeUnderParentPath({
+        treeData: this.props.treeData,
+        newNode,
+        newParentPath,
+        newChildIndex,
         getNodeKey: this.getNodeKey,
     }));
 }
@@ -71,13 +61,24 @@ class ReactSortableTree extends Component {
 
         // Fall back to default event listeners if necessary and bind them to the tree
         this.getNodeKey = (props.getNodeKey || defaultGetNodeKey).bind(this);
+        this.moveNode   = (props.moveNode || defaultMoveNode).bind(this);
         this.toggleChildrenVisibility = (
             props.toggleChildrenVisibility || defaultToggleChildrenVisibility
         ).bind(this);
-        this.nodeContentRenderer = dragSource(ItemTypes.HANDLE, cardSource, collect)(
+        this.nodeContentRenderer = dndWrapSource(
             props.nodeContentRenderer ||
             require('./node-renderer-default').default // eslint-disable-line global-require
         );
+
+        this.state = {
+            draggingTreeData: null,
+            rows: getVisibleNodeInfoFlattened({
+                treeData: props.treeData,
+                getNodeKey: this.getNodeKey,
+            }),
+        };
+
+        this.startDrag = this.startDrag.bind(this);
     }
 
     componentWillMount() {
@@ -86,8 +87,53 @@ class ReactSortableTree extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.treeData !== nextProps.treeData) {
+            // Load any children defined by a function
             this.loadLazyChildren(nextProps);
+
+            // Calculate the rows to be shown from the new tree data
+            this.setState({
+                draggingTreeData: null,
+                rows: getVisibleNodeInfoFlattened({
+                    treeData: nextProps.treeData,
+                    getNodeKey: this.getNodeKey,
+                }),
+            });
         }
+    }
+
+    startDrag({ path }) {
+        const draggingTreeData = removeNodeAtPath({
+            treeData: this.props.treeData,
+            path,
+            getNodeKey: this.getNodeKey,
+        });
+
+        this.setState({
+            draggingTreeData,
+            rows: getVisibleNodeInfoFlattened({
+                treeData: draggingTreeData,
+                getNodeKey: this.getNodeKey,
+            }),
+        });
+    }
+
+    endDrag({ node, path }, dropResult) {
+        if (!dropResult) {
+            return this.setState({
+                draggingTreeData: null,
+                rows: getVisibleNodeInfoFlattened({
+                    treeData: this.props.treeData,
+                    getNodeKey: this.getNodeKey,
+                }),
+            });
+        }
+
+        this.moveNode({
+            node,
+            path,
+            newParentPath: dropResult.parentPath,
+            newChildIndex: dropResult.childIndex,
+        });
     }
 
     /**
@@ -130,11 +176,9 @@ class ReactSortableTree extends Component {
 
     render() {
         const {
-            treeData,
             rowHeight,
         } = this.props;
-
-        const rows = getVisibleNodeInfoFlattened({ treeData, getNodeKey: this.getNodeKey });
+        const { rows } = this.state;
 
         return (
             <div style={{ height: '100%' }} className={styles.tree}>
@@ -166,6 +210,7 @@ class ReactSortableTree extends Component {
         return (
             <TreeNode
                 treeIndex={treeIndex}
+                path={path}
                 lowerSiblingCounts={lowerSiblingCounts}
                 scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
             >
@@ -174,6 +219,7 @@ class ReactSortableTree extends Component {
                     path={path}
                     lowerSiblingCounts={lowerSiblingCounts}
                     treeIndex={treeIndex}
+                    startDrag={this.startDrag}
                     toggleChildrenVisibility={this.toggleChildrenVisibility}
                     scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
                     {...nodeProps}
@@ -186,7 +232,7 @@ class ReactSortableTree extends Component {
 ReactSortableTree.propTypes = {
     treeData:   PropTypes.arrayOf(PropTypes.object).isRequired,
     changeData: PropTypes.func,
-    onNodeMove: PropTypes.func,
+    moveNode: PropTypes.func,
     rowHeight:  PropTypes.oneOfType([ PropTypes.number, PropTypes.func ]), // Used for react-virtualized
 
     scaffoldBlockPxWidth: PropTypes.number,
@@ -206,4 +252,4 @@ ReactSortableTree.defaultProps = {
     loadCollapsedLazyChildren: false,
 };
 
-export default dragDropContext(HTML5Backend)(ReactSortableTree);
+export default dndWrapRoot(ReactSortableTree);

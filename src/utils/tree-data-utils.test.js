@@ -470,6 +470,61 @@ describe('changeNodeAtPath', () => {
         expect(result[0].children[1].children[2].food).toEqual('pancake');
     });
 
+    it('should delete data when falsey node passed', () => {
+        const result = changeNodeAtPath({
+            treeData: [
+                {
+                    expanded: true,
+                    key: 'b',
+                    children: [
+                        { key: 'f' },
+                    ],
+                },
+                {
+                    expanded: true,
+                    key: 'r',
+                    children: [
+                        { key: 7 },
+                    ],
+                },
+                { key: 6 },
+            ],
+            path: [2, 3],
+            newNode: null,
+            getNodeKey: keyFromTreeIndex,
+        });
+
+        expect(result[1].children.length).toEqual(0);
+    });
+
+    it('should delete data on the top level', () => {
+        const treeData = [
+            {
+                expanded: true,
+                key: 'b',
+                children: [
+                    { key: 'f' },
+                ],
+            },
+            {
+                expanded: true,
+                key: 'r',
+                children: [
+                    { key: 7 },
+                ],
+            },
+            { key: 6 },
+        ];
+        const result = changeNodeAtPath({
+            treeData,
+            path: [2],
+            newNode: null,
+            getNodeKey: keyFromTreeIndex,
+        });
+
+        expect(result).toEqual([treeData[0], treeData[2]]);
+    });
+
     it('should handle a path that is too long', () => {
         const treeData = [
             {

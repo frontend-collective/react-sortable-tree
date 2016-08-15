@@ -235,6 +235,7 @@ export function getVisibleNodeInfoFlattened({ treeData, getNodeKey }) {
  * @return {Object} changedTreeData - The updated tree data
  */
 export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCollapsed = true }) {
+    const RESULT_MISS = 'RESULT_MISS';
     const traverse = ({
         isPseudoRoot = false,
         node,
@@ -242,7 +243,7 @@ export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCo
         pathIndex,
     }) => {
         if (!isPseudoRoot && getNodeKey({ node, treeIndex: currentTreeIndex }) !== path[pathIndex]) {
-            return null;
+            return RESULT_MISS;
         }
 
         if (pathIndex >= path.length - 1) {
@@ -262,12 +263,26 @@ export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCo
                 pathIndex:        pathIndex + 1,
             });
 
-            if (result) {
+            // If the result went down the correct path
+            if (result !== RESULT_MISS) {
+                if (result) {
+                    // If the result was truthy (in this case, an object),
+                    //  pass it to the next level of recursion up
+                    return {
+                        ...node,
+                        children: [
+                            ...node.children.slice(0, i),
+                            result,
+                            ...node.children.slice(i + 1),
+                        ],
+                    };
+                }
+                // If the result was falsy (returned from the newNode function), then
+                //  delete the node from the array.
                 return {
                     ...node,
                     children: [
                         ...node.children.slice(0, i),
-                        result,
                         ...node.children.slice(i + 1),
                     ],
                 };
@@ -282,7 +297,7 @@ export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCo
             }).nextIndex;
         }
 
-        return null;
+        return RESULT_MISS;
     };
 
     // Use a pseudo-root node in the beginning traversal
@@ -293,11 +308,60 @@ export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCo
         isPseudoRoot: true,
     });
 
-    if (!result) {
+    if (result === RESULT_MISS) {
         throw new Error('No node found at the given path.');
     }
 
     return result.children;
+}
+
+
+/**
+ * Removes the node at the specified path and returns the resulting treeData.
+ *
+ * @param {!Object[]} treeData
+ * @param {number[]|string[]} path - Array of keys leading up to node to be deleted
+ * @param {function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ *
+ * @return {Object} changedTreeData - The updated tree data
+ */
+export function removeNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed = true }) {
+    return changeNodeAtPath({
+        treeData,
+        path,
+        getNodeKey,
+        ignoreCollapsed,
+        newNode: null, // Delete the node
+    });
+}
+
+/**
+ * Adds the node to the specified parent and returns the resulting treeData.
+ *
+ * @param {!Object[]} treeData
+ * @param {!Object} newNode - The node to insert
+ * @param {number[]|string[]} path - Array of keys leading up to node to be deleted
+ * @param {function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ *
+ * @return {Object} changedTreeData - The updated tree data
+ */
+export function addNodeUnderParentPath({
+    treeData,
+    newNode,
+    newParentPath,
+    newChildIndex,
+    getNodeKey,
+    ignoreCollapsed = true
+}) {
+    // return changeNodeAtPath({
+    //     treeData,
+    //     path: newParentPath,
+    //     getNodeKey,
+    //     ignoreCollapsed,
+    //     newNode: (node) => typeof node.children === 'object' ? , // Delete the node
+    // });
 }
 
 // Performs change to every node in the tree
