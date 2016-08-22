@@ -9,7 +9,7 @@ import { AutoSizer, VirtualScroll } from 'react-virtualized';
 import TreeNode from './tree-node';
 import {
     walk,
-    getVisibleNodeInfoFlattened,
+    getFlatDataFromTree,
     changeNodeAtPath,
     removeNodeAtPath,
     addNodeUnderParentPath,
@@ -72,10 +72,7 @@ class ReactSortableTree extends Component {
 
         this.state = {
             draggingTreeData: null,
-            rows: getVisibleNodeInfoFlattened({
-                treeData: props.treeData,
-                getNodeKey: this.getNodeKey,
-            }),
+            rows: this.getRows(props.treeData),
         };
 
         this.startDrag = this.startDrag.bind(this);
@@ -93,10 +90,7 @@ class ReactSortableTree extends Component {
             // Calculate the rows to be shown from the new tree data
             this.setState({
                 draggingTreeData: null,
-                rows: getVisibleNodeInfoFlattened({
-                    treeData: nextProps.treeData,
-                    getNodeKey: this.getNodeKey,
-                }),
+                rows: this.getRows(nextProps.treeData),
             });
         }
     }
@@ -110,10 +104,15 @@ class ReactSortableTree extends Component {
 
         this.setState({
             draggingTreeData,
-            rows: getVisibleNodeInfoFlattened({
-                treeData: draggingTreeData,
-                getNodeKey: this.getNodeKey,
-            }),
+            rows: this.getRows(draggingTreeData),
+        });
+    }
+
+    getRows(treeData) {
+        return getFlatDataFromTree({
+            ignoreCollapsed: true,
+            getNodeKey: this.getNodeKey,
+            treeData,
         });
     }
 
@@ -121,10 +120,7 @@ class ReactSortableTree extends Component {
         if (!dropResult) {
             return this.setState({
                 draggingTreeData: null,
-                rows: getVisibleNodeInfoFlattened({
-                    treeData: this.props.treeData,
-                    getNodeKey: this.getNodeKey,
-                }),
+                rows: this.getRows(this.props.treeData),
             });
         }
 

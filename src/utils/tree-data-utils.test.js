@@ -3,7 +3,7 @@ import {
     getVisibleNodeInfoAtIndex,
     changeNodeAtPath,
     getTreeFromFlatData,
-    getVisibleNodeInfoFlattened,
+    getFlatDataFromTree,
     walk,
     map,
 } from './tree-data-utils';
@@ -268,19 +268,24 @@ describe('getVisibleNodeInfoAtIndex', () => {
 });
 
 
-describe('getVisibleNodeInfoAtIndex', () => {
+describe('getFlatDataFromTree', () => {
     it('should handle empty data', () => {
-        expect(getVisibleNodeInfoFlattened({treeData: [], getNodeKey: keyFromTreeIndex})).toEqual([]);
-        expect(getVisibleNodeInfoFlattened({treeData: null, getNodeKey: keyFromTreeIndex})).toEqual([]);
-        expect(getVisibleNodeInfoFlattened({treeData: undefined, getNodeKey: keyFromTreeIndex})).toEqual([]);
+        expect(getFlatDataFromTree({treeData: [], getNodeKey: keyFromTreeIndex})).toEqual([]);
+        expect(getFlatDataFromTree({treeData: null, getNodeKey: keyFromTreeIndex})).toEqual([]);
+        expect(getFlatDataFromTree({treeData: undefined, getNodeKey: keyFromTreeIndex})).toEqual([]);
     });
 
     it('should handle flat data', () => {
-        expect(getVisibleNodeInfoFlattened({ treeData: [ { key: 0 } ], getNodeKey: keyFromTreeIndex })).toEqual([
+        expect(getFlatDataFromTree({
+            ignoreCollapsed: true,
+            getNodeKey: keyFromTreeIndex,
+            treeData: [ { key: 0 } ],
+        })).toEqual([
             { node: { key: 0 }, path: [0], lowerSiblingCounts: [ 0 ] },
         ]);
 
-        expect(getVisibleNodeInfoFlattened({
+        expect(getFlatDataFromTree({
+            ignoreCollapsed: true,
             treeData: [ { key: 0 }, { key: 1 } ],
             getNodeKey: keyFromTreeIndex
         })).toEqual([
@@ -312,7 +317,11 @@ describe('getVisibleNodeInfoAtIndex', () => {
             { key: 6 },
         ];
 
-        expect(getVisibleNodeInfoFlattened({ treeData, getNodeKey: keyFromTreeIndex })).toEqual([
+        expect(getFlatDataFromTree({
+            ignoreCollapsed: true,
+            getNodeKey: keyFromTreeIndex,
+            treeData,
+        })).toEqual([
             { node: treeData[0], path: [0], lowerSiblingCounts: [ 1 ] },
             { node: treeData[1], path: [1], lowerSiblingCounts: [ 0 ] }
         ]);
@@ -343,7 +352,11 @@ describe('getVisibleNodeInfoAtIndex', () => {
             { key: 6 },
         ];
 
-        expect(getVisibleNodeInfoFlattened({ treeData, getNodeKey: keyFromKey })).toEqual([
+        expect(getFlatDataFromTree({
+            ignoreCollapsed: true,
+            getNodeKey: keyFromKey,
+            treeData,
+        })).toEqual([
             { node: treeData[0],                         path: [0],       lowerSiblingCounts: [ 1 ] },
             { node: treeData[0].children[0],             path: [0, 1],    lowerSiblingCounts: [ 1, 1 ] },
             { node: treeData[0].children[1],             path: [0, 4],    lowerSiblingCounts: [ 1, 0 ] },
@@ -378,7 +391,11 @@ describe('getVisibleNodeInfoAtIndex', () => {
             { key: 6 },
         ];
 
-        expect(getVisibleNodeInfoFlattened({ treeData, getNodeKey: keyFromTreeIndex })).toEqual([
+        expect(getFlatDataFromTree({
+            ignoreCollapsed: true,
+            treeData,
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual([
             { node: treeData[0],                         path: [0],       lowerSiblingCounts: [1] },
             { node: treeData[0].children[0],             path: [0, 1],    lowerSiblingCounts: [1, 1] },
             { node: treeData[0].children[0].children[0], path: [0, 1, 2], lowerSiblingCounts: [1, 1, 1] },

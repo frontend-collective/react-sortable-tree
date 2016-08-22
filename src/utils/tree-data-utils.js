@@ -277,36 +277,6 @@ export function map({ treeData, getNodeKey, callback, ignoreCollapsed = false })
 }
 
 /**
- * Get visible node data flattened.
- *
- * @param {!Object[]} treeData - Tree data
- * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
- *
- * @return {{
- *      node: Object,
- *      path: []string|[]number,
- *      lowerSiblingCounts: []number
- *  }}[] nodes - The node array
- */
-export function getVisibleNodeInfoFlattened({ treeData, getNodeKey }) {
-    if (!treeData || treeData.length < 1) {
-        return [];
-    }
-
-    const flattened = [];
-    walk({
-        treeData,
-        getNodeKey,
-        ignoreCollapsed: true,
-        callback: ({ node, lowerSiblingCounts, path, treeIndex }) => {
-            flattened[treeIndex] = { node, lowerSiblingCounts, path };
-        },
-    });
-
-    return flattened;
-}
-
-/**
  * Replaces node at path with object, or callback-defined object
  *
  * @param {!Object[]} treeData
@@ -461,6 +431,37 @@ export function addNodeUnderParentPath({
 }
 
 /**
+ * Get tree data flattened.
+ *
+ * @param {!Object[]} treeData - Tree data
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ *
+ * @return {{
+ *      node: Object,
+ *      path: []string|[]number,
+ *      lowerSiblingCounts: []number
+ *  }}[] nodes - The node array
+ */
+export function getFlatDataFromTree({ treeData, getNodeKey, ignoreCollapsed = false }) {
+    if (!treeData || treeData.length < 1) {
+        return [];
+    }
+
+    const flattened = [];
+    walk({
+        treeData,
+        getNodeKey,
+        ignoreCollapsed,
+        callback: ({ node, lowerSiblingCounts, path }) => {
+            flattened.push({ node, lowerSiblingCounts, path });
+        },
+    });
+
+    return flattened;
+}
+
+/**
  * Generate a tree structure from flat data.
  *
  * @param {!Object[]} flatData
@@ -508,5 +509,3 @@ export function getTreeFromFlatData({
 
     return childrenToParents[rootKey].map(child => trav(child));
 }
-
-// Performs change to every node in the tree
