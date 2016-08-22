@@ -106,8 +106,65 @@ function walkDescendants({
         }
     }
 
-    // Flatten all descendant arrays into a single flat array
     return childIndex;
+}
+
+/**
+ * Perform a change on the given node and all its descendants
+ */
+function mapDescendants({
+    callback,
+    getNodeKey,
+    ignoreCollapsed,
+    isPseudoRoot = false,
+    node,
+    currentIndex,
+    path = [],
+    lowerSiblingCounts = [],
+}) {
+    // The pseudo-root is not considered in the path
+    const selfPath = !isPseudoRoot ? [ ...path, getNodeKey({ node, treeIndex: currentIndex }) ] : [];
+    const selfInfo = !isPseudoRoot ? { node, path: selfPath, lowerSiblingCounts, treeIndex: currentIndex } : null;
+
+    // Return self on nodes with no children or hidden children
+    if (!node.children || (node.expanded !== true && ignoreCollapsed && !isPseudoRoot)) {
+        return {
+            treeIndex: currentIndex,
+            node: callback(selfInfo),
+        };
+    }
+
+    // Get all descendants
+    let childIndex   = currentIndex;
+    const childCount = node.children.length;
+    let newChildren = node.children;
+    if (typeof newChildren !== 'function') {
+        newChildren = newChildren.map((child, i) => {
+            const mapResult = mapDescendants({
+                callback,
+                getNodeKey,
+                ignoreCollapsed,
+                node: child,
+                currentIndex: childIndex + 1,
+                lowerSiblingCounts: [ ...lowerSiblingCounts, childCount - i - 1 ],
+                path: selfPath,
+            });
+            childIndex = mapResult.treeIndex;
+
+            return mapResult.node;
+        });
+    }
+
+    return {
+        node: callback({
+            ...selfInfo,
+            node: {
+                ...node,
+                children: newChildren,
+            },
+        }),
+        treeIndex: childIndex,
+    };
 }
 
 /**
@@ -134,7 +191,7 @@ export function getVisibleNodeCount({ treeData }) {
  *
  * @param {!Object[]} treeData - Tree data
  * @param {!number} targetIndex - The index of the node to search for
- * @param {function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  *
  * @return {{
  *      node: Object,
@@ -172,7 +229,7 @@ export function getVisibleNodeInfoAtIndex({ treeData, index: targetIndex, getNod
  * Walk descendants depth-first and call a callback on each
  *
  * @param {!Object[]} treeData - Tree data
- * @param {function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {function} callback - Function to call on each node
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  */
@@ -194,10 +251,36 @@ export function walk({ treeData, getNodeKey, callback, ignoreCollapsed = true })
 }
 
 /**
+ * Perform a depth-first transversal of the descendants and
+ *  make a change to every node in the tree
+ *
+ * @param {!Object[]} treeData - Tree data
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {function} callback - Function to call on each node
+ * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ */
+export function map({ treeData, getNodeKey, callback, ignoreCollapsed = false }) {
+    if (!treeData || treeData.length < 1) {
+        return [];
+    }
+
+    return mapDescendants({
+        callback,
+        getNodeKey,
+        ignoreCollapsed,
+        isPseudoRoot: true,
+        node: { children: treeData },
+        currentIndex: -1,
+        path: [],
+        lowerSiblingCounts: [],
+    }).node.children;
+}
+
+/**
  * Get visible node data flattened.
  *
  * @param {!Object[]} treeData - Tree data
- * @param {function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  *
  * @return {{
  *      node: Object,
@@ -229,7 +312,7 @@ export function getVisibleNodeInfoFlattened({ treeData, getNodeKey }) {
  * @param {!Object[]} treeData
  * @param {number[]|string[]} path - Array of keys leading up to node to be changed
  * @param {function|any} newNode - Node to replace the node at the path with, or a function producing the new node
- * @param {function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  *
  * @return {Object} changedTreeData - The updated tree data
@@ -321,7 +404,7 @@ export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCo
  *
  * @param {!Object[]} treeData
  * @param {number[]|string[]} path - Array of keys leading up to node to be deleted
- * @param {function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  *
  * @return {Object} changedTreeData - The updated tree data
@@ -342,7 +425,7 @@ export function removeNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed =
  * @param {!Object[]} treeData
  * @param {!Object} newNode - The node to insert
  * @param {number[]|string[]} path - Array of keys leading up to node to be deleted
- * @param {function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  *
  * @return {Object} changedTreeData - The updated tree data
@@ -355,13 +438,75 @@ export function addNodeUnderParentPath({
     getNodeKey,
     ignoreCollapsed = true
 }) {
-    // return changeNodeAtPath({
-    //     treeData,
-    //     path: newParentPath,
-    //     getNodeKey,
-    //     ignoreCollapsed,
-    //     newNode: (node) => typeof node.children === 'object' ? , // Delete the node
-    // });
+    return changeNodeAtPath({
+        treeData,
+        getNodeKey,
+        ignoreCollapsed,
+        path: newParentPath,
+        newNode: ({ node: parentNode }) => {
+            if (typeof parentNode.children === 'function') {
+                throw new Error('Cannot add to children defined by a function');
+            }
+
+            return {
+                ...parentNode,
+                children: !parentNode.children ? [ newNode ] : [
+                    ...parentNode.children.slice(0, newChildIndex),
+                    newNode,
+                    ...parentNode.children.slice(newChildIndex + 1),
+                ],
+            };
+        },
+    });
+}
+
+/**
+ * Generate a tree structure from flat data.
+ *
+ * @param {!Object[]} flatData
+ * @param {!function} getKey - Function to get the key from the nodeData
+ * @param {!function} getParentKey - Function to get the parent key from the nodeData
+ *
+ * @return {Object[]} treeData - The flat data represented as a tree
+ */
+export function getTreeFromFlatData({
+    flatData,
+    getKey,
+    getParentKey,
+    rootKey,
+}) {
+    if (!flatData) {
+        return [];
+    }
+
+    const childrenToParents = {};
+    flatData.forEach(child => {
+        const parentKey = getParentKey(child);
+
+        if (parentKey in childrenToParents) {
+            childrenToParents[parentKey].push(child);
+        } else {
+            childrenToParents[parentKey] = [ child ];
+        }
+    });
+
+    if (!(rootKey in childrenToParents)) {
+        return [];
+    }
+
+    const trav = (parent) => {
+        const parentKey = getKey(parent);
+        if (parentKey in childrenToParents) {
+            return {
+                ...parent,
+                children: childrenToParents[parentKey].map(child => trav(child)),
+            };
+        }
+
+        return { ...parent };
+    };
+
+    return childrenToParents[rootKey].map(child => trav(child));
 }
 
 // Performs change to every node in the tree

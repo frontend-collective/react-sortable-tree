@@ -2,8 +2,10 @@ import {
     getVisibleNodeCount,
     getVisibleNodeInfoAtIndex,
     changeNodeAtPath,
+    getTreeFromFlatData,
     getVisibleNodeInfoFlattened,
     walk,
+    map,
 } from './tree-data-utils';
 
 const keyFromTreeIndex = ({ treeIndex }) => treeIndex;
@@ -470,6 +472,45 @@ describe('changeNodeAtPath', () => {
         expect(result[0].children[1].children[2].food).toEqual('pancake');
     });
 
+    it('should handle adding children', () => {
+        const result = changeNodeAtPath({
+            treeData: [
+                {
+                    expanded: true,
+                    key: 0,
+                    children: [
+                        {
+                            key: 'b',
+                            children: [
+                                { key: 2 },
+                                { key: 3 },
+                                { key: 'f' },
+                            ],
+                        },
+                        {
+                            expanded: true,
+                            key: 'r',
+                            children: [
+                                { key: 5 },
+                                { key: 8 },
+                                { key: 7 },
+                            ],
+                        },
+                    ],
+                },
+                { key: 6 },
+            ],
+            path: [0, 2, 5],
+            newNode: ({ node }) => ({
+                ...node,
+                children: [{ food: 'pancake' }],
+            }),
+            getNodeKey: keyFromTreeIndex,
+        });
+
+        expect(result[0].children[1].children[2].children[0].food).toEqual('pancake');
+    });
+
     it('should delete data when falsey node passed', () => {
         const result = changeNodeAtPath({
             treeData: [
@@ -647,5 +688,284 @@ describe('walk', () => {
                 }
             },
         })).not.toThrow();
+    });
+});
+
+describe('getTreeFromFlatData', () => {
+    const rootKey = -1;
+    const argDefaults = {
+        rootKey,
+        getKey:       node => node.key,
+        getParentKey: node => node.parentKey,
+    };
+
+    const checkFunction = ({ flatData, expected }) => {
+        expect(getTreeFromFlatData({
+            ...argDefaults,
+            flatData,
+        })).toEqual(expected);
+    };
+
+
+    it('should handle empty data', () => {
+        [
+            {flatData: [],        expected: []},
+            {flatData: null,      expected: []},
+            {flatData: undefined, expected: []},
+        ].forEach(checkFunction);
+    });
+
+    it('should handle [depth == 1] data', () => {
+        [
+            {
+                flatData: [
+                    { key: 1, parentKey: rootKey },
+                    { key: 2, parentKey: rootKey }
+                ],
+                expected: [
+                    { key: 1, parentKey: rootKey },
+                    { key: 2, parentKey: rootKey }
+                ],
+            },
+            {
+                flatData: [
+                    { key: '1', parentKey: rootKey },
+                    { key: '2', parentKey: rootKey }
+                ],
+                expected: [
+                    { key: '1', parentKey: rootKey },
+                    { key: '2', parentKey: rootKey }
+                ],
+            },
+        ].forEach(checkFunction);
+    });
+
+    it('should handle [depth == 2] data', () => {
+        [
+            {
+                flatData: [
+                    { key: 1, parentKey: rootKey },
+                    { key: 2, parentKey: 1 },
+                ],
+                expected: [
+                    {
+                        key: 1,
+                        parentKey: rootKey,
+                        children: [
+                            { key: 2, parentKey: 1 },
+                        ],
+                    }
+                ],
+            },
+            {
+                flatData: [
+                    { key: '1', parentKey: rootKey },
+                    { key: '2', parentKey: '1' },
+                ],
+                expected: [
+                    {
+                        key: '1',
+                        parentKey: rootKey,
+                        children: [
+                            { key: '2', parentKey: '1' },
+                        ]
+                    }
+                ],
+            },
+        ].forEach(checkFunction);
+    });
+
+    it('should handle [depth > 2] nested data', () => {
+        [
+            {
+                flatData: [
+                    { key: 3, parentKey: 2 },
+                    { key: 1, parentKey: rootKey },
+                    { key: 2, parentKey: 1 },
+                ],
+                expected: [
+                    {
+                        key: 1,
+                        parentKey: rootKey,
+                        children: [
+                            {
+                                key: 2,
+                                parentKey: 1,
+                                children: [
+                                    { key: 3, parentKey: 2 },
+                                ]
+                            },
+                        ]
+                    },
+                ],
+            },
+            {
+                flatData: [
+                    { key: 4, parentKey: 2 },
+                    { key: 3, parentKey: 2 },
+                    { key: 7, parentKey: rootKey },
+                    { key: 1, parentKey: rootKey },
+                    { key: 2, parentKey: 1 },
+                    { key: 6, parentKey: 1 },
+                ],
+                expected: [
+                    { key: 7, parentKey: rootKey },
+                    {
+                        key: 1,
+                        parentKey: rootKey,
+                        children: [
+                            {
+                                key: 2,
+                                parentKey: 1,
+                                children: [
+                                    { key: 4, parentKey: 2 },
+                                    { key: 3, parentKey: 2 },
+                                ]
+                            },
+                            { key: 6, parentKey: 1 }
+                        ]
+                    },
+                ],
+            },
+        ].forEach(checkFunction);
+    });
+});
+
+describe('map', () => {
+    const checkFunction = ({ treeData, getNodeKey, callback, expected }) => {
+        expect(map({
+            treeData,
+            getNodeKey,
+            callback,
+        })).toEqual(expected);
+    };
+
+    it('should handle empty data', () => {
+        [
+            {treeData: [],        getNodeKey: keyFromKey, callback: ({node}) => node, expected: []},
+            {treeData: null,      getNodeKey: keyFromKey, callback: ({node}) => node, expected: []},
+            {treeData: undefined, getNodeKey: keyFromKey, callback: ({node}) => node, expected: []},
+        ].forEach(checkFunction);
+    });
+
+    it('can return tree as-is', () => {
+        [
+            {
+                getNodeKey: keyFromKey,
+                callback: ({node}) => node,
+                treeData: [{ key: 1 }, { key: 2 }],
+                expected: [{ key: 1 }, { key: 2 }],
+            },
+            {
+                getNodeKey: keyFromKey,
+                callback: ({node}) => node,
+                treeData: [{ key: 1, children: [{ key: 2 }]}],
+                expected: [{ key: 1, children: [{ key: 2 }]}],
+            },
+            {
+                getNodeKey: keyFromKey,
+                callback: ({node}) => node,
+                treeData: [{ key: 1, children: [{ key: 12, children: [{ key: 3 }] }, { key: 4 }]}, { key: 5 }],
+                expected: [{ key: 1, children: [{ key: 12, children: [{ key: 3 }] }, { key: 4 }]}, { key: 5 }],
+            },
+        ].forEach(checkFunction);
+    });
+
+    it('can truncate part of the tree', () => {
+        [
+            {
+                getNodeKey: keyFromKey,
+                callback: ({ node }) => (node.key === 1 ? { ...node, children: [] } : node),
+                treeData: [{ key: 1, children: [{ key: 12, children: [{ key: 3 }] }, { key: 4 }]}, { key: 5 }],
+                expected: [{ key: 1, children: []}, { key: 5 }],
+            },
+        ].forEach(checkFunction);
+    });
+
+    it('can sort part of the tree', () => {
+        [
+            {
+                getNodeKey: keyFromKey,
+                callback: ({ node }) => (!node.children ? node : {
+                    ...node,
+                    children: node.children.sort((a, b) => (a.key - b.key)),
+                }),
+                treeData: [
+                    {
+                        key: 1,
+                        children: [
+                            {
+                                key: 12,
+                                children: [
+                                    { key: 33 },
+                                    { key: 3 },
+                                ]
+                            },
+                            { key: 4 },
+                        ]
+                    },
+                    { key: 5 },
+                ],
+                expected: [
+                    {
+                        key: 1,
+                        children: [
+                            { key: 4 },
+                            {
+                                key: 12,
+                                children: [
+                                    { key: 3 },
+                                    { key: 33 },
+                                ]
+                            },
+                        ]
+                    },
+                    { key: 5 },
+                ],
+            },
+        ].forEach(checkFunction);
+    });
+
+    it('can modify every node in the tree', () => {
+        [
+            {
+                getNodeKey: keyFromKey,
+                callback: ({ node }) => ({ ...node, expanded: true }),
+                treeData: [
+                    {
+                        key: 1,
+                        children: [
+                            {
+                                key: 12,
+                                children: [
+                                    { key: 33 },
+                                    { key: 3 },
+                                ]
+                            },
+                            { key: 4 },
+                        ]
+                    },
+                    { key: 5 },
+                ],
+                expected: [
+                    {
+                        key: 1,
+                        expanded: true,
+                        children: [
+                            {
+                                key: 12,
+                                expanded: true,
+                                children: [
+                                    { key: 33, expanded: true },
+                                    { key: 3, expanded: true },
+                                ]
+                            },
+                            { key: 4, expanded: true },
+                        ]
+                    },
+                    { key: 5, expanded: true },
+                ],
+            },
+        ].forEach(checkFunction);
     });
 });
