@@ -9,15 +9,14 @@ const App = React.createClass({
             treeData: [
                 {
                     id: 'b12314',
-                    title: 'Joe',
+                    title: 'Beast Man',
                     subtitle: 'Pancakes',
                     expanded: true,
                     children: [
                         {
                             id: 1,
-                            title: 'Really Long Name Nicholas Who Always Got' +
-                                ' Picked on in School For His Really Long Name',
-                            subtitle: 'Really good icebreaker, though',
+                            title: 'Joe',
+                            subtitle: 'Pancakes',
                             children: [], // null or undefined also ok
                         },
                         {
@@ -48,8 +47,9 @@ const App = React.createClass({
                 },
                 {
                     id: 'b12316',
-                    title: 'Beast Man',
-                    subtitle: 'Pancakes',
+                    title: 'Really Long Name Nicholas Who Always Got' +
+                        ' Picked on in School For His Really Long Name',
+                    subtitle: 'Really good icebreaker, though',
                     children: [
                         {
                             title: 'Bruce',
@@ -98,7 +98,7 @@ const App = React.createClass({
                     </span>
                     <h3>Demo</h3>
 
-                    <div style={{ height: 500 }}>
+                    <div style={{ height: 385 }}>
                         <SortableTree
                             treeData={this.state.treeData}
                             updateTreeData={treeData => this.setState({ treeData })}

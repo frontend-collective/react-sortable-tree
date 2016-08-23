@@ -50,6 +50,14 @@ module.exports = {
                 include: path.join(__dirname, 'src')
             },
             {
+                test: /\.css$/,
+                loaders: [
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                ],
+            },
+            {
                 test: /\.(jpe?g|png|gif)$/,
                 loaders: [
                     'file-loader?name=static/[name]-[hash:6].[ext]',

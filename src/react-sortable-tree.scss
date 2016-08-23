@@ -2,11 +2,7 @@
   * The container holding the VirtualScroll
   */
 .tree {
-    height: 100%;
-    overflow: hidden;
-    * {
-        box-sizing: border-box;
-    }
+    /*! This comment keeps Sass from deleting the empty rule */
 }
 
 /**
@@ -14,6 +10,15 @@
  */
 .virtualScrollOverride {
     overflow-x: visible !important;
+    overflow-y: auto !important;
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
+:global .Grid__innerScrollContainer {
+    overflow: visible;
 }
 
 :global .Grid {

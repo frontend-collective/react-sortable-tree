@@ -6,6 +6,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { AutoSizer, VirtualScroll } from 'react-virtualized';
+import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
 import {
     walk,
@@ -172,12 +173,13 @@ class ReactSortableTree extends Component {
 
     render() {
         const {
+            style = {},
             rowHeight,
         } = this.props;
         const { rows } = this.state;
 
         return (
-            <div className={styles.tree}>
+            <div className={styles.tree} style={{ height: '100%', ...style }}>
                 <AutoSizer>
                     {({height, width}) => (
                         <VirtualScroll
@@ -229,8 +231,16 @@ class ReactSortableTree extends Component {
 ReactSortableTree.propTypes = {
     treeData:   PropTypes.arrayOf(PropTypes.object).isRequired,
     changeData: PropTypes.func,
+
+    // Callback for move operation.
+    // Called as moveNode({ node, path, newParentPath, newChildIndex })
     moveNode: PropTypes.func,
-    rowHeight:  PropTypes.oneOfType([ PropTypes.number, PropTypes.func ]), // Used for react-virtualized
+
+    // Style applied to the container wrapping the tree (style defaults to {height: '100%'})
+    style: PropTypes.object,
+
+    // Height of each node row, used for react-virtualized
+    rowHeight: PropTypes.oneOfType([ PropTypes.number, PropTypes.func ]),
 
     scaffoldBlockPxWidth: PropTypes.number,
 
