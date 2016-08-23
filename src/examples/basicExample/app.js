@@ -98,21 +98,23 @@ const App = React.createClass({
                     </span>
                     <h3>Demo</h3>
 
-                    <SortableTree
-                        treeData={this.state.treeData}
-                        updateTreeData={treeData => this.setState({ treeData })}
-                        generateNodeProps={({
-                            node:               _node,
-                            path:               _path,
-                            lowerSiblingCounts: _lowerSiblingCounts,
-                            listIndex:          _listIndex,
-                        }) => ({
-                            buttons: [
-                                <button>＋</button>,
-                                <button>ℹ</button>,
-                            ],
-                        })}
-                    />
+                    <div style={{ height: 500 }}>
+                        <SortableTree
+                            treeData={this.state.treeData}
+                            updateTreeData={treeData => this.setState({ treeData })}
+                            generateNodeProps={({
+                                node:               _node,
+                                path:               _path,
+                                lowerSiblingCounts: _lowerSiblingCounts,
+                                listIndex:          _listIndex,
+                            }) => ({
+                                buttons: [
+                                    <button>＋</button>,
+                                    <button>ℹ</button>,
+                                ],
+                            })}
+                        />
+                    </div>
 
                     <h3>Features</h3>
                     <ul>
