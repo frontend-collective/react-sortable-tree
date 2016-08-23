@@ -1,4 +1,21 @@
+/**
+  * The container holding the VirtualScroll
+  */
 .tree {
-    width: 100%;
-    min-height: 400px;
+    height: 100%;
+    overflow: hidden;
+    * {
+        box-sizing: border-box;
+    }
+}
+
+/**
+ * Extra class applied to VirtualScroll through className prop
+ */
+.virtualScrollOverride {
+    overflow-x: visible !important;
+}
+
+:global .Grid {
+    outline: none;
 }

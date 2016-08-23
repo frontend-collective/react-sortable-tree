@@ -177,10 +177,11 @@ class ReactSortableTree extends Component {
         const { rows } = this.state;
 
         return (
-            <div style={{ height: '100%' }} className={styles.tree}>
+            <div className={styles.tree}>
                 <AutoSizer>
                     {({height, width}) => (
                         <VirtualScroll
+                            className={styles.virtualScrollOverride}
                             width={width}
                             height={height}
                             rowCount={rows.length}

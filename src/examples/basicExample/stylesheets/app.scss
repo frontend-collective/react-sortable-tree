@@ -1,4 +1,3 @@
-@import "./vendor/normalize";
 @import "./vendor/stylesheet";
 @import "./vendor/github-light";
 
@@ -6,6 +5,6 @@
     padding: 1rem 6rem;
 }
 
-:global .Grid {
-    outline: none;
+.main-content {
+    box-sizing: border-box;
 }
