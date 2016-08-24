@@ -5,6 +5,11 @@
  */
 
 import React, { Component, PropTypes } from 'react';
+import {
+    SortableContainer as sortableContainer,
+    SortableElement as sortableElement,
+    SortableHandle as sortableHandle,
+} from 'react-sortable-hoc';
 import { AutoSizer, VirtualScroll } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
@@ -15,10 +20,10 @@ import {
     removeNodeAtPath,
     addNodeUnderParentPath,
 } from './utils/tree-data-utils';
-import {
-    dndWrapRoot,
-    dndWrapSource,
-} from './utils/drag-and-drop-utils';
+// import {
+//     dndWrapRoot,
+//     dndWrapSource,
+// } from './utils/drag-and-drop-utils';
 import styles from './react-sortable-tree.scss';
 
 function defaultGetNodeKey({ node: _node, treeIndex }) {
@@ -66,10 +71,13 @@ class ReactSortableTree extends Component {
         this.toggleChildrenVisibility = (
             props.toggleChildrenVisibility || defaultToggleChildrenVisibility
         ).bind(this);
-        this.nodeContentRenderer = dndWrapSource(
+        this.nodeContentRenderer = /* dndWrapSource */(
             props.nodeContentRenderer ||
             require('./node-renderer-default').default // eslint-disable-line global-require
         );
+
+        this.rowRenderer = sortableElement(this.renderRow);
+        this.listRenderer = sortableContainer(this.renderList);
 
         this.state = {
             draggingTreeData: null,
@@ -144,6 +152,11 @@ class ReactSortableTree extends Component {
             });
         }
 
+        // return this.setState({
+        //     draggingTreeData: null,
+        //     rows: this.getRows(this.props.treeData),
+        // });
+
         this.moveNode({
             node,
             path,
@@ -191,38 +204,81 @@ class ReactSortableTree extends Component {
     }
 
     render() {
+        const ListRenderer = this.listRenderer;
         const {
             style,
             className,
-            rowHeight,
         } = this.props;
-        const { rows } = this.state;
+
+        const listProps = {
+            rows:        this.state.rows,
+            RowRenderer: this.rowRenderer,
+            rowHeight:   this.props.rowHeight,
+        };
+
+        const rowProps = {
+            toggleChildrenVisibility: this.props.toggleChildrenVisibility,
+            scaffoldBlockPxWidth:     this.props.scaffoldBlockPxWidth,
+            generateNodeProps:        this.props.generateNodeProps,
+            NodeContentRenderer:      this.nodeContentRenderer,
+        };
 
         return (
             <div
                 className={styles.tree + (className ? ` ${className}` : '')}
                 style={{ height: '100%', ...style }}
             >
-                <AutoSizer>
-                    {({height, width}) => (
-                        <VirtualScroll
-                            className={styles.virtualScrollOverride}
-                            width={width}
-                            height={height}
-                            rowCount={rows.length}
-                            estimatedRowSize={rowHeight}
-                            rowHeight={rowHeight}
-                            rowRenderer={({ index }) => this.renderRow(rows[index], index)}
-                        />
-                    )}
-                </AutoSizer>
+                <ListRenderer
+                    listProps={listProps}
+                    rowProps={rowProps}
+                    useDragHandle
+                />
             </div>
         );
     }
 
-    renderRow({ node, path, lowerSiblingCounts }, treeIndex) {
-        const NodeContentRenderer = this.nodeContentRenderer;
-        const nodeProps = !this.props.generateNodeProps ? {} : this.props.generateNodeProps({
+    renderList({
+        listProps: {
+            rows,
+            RowRenderer,
+            rowHeight,
+        },
+        rowProps,
+    }) {
+        return (
+            <AutoSizer>
+                {({height, width}) => (
+                    <VirtualScroll
+                        className={styles.virtualScrollOverride}
+                        width={width}
+                        height={height}
+                        rowCount={rows.length}
+                        estimatedRowSize={rowHeight}
+                        rowHeight={rowHeight}
+                        rowRenderer={({ index }) => (
+                            <RowRenderer
+                                value={rows[index]}
+                                index={index}
+                                rowProps={rowProps}
+                            />
+                        )}
+                    />
+                )}
+            </AutoSizer>
+        );
+    }
+
+    renderRow({
+        value: { node, path, lowerSiblingCounts },
+        index: treeIndex,
+        rowProps: {
+            toggleChildrenVisibility,
+            scaffoldBlockPxWidth,
+            generateNodeProps,
+            NodeContentRenderer,
+        },
+    }) {
+        const nodeProps = !generateNodeProps ? {} : generateNodeProps({
             node,
             path,
             lowerSiblingCounts,
@@ -234,18 +290,16 @@ class ReactSortableTree extends Component {
                 treeIndex={treeIndex}
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}
-                scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
-                dragHover={this.dragHover}
+                scaffoldBlockPxWidth={scaffoldBlockPxWidth}
             >
                 <NodeContentRenderer
                     node={node}
                     path={path}
                     lowerSiblingCounts={lowerSiblingCounts}
                     treeIndex={treeIndex}
-                    startDrag={this.startDrag}
-                    endDrag={this.endDrag}
-                    toggleChildrenVisibility={this.toggleChildrenVisibility}
-                    scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
+                    toggleChildrenVisibility={toggleChildrenVisibility}
+                    scaffoldBlockPxWidth={scaffoldBlockPxWidth}
+                    sortableHandle={sortableHandle}
                     {...nodeProps}
                 />
             </TreeNode>
@@ -286,4 +340,4 @@ ReactSortableTree.defaultProps = {
     loadCollapsedLazyChildren: false,
 };
 
-export default dndWrapRoot(ReactSortableTree);
+export default /* dndWrapRoot( */ReactSortableTree/* ) */;

@@ -34,6 +34,7 @@
   "dependencies": {
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
+    "react-sortable-hoc": "0.0.7",
     "react-virtualized": "^7.17.0"
   },
   "peerDependencies": {

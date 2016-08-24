@@ -17,11 +17,12 @@ if (getIEVersion < 10) {
 const NodeRendererDefault = ({
     scaffoldBlockPxWidth,
     toggleChildrenVisibility,
-    connectDragPreview,
-    connectDragSource,
-    isDragging,
-    isOver,
-    canDrop,
+    // connectDragPreview,
+    // connectDragSource,
+    // isDragging,
+    // isOver,
+    // canDrop,
+    sortableHandle,
     node,
     path,
     treeIndex,
@@ -49,19 +50,22 @@ const NodeRendererDefault = ({
                 </div>
             </div>
         );
-    } else if (isDragging) {
-        handle = (<div className={styles.loadingHandle} />);
+    // } else if (isDragging) {
+        // handle = (<div className={styles.loadingHandle} />);
     } else {
         let myStyle = {};
-        if (isOver && canDrop) {
-            myStyle = { backgroundColor: 'lightblue' };
-        }
+        // if (isOver && canDrop) {
+        //     myStyle = { backgroundColor: 'lightblue' };
+        // }
 
         // Show the handle used to initiate a drag-and-drop
-        handle = connectDragSource((
-            <div className={styles.moveHandle} style={myStyle} />
-        ), { dropEffect: 'copy' });
+        // handle = connectDragSource((
+        //     <div className={styles.moveHandle} style={myStyle} />
+        // ), { dropEffect: 'copy' });
+        handle = <div className={styles.moveHandle} style={myStyle} />;
     }
+
+    const Handle = sortableHandle(() => handle);
 
     return (
         <div style={{ height: '100%' }}>
@@ -74,37 +78,35 @@ const NodeRendererDefault = ({
             )}
 
             {/* Set the row preview to be used during drag and drop */}
-            {connectDragPreview(
-                <div className={styles.row + (isDragging ? ` ${styles.rowOriginWhileDragging}` : '')}>
-                    {handle}
+            <div className={styles.row}>
+                <Handle />
 
-                    <div className={styles.rowContents}>
-                        <div className={styles.rowLabel}>
-                            <span
-                                className={styles.rowTitle +
-                                    (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
-                                }
-                            >
-                                {node.title}
-                            </span>
-
-                            {node.subtitle &&
-                                <span className={styles.rowSubtitle}>
-                                    {node.subtitle}
-                                </span>
+                <div className={styles.rowContents}>
+                    <div className={styles.rowLabel}>
+                        <span
+                            className={styles.rowTitle +
+                                (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
                             }
-                        </div>
+                        >
+                            {node.title}
+                        </span>
 
-                        <div className={styles.rowToolbar}>
-                            {buttons && buttons.map((btn, index) => (
-                                <div key={index} className={styles.toolbarButton}>
-                                    {btn}
-                                </div>
-                            ))}
-                        </div>
+                        {node.subtitle &&
+                            <span className={styles.rowSubtitle}>
+                                {node.subtitle}
+                            </span>
+                        }
                     </div>
-                ️</div>
-            )}
+
+                    <div className={styles.rowToolbar}>
+                        {buttons && buttons.map((btn, index) => (
+                            <div key={index} className={styles.toolbarButton}>
+                                {btn}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ️</div>
         </div>
     );
 };
@@ -119,14 +121,15 @@ NodeRendererDefault.propTypes = {
     toggleChildrenVisibility: PropTypes.func,
     buttons:                  PropTypes.arrayOf(PropTypes.node),
 
+    sortableHandle: PropTypes.func.isRequired,
     // Drag and drop API functions
     // Drag source
-    connectDragPreview: PropTypes.func.isRequired,
-    connectDragSource:  PropTypes.func.isRequired,
-    isDragging:         PropTypes.bool.isRequired,
-    // Drop target
-    isOver:  PropTypes.bool.isRequired,
-    canDrop: PropTypes.bool.isRequired,
+    // connectDragPreview: PropTypes.func.isRequired,
+    // connectDragSource:  PropTypes.func.isRequired,
+    // isDragging:         PropTypes.bool.isRequired,
+    // // Drop target
+    // isOver:  PropTypes.bool.isRequired,
+    // canDrop: PropTypes.bool.isRequired,
 };
 
 export default NodeRendererDefault;
