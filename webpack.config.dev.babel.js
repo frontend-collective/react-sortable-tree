@@ -4,7 +4,7 @@ import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 
 module.exports = {
-    devtool: 'eval',
+    devtool: 'source-map',
     entry: {
         demo: './src/examples/basicExample/app',
     },
