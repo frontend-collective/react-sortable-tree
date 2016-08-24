@@ -77,6 +77,8 @@ class ReactSortableTree extends Component {
         };
 
         this.startDrag = this.startDrag.bind(this);
+        this.endDrag   = this.endDrag.bind(this);
+        this.dragHover = this.dragHover.bind(this);
     }
 
     componentWillMount() {
@@ -114,6 +116,23 @@ class ReactSortableTree extends Component {
             ignoreCollapsed: true,
             getNodeKey: this.getNodeKey,
             treeData,
+        });
+    }
+
+    dragHover({ node, parentPath, childIndex }) {
+        const draggingTreeData = addNodeUnderParentPath({
+            treeData: this.state.draggingTreeData,
+            newNode: {
+                ...node,
+                expanded: false
+            },
+            newParentPath: parentPath,
+            newChildIndex: childIndex,
+            getNodeKey: this.getNodeKey,
+        });
+
+        this.setState({
+            rows: this.getRows(draggingTreeData),
         });
     }
 
@@ -216,6 +235,7 @@ class ReactSortableTree extends Component {
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}
                 scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
+                dragHover={this.dragHover}
             >
                 <NodeContentRenderer
                     node={node}
@@ -223,6 +243,7 @@ class ReactSortableTree extends Component {
                     lowerSiblingCounts={lowerSiblingCounts}
                     treeIndex={treeIndex}
                     startDrag={this.startDrag}
+                    endDrag={this.endDrag}
                     toggleChildrenVisibility={this.toggleChildrenVisibility}
                     scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
                     {...nodeProps}

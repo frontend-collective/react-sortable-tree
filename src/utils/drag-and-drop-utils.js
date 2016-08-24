@@ -11,6 +11,7 @@ const myDragSource = {
         props.startDrag(props);
 
         return {
+            node: props.node,
             path: props.path,
         };
     },
@@ -20,16 +21,38 @@ const myDragSource = {
     },
 };
 
-const myDropTarget = {
-    drop: (props, _monitor) => {
-        // TODO: use the offset to determine the path
-        const { path } = props;
-        return {
-            path,
-        };
-    },
+export function getParentPathFromOffset(
+    sourcePath,
+    targetPath,
+    initialOffsetDifferenceX,
+    scaffoldBlockPxWidth
+) {
+    const blocksOffset = Math.round(initialOffsetDifferenceX / scaffoldBlockPxWidth);
+    return targetPath.slice(0, Math.max(0, sourcePath.length + blocksOffset));
+}
 
-    hover(_props, _monitor) {
+const myDropTarget = {
+    drop: ({ path, scaffoldBlockPxWidth }, monitor) => ({
+        path: getParentPathFromOffset(
+            monitor.getItem().path,
+            path,
+            monitor.getDifferenceFromInitialOffset().x,
+            scaffoldBlockPxWidth
+        )
+    }),
+
+    hover({ path, dragHover, scaffoldBlockPxWidth }, monitor) {
+        dragHover({
+            node: monitor.getItem().node,
+            parentPath: getParentPathFromOffset(
+                monitor.getItem().path,
+                path,
+                monitor.getDifferenceFromInitialOffset().x,
+                scaffoldBlockPxWidth
+            ),
+            childIndex: 0,
+        });
+
         // const { treeIndex: draggedId } = monitor.getItem();
         // const { treeIndex: overId } = props;
 
@@ -41,7 +64,7 @@ const myDropTarget = {
 
     canDrop(props, monitor) {
         // Cannot drag into a child path, and cannot drag into your current path
-        return monitor.getItem().path
+        return typeof props.children !== 'function' && monitor.getItem().path
             .some((key, index) => (props.path[index] !== key));
     },
 };
