@@ -173,13 +173,17 @@ class ReactSortableTree extends Component {
 
     render() {
         const {
-            style = {},
+            style,
+            className,
             rowHeight,
         } = this.props;
         const { rows } = this.state;
 
         return (
-            <div className={styles.tree} style={{ height: '100%', ...style }}>
+            <div
+                className={styles.tree + (className ? ` ${className}` : '')}
+                style={{ height: '100%', ...style }}
+            >
                 <AutoSizer>
                     {({height, width}) => (
                         <VirtualScroll
@@ -238,6 +242,7 @@ ReactSortableTree.propTypes = {
 
     // Style applied to the container wrapping the tree (style defaults to {height: '100%'})
     style: PropTypes.object,
+    className: PropTypes.string,
 
     // Height of each node row, used for react-virtualized
     rowHeight: PropTypes.oneOfType([ PropTypes.number, PropTypes.func ]),
@@ -255,6 +260,7 @@ ReactSortableTree.propTypes = {
 
 ReactSortableTree.defaultProps = {
     rowHeight: 62,
+    style: {},
     scaffoldBlockPxWidth: 44,
     loadCollapsedLazyChildren: false,
 };
