@@ -982,6 +982,33 @@ describe('addNodeUnderParentPath', () => {
             getNodeKey: keyFromKey,
         })[0].children[0].children[1].children[0]).toEqual(nestedParams.newNode);
     });
+
+    it('should handle nested data #1 (using tree index as key)', () => {
+        expect(addNodeUnderParentPath({
+            ...nestedParams,
+            parentPath: [0],
+            minimumTreeIndex: 4, // Simulating node added two levels up from { key: 4 }
+            getNodeKey: keyFromTreeIndex,
+        })[0].children[1]).toEqual(nestedParams.newNode);
+    });
+
+    it('should handle nested data #2 (using tree index as key)', () => {
+        expect(addNodeUnderParentPath({
+            ...nestedParams,
+            parentPath: [0, 1],
+            minimumTreeIndex: 4, // Simulating node added one level up from { key: 4 }
+            getNodeKey: keyFromTreeIndex,
+        })[0].children[0].children[2]).toEqual(nestedParams.newNode);
+    });
+
+    it('should handle nested data #3 (using tree index as key)', () => {
+        expect(addNodeUnderParentPath({
+            ...nestedParams,
+            parentPath: [0, 1, 3],
+            minimumTreeIndex: 3, // Simulating node inserted into { key: 3 }
+            getNodeKey: keyFromTreeIndex,
+        })[0].children[0].children[1].children[0]).toEqual(nestedParams.newNode);
+    });
 });
 
 describe('walk', () => {
