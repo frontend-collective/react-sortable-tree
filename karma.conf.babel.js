@@ -48,6 +48,15 @@ export default function setConfig(config) {
             }
         },
         webpack: webpackConfig,
+        webpackMiddleware: {
+            stats: {
+                chunks: false,
+                hash: false,
+                version: false,
+                assets: false,
+                children: false,
+            },
+        },
         notifyReporter: {
             reportEachFailure: false, // Default: false, Will notify on every failed spec
             reportSuccess: false, // Default: true, Will notify when a suite was successful
