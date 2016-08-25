@@ -31,7 +31,7 @@ export default function setConfig(config) {
             'notify',
         ],
         jasmineDiffReporter: {
-            pretty: true,
+            pretty: 4,
             json: true,
             multiline: {
                 before: 2, // 2 newlines

@@ -277,6 +277,29 @@ export function map({ treeData, getNodeKey, callback, ignoreCollapsed = false })
 }
 
 /**
+ * Expand or close every node in the tree
+ *
+ * @param {!Object[]} treeData - Tree data
+ * @param {?boolean} expanded - Whether the node is expanded or not
+ */
+export function toggleExpandedForAll({ treeData, expanded = true }) {
+    if (!treeData || treeData.length < 1) {
+        return [];
+    }
+
+    return mapDescendants({
+        callback: ({ node }) => ({ ...node, expanded }),
+        getNodeKey: ({treeIndex}) => treeIndex,
+        ignoreCollapsed: false,
+        isPseudoRoot: true,
+        node: { children: treeData },
+        currentIndex: -1,
+        path: [],
+        lowerSiblingCounts: [],
+    }).node.children;
+}
+
+/**
  * Replaces node at path with object, or callback-defined object
  *
  * @param {!Object[]} treeData
@@ -306,7 +329,6 @@ export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCo
             // If this node is part of the path, but has no children, return the unchanged node
             throw new Error('Path referenced children of node with no children.');
         }
-
 
         let nextTreeIndex = currentTreeIndex + 1;
         for (let i = 0; i < node.children.length; i++) {
@@ -390,6 +412,37 @@ export function removeNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed =
 }
 
 /**
+ * Gets the node at the specified path
+ *
+ * @param {!Object[]} treeData
+ * @param {number[]|string[]} path - Array of keys leading up to node to be deleted
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ *
+ * @return {Object|null} nodeInfo - The node info at the given path, or null if not found
+ */
+export function getNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed = true }) {
+    let foundNodeInfo = null;
+
+    try {
+        changeNodeAtPath({
+            treeData,
+            path,
+            getNodeKey,
+            ignoreCollapsed,
+            newNode: ({ node, treeIndex }) => {
+                foundNodeInfo = { node, treeIndex };
+                return node;
+            },
+        });
+    } catch (err) {
+        // Ignore the error -- the null return will be explanation enough
+    }
+
+    return foundNodeInfo;
+}
+
+/**
  * Adds the node to the specified parent and returns the resulting treeData.
  *
  * @param {!Object[]} treeData
@@ -403,8 +456,8 @@ export function removeNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed =
 export function addNodeUnderParentPath({
     treeData,
     newNode,
-    newParentPath,
-    newChildIndex,
+    parentPath,
+    minimumTreeIndex,
     getNodeKey,
     ignoreCollapsed = true
 }) {
@@ -412,18 +465,51 @@ export function addNodeUnderParentPath({
         treeData,
         getNodeKey,
         ignoreCollapsed,
-        path: newParentPath,
-        newNode: ({ node: parentNode }) => {
+        path: parentPath,
+        newNode: ({ node: parentNode, treeIndex }) => {
+            // If no children exist yet, just add the single newNode
+            if (!parentNode.children) {
+                return {
+                    ...parentNode,
+                    children: [ newNode ],
+                };
+            }
+
             if (typeof parentNode.children === 'function') {
                 throw new Error('Cannot add to children defined by a function');
             }
 
+            let nextTreeIndex = treeIndex + 1;
+            let insertIndex   = null;
+            for (let i = 0; i < parentNode.children.length; i++) {
+                if (nextTreeIndex >= minimumTreeIndex) {
+                    insertIndex = i;
+                    break;
+                }
+
+                nextTreeIndex = getNodeDataAtTreeIndexOrNextIndex({
+                    getNodeKey,
+                    ignoreCollapsed,
+                    node:            parentNode.children[i],
+                    currentIndex:    nextTreeIndex,
+                    targetIndex:     -1,
+                }).nextIndex;
+            }
+
+            if (insertIndex === null) {
+                if (nextTreeIndex + 1 < minimumTreeIndex) {
+                    throw new Error('Unexpected index miss');
+                }
+
+                insertIndex = parentNode.children.length;
+            }
+
             return {
                 ...parentNode,
-                children: !parentNode.children ? [ newNode ] : [
-                    ...parentNode.children.slice(0, newChildIndex),
+                children: [
+                    ...parentNode.children.slice(0, insertIndex),
                     newNode,
-                    ...parentNode.children.slice(newChildIndex + 1),
+                    ...parentNode.children.slice(insertIndex),
                 ],
             };
         },

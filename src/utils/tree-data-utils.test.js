@@ -2,7 +2,9 @@ import {
     getVisibleNodeCount,
     getVisibleNodeInfoAtIndex,
     changeNodeAtPath,
+    addNodeUnderParentPath,
     getTreeFromFlatData,
+    getNodeAtPath,
     getFlatDataFromTree,
     walk,
     map,
@@ -267,6 +269,164 @@ describe('getVisibleNodeInfoAtIndex', () => {
     });
 });
 
+describe('getNodeAtPath', () => {
+    it('should handle empty data', () => {
+        expect(getNodeAtPath({
+            treeData: [],
+            path: 1,
+            getNodeKey: keyFromTreeIndex
+        })).toEqual(null);
+        expect(getNodeAtPath({
+            treeData: null,
+            path: 1,
+            getNodeKey: keyFromTreeIndex
+        })).toEqual(null);
+        expect(getNodeAtPath({
+            treeData: undefined,
+            path: 1,
+            getNodeKey: keyFromTreeIndex
+        })).toEqual(null);
+    });
+
+    it('should handle flat data', () => {
+        expect(getNodeAtPath({
+            treeData: [ { key: 0 } ],
+            path: [0],
+            getNodeKey: keyFromTreeIndex
+        }).node.key).toEqual(0);
+        expect(getNodeAtPath({
+            treeData: [ { key: 0 }, { key: 1 } ],
+            path: [1],
+            getNodeKey: keyFromTreeIndex
+        }).node.key).toEqual(1);
+    });
+
+    it('should handle hidden nested data', () => {
+        const result = getNodeAtPath({
+            treeData: [
+                {
+                    key: 0,
+                    children: [
+                        {
+                            key: 1,
+                            children: [
+                                { key: 2 },
+                                { key: 3 },
+                            ],
+                        },
+                        {
+                            key: 4,
+                            children: [
+                                { key: 5 },
+                            ],
+                        },
+                    ],
+                },
+                { key: 6 },
+            ],
+            path: [1],
+            getNodeKey: keyFromTreeIndex
+        });
+
+        expect(result.node.key).toEqual(6);
+    });
+
+    it('should handle partially expanded nested data', () => {
+        const result = getNodeAtPath({
+            treeData: [
+                {
+                    expanded: true,
+                    key: 0,
+                    children: [
+                        {
+                            key: 1,
+                            children: [
+                                { key: 2 },
+                                { key: 3 },
+                            ],
+                        },
+                        {
+                            expanded: true,
+                            key: 4,
+                            children: [
+                                { key: 5 },
+                            ],
+                        },
+                    ],
+                },
+                { key: 6 },
+            ],
+            path: [0, 4, 5],
+            getNodeKey: keyFromKey
+        });
+
+        expect(result.node.key).toEqual(5);
+    });
+
+    it('should handle fully expanded nested data', () => {
+        const result = getNodeAtPath({
+            treeData: [
+                {
+                    expanded: true,
+                    key: 0,
+                    children: [
+                        {
+                            expanded: true,
+                            key: 1,
+                            children: [
+                                { key: 2 },
+                                { key: 3 },
+                            ],
+                        },
+                        {
+                            expanded: true,
+                            key: 4,
+                            children: [
+                                { key: 5 },
+                            ],
+                        },
+                    ],
+                },
+                { key: 6 },
+            ],
+            path: [0, 4, 5],
+            getNodeKey: keyFromTreeIndex
+        });
+
+        expect(result.node.key).toEqual(5);
+    });
+
+    it('should handle an index that is larger than the data', () => {
+        expect(getNodeAtPath({
+            treeData: [
+                {
+                    expanded: true,
+                    key: 0,
+                    children: [
+                        {
+                            expanded: true,
+                            key: 1,
+                            children: [
+                                { key: 2 },
+                                { key: 3 },
+                            ],
+                        },
+                        {
+                            expanded: true,
+                            key: 4,
+                            children: [
+                                { key: 5 },
+                            ],
+                        },
+                    ],
+                },
+                { key: 6 },
+            ],
+            path: [7],
+            getNodeKey: keyFromTreeIndex
+        })).toEqual(null);
+    });
+});
 
 describe('getFlatDataFromTree', () => {
     it('should handle empty data', () => {
@@ -528,6 +688,22 @@ describe('changeNodeAtPath', () => {
         expect(result[0].children[1].children[2].children[0].food).toEqual('pancake');
     });
 
+    it('should handle adding children to the root', () => {
+        expect(changeNodeAtPath({
+            treeData: [],
+            path: [],
+            newNode: ({ node }) => ({ ...node, children: [...node.children, { key: 1 }] }),
+            getNodeKey: keyFromKey,
+        })).toEqual([{ key: 1 }]);
+
+        expect(changeNodeAtPath({
+            treeData: [{ key: 0 }],
+            path: [],
+            newNode: ({ node }) => ({ ...node, children: [...node.children, { key: 1 }] }),
+            getNodeKey: keyFromKey,
+        })).toEqual([{ key: 0 }, { key: 1 }]);
+    });
+
     it('should delete data when falsey node passed', () => {
         const result = changeNodeAtPath({
             treeData: [
@@ -633,6 +809,178 @@ describe('changeNodeAtPath', () => {
             newNode: { a: 1 },
             getNodeKey: keyFromKey,
         })).toThrowError('No node found at the given path.');
+    });
+});
+
+describe('addNodeUnderParentPath', () => {
+    it('should handle empty data', () => {
+        expect(addNodeUnderParentPath({
+            treeData: [],
+            parentPath: [],
+            minimumTreeIndex: 0,
+            newNode: {},
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual([{}]);
+        expect(addNodeUnderParentPath({
+            treeData: null,
+            parentPath: [],
+            minimumTreeIndex: 0,
+            newNode: {},
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual([{}]);
+        expect(addNodeUnderParentPath({
+            treeData: undefined,
+            parentPath: [],
+            minimumTreeIndex: 0,
+            newNode: {},
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual([{}]);
+    });
+
+    it('should handle a parentPath that does not exist', () => {
+        const treeData = [
+            {
+                expanded: true,
+                key: 0,
+                children: [
+                    {
+                        expanded: true,
+                        key: 1,
+                        children: [
+                            { key: 2 },
+                            { key: 3 },
+                        ],
+                    },
+                ],
+            },
+        ];
+
+        expect(() => addNodeUnderParentPath({
+            treeData,
+            parentPath: [0, 2],
+            minimumTreeIndex: 0,
+            newNode: { a: 1 },
+            getNodeKey: keyFromKey,
+        })).toThrowError('No node found at the given path.');
+    });
+
+    it('should handle a parentPath that is too long', () => {
+        const treeData = [
+            {
+                expanded: true,
+                key: 0,
+                children: [
+                    {
+                        expanded: true,
+                        key: 1,
+                        children: [
+                            { key: 2 },
+                            { key: 3 },
+                        ],
+                    },
+                ],
+            },
+        ];
+
+        expect(() => addNodeUnderParentPath({
+            treeData,
+            parentPath: [0, 1, 2, 4],
+            minimumTreeIndex: 0,
+            newNode: { a: 1 },
+            getNodeKey: keyFromKey,
+        })).toThrowError('Path referenced children of node with no children.');
+    });
+
+    it('should handle flat data', () => {
+        // Older sibling of only node
+        expect(addNodeUnderParentPath({
+            treeData: [{ key: 0 }],
+            parentPath: [],
+            minimumTreeIndex: 0,
+            newNode: { key: 1 },
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual([{ key: 1 }, { key: 0 }]);
+
+        // Child of only node
+        expect(addNodeUnderParentPath({
+            treeData: [{ key: 0 }],
+            parentPath: [0],
+            minimumTreeIndex: 0,
+            newNode: { key: 1 },
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual([{ key: 0, children: [{ key: 1 }] }]);
+
+        expect(addNodeUnderParentPath({
+            treeData: [{ key: 0 }, { key: 'a' }],
+            parentPath: ['a'],
+            minimumTreeIndex: 0,
+            newNode: { key: 1 },
+            getNodeKey: keyFromKey,
+        })).toEqual([{ key: 0 }, { key: 'a', children: [{ key: 1 }] }]);
+    });
+
+    // Tree looks like this
+    //      /\
+    //     0  6
+    //    / \
+    //   1   5
+    //  / \
+    // 2   3
+    //      \
+    //       4
+    const nestedParams = {
+        treeData: [
+            {
+                expanded: true,
+                key: 0,
+                children: [
+                    {
+                        expanded: true,
+                        key: 1,
+                        children: [
+                            { key: 2 },
+                            {
+                                expanded: false,
+                                key: 3,
+                                children: [
+                                    { key: 4 },
+                                ],
+                            },
+                        ],
+                    },
+                    { key: 5 },
+                ],
+            },
+            { key: 6 },
+        ],
+        newNode: { key: 'new' },
+    };
+
+    it('should handle nested data #1', () => {
+        expect(addNodeUnderParentPath({
+            ...nestedParams,
+            parentPath: [0],
+            minimumTreeIndex: 4, // Simulating node added two levels up from { key: 4 }
+            getNodeKey: keyFromKey,
+        })[0].children[1]).toEqual(nestedParams.newNode);
+    });
+
+    it('should handle nested data #2', () => {
+        expect(addNodeUnderParentPath({
+            ...nestedParams,
+            parentPath: [0, 1],
+            minimumTreeIndex: 4, // Simulating node added one level up from { key: 4 }
+            getNodeKey: keyFromKey,
+        })[0].children[0].children[2]).toEqual(nestedParams.newNode);
+    });
+
+    it('should handle nested data #3', () => {
+        expect(addNodeUnderParentPath({
+            ...nestedParams,
+            parentPath: [0, 1, 3],
+            minimumTreeIndex: 3, // Simulating node inserted into { key: 3 }
+            getNodeKey: keyFromKey,
+        })[0].children[0].children[1].children[0]).toEqual(nestedParams.newNode);
     });
 });
 

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import SortableTree from '../../index';
 import styles from './stylesheets/app.scss';
 
-const App = React.createClass({
-    getInitialState() {
-        return {
+class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             treeData: [
                 {
                     id: 'b12314',
@@ -74,7 +76,13 @@ const App = React.createClass({
                 },
             ],
         };
-    },
+
+        this.updateTreeData = this.updateTreeData.bind(this);
+    }
+
+    updateTreeData(treeData) {
+        this.setState({ treeData });
+    }
 
     render() {
         const projectName = 'React Sortable Tree';
@@ -101,7 +109,7 @@ const App = React.createClass({
                     <div style={{ height: 385 }}>
                         <SortableTree
                             treeData={this.state.treeData}
-                            updateTreeData={treeData => this.setState({ treeData })}
+                            updateTreeData={this.updateTreeData}
                             generateNodeProps={({
                                 node:               _node,
                                 path:               _path,
@@ -146,6 +154,6 @@ const App = React.createClass({
             </div>
         );
     }
-});
+}
 
 ReactDOM.render(<App />, document.getElementById('app'));
