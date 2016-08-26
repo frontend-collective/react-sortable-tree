@@ -34,13 +34,14 @@ function defaultToggleChildrenVisibility({ node: _node, path, treeIndex: _treeIn
     }));
 }
 
-function defaultMoveNode({ node: newNode, newParentPath, newChildIndex }) {
+function defaultMoveNode({ node: newNode, parentPath, minimumTreeIndex }) {
     this.props.updateTreeData(addNodeUnderParentPath({
-        treeData: this.props.treeData,
+        treeData: this.state.draggingTreeData,
         newNode,
-        newParentPath,
-        newChildIndex,
+        parentPath,
+        minimumTreeIndex,
         getNodeKey: this.getNodeKey,
+        expandParent: true,
     }));
 }
 
@@ -107,7 +108,6 @@ class ReactSortableTree extends Component {
 
         this.setState({
             draggingTreeData,
-            rows: this.getRows(draggingTreeData),
         });
     }
 
@@ -119,16 +119,18 @@ class ReactSortableTree extends Component {
         });
     }
 
-    dragHover({ node, parentPath, childIndex }) {
+    dragHover({ node, parentPath, minimumTreeIndex }) {
         const draggingTreeData = addNodeUnderParentPath({
             treeData: this.state.draggingTreeData,
-            newNode: {
-                ...node,
-                expanded: false
-            },
-            newParentPath: parentPath,
-            newChildIndex: childIndex,
+            newNode: node,
+            // newNode: {
+            //     ...node,
+            //     expanded: false, // Keep children of dragged node hidden
+            // },
+            parentPath,
+            minimumTreeIndex,
             getNodeKey: this.getNodeKey,
+            expandParent: true,
         });
 
         this.setState({
@@ -136,7 +138,7 @@ class ReactSortableTree extends Component {
         });
     }
 
-    endDrag({ node, path }, dropResult) {
+    endDrag(dropResult) {
         if (!dropResult) {
             return this.setState({
                 draggingTreeData: null,
@@ -144,12 +146,7 @@ class ReactSortableTree extends Component {
             });
         }
 
-        this.moveNode({
-            node,
-            path,
-            newParentPath: dropResult.parentPath,
-            newChildIndex: dropResult.childIndex,
-        });
+        this.moveNode(dropResult);
     }
 
     /**
@@ -232,6 +229,7 @@ class ReactSortableTree extends Component {
         return (
             <TreeNode
                 treeIndex={treeIndex}
+                node={node}
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}
                 scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
@@ -258,7 +256,7 @@ ReactSortableTree.propTypes = {
     changeData: PropTypes.func,
 
     // Callback for move operation.
-    // Called as moveNode({ node, path, newParentPath, newChildIndex })
+    // Called as moveNode({ node, path, parentPath, minimumTreeIndex })
     moveNode: PropTypes.func,
 
     // Style applied to the container wrapping the tree (style defaults to {height: '100%'})

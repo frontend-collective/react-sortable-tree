@@ -17,7 +17,7 @@ const myDragSource = {
     },
 
     endDrag: (props, monitor) => {
-        props.endDrag(props, monitor.getDropResult());
+        props.endDrag(monitor.getDropResult());
     },
 };
 
@@ -31,42 +31,48 @@ export function getParentPathFromOffset(
     return targetPath.slice(0, Math.max(0, sourcePath.length + blocksOffset));
 }
 
+function getNextPath(dropTargetProps, monitor) {
+    return getParentPathFromOffset(
+        monitor.getItem().path,
+        dropTargetProps.path,
+        monitor.getDifferenceFromInitialOffset().x,
+        dropTargetProps.scaffoldBlockPxWidth
+    );
+}
+
 const myDropTarget = {
-    drop: ({ path, scaffoldBlockPxWidth }, monitor) => ({
-        path: getParentPathFromOffset(
-            monitor.getItem().path,
-            path,
-            monitor.getDifferenceFromInitialOffset().x,
-            scaffoldBlockPxWidth
-        )
+    drop: (dropTargetProps, monitor) => ({
+        node: monitor.getItem().node,
+        path: monitor.getItem().path,
+        minimumTreeIndex: dropTargetProps.treeIndex,
+        parentPath: getNextPath(dropTargetProps, monitor),
     }),
 
-    hover({ path, dragHover, scaffoldBlockPxWidth }, monitor) {
-        dragHover({
+    hover(dropTargetProps, monitor) {
+        // Don't call hover event over areas where node cannot be dropped
+        if (!monitor.canDrop()) {
+            return;
+        }
+
+        dropTargetProps.dragHover({
             node: monitor.getItem().node,
-            parentPath: getParentPathFromOffset(
-                monitor.getItem().path,
-                path,
-                monitor.getDifferenceFromInitialOffset().x,
-                scaffoldBlockPxWidth
-            ),
-            childIndex: 0,
+            path: monitor.getItem().path,
+            minimumTreeIndex: dropTargetProps.treeIndex,
+            parentPath: getNextPath(dropTargetProps, monitor),
         });
-
-        // const { treeIndex: draggedId } = monitor.getItem();
-        // const { treeIndex: overId } = props;
-
-        // if (draggedId !== overId) {
-        //     const { index: overIndex } = props.findCard(overId);
-        //     props.moveCard(draggedId, overIndex);
-        // }
     },
 
-    canDrop(props, monitor) {
-        // Cannot drag into a child path, and cannot drag into your current path
-        return typeof props.children !== 'function' && monitor.getItem().path
-            .some((key, index) => (props.path[index] !== key));
-    },
+    canDrop(dropTargetProps, monitor) {
+        const nextPath = getNextPath(dropTargetProps, monitor);
+
+        // Cannot drag into a node with a function representing its children
+        return typeof dropTargetProps.node.children !== 'function' && (
+            // Cannot drag on top of the identical node
+            dropTargetProps.node !== monitor.getItem().node ||
+            // ...that is, unless it's to a higher level than the current one
+            nextPath.length < dropTargetProps.path.length
+        );
+    }
 };
 
 function dragSourcePropInjection(connect, monitor) {

@@ -45,7 +45,7 @@ export default function setConfig(config) {
                 expectedBg: 'inverse',
                 actualWhitespaceBg: '',
                 expectedWhitespaceBg: '',
-            }
+            },
         },
         webpack: webpackConfig,
         webpackMiddleware: {

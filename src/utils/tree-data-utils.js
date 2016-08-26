@@ -447,9 +447,11 @@ export function getNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed = tr
  *
  * @param {!Object[]} treeData
  * @param {!Object} newNode - The node to insert
- * @param {number[]|string[]} path - Array of keys leading up to node to be deleted
+ * @param {number[]|string[]} parentPath - Array of keys leading up to the to-be parentNode of the node
+ * @param {!number} minimumTreeIndex - The lowest possible treeIndex to insert the node at
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ * @param {boolean=} expandParent - If true, expands the parentNode specified by parentPath
  *
  * @return {Object} changedTreeData - The updated tree data
  */
@@ -459,14 +461,23 @@ export function addNodeUnderParentPath({
     parentPath,
     minimumTreeIndex,
     getNodeKey,
-    ignoreCollapsed = true
+    ignoreCollapsed = true,
+    expandParent = false,
 }) {
     return changeNodeAtPath({
         treeData,
         getNodeKey,
         ignoreCollapsed,
         path: parentPath,
-        newNode: ({ node: parentNode, treeIndex }) => {
+        newNode: ({ node: parent, treeIndex }) => {
+            const parentNode = {
+                ...parent,
+            };
+
+            if (expandParent) {
+                parentNode.expanded = true;
+            }
+
             // If no children exist yet, just add the single newNode
             if (!parentNode.children) {
                 return {
