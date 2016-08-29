@@ -259,7 +259,7 @@ export function walk({ treeData, getNodeKey, callback, ignoreCollapsed = true })
  * @param {function} callback - Function to call on each node
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  */
-export function map({ treeData, getNodeKey, callback, ignoreCollapsed = false }) {
+export function map({ treeData, getNodeKey, callback, ignoreCollapsed = true }) {
     if (!treeData || treeData.length < 1) {
         return [];
     }
@@ -283,19 +283,11 @@ export function map({ treeData, getNodeKey, callback, ignoreCollapsed = false })
  * @param {?boolean} expanded - Whether the node is expanded or not
  */
 export function toggleExpandedForAll({ treeData, expanded = true }) {
-    if (!treeData || treeData.length < 1) {
-        return [];
-    }
-
-    return mapDescendants({
+    return map({
+        treeData,
         callback: ({ node }) => ({ ...node, expanded }),
-        getNodeKey: ({treeIndex}) => treeIndex,
+        getNodeKey: ({ treeIndex }) => treeIndex,
         ignoreCollapsed: false,
-        isPseudoRoot: true,
-        node: { children: treeData },
-        currentIndex: -1,
-        path: [],
-        lowerSiblingCounts: [],
     }).node.children;
 }
 
@@ -453,7 +445,9 @@ export function getNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed = tr
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  * @param {boolean=} expandParent - If true, expands the parentNode specified by parentPath
  *
- * @return {Object} changedTreeData - The updated tree data
+ * @return {Object} result
+ * @return {Object} result.treeData - The updated tree data
+ * @return {number} result.treeIndex - The tree index at which the node was inserted
  */
 export function addNodeUnderParentPath({
     treeData,
@@ -464,7 +458,8 @@ export function addNodeUnderParentPath({
     ignoreCollapsed = true,
     expandParent = false,
 }) {
-    return changeNodeAtPath({
+    let insertedTreeIndex = null;
+    const changedTreeData = changeNodeAtPath({
         treeData,
         getNodeKey,
         ignoreCollapsed,
@@ -480,6 +475,7 @@ export function addNodeUnderParentPath({
 
             // If no children exist yet, just add the single newNode
             if (!parentNode.children) {
+                insertedTreeIndex = treeIndex + 1;
                 return {
                     ...parentNode,
                     children: [ newNode ],
@@ -514,6 +510,7 @@ export function addNodeUnderParentPath({
 
                 insertIndex = parentNode.children.length;
             }
+            insertedTreeIndex = nextTreeIndex;
 
             return {
                 ...parentNode,
@@ -525,6 +522,11 @@ export function addNodeUnderParentPath({
             };
         },
     });
+
+    return {
+        treeData: changedTreeData,
+        treeIndex: insertedTreeIndex,
+    };
 }
 
 /**
@@ -540,7 +542,7 @@ export function addNodeUnderParentPath({
  *      lowerSiblingCounts: []number
  *  }}[] nodes - The node array
  */
-export function getFlatDataFromTree({ treeData, getNodeKey, ignoreCollapsed = false }) {
+export function getFlatDataFromTree({ treeData, getNodeKey, ignoreCollapsed = true }) {
     if (!treeData || treeData.length < 1) {
         return [];
     }
@@ -550,8 +552,8 @@ export function getFlatDataFromTree({ treeData, getNodeKey, ignoreCollapsed = fa
         treeData,
         getNodeKey,
         ignoreCollapsed,
-        callback: ({ node, lowerSiblingCounts, path }) => {
-            flattened.push({ node, lowerSiblingCounts, path });
+        callback: ({ node, lowerSiblingCounts, path, treeIndex }) => {
+            flattened.push({ node, lowerSiblingCounts, path, treeIndex });
         },
     });
 
