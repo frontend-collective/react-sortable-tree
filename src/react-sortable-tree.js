@@ -99,18 +99,6 @@ class ReactSortableTree extends Component {
         }
     }
 
-    startDrag({ path }) {
-        const draggingTreeData = removeNodeAtPath({
-            treeData: this.props.treeData,
-            path,
-            getNodeKey: this.getNodeKey,
-        });
-
-        this.setState({
-            draggingTreeData,
-        });
-    }
-
     getRows(treeData) {
         return getFlatDataFromTree({
             ignoreCollapsed: true,
@@ -134,14 +122,22 @@ class ReactSortableTree extends Component {
         ];
     }
 
+    startDrag({ path }) {
+        const draggingTreeData = removeNodeAtPath({
+            treeData: this.props.treeData,
+            path,
+            getNodeKey: this.getNodeKey,
+        });
+
+        this.setState({
+            draggingTreeData,
+        });
+    }
+
     dragHover({ node, parentPath, minimumTreeIndex }) {
         const addedResult = addNodeUnderParentPath({
             treeData: this.state.draggingTreeData,
             newNode: node,
-            // newNode: {
-            //     ...node,
-            //     expanded: false, // Keep children of dragged node hidden
-            // },
             parentPath,
             minimumTreeIndex,
             getNodeKey: this.getNodeKey,

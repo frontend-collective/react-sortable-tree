@@ -52,6 +52,7 @@ const TreeNode = ({
             // |  +--+
             // |     |
             // +-----+
+            lineClass = styles.lineHalfHorizontalRight;
         } else if (i === scaffoldBlockCount - 1) {
             // The last or only node in this level of the tree
             // +--+--+

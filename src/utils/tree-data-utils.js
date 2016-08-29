@@ -288,7 +288,7 @@ export function toggleExpandedForAll({ treeData, expanded = true }) {
         callback: ({ node }) => ({ ...node, expanded }),
         getNodeKey: ({ treeIndex }) => treeIndex,
         ignoreCollapsed: false,
-    }).node.children;
+    });
 }
 
 /**
