@@ -191,6 +191,7 @@ class ReactSortableTree extends Component {
         const {
             style,
             className,
+            innerStyle,
             rowHeight,
         } = this.props;
         const { rows } = this.state;
@@ -206,6 +207,7 @@ class ReactSortableTree extends Component {
                             className={styles.virtualScrollOverride}
                             width={width}
                             height={height}
+                            style={innerStyle}
                             rowCount={rows.length}
                             estimatedRowSize={rowHeight}
                             rowHeight={rowHeight}
@@ -263,6 +265,9 @@ ReactSortableTree.propTypes = {
     style: PropTypes.object,
     className: PropTypes.string,
 
+    // Style applied to the inner, scrollable container (for padding, etc.)
+    innerStyle: PropTypes.object,
+
     // Height of each node row, used for react-virtualized
     rowHeight: PropTypes.oneOfType([ PropTypes.number, PropTypes.func ]),
 
@@ -280,6 +285,7 @@ ReactSortableTree.propTypes = {
 ReactSortableTree.defaultProps = {
     rowHeight: 62,
     style: {},
+    innerStyle: {},
     scaffoldBlockPxWidth: 44,
     loadCollapsedLazyChildren: false,
 };
