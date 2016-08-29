@@ -19,6 +19,7 @@ const NodeRendererDefault = ({
     toggleChildrenVisibility,
     connectDragPreview,
     connectDragSource,
+    isSelf,
     isDragging,
     isOver,
     canDrop,
@@ -49,17 +50,10 @@ const NodeRendererDefault = ({
                 </div>
             </div>
         );
-    } else if (isDragging) {
-        handle = (<div className={styles.loadingHandle} />);
     } else {
-        let myStyle = {};
-        if (isOver && canDrop) {
-            myStyle = { backgroundColor: 'lightblue' };
-        }
-
         // Show the handle used to initiate a drag-and-drop
         handle = connectDragSource((
-            <div className={styles.moveHandle} style={myStyle} />
+            <div className={styles.moveHandle} />
         ), { dropEffect: 'copy' });
     }
 
@@ -75,7 +69,12 @@ const NodeRendererDefault = ({
 
             {/* Set the row preview to be used during drag and drop */}
             {connectDragPreview(
-                <div className={styles.row + (isDragging ? ` ${styles.rowOriginWhileDragging}` : '')}>
+                <div
+                    className={styles.row +
+                        (isDragging && isSelf && isOver && canDrop ? ` ${styles.rowLandingPad}` : '') +
+                        (isDragging && isSelf && (!isOver || !canDrop) ? ` ${styles.rowCancelPad}` : '')
+                    }
+                >
                     {handle}
 
                     <div className={styles.rowContents}>
@@ -125,6 +124,7 @@ NodeRendererDefault.propTypes = {
     connectDragSource:  PropTypes.func.isRequired,
     isDragging:         PropTypes.bool.isRequired,
     // Drop target
+    isSelf:  PropTypes.bool.isRequired,
     isOver:  PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
 };

@@ -5,11 +5,36 @@
     display: flex;
 }
 
-.rowOriginWhileDragging {
-    opacity: 0.5;
+.rowLandingPad {
+    * {
+        opacity: 0;
+    }
+
+    &::before {
+        background-color: lightblue;
+        border: 3px dashed white;
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+    }
+}
+
+.rowCancelPad {
+    @extend .rowLandingPad;
+
+    &::before {
+        background: #FF6666;
+        background: repeating-linear-gradient(-45deg, #FF6666, #FF6666 30px, #777 30px, #777 60px);
+        border: none;
+    }
 }
 
 .rowContents {
+    position: relative;
     height: 100%;
     border: solid #BBB 1px;
     border-left: none;

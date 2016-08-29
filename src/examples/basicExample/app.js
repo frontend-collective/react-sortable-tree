@@ -22,10 +22,10 @@ class App extends Component {
                             children: [], // null or undefined also ok
                         },
                         {
-                            title: 2,
+                            title: 'Plain Jane',
                         },
                         {
-                            title: 2,
+                            title: 'Mr. Lazy',
                             children: ({ done }) => { // Allow for lazy loading of children
                                 setTimeout(() => {
                                     done([

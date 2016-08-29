@@ -7,7 +7,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import ItemTypes from '../item-types';
 
 const myDragSource = {
-    beginDrag: (props) => {
+    beginDrag(props) {
         props.startDrag(props);
 
         return {
@@ -16,63 +16,110 @@ const myDragSource = {
         };
     },
 
-    endDrag: (props, monitor) => {
+    endDrag(props, monitor) {
         props.endDrag(monitor.getDropResult());
     },
+
+    isDragging(props, monitor) {
+        return props.node === monitor.getItem().node;
+    }
 };
 
 export function getParentPathFromOffset(
-    sourcePath,
-    targetPath,
+    targetParentPath,
+    sourceParentPathLength,
     initialOffsetDifferenceX,
     scaffoldBlockPxWidth
 ) {
     const blocksOffset = Math.round(initialOffsetDifferenceX / scaffoldBlockPxWidth);
-    return targetPath.slice(0, Math.max(0, sourcePath.length + blocksOffset));
+    return targetParentPath.slice(0, Math.max(0, sourceParentPathLength + blocksOffset));
 }
 
 function getNextPath(dropTargetProps, monitor) {
+    let abovePath = [];
+    const draggedItem = monitor.getItem();
+    const rowAbove = dropTargetProps.getPrevRow();
+    if (rowAbove) {
+        // If the rowAbove is the node we are dragging, its path will disappear with the move,
+        // so we have to move one level up on the path
+        if (rowAbove.node === draggedItem.node) {
+            abovePath = rowAbove.path.slice(0, -1);
+        } else {
+            abovePath = rowAbove.path;
+        }
+    }
+
     return getParentPathFromOffset(
-        monitor.getItem().path,
-        dropTargetProps.path,
+        abovePath,
+        draggedItem.path.length - 1, // Subtract one because we are referring to the parent path
         monitor.getDifferenceFromInitialOffset().x,
         dropTargetProps.scaffoldBlockPxWidth
     );
 }
 
+function canDrop(dropTargetProps, monitor, isHover = false) {
+    let abovePath      = [];
+    let aboveNode      = {};
+    const rowAbove = dropTargetProps.getPrevRow();
+    if (rowAbove) {
+        abovePath = rowAbove.path;
+        aboveNode = rowAbove.node;
+    }
+
+    const nextPath = getNextPath(dropTargetProps, monitor);
+
+    const draggedNode = monitor.getItem().node;
+    return (
+        // Either we're not adding to the children of the row above...
+        nextPath.length < abovePath.length ||
+        // ...or we guarantee it's not a function we're trying to add to
+        typeof aboveNode.children !== 'function'
+    ) && (
+        // Ignore when hovered above the identical node...
+        !(dropTargetProps.node === draggedNode && isHover === true) ||
+        // ...unless it's at a different level than the current one
+        nextPath.length !== (dropTargetProps.path.length - 1)
+    );
+}
+
 const myDropTarget = {
-    drop: (dropTargetProps, monitor) => ({
-        node: monitor.getItem().node,
-        path: monitor.getItem().path,
-        minimumTreeIndex: dropTargetProps.treeIndex,
-        parentPath: getNextPath(dropTargetProps, monitor),
-    }),
+    drop(dropTargetProps, monitor) {
+        let aboveTreeIndex = 0;
+        const rowAbove = dropTargetProps.getPrevRow();
+        if (rowAbove) {
+            aboveTreeIndex = rowAbove.treeIndex + 1;
+        }
+
+        return {
+            node:             monitor.getItem().node,
+            path:             monitor.getItem().path,
+            minimumTreeIndex: aboveTreeIndex,
+            parentPath:       getNextPath(dropTargetProps, monitor),
+        };
+    },
 
     hover(dropTargetProps, monitor) {
-        // Don't call hover event over areas where node cannot be dropped
-        if (!monitor.canDrop()) {
+        if (!canDrop(dropTargetProps, monitor, true)) {
             return;
         }
 
+        let aboveTreeIndex = 0;
+        const rowAbove = dropTargetProps.getPrevRow();
+        if (rowAbove) {
+            aboveTreeIndex = rowAbove.treeIndex + 1;
+        }
+
+        const nextPath = getNextPath(dropTargetProps, monitor);
+
         dropTargetProps.dragHover({
-            node: monitor.getItem().node,
-            path: monitor.getItem().path,
-            minimumTreeIndex: dropTargetProps.treeIndex,
-            parentPath: getNextPath(dropTargetProps, monitor),
+            node:             monitor.getItem().node,
+            path:             monitor.getItem().path,
+            minimumTreeIndex: aboveTreeIndex,
+            parentPath:       nextPath,
         });
     },
 
-    canDrop(dropTargetProps, monitor) {
-        const nextPath = getNextPath(dropTargetProps, monitor);
-
-        // Cannot drag into a node with a function representing its children
-        return typeof dropTargetProps.node.children !== 'function' && (
-            // Cannot drag on top of the identical node
-            dropTargetProps.node !== monitor.getItem().node ||
-            // ...that is, unless it's to a higher level than the current one
-            nextPath.length < dropTargetProps.path.length
-        );
-    }
+    canDrop,
 };
 
 function dragSourcePropInjection(connect, monitor) {
@@ -84,10 +131,12 @@ function dragSourcePropInjection(connect, monitor) {
 }
 
 function dropTargetPropInjection(connect, monitor) {
+    const dragged = monitor.getItem();
     return {
         connectDropTarget: connect.dropTarget(),
         isOver:            monitor.isOver(),
         canDrop:           monitor.canDrop(),
+        draggedNode:       dragged ? dragged.node : null,
     };
 }
 

@@ -42,7 +42,7 @@ function defaultMoveNode({ node: newNode, parentPath, minimumTreeIndex }) {
         minimumTreeIndex,
         getNodeKey: this.getNodeKey,
         expandParent: true,
-    }));
+    }).treeData);
 }
 
 class ReactSortableTree extends Component {
@@ -119,8 +119,23 @@ class ReactSortableTree extends Component {
         });
     }
 
+    getRowsSwapped(treeData, fromIndex, toIndex) {
+        const originalRows = this.getRows(treeData);
+
+        const rowsWithoutMoved = [
+            ...originalRows.slice(0, fromIndex),
+            ...originalRows.slice(fromIndex + 1),
+        ];
+
+        return [
+            ...rowsWithoutMoved.slice(0, toIndex),
+            originalRows[fromIndex],
+            ...rowsWithoutMoved.slice(toIndex),
+        ];
+    }
+
     dragHover({ node, parentPath, minimumTreeIndex }) {
-        const draggingTreeData = addNodeUnderParentPath({
+        const addedResult = addNodeUnderParentPath({
             treeData: this.state.draggingTreeData,
             newNode: node,
             // newNode: {
@@ -134,7 +149,7 @@ class ReactSortableTree extends Component {
         });
 
         this.setState({
-            rows: this.getRows(draggingTreeData),
+            rows: this.getRowsSwapped(addedResult.treeData, addedResult.treeIndex, minimumTreeIndex),
         });
     }
 
@@ -211,7 +226,11 @@ class ReactSortableTree extends Component {
                             rowCount={rows.length}
                             estimatedRowSize={rowHeight}
                             rowHeight={rowHeight}
-                            rowRenderer={({ index }) => this.renderRow(rows[index], index)}
+                            rowRenderer={({ index }) => this.renderRow(
+                                rows[index],
+                                index,
+                                () => (rows[index - 1] || null)
+                            )}
                         />
                     )}
                 </AutoSizer>
@@ -219,7 +238,7 @@ class ReactSortableTree extends Component {
         );
     }
 
-    renderRow({ node, path, lowerSiblingCounts }, treeIndex) {
+    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, getPrevRow) {
         const NodeContentRenderer = this.nodeContentRenderer;
         const nodeProps = !this.props.generateNodeProps ? {} : this.props.generateNodeProps({
             node,
@@ -231,6 +250,8 @@ class ReactSortableTree extends Component {
         return (
             <TreeNode
                 treeIndex={treeIndex}
+                listIndex={listIndex}
+                getPrevRow={getPrevRow}
                 node={node}
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}

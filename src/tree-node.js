@@ -4,12 +4,14 @@ import styles from './tree-node.scss';
 
 const TreeNode = ({
     children,
-    treeIndex,
+    node,
+    listIndex,
     scaffoldBlockPxWidth,
     lowerSiblingCounts,
     connectDropTarget,
     isOver,
     canDrop,
+    draggedNode,
 }) => {
     // Construct the scaffold representing the structure of the tree
     const scaffoldBlockCount = lowerSiblingCounts.length;
@@ -18,7 +20,7 @@ const TreeNode = ({
         if (lowerSiblingCount > 0) {
             // At this level in the tree, the nodes had sibling nodes further down
 
-            if (treeIndex === 0) {
+            if (listIndex === 0) {
                 // Top-left corner of the tree
                 // +-----+
                 // |     |
@@ -43,7 +45,7 @@ const TreeNode = ({
                 // +--+--+
                 lineClass = styles.lineFullVertical;
             }
-        } else if (treeIndex === 0) {
+        } else if (listIndex === 0) {
             // Top-left corner of the tree, but has no siblings
             // +-----+
             // |     |
@@ -80,6 +82,7 @@ const TreeNode = ({
                 {Children.map(children, child => cloneElement(child, {
                     isOver,
                     canDrop,
+                    isSelf: draggedNode === node,
                 }))}
             </div>
         </li>
@@ -88,15 +91,19 @@ const TreeNode = ({
 
 TreeNode.propTypes = {
     treeIndex:            PropTypes.number.isRequired,
+    node:                 PropTypes.object.isRequired,
     path:                 PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
     scaffoldBlockPxWidth: PropTypes.number.isRequired,
-    children:             PropTypes.node,
     lowerSiblingCounts:   PropTypes.array.isRequired,
+
+    listIndex: PropTypes.number.isRequired,
+    children:  PropTypes.node,
 
     // Drop target
     connectDropTarget: PropTypes.func.isRequired,
     isOver:            PropTypes.bool.isRequired,
     canDrop:           PropTypes.bool.isRequired,
+    draggedNode:       PropTypes.object,
 };
 
 export default dndWrapTarget(TreeNode);
