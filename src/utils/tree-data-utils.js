@@ -3,9 +3,9 @@
  * incrementing currentIndex by 1 for each
  */
 function getNodeDataAtTreeIndexOrNextIndex({
+    targetIndex,
     node,
     currentIndex,
-    targetIndex,
     getNodeKey,
     path = [],
     lowerSiblingCounts = [],
@@ -35,8 +35,9 @@ function getNodeDataAtTreeIndexOrNextIndex({
     const childCount = node.children.length;
     for (let i = 0; i < childCount; i++) {
         const result = getNodeDataAtTreeIndexOrNextIndex({
-            targetIndex,
+            ignoreCollapsed,
             getNodeKey,
+            targetIndex,
             node: node.children[i],
             currentIndex: childIndex,
             lowerSiblingCounts: [ ...lowerSiblingCounts, childCount - i - 1 ],
@@ -52,6 +53,16 @@ function getNodeDataAtTreeIndexOrNextIndex({
 
     // If the target node is not found, return the farthest traversed index
     return { nextIndex: childIndex };
+}
+
+export function getDescendantCount({ node, ignoreCollapsed = true }) {
+    return getNodeDataAtTreeIndexOrNextIndex({
+        getNodeKey: () => {},
+        ignoreCollapsed,
+        node,
+        currentIndex: 0,
+        targetIndex:  -1,
+    }).nextIndex - 1;
 }
 
 /**
@@ -137,7 +148,7 @@ function mapDescendants({
     // Get all descendants
     let childIndex   = currentIndex;
     const childCount = node.children.length;
-    let newChildren = node.children;
+    let newChildren  = node.children;
     if (typeof newChildren !== 'function') {
         newChildren = newChildren.map((child, i) => {
             const mapResult = mapDescendants({
@@ -355,13 +366,7 @@ export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCo
                 };
             }
 
-            nextTreeIndex = getNodeDataAtTreeIndexOrNextIndex({
-                getNodeKey,
-                ignoreCollapsed,
-                node:            node.children[i],
-                currentIndex:    nextTreeIndex,
-                targetIndex:     -1,
-            }).nextIndex;
+            nextTreeIndex += 1 + getDescendantCount({ node: node.children[i], ignoreCollapsed });
         }
 
         return RESULT_MISS;
@@ -494,13 +499,7 @@ export function addNodeUnderParentPath({
                     break;
                 }
 
-                nextTreeIndex = getNodeDataAtTreeIndexOrNextIndex({
-                    getNodeKey,
-                    ignoreCollapsed,
-                    node:            parentNode.children[i],
-                    currentIndex:    nextTreeIndex,
-                    targetIndex:     -1,
-                }).nextIndex;
+                nextTreeIndex += 1 + getDescendantCount({ node: parentNode.children[i], ignoreCollapsed });
             }
 
             if (insertIndex === null) {
@@ -526,6 +525,181 @@ export function addNodeUnderParentPath({
     return {
         treeData: changedTreeData,
         treeIndex: insertedTreeIndex,
+    };
+}
+
+function addNodeAtDepthAndIndex({
+    targetDepth,
+    minimumTreeIndex,
+    newNode,
+    ignoreCollapsed,
+    expandParent,
+    isPseudoRoot = false,
+    node,
+    currentIndex,
+    currentDepth,
+}) {
+    if (currentDepth === targetDepth) {
+        return {
+            node,
+            nextIndex: currentIndex + 1 + getDescendantCount({ node, ignoreCollapsed }),
+        };
+    }
+
+    const extraNodeProps = expandParent ? { expanded: true } : {};
+    if (currentDepth === targetDepth - 1) {
+        if (currentIndex >= minimumTreeIndex - 1) {
+            if (typeof node.children === 'function') {
+                throw new Error('Cannot add to children defined by a function');
+            } else {
+                return {
+                    node: {
+                        ...node,
+                        ...extraNodeProps,
+                        children: node.children ? [newNode, ...node.children] : [newNode],
+                    },
+                    nextIndex: currentIndex + 2,
+                    insertedTreeIndex: currentIndex + 1,
+                };
+            }
+        }
+
+        if (!node.children || typeof node.children === 'function') {
+            return { node, nextIndex: currentIndex + 1 };
+        }
+
+        let childIndex        = currentIndex + 1;
+        let insertedTreeIndex = null;
+        let insertIndex       = null;
+        for (let i = 0; i < node.children.length; i++) {
+            if (childIndex >= minimumTreeIndex) {
+                insertedTreeIndex = childIndex;
+                insertIndex = i;
+                break;
+            }
+
+            childIndex += 1 + getDescendantCount({ node: node.children[i], ignoreCollapsed });
+        }
+
+        if (insertIndex === null) {
+            if (childIndex < minimumTreeIndex) {
+                return { node, nextIndex: childIndex };
+            }
+
+            insertedTreeIndex = childIndex;
+            insertIndex = node.children.length;
+        }
+
+        return {
+            node: {
+                ...node,
+                ...extraNodeProps,
+                children: [
+                    ...node.children.slice(0, insertIndex),
+                    newNode,
+                    ...node.children.slice(insertIndex),
+                ],
+            },
+            nextIndex: childIndex,
+            insertedTreeIndex,
+        };
+    }
+
+    // Skip over nodes with no children or hidden children
+    if (!node.children ||
+        typeof node.children === 'function' ||
+        (node.expanded !== true && ignoreCollapsed && !isPseudoRoot)
+    ) {
+        return { node, nextIndex: currentIndex + 1 };
+    }
+
+    // Get all descendants
+    let insertedTreeIndex = null;
+    let childIndex        = currentIndex + 1;
+    let newChildren       = node.children;
+    if (typeof newChildren !== 'function') {
+        newChildren = newChildren.map((child) => {
+            if (insertedTreeIndex !== null) {
+                return child;
+            }
+
+            const mapResult = addNodeAtDepthAndIndex({
+                targetDepth,
+                minimumTreeIndex,
+                newNode,
+                ignoreCollapsed,
+                expandParent,
+                node: child,
+                currentIndex: childIndex,
+                currentDepth: currentDepth + 1,
+            });
+
+            if ('insertedTreeIndex' in mapResult) {
+                ({ insertedTreeIndex } = mapResult);
+            }
+
+            childIndex = mapResult.nextIndex;
+
+            return mapResult.node;
+        });
+    }
+
+    const result = {
+        node: { ...node, children: newChildren },
+        nextIndex: childIndex,
+    };
+
+    if (insertedTreeIndex !== null) {
+        result.insertedTreeIndex = insertedTreeIndex;
+    }
+
+    return result;
+}
+
+/**
+ * Insert a node into the tree at the given depth, after the minimum index
+ *
+ * @param {!Object[]} treeData - Tree data
+ * @param {!number} depth - The depth to insert the node at
+ * @param {!number} minimumTreeIndex - The lowest possible treeIndex to insert the node at
+ * @param {!Object} newNode - The node to insert into the tree
+ * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ * @param {boolean=} expandParent - If true, expands the parent of the inserted node
+ */
+export function insertNode({
+    treeData,
+    depth: targetDepth,
+    minimumTreeIndex,
+    newNode,
+    ignoreCollapsed = true,
+    expandParent = false,
+}) {
+    if (!treeData && targetDepth === 0) {
+        return {
+            treeData: [newNode],
+            treeIndex: 0,
+        };
+    }
+
+    const insertResult = addNodeAtDepthAndIndex({
+        targetDepth,
+        minimumTreeIndex,
+        newNode,
+        ignoreCollapsed,
+        expandParent,
+        isPseudoRoot: true,
+        node: { children: treeData },
+        currentIndex: -1,
+        currentDepth: -1,
+    });
+
+    if (!('insertedTreeIndex' in insertResult)) {
+        throw new Error('No suitable position found to insert.‌');
+    }
+
+    return {
+        treeData:  insertResult.node.children,
+        treeIndex: insertResult.insertedTreeIndex,
     };
 }
 
@@ -607,4 +781,18 @@ export function getTreeFromFlatData({
     };
 
     return childrenToParents[rootKey].map(child => trav(child));
+}
+
+/**
+ * Check if a node is a descendant of another node.
+ *
+ * @param {!Object} older - Potential ancestor of younger node
+ * @param {!Object} younger - Potential descendant of older node
+ *
+ * @return {boolean}
+ */
+export function isDescendant(older, younger) {
+    return older.children &&
+        typeof older.children !== 'function' &&
+        older.children.some(child => (child === younger || isDescendant(child, younger)));
 }
