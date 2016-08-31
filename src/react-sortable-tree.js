@@ -17,33 +17,15 @@ import {
     getDescendantCount,
 } from './utils/tree-data-utils';
 import {
+    defaultGetNodeKey,
+    defaultToggleChildrenVisibility,
+    defaultMoveNode,
+} from './utils/default-handlers';
+import {
     dndWrapRoot,
     dndWrapSource,
 } from './utils/drag-and-drop-utils';
 import styles from './react-sortable-tree.scss';
-
-function defaultGetNodeKey({ node: _node, treeIndex }) {
-    return treeIndex;
-}
-
-function defaultToggleChildrenVisibility({ node: _node, path, treeIndex: _treeIndex }) {
-    this.props.updateTreeData(changeNodeAtPath({
-        treeData: this.props.treeData,
-        path,
-        newNode: ({ node }) => ({ ...node, expanded: !node.expanded }),
-        getNodeKey: this.getNodeKey,
-    }));
-}
-
-function defaultMoveNode({ node: newNode, depth, minimumTreeIndex }) {
-    this.props.updateTreeData(insertNode({
-        treeData: this.state.draggingTreeData,
-        newNode,
-        depth,
-        minimumTreeIndex,
-        expandParent: true,
-    }).treeData);
-}
 
 class ReactSortableTree extends Component {
     constructor(props) {
