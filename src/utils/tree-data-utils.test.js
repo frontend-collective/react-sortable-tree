@@ -1311,13 +1311,13 @@ describe('insertNode', () => {
             treeData: [{ children: [{}] }, { expanded: true, children: [{}, {}] }],
             newNode: { key: 'new' },
             depth: 1,
-            minimumTreeIndex: 4,
+            minimumTreeIndex: 3,
         })).toEqual({
             treeData: [
                 { children: [{}] },
                 { expanded: true, children: [{}, { key: 'new' }, {}] },
             ],
-            treeIndex: 4,
+            treeIndex: 3,
         });
     });
 
@@ -1330,6 +1330,21 @@ describe('insertNode', () => {
         })).toEqual({
             treeData: [
                 { children: [{}] },
+                { expanded: true, children: [{}, { children: [{ key: 'new' }] }] },
+            ],
+            treeIndex: 4,
+        });
+    });
+
+    it('should work with a preceding node with children #3', () => {
+        expect(insertNode({
+            treeData: [{ children: [{}, {}, {}, {}] }, { expanded: true, children: [{}, {}] }],
+            newNode: { key: 'new' },
+            depth: 2,
+            minimumTreeIndex: 4,
+        })).toEqual({
+            treeData: [
+                { children: [{}, {}, {}, {}] },
                 { expanded: true, children: [{}, { children: [{ key: 'new' }] }] },
             ],
             treeIndex: 4,

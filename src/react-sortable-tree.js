@@ -13,7 +13,8 @@ import {
     getFlatDataFromTree,
     changeNodeAtPath,
     removeNodeAtPath,
-    addNodeUnderParentPath,
+    insertNode,
+    getDescendantCount,
 } from './utils/tree-data-utils';
 import {
     dndWrapRoot,
@@ -34,13 +35,12 @@ function defaultToggleChildrenVisibility({ node: _node, path, treeIndex: _treeIn
     }));
 }
 
-function defaultMoveNode({ node: newNode, parentPath, minimumTreeIndex }) {
-    this.props.updateTreeData(addNodeUnderParentPath({
+function defaultMoveNode({ node: newNode, depth, minimumTreeIndex }) {
+    this.props.updateTreeData(insertNode({
         treeData: this.state.draggingTreeData,
         newNode,
-        parentPath,
+        depth,
         minimumTreeIndex,
-        getNodeKey: this.getNodeKey,
         expandParent: true,
     }).treeData);
 }
@@ -107,17 +107,15 @@ class ReactSortableTree extends Component {
         });
     }
 
-    getRowsSwapped(treeData, fromIndex, toIndex) {
-        const originalRows = this.getRows(treeData);
-
+    swapRows(rows, fromIndex, toIndex, count = 1) {
         const rowsWithoutMoved = [
-            ...originalRows.slice(0, fromIndex),
-            ...originalRows.slice(fromIndex + 1),
+            ...rows.slice(0, fromIndex),
+            ...rows.slice(fromIndex + count),
         ];
 
         return [
             ...rowsWithoutMoved.slice(0, toIndex),
-            originalRows[fromIndex],
+            ...rows.slice(fromIndex, fromIndex + count),
             ...rowsWithoutMoved.slice(toIndex),
         ];
     }
@@ -134,18 +132,30 @@ class ReactSortableTree extends Component {
         });
     }
 
-    dragHover({ node, parentPath, minimumTreeIndex }) {
-        const addedResult = addNodeUnderParentPath({
+    dragHover({ node: draggedNode, depth, minimumTreeIndex }) {
+        const addedResult = insertNode({
             treeData: this.state.draggingTreeData,
-            newNode: node,
-            parentPath,
+            newNode: draggedNode,
+            depth,
             minimumTreeIndex,
-            getNodeKey: this.getNodeKey,
             expandParent: true,
         });
 
+        const rows = this.getRows(addedResult.treeData);
+        const expandedParentPath = rows[addedResult.treeIndex].path;
         this.setState({
-            rows: this.getRowsSwapped(addedResult.treeData, addedResult.treeIndex, minimumTreeIndex),
+            rows: this.swapRows(
+                rows,
+                addedResult.treeIndex,
+                minimumTreeIndex,
+                1 + getDescendantCount({ node: draggedNode })
+            ),
+            draggingTreeData: changeNodeAtPath({
+                treeData: this.state.draggingTreeData,
+                path: expandedParentPath.slice(0, -1),
+                newNode: ({ node }) => ({ ...node, expanded: true }),
+                getNodeKey: this.getNodeKey,
+            }),
         });
     }
 

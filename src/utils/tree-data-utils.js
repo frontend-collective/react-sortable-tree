@@ -546,12 +546,13 @@ function addNodeAtDepthAndIndex({
         };
     }
 
-    const extraNodeProps = expandParent ? { expanded: true } : {};
     if (currentDepth === targetDepth - 1) {
+        // If the current position is the only possible place to add, add it
         if (currentIndex >= minimumTreeIndex - 1) {
             if (typeof node.children === 'function') {
                 throw new Error('Cannot add to children defined by a function');
             } else {
+                const extraNodeProps = expandParent ? { expanded: true } : {};
                 return {
                     node: {
                         ...node,
@@ -564,7 +565,11 @@ function addNodeAtDepthAndIndex({
             }
         }
 
-        if (!node.children || typeof node.children === 'function') {
+        // Skip over nodes with no children or hidden children
+        if (!node.children ||
+            typeof node.children === 'function' ||
+            (node.expanded !== true && ignoreCollapsed && !isPseudoRoot)
+        ) {
             return { node, nextIndex: currentIndex + 1 };
         }
 
@@ -593,7 +598,6 @@ function addNodeAtDepthAndIndex({
         return {
             node: {
                 ...node,
-                ...extraNodeProps,
                 children: [
                     ...node.children.slice(0, insertIndex),
                     newNode,

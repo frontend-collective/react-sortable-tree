@@ -106,7 +106,7 @@ class App extends Component {
                     </span>
                     <h3>Demo</h3>
 
-                    <div style={{ height: 385 }}>
+                    <div style={{ height: 785 }}>
                         <SortableTree
                             treeData={this.state.treeData}
                             updateTreeData={this.updateTreeData}
