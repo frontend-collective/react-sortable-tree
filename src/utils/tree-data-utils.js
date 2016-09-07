@@ -387,7 +387,6 @@ export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCo
     return result.children;
 }
 
-
 /**
  * Removes the node at the specified path and returns the resulting treeData.
  *
@@ -444,8 +443,7 @@ export function getNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed = tr
  *
  * @param {!Object[]} treeData
  * @param {!Object} newNode - The node to insert
- * @param {number[]|string[]} parentPath - Array of keys leading up to the to-be parentNode of the node
- * @param {!number} minimumTreeIndex - The lowest possible treeIndex to insert the node at
+ * @param {number|string} parentKey - The key of the to-be parentNode of the node
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  * @param {boolean=} expandParent - If true, expands the parentNode specified by parentPath
@@ -454,24 +452,37 @@ export function getNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed = tr
  * @return {Object} result.treeData - The updated tree data
  * @return {number} result.treeIndex - The tree index at which the node was inserted
  */
-export function addNodeUnderParentPath({
+export function addNodeUnderParent({
     treeData,
     newNode,
-    parentPath,
-    minimumTreeIndex,
+    parentKey = null,
     getNodeKey,
     ignoreCollapsed = true,
     expandParent = false,
 }) {
+    if (parentKey === null) {
+        return {
+            treeData: [ ...(treeData || []), newNode],
+            treeIndex: (treeData || []).length,
+        };
+    }
+
     let insertedTreeIndex = null;
-    const changedTreeData = changeNodeAtPath({
+    let hasBeenAdded = false;
+    const changedTreeData = map({
         treeData,
         getNodeKey,
         ignoreCollapsed,
-        path: parentPath,
-        newNode: ({ node: parent, treeIndex }) => {
+        callback: ({ node, treeIndex, path }) => {
+            const key = path ? path[path.length - 1] : null;
+            // Return nodes that are not the parent as-is
+            if (hasBeenAdded || key !== parentKey) {
+                return node;
+            }
+            hasBeenAdded = true;
+
             const parentNode = {
-                ...parent,
+                ...node,
             };
 
             if (expandParent) {
@@ -492,35 +503,22 @@ export function addNodeUnderParentPath({
             }
 
             let nextTreeIndex = treeIndex + 1;
-            let insertIndex   = null;
             for (let i = 0; i < parentNode.children.length; i++) {
-                if (nextTreeIndex >= minimumTreeIndex) {
-                    insertIndex = i;
-                    break;
-                }
-
                 nextTreeIndex += 1 + getDescendantCount({ node: parentNode.children[i], ignoreCollapsed });
             }
 
-            if (insertIndex === null) {
-                if (nextTreeIndex + 1 < minimumTreeIndex) {
-                    throw new Error('Unexpected index miss');
-                }
-
-                insertIndex = parentNode.children.length;
-            }
             insertedTreeIndex = nextTreeIndex;
 
             return {
                 ...parentNode,
-                children: [
-                    ...parentNode.children.slice(0, insertIndex),
-                    newNode,
-                    ...parentNode.children.slice(insertIndex),
-                ],
+                children: [ ...parentNode.children, newNode ],
             };
         },
     });
+
+    if (!hasBeenAdded) {
+        throw new Error('No node found with the given key.');
+    }
 
     return {
         treeData: changedTreeData,
