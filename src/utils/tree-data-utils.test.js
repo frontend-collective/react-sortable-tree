@@ -1099,7 +1099,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 0,
             newNode: { key: 'new' },
             getNodeKey: keyFromKey,
-        })).toThrowError('No suitable position found to insert.‌');
+        })).toThrowError('No suitable position found to insert.');
     });
 
     it('should handle a minimumTreeIndex that is too big', () => {
@@ -1127,7 +1127,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 5,
             newNode: { key: 'new' },
             getNodeKey: keyFromKey,
-        })).toThrowError('No suitable position found to insert.‌');
+        })).toThrowError('No suitable position found to insert.');
 
         expect(() => insertNode({
             treeData,
@@ -1135,7 +1135,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 6,
             newNode: { key: 'new' },
             getNodeKey: keyFromKey,
-        })).toThrowError('No suitable position found to insert.‌');
+        })).toThrowError('No suitable position found to insert.');
     });
 
     it('should handle flat data (before)', () => {

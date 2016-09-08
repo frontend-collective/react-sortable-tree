@@ -102,7 +102,7 @@ const NodeRendererDefault = ({
                             ))}
                         </div>
                     </div>
-                ️</div>
+                </div>
             )}
         </div>
     );

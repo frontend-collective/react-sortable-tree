@@ -696,7 +696,7 @@ export function insertNode({
     });
 
     if (!('insertedTreeIndex' in insertResult)) {
-        throw new Error('No suitable position found to insert.‌');
+        throw new Error('No suitable position found to insert.');
     }
 
     return {
