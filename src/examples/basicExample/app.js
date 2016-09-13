@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import SortableTree from '../../index';
+import SortableTree, { toggleExpandedForAll } from '../../index';
 import styles from './stylesheets/app.scss';
 
 class App extends Component {
@@ -78,10 +78,29 @@ class App extends Component {
         };
 
         this.updateTreeData = this.updateTreeData.bind(this);
+        this.expandAll = this.expandAll.bind(this);
+        this.collapseAll = this.collapseAll.bind(this);
     }
 
     updateTreeData(treeData) {
         this.setState({ treeData });
+    }
+
+    expand(expanded) {
+        this.setState({
+            treeData: toggleExpandedForAll({
+                treeData: this.state.treeData,
+                expanded,
+            }),
+        });
+    }
+
+    expandAll() {
+        this.expand(true);
+    }
+
+    collapseAll() {
+        this.expand(false);
     }
 
     render() {
@@ -107,6 +126,14 @@ class App extends Component {
                     <h3>Demo</h3>
 
                     <div style={{ height: 785 }}>
+                        <button onClick={this.expandAll}>
+                            Expand All
+                        </button>
+
+                        <button onClick={this.collapseAll}>
+                            Collapse All
+                        </button>
+
                         <SortableTree
                             treeData={this.state.treeData}
                             updateTreeData={this.updateTreeData}
