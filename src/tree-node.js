@@ -73,7 +73,7 @@ const TreeNode = ({
     });
 
     return connectDropTarget(
-        <li className={styles.node}>
+        <div className={styles.node}>
             {scaffold}
 
             <div
@@ -86,7 +86,7 @@ const TreeNode = ({
                     isSelf: draggedNode === node,
                 }))}
             </div>
-        </li>
+        </div>
     );
 };
 
