@@ -6,7 +6,6 @@ import {
 import HTML5Backend from 'react-dnd-html5-backend';
 import ItemTypes from '../item-types';
 import {
-    isDescendant,
     getDepth,
 } from './tree-data-utils';
 
@@ -78,11 +77,6 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         // ...unless it's at a different level than the current one
         targetDepth !== (dropTargetProps.path.length - 1)
     ) && (
-        // Either we're not adding to a descendant of this node...
-        !isDescendant(draggedNode, dropTargetProps.node) ||
-        // ...or we're adding it at a shallower level
-        targetDepth < dropTargetProps.path.length
-    ) && (
         // Either no maxDepth is set...
        !dropTargetProps.maxDepth ||
         // ...or the targetDepth plus the depth of the node's children is less than
@@ -109,7 +103,7 @@ const myDropTarget = {
         dropTargetProps.dragHover({
             node:             monitor.getItem().node,
             path:             monitor.getItem().path,
-            minimumTreeIndex: dropTargetProps.treeIndex,
+            minimumTreeIndex: dropTargetProps.listIndex,
             depth:            getTargetDepth(dropTargetProps, monitor),
         });
     },

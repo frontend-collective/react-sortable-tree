@@ -1076,7 +1076,7 @@ describe('insertNode', () => {
         })).toEqual({ treeData: [{}], treeIndex: 0 });
     });
 
-    it('should handle a depth that is too deep', () => {
+    it('should handle a depth that deeper than any branch in the tree', () => {
         const treeData = [
             {
                 expanded: true,
@@ -1094,13 +1094,12 @@ describe('insertNode', () => {
             },
         ];
 
-        expect(() => insertNode({
+        expect(insertNode({
             treeData,
             depth: 4,
             minimumTreeIndex: 0,
             newNode: { key: 'new' },
-            getNodeKey: keyFromKey,
-        })).toThrowError('No suitable position found to insert.');
+        }).treeData[0]).toEqual({ key: 'new' });
     });
 
     it('should handle a minimumTreeIndex that is too big', () => {
@@ -1122,21 +1121,24 @@ describe('insertNode', () => {
             { key: 4 },
         ];
 
-        expect(() => insertNode({
-            treeData,
-            depth: 2,
-            minimumTreeIndex: 5,
-            newNode: { key: 'new' },
-            getNodeKey: keyFromKey,
-        })).toThrowError('No suitable position found to insert.');
-
-        expect(() => insertNode({
+        let insertResult = insertNode({
             treeData,
             depth: 0,
-            minimumTreeIndex: 6,
+            minimumTreeIndex: 15,
             newNode: { key: 'new' },
-            getNodeKey: keyFromKey,
-        })).toThrowError('No suitable position found to insert.');
+        });
+        expect(insertResult.treeData[2]).toEqual({ key: 'new' });
+        expect(insertResult.treeIndex).toEqual(5);
+
+        insertResult = insertNode({
+            treeData,
+            depth: 2,
+            minimumTreeIndex: 15,
+            newNode: { key: 'new' },
+        });
+
+        expect(insertResult.treeData[1].children[0]).toEqual({ key: 'new' });
+        expect(insertResult.treeIndex).toEqual(5);
     });
 
     it('should handle flat data (before)', () => {
@@ -1161,7 +1163,7 @@ describe('insertNode', () => {
         expect(insertNode({
             treeData: [{ key: 0 }],
             depth: 1,
-            minimumTreeIndex: 0,
+            minimumTreeIndex: 1,
             newNode: { key: 1 },
         })).toEqual({ treeData: [{ key: 0, children: [{ key: 1 }] }], treeIndex: 1 });
     });

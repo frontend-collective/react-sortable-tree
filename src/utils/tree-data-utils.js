@@ -533,6 +533,7 @@ function addNodeAtDepthAndIndex({
     ignoreCollapsed,
     expandParent,
     isPseudoRoot = false,
+    isLastChild,
     node,
     currentIndex,
     currentDepth,
@@ -544,25 +545,26 @@ function addNodeAtDepthAndIndex({
         };
     }
 
-    if (currentDepth === targetDepth - 1) {
-        // If the current position is the only possible place to add, add it
-        if (currentIndex >= minimumTreeIndex - 1) {
-            if (typeof node.children === 'function') {
-                throw new Error('Cannot add to children defined by a function');
-            } else {
-                const extraNodeProps = expandParent ? { expanded: true } : {};
-                return {
-                    node: {
-                        ...node,
-                        ...extraNodeProps,
-                        children: node.children ? [newNode, ...node.children] : [newNode],
-                    },
-                    nextIndex: currentIndex + 2,
-                    insertedTreeIndex: currentIndex + 1,
-                };
-            }
-        }
+    // If the current position is the only possible place to add, add it
+    if (currentIndex >= minimumTreeIndex - 1 || (isLastChild && !node.children)) {
+        if (typeof node.children === 'function') {
+            throw new Error('Cannot add to children defined by a function');
+        } else {
+            const extraNodeProps = expandParent ? { expanded: true } : {};
+            return {
+                node: {
+                    ...node,
 
+                    ...extraNodeProps,
+                    children: node.children ? [newNode, ...node.children] : [newNode],
+                },
+                nextIndex: currentIndex + 2,
+                insertedTreeIndex: currentIndex + 1,
+            };
+        }
+    }
+
+    if (currentDepth === targetDepth - 1) {
         // Skip over nodes with no children or hidden children
         if (!node.children ||
             typeof node.children === 'function' ||
@@ -585,7 +587,7 @@ function addNodeAtDepthAndIndex({
         }
 
         if (insertIndex === null) {
-            if (childIndex < minimumTreeIndex) {
+            if (childIndex < minimumTreeIndex && !isLastChild) {
                 return { node, nextIndex: childIndex };
             }
 
@@ -620,7 +622,7 @@ function addNodeAtDepthAndIndex({
     let childIndex        = currentIndex + 1;
     let newChildren       = node.children;
     if (typeof newChildren !== 'function') {
-        newChildren = newChildren.map((child) => {
+        newChildren = newChildren.map((child, i) => {
             if (insertedTreeIndex !== null) {
                 return child;
             }
@@ -631,6 +633,7 @@ function addNodeAtDepthAndIndex({
                 newNode,
                 ignoreCollapsed,
                 expandParent,
+                isLastChild: isLastChild && i === newChildren.length - 1,
                 node: child,
                 currentIndex: childIndex,
                 currentDepth: currentDepth + 1,
@@ -690,6 +693,7 @@ export function insertNode({
         ignoreCollapsed,
         expandParent,
         isPseudoRoot: true,
+        isLastChild: true,
         node: { children: treeData },
         currentIndex: -1,
         currentDepth: -1,
