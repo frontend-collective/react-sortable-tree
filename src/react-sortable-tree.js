@@ -60,8 +60,8 @@ class ReactSortableTree extends Component {
         };
 
         this.startDrag = this.startDrag.bind(this);
-        this.endDrag   = this.endDrag.bind(this);
         this.dragHover = this.dragHover.bind(this);
+        this.endDrag   = this.endDrag.bind(this);
     }
 
     componentWillMount() {
@@ -244,6 +244,7 @@ class ReactSortableTree extends Component {
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}
                 scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
+                maxDepth={this.props.maxDepth}
                 dragHover={this.dragHover}
             >
                 <NodeContentRenderer
@@ -281,6 +282,8 @@ ReactSortableTree.propTypes = {
     rowHeight: PropTypes.oneOfType([ PropTypes.number, PropTypes.func ]),
 
     scaffoldBlockPxWidth: PropTypes.number,
+
+    maxDepth: PropTypes.number,
 
     nodeContentRenderer: PropTypes.any,
     generateNodeProps:   PropTypes.func,

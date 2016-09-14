@@ -10,6 +10,7 @@ import {
     map,
     insertNode,
     isDescendant,
+    getDepth,
     getDescendantCount,
 } from './tree-data-utils';
 
@@ -1718,6 +1719,34 @@ describe('isDescendant', () => {
             treeData[0].children[0],
             treeData[0].children[0].children[1]
         )).toEqual(true);
+    });
+});
+
+describe('getDepth', () => {
+    const treeData = [
+        {
+            key: 1,
+            children: [
+                {
+                    key: 12,
+                    children: [
+                        { key: 33 },
+                        { key: 3 },
+                    ]
+                },
+                { key: 4 },
+            ]
+        },
+        { key: 5 },
+    ];
+
+    it('should work at the base', () => {
+        expect(getDepth(treeData[0])).toEqual(2);
+        expect(getDepth(treeData[1])).toEqual(0);
+    });
+
+    it('should work deeper in the tree', () => {
+        expect(getDepth(treeData[0].children[0])).toEqual(1);
     });
 });
 

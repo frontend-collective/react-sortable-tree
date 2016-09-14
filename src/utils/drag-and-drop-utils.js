@@ -5,7 +5,10 @@ import {
 } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ItemTypes from '../item-types';
-import { isDescendant } from './tree-data-utils';
+import {
+    isDescendant,
+    getDepth,
+} from './tree-data-utils';
 
 const myDragSource = {
     beginDrag(props) {
@@ -61,9 +64,9 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         aboveNode = rowAbove.node;
     }
 
-    const targetDepth = getTargetDepth(dropTargetProps, monitor);
-
-    const draggedNode = monitor.getItem().node;
+    const targetDepth       = getTargetDepth(dropTargetProps, monitor);
+    const draggedNode       = monitor.getItem().node;
+    const draggedChildDepth = getDepth(draggedNode);
     return (
         // Either we're not adding to the children of the row above...
         targetDepth < abovePath.length ||
@@ -79,6 +82,12 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         !isDescendant(draggedNode, dropTargetProps.node) ||
         // ...or we're adding it at a shallower level
         targetDepth < dropTargetProps.path.length
+    ) && (
+        // Either no maxDepth is set...
+       !dropTargetProps.maxDepth ||
+        // ...or the targetDepth plus the depth of the node's children is less than
+        // the maxDepth
+        targetDepth + draggedChildDepth < dropTargetProps.maxDepth
     );
 }
 

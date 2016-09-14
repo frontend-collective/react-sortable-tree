@@ -24,23 +24,6 @@ class App extends Component {
                         {
                             title: 'Plain Jane',
                         },
-                        {
-                            title: 'Mr. Lazy',
-                            children: ({ done }) => { // Allow for lazy loading of children
-                                setTimeout(() => {
-                                    done([
-                                        {
-                                            key: 1215,
-                                            title: 5,
-                                        },
-                                        {
-                                            key: 2125,
-                                            title: 215,
-                                        },
-                                    ]);
-                                }, 2000);
-                            },
-                        },
                     ],
                 },
                 {
@@ -137,6 +120,7 @@ class App extends Component {
                         <SortableTree
                             treeData={this.state.treeData}
                             updateTreeData={this.updateTreeData}
+                            maxDepth={5}
                             generateNodeProps={({
                                 node:               _node,
                                 path:               _path,
