@@ -1,5 +1,8 @@
+@import './tree-node.scss';
+$row-padding: 10px;
+
 .row {
-    padding: 10px 10px 10px 0;
+    padding: $row-padding $row-padding $row-padding 0;
     height: 100%;
     white-space: nowrap;
     display: flex;
@@ -72,6 +75,7 @@
     box-shadow: 0 2px 2px -2px;
     cursor: move;
     border-radius: 1px;
+    z-index: 1;
 }
 
 .loadingHandle {
@@ -213,4 +217,17 @@
     @extend %rowItem;
     text-align: right;
     width: 50%;
+}
+
+/**
+ * Line for under a node with children
+ */
+.lineChildren {
+    @extend .lineFullVertical;
+
+    &::after {
+        top: auto;
+        bottom: 0;
+        height: $row-padding;
+    }
 }

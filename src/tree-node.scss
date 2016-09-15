@@ -9,7 +9,6 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    z-index: 1;
 }
 
 /* ==========================================================================
@@ -23,7 +22,7 @@
     display: inline-block;
 }
 
-.blackLineBase {
+%blackLineBase {
     position: absolute;
     content: '';
     background-color: black;
@@ -38,11 +37,11 @@
  */
 .lineHalfHorizontalRight {
     &::before {
-        @extend .blackLineBase;
+        @extend %blackLineBase;
         height: 1px;
         top: 50%;
-        right: -50%;
-        width: 100%;
+        right: 0;
+        width: 50%;
     }
 }
 
@@ -55,11 +54,11 @@
  */
 .lineFullVertical {
     &::after {
-        @extend .blackLineBase;
+        @extend %blackLineBase;
         width: 1px;
         left: 50%;
-        top: -50%;
-        height: 200%;
+        top: 0;
+        height: 100%;
     }
 }
 
@@ -74,8 +73,8 @@
     @extend .lineFullVertical;
 
     &::after {
-        top: -50%;
-        height: 100%;
+        top: 0;
+        height: 50%;
     }
 }
 
@@ -92,6 +91,6 @@
 
     &::after {
         top: auto;
-        bottom: -50%;
+        bottom: 0;
     }
 }

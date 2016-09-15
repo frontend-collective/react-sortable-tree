@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { getIEVersion } from './utils/browser-utils';
 import baseStyles from './node-renderer-default.scss';
+import { isDescendant } from './utils/tree-data-utils';
 
 let styles = baseStyles;
 // Add extra classes in browsers that don't support flex
@@ -23,6 +24,7 @@ const NodeRendererDefault = ({
     isOver,
     canDrop,
     node,
+    draggedNode,
     path,
     treeIndex,
     buttons,
@@ -56,14 +58,25 @@ const NodeRendererDefault = ({
         ), { dropEffect: 'copy' });
     }
 
+    const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node);
+
     return (
         <div style={{ height: '100%' }}>
             {toggleChildrenVisibility && node.children && node.children.length > 0 && (
-                <div
-                    className={node.expanded ? styles.collapseButton : styles.expandButton}
-                    style={{ left: -0.5 * scaffoldBlockPxWidth }}
-                    onClick={() => toggleChildrenVisibility({node, path, treeIndex})}
-                />
+                <div>
+                    <div
+                        className={node.expanded ? styles.collapseButton : styles.expandButton}
+                        style={{ left: -0.5 * scaffoldBlockPxWidth }}
+                        onClick={() => toggleChildrenVisibility({node, path, treeIndex})}
+                    />
+
+                    {node.expanded && !isDragging &&
+                        <div
+                            style={{ width: scaffoldBlockPxWidth, position: 'absolute' }}
+                            className={`${styles.lineBlock} ${styles.lineChildren}`}
+                        />
+                    }
+                </div>
             )}
 
             {/* Set the row preview to be used during drag and drop */}
@@ -73,6 +86,9 @@ const NodeRendererDefault = ({
                         (isDragging && isOver ? ` ${styles.rowLandingPad}` : '') +
                         (isDragging && !isOver && canDrop ? ` ${styles.rowCancelPad}` : '')
                     }
+                    style={{
+                        opacity: isDraggedDescendant ? 0.5 : 1,
+                    }}
                 >
                     {handle}
 
@@ -122,6 +138,7 @@ NodeRendererDefault.propTypes = {
     connectDragPreview: PropTypes.func.isRequired,
     connectDragSource:  PropTypes.func.isRequired,
     isDragging:         PropTypes.bool.isRequired,
+    draggedNode:        PropTypes.object,
     // Drop target
     isOver:  PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,

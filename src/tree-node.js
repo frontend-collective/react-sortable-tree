@@ -9,6 +9,7 @@ const TreeNode = ({
     lowerSiblingCounts,
     connectDropTarget,
     isOver,
+    draggedNode,
     canDrop,
 }) => {
     // Construct the scaffold representing the structure of the tree
@@ -81,6 +82,7 @@ const TreeNode = ({
                 {Children.map(children, child => cloneElement(child, {
                     isOver,
                     canDrop,
+                    draggedNode,
                 }))}
             </div>
         </div>
