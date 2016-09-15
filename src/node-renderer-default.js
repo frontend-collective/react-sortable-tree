@@ -28,6 +28,8 @@ const NodeRendererDefault = ({
     path,
     treeIndex,
     buttons,
+    className,
+    style = {},
 }) => {
     let handle;
     if (typeof node.children === 'function' && node.expanded) {
@@ -79,46 +81,50 @@ const NodeRendererDefault = ({
                 </div>
             )}
 
-            {/* Set the row preview to be used during drag and drop */}
-            {connectDragPreview(
-                <div
-                    className={styles.row +
-                        (isDragging && isOver ? ` ${styles.rowLandingPad}` : '') +
-                        (isDragging && !isOver && canDrop ? ` ${styles.rowCancelPad}` : '')
-                    }
-                    style={{
-                        opacity: isDraggedDescendant ? 0.5 : 1,
-                    }}
-                >
-                    {handle}
+            <div className={styles.rowWrapper}>
+                {/* Set the row preview to be used during drag and drop */}
+                {connectDragPreview(
+                    <div
+                        className={styles.row +
+                            (isDragging && isOver ? ` ${styles.rowLandingPad}` : '') +
+                            (isDragging && !isOver && canDrop ? ` ${styles.rowCancelPad}` : '') +
+                            (className ? ` ${className}` : '')
+                        }
+                        style={{
+                            opacity: isDraggedDescendant ? 0.5 : 1,
+                            ...style,
+                        }}
+                    >
+                        {handle}
 
-                    <div className={styles.rowContents}>
-                        <div className={styles.rowLabel}>
-                            <span
-                                className={styles.rowTitle +
-                                    (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
-                                }
-                            >
-                                {node.title}
-                            </span>
-
-                            {node.subtitle &&
-                                <span className={styles.rowSubtitle}>
-                                    {node.subtitle}
+                        <div className={styles.rowContents}>
+                            <div className={styles.rowLabel}>
+                                <span
+                                    className={styles.rowTitle +
+                                        (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
+                                    }
+                                >
+                                    {node.title}
                                 </span>
-                            }
-                        </div>
 
-                        <div className={styles.rowToolbar}>
-                            {buttons && buttons.map((btn, index) => (
-                                <div key={index} className={styles.toolbarButton}>
-                                    {btn}
-                                </div>
-                            ))}
+                                {node.subtitle &&
+                                    <span className={styles.rowSubtitle}>
+                                        {node.subtitle}
+                                    </span>
+                                }
+                            </div>
+
+                            <div className={styles.rowToolbar}>
+                                {buttons && buttons.map((btn, index) => (
+                                    <div key={index} className={styles.toolbarButton}>
+                                        {btn}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 };
@@ -132,6 +138,8 @@ NodeRendererDefault.propTypes = {
     scaffoldBlockPxWidth:     PropTypes.number.isRequired,
     toggleChildrenVisibility: PropTypes.func,
     buttons:                  PropTypes.arrayOf(PropTypes.node),
+    className:                PropTypes.string,
+    style:                    PropTypes.object,
 
     // Drag and drop API functions
     // Drag source
