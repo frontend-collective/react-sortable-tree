@@ -4,14 +4,12 @@ import styles from './tree-node.scss';
 
 const TreeNode = ({
     children,
-    node,
     listIndex,
     scaffoldBlockPxWidth,
     lowerSiblingCounts,
     connectDropTarget,
     isOver,
     canDrop,
-    draggedNode,
 }) => {
     // Construct the scaffold representing the structure of the tree
     const scaffoldBlockCount = lowerSiblingCounts.length;
@@ -83,7 +81,6 @@ const TreeNode = ({
                 {Children.map(children, child => cloneElement(child, {
                     isOver,
                     canDrop,
-                    isSelf: draggedNode === node,
                 }))}
             </div>
         </div>

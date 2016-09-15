@@ -27,9 +27,7 @@
     @extend .rowLandingPad;
 
     &::before {
-        background: #FF6666;
-        background: repeating-linear-gradient(-45deg, #FF6666, #FF6666 30px, #777 30px, #777 60px);
-        border: none;
+        background-color: #E6A8AD;
     }
 }
 

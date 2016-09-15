@@ -127,12 +127,10 @@ function dragSourcePropInjection(connect, monitor) {
 }
 
 function dropTargetPropInjection(connect, monitor) {
-    const dragged = monitor.getItem();
     return {
         connectDropTarget: connect.dropTarget(),
         isOver:            monitor.isOver(),
         canDrop:           monitor.canDrop(),
-        draggedNode:       dragged ? dragged.node : null,
     };
 }
 

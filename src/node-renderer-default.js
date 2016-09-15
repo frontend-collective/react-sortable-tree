@@ -19,7 +19,6 @@ const NodeRendererDefault = ({
     toggleChildrenVisibility,
     connectDragPreview,
     connectDragSource,
-    isSelf,
     isDragging,
     isOver,
     canDrop,
@@ -71,8 +70,8 @@ const NodeRendererDefault = ({
             {connectDragPreview(
                 <div
                     className={styles.row +
-                        (isDragging && isSelf && isOver && canDrop ? ` ${styles.rowLandingPad}` : '') +
-                        (isDragging && isSelf && (!isOver || !canDrop) ? ` ${styles.rowCancelPad}` : '')
+                        (isDragging && isOver ? ` ${styles.rowLandingPad}` : '') +
+                        (isDragging && !isOver && canDrop ? ` ${styles.rowCancelPad}` : '')
                     }
                 >
                     {handle}
@@ -124,7 +123,6 @@ NodeRendererDefault.propTypes = {
     connectDragSource:  PropTypes.func.isRequired,
     isDragging:         PropTypes.bool.isRequired,
     // Drop target
-    isSelf:  PropTypes.bool.isRequired,
     isOver:  PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
 };
