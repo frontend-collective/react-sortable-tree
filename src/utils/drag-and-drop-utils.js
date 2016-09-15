@@ -24,7 +24,10 @@ const myDragSource = {
     },
 
     isDragging(props, monitor) {
-        return props.node === monitor.getItem().node;
+        const dropTargetNode = monitor.getItem().node;
+        const draggedNode    = props.node;
+
+        return draggedNode === dropTargetNode;
     }
 };
 
@@ -51,7 +54,18 @@ function getTargetDepth(dropTargetProps, monitor) {
         monitor.getDifferenceFromInitialOffset().x /
         dropTargetProps.scaffoldBlockPxWidth
     );
-    return Math.min(dropTargetDepth, Math.max(0, draggedItem.path.length + blocksOffset - 1));
+
+    let targetDepth = Math.min(dropTargetDepth, Math.max(0, draggedItem.path.length + blocksOffset - 1));
+
+    // If a maxDepth is defined, constrain the target depth
+    if (typeof dropTargetProps.maxDepth !== 'undefined' && dropTargetProps.maxDepth !== null) {
+        const draggedNode       = monitor.getItem().node;
+        const draggedChildDepth = getDepth(draggedNode);
+
+        targetDepth = Math.min(targetDepth, dropTargetProps.maxDepth - draggedChildDepth - 1);
+    }
+
+    return targetDepth;
 }
 
 function canDrop(dropTargetProps, monitor, isHover = false) {
@@ -63,9 +77,8 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         aboveNode = rowAbove.node;
     }
 
-    const targetDepth       = getTargetDepth(dropTargetProps, monitor);
-    const draggedNode       = monitor.getItem().node;
-    const draggedChildDepth = getDepth(draggedNode);
+    const targetDepth = getTargetDepth(dropTargetProps, monitor);
+    const draggedNode = monitor.getItem().node;
     return (
         // Either we're not adding to the children of the row above...
         targetDepth < abovePath.length ||
@@ -76,12 +89,6 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         !(dropTargetProps.node === draggedNode && isHover === true) ||
         // ...unless it's at a different level than the current one
         targetDepth !== (dropTargetProps.path.length - 1)
-    ) && (
-        // Either no maxDepth is set...
-       !dropTargetProps.maxDepth ||
-        // ...or the targetDepth plus the depth of the node's children is less than
-        // the maxDepth
-        targetDepth + draggedChildDepth < dropTargetProps.maxDepth
     );
 }
 
