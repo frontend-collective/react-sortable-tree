@@ -31,16 +31,6 @@ const myDragSource = {
     }
 };
 
-export function getParentPathFromOffset(
-    targetParentPath,
-    sourceParentPathLength,
-    initialOffsetDifferenceX,
-    scaffoldBlockPxWidth
-) {
-    const blocksOffset = Math.round(initialOffsetDifferenceX / scaffoldBlockPxWidth);
-    return targetParentPath.slice(0, Math.max(0, sourceParentPathLength + blocksOffset));
-}
-
 function getTargetDepth(dropTargetProps, monitor) {
     let dropTargetDepth = 0;
     const draggedItem = monitor.getItem();
