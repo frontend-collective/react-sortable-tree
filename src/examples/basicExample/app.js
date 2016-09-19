@@ -28,7 +28,23 @@ class App extends Component {
                 },
                 {
                     id: 'b12315',
-                    title: 'Frank',
+                    title: (
+                        <div>
+                            <div
+                                style={{
+                                    backgroundColor: 'gray',
+                                    display: 'inline-block',
+                                    borderRadius: 10,
+                                    color: '#FFF',
+                                    padding: '0 5px',
+                                }}
+                            >
+                                Custom
+                            </div>
+
+                            Element
+                        </div>
+                    ),
                 },
                 {
                     id: 'b12316',
@@ -122,14 +138,24 @@ class App extends Component {
                             updateTreeData={this.updateTreeData}
                             maxDepth={5}
                             generateNodeProps={({
-                                node:               _node,
-                                path:               _path,
+                                node,
+                                path,
+                                treeIndex,
                                 lowerSiblingCounts: _lowerSiblingCounts,
-                                listIndex:          _listIndex,
                             }) => ({
                                 buttons: [
-                                    <button>＋</button>,
-                                    <button>ℹ</button>,
+                                    <button
+                                        style={{
+                                            verticalAlign: 'middle',
+                                        }}
+                                        onClick={() => alert( // eslint-disable-line no-alert
+                                            `title: ${node.title} \n` +
+                                            `path: ${path.join(', ')} \n` +
+                                            `treeIndex: ${treeIndex}`
+                                        )}
+                                    >
+                                        ℹ
+                                    </button>,
                                 ],
                             })}
                         />
@@ -138,7 +164,6 @@ class App extends Component {
                     <h3>Features</h3>
                     <ul>
                         <li>Works right out of the box, but is highly customizable</li>
-                        <li>No external CSS</li>
                     </ul>
 
                     <a href={githubUrl}>Documentation on Github</a>
