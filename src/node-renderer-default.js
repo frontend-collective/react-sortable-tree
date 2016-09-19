@@ -74,8 +74,8 @@ const NodeRendererDefault = ({
 
                     {node.expanded && !isDragging &&
                         <div
-                            style={{ width: scaffoldBlockPxWidth, position: 'absolute' }}
-                            className={`${styles.lineBlock} ${styles.lineChildren}`}
+                            style={{ width: scaffoldBlockPxWidth }}
+                            className={styles.lineChildren}
                         />
                     }
                 </div>

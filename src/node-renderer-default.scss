@@ -1,4 +1,3 @@
-@import './tree-node.scss';
 $row-padding: 10px;
 
 .rowWrapper {
@@ -231,10 +230,16 @@ $row-padding: 10px;
  * Line for under a node with children
  */
 .lineChildren {
-    @extend .lineFullVertical;
+    height: 100%;
+    display: inline-block;
+    position: absolute;
 
     &::after {
-        top: auto;
+        content: '';
+        position: absolute;
+        background-color: black;
+        width: 1px;
+        left: 50%;
         bottom: 0;
         height: $row-padding;
     }
