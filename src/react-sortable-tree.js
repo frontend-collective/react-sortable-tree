@@ -5,7 +5,7 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import { AutoSizer, VirtualScroll } from 'react-virtualized';
+import { AutoSizer, List } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
 import {
@@ -206,7 +206,7 @@ class ReactSortableTree extends Component {
             >
                 <AutoSizer>
                     {({height, width}) => (
-                        <VirtualScroll
+                        <List
                             className={styles.virtualScrollOverride}
                             width={width}
                             height={height}
@@ -214,9 +214,11 @@ class ReactSortableTree extends Component {
                             rowCount={rows.length}
                             estimatedRowSize={rowHeight}
                             rowHeight={rowHeight}
-                            rowRenderer={({ index }) => this.renderRow(
+                            rowRenderer={({ index, key, style: rowStyle }) => this.renderRow(
                                 rows[index],
                                 index,
+                                key,
+                                rowStyle,
                                 () => (rows[index - 1] || null)
                             )}
                         />
@@ -226,7 +228,7 @@ class ReactSortableTree extends Component {
         );
     }
 
-    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, getPrevRow) {
+    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow) {
         const NodeContentRenderer = this.nodeContentRenderer;
         const nodeProps = !this.props.generateNodeProps ? {} : this.props.generateNodeProps({
             node,
@@ -237,6 +239,8 @@ class ReactSortableTree extends Component {
 
         return (
             <TreeNode
+                style={style}
+                key={key}
                 treeIndex={treeIndex}
                 listIndex={listIndex}
                 getPrevRow={getPrevRow}

@@ -11,6 +11,13 @@ const TreeNode = ({
     isOver,
     draggedNode,
     canDrop,
+    treeIndex: _treeIndex,   // Delete from otherProps
+    getPrevRow: _getPrevRow, // Delete from otherProps
+    node: _node,             // Delete from otherProps
+    path: _path,             // Delete from otherProps
+    maxDepth: _maxDepth,     // Delete from otherProps
+    dragHover: _dragHover,   // Delete from otherProps
+    ...otherProps,
 }) => {
     // Construct the scaffold representing the structure of the tree
     const scaffoldBlockCount = lowerSiblingCounts.length;
@@ -72,7 +79,10 @@ const TreeNode = ({
     });
 
     return connectDropTarget(
-        <div className={styles.node}>
+        <div
+            {...otherProps}
+            className={styles.node}
+        >
             {scaffold}
 
             <div
