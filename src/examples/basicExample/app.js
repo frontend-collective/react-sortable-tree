@@ -7,7 +7,7 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        const renderDepthTitle = ({ path }) => `Depth: ${path.length}`
+        const renderDepthTitle = ({ path }) => `Depth: ${path.length}`;
 
         this.state = {
             treeData: [
