@@ -7,71 +7,113 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        const renderDepthTitle = ({ path }) => `Depth: ${path.length}`
+
         this.state = {
             treeData: [
                 {
-                    id: 'b12314',
-                    title: 'Beast Man',
-                    subtitle: 'Pancakes',
+                    title: '`title`',
+                    subtitle: '`subtitle`',
                     expanded: true,
                     children: [
                         {
-                            id: 1,
-                            title: 'Joe',
-                            subtitle: 'Pancakes',
-                            children: [], // null or undefined also ok
+                            title: 'Child Node',
+                            subtitle: 'Defined in `children` array belonging to parent',
                         },
                         {
-                            title: 'Plain Jane',
+                            title: 'Nested structure is rendered virtually',
+                            subtitle: (
+                                <span>
+                                    The tree uses&nbsp;
+                                    <a href="https://github.com/bvaughn/react-virtualized">
+                                        react-virtualized
+                                    </a>
+                                    &nbsp;and the relationship lines are more of a visual trick.
+                                </span>
+                            ),
                         },
                     ],
                 },
                 {
-                    id: 'b12315',
-                    title: (
-                        <div>
-                            <div
-                                style={{
-                                    backgroundColor: 'gray',
-                                    display: 'inline-block',
-                                    borderRadius: 10,
-                                    color: '#FFF',
-                                    padding: '0 5px',
-                                }}
-                            >
-                                Custom
-                            </div>
-
-                            Element
-                        </div>
-                    ),
+                    expanded: true,
+                    title: 'Any node can be the parent or child of any other node',
+                    children: [
+                        {
+                            expanded: true,
+                            title: 'Chicken',
+                            children: [
+                                { title: 'Egg' },
+                            ],
+                        },
+                    ],
                 },
                 {
-                    id: 'b12316',
-                    title: 'Really Long Name Nicholas Who Always Got' +
-                        ' Picked on in School For His Really Long Name',
-                    subtitle: 'Really good icebreaker, though',
+                    title: 'Button(s) can be added to the node',
+                    subtitle: 'Node info is passed when generating so you can use it in your onClick handler',
+                },
+                {
+                    title: 'Show node children by setting `expanded`',
                     children: [
                         {
                             title: 'Bruce',
                             children: [
                                 { title: 'Bruce Jr.' },
-                                { title: 'Brucette Jr.' },
-                            ],
-                        },
-                        {
-                            title: 'Trevor',
-                            children: [
-                                { title: 'Trevor Jr.' },
-                                { title: 'Trevor Jr. 2' },
+                                { title: 'Brucette' },
                             ],
                         },
                     ],
                 },
                 {
-                    id: 'b12336',
-                    title: 'Tracy Page',
-                    subtitle: 'Waffles',
+                    title: 'Advanced',
+                    subtitle: 'Settings, behavior, etc.',
+                    children: [
+                        {
+                            title: (
+                                <div>
+                                    <div
+                                        style={{
+                                            backgroundColor: 'gray',
+                                            display: 'inline-block',
+                                            borderRadius: 10,
+                                            color: '#FFF',
+                                            padding: '0 5px',
+                                        }}
+                                    >
+                                        Any Component
+                                    </div>
+
+                                    &nbsp;can be used for `title`
+                                </div>
+                            ),
+                        },
+                        {
+                            expanded: true,
+                            title: 'Limit nesting with `maxDepth`',
+                            subtitle: 'It\'s set to 5 for this example',
+                            children: [
+                                {
+                                    expanded: true,
+                                    title: renderDepthTitle,
+                                    children: [
+                                        {
+                                            expanded: true,
+                                            title: renderDepthTitle,
+                                            children: [
+                                                { title: renderDepthTitle },
+                                                {
+                                                    title: 'This cannot be dragged deeper',
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            title: 'When node contents are really long, it will cause a horizontal scrollbar' +
+                                ' to appear. Deeply nested elements will also trigger the scrollbar.',
+                        },
+                    ],
                 },
             ],
         };
@@ -108,6 +150,24 @@ class App extends Component {
         const authorUrl = 'https://github.com/fritz-c';
         const githubUrl = 'https://github.com/fritz-c/react-sortable-tree';
 
+        const alertNodeInfo = ({
+            node,
+            path,
+            treeIndex,
+            lowerSiblingCounts: _lowerSiblingCounts,
+        }) => {
+            const objectString = Object.keys(node)
+                .map(k => (k === 'children' ? 'children: Array' : `${k}: '${node[k]}'`))
+                .join(`,\n   `);
+
+            alert( // eslint-disable-line no-alert
+                `Info passed to the button generator:\n\n` +
+                `node: {\n   ${objectString}\n},\n` +
+                `path: ${path.join(', ')},\n` +
+                `treeIndex: ${treeIndex}`
+            );
+        };
+
         return (
             <div>
                 <section className={styles['page-header']}>
@@ -137,22 +197,13 @@ class App extends Component {
                             treeData={this.state.treeData}
                             updateTreeData={this.updateTreeData}
                             maxDepth={5}
-                            generateNodeProps={({
-                                node,
-                                path,
-                                treeIndex,
-                                lowerSiblingCounts: _lowerSiblingCounts,
-                            }) => ({
+                            generateNodeProps={(rowInfo) => ({
                                 buttons: [
                                     <button
                                         style={{
                                             verticalAlign: 'middle',
                                         }}
-                                        onClick={() => alert( // eslint-disable-line no-alert
-                                            `title: ${node.title} \n` +
-                                            `path: ${path.join(', ')} \n` +
-                                            `treeIndex: ${treeIndex}`
-                                        )}
+                                        onClick={() => alertNodeInfo(rowInfo)}
                                     >
                                         ℹ
                                     </button>,
