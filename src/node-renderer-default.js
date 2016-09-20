@@ -104,12 +104,18 @@ const NodeRendererDefault = ({
                                         (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
                                     }
                                 >
-                                    {node.title}
+                                    {typeof node.title === 'function' ?
+                                        node.title({node, path, treeIndex }) :
+                                        node.title
+                                    }
                                 </span>
 
                                 {node.subtitle &&
                                     <span className={styles.rowSubtitle}>
-                                        {node.subtitle}
+                                        {typeof node.subtitle === 'function' ?
+                                            node.subtitle({node, path, treeIndex }) :
+                                            node.subtitle
+                                        }
                                     </span>
                                 }
                             </div>
