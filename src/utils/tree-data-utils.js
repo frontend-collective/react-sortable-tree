@@ -760,7 +760,7 @@ export function getTreeFromFlatData({
     }
 
     const childrenToParents = {};
-    flatData.forEach(child => {
+    flatData.forEach((child) => {
         const parentKey = getParentKey(child);
 
         if (parentKey in childrenToParents) {

@@ -139,7 +139,6 @@ NodeRendererDefault.propTypes = {
     node:               PropTypes.object.isRequired,
     path:               PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
     treeIndex:          PropTypes.number.isRequired,
-    lowerSiblingCounts: PropTypes.arrayOf(PropTypes.number).isRequired,
 
     scaffoldBlockPxWidth:     PropTypes.number.isRequired,
     toggleChildrenVisibility: PropTypes.func,

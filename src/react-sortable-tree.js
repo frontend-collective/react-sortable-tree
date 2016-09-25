@@ -17,6 +17,9 @@ import {
     getDescendantCount,
 } from './utils/tree-data-utils';
 import {
+    swapRows,
+} from './utils/generic-utils';
+import {
     defaultGetNodeKey,
     defaultToggleChildrenVisibility,
     defaultMoveNode,
@@ -89,19 +92,6 @@ class ReactSortableTree extends Component {
         });
     }
 
-    swapRows(rows, fromIndex, toIndex, count = 1) {
-        const rowsWithoutMoved = [
-            ...rows.slice(0, fromIndex),
-            ...rows.slice(fromIndex + count),
-        ];
-
-        return [
-            ...rowsWithoutMoved.slice(0, toIndex),
-            ...rows.slice(fromIndex, fromIndex + count),
-            ...rowsWithoutMoved.slice(toIndex),
-        ];
-    }
-
     startDrag({ path }) {
         const draggingTreeData = removeNodeAtPath({
             treeData: this.props.treeData,
@@ -126,7 +116,7 @@ class ReactSortableTree extends Component {
         const rows = this.getRows(addedResult.treeData);
         const expandedParentPath = rows[addedResult.treeIndex].path;
         this.setState({
-            rows: this.swapRows(
+            rows: swapRows(
                 rows,
                 addedResult.treeIndex,
                 minimumTreeIndex,
@@ -254,7 +244,6 @@ class ReactSortableTree extends Component {
                 <NodeContentRenderer
                     node={node}
                     path={path}
-                    lowerSiblingCounts={lowerSiblingCounts}
                     treeIndex={treeIndex}
                     startDrag={this.startDrag}
                     endDrag={this.endDrag}
@@ -268,8 +257,7 @@ class ReactSortableTree extends Component {
 }
 
 ReactSortableTree.propTypes = {
-    treeData:   PropTypes.arrayOf(PropTypes.object).isRequired,
-    changeData: PropTypes.func,
+    treeData: PropTypes.arrayOf(PropTypes.object).isRequired,
 
     // Callback for move operation.
     // Called as moveNode({ node, path, parentPath, minimumTreeIndex })
@@ -295,7 +283,6 @@ ReactSortableTree.propTypes = {
     getNodeKey:                PropTypes.func,
     updateTreeData:            PropTypes.func,
     toggleChildrenVisibility:  PropTypes.func,
-    loadCollapsedLazyChildren: PropTypes.bool,
 };
 
 ReactSortableTree.defaultProps = {

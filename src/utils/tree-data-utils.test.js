@@ -1317,7 +1317,7 @@ describe('insertNode', () => {
 
 describe('walk', () => {
     it('should handle empty data', () => {
-        [[], null, undefined].forEach(treeData => {
+        [[], null, undefined].forEach((treeData) => {
             expect(() => walk({
                 treeData,
                 getNodeKey: keyFromTreeIndex,

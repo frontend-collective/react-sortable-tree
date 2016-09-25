@@ -197,7 +197,7 @@ class App extends Component {
                             treeData={this.state.treeData}
                             updateTreeData={this.updateTreeData}
                             maxDepth={5}
-                            generateNodeProps={(rowInfo) => ({
+                            generateNodeProps={rowInfo => ({
                                 buttons: [
                                     <button
                                         style={{
