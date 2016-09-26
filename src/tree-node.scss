@@ -20,6 +20,12 @@
     display: inline-block;
 }
 
+.absoluteLineBlock {
+    @extend .lineBlock;
+    position: absolute;
+    top: 0;
+}
+
 %blackLineBase {
     position: absolute;
     content: '';
@@ -90,5 +96,132 @@
     &::after {
         top: auto;
         bottom: 0;
+    }
+}
+
+/* Highlight line for pointing to dragged row destination
+   ========================================================================== */
+$highlight-color: #36C2F6;
+$highlight-line-size: 8px; // Make it an even number for clean rendering
+
+%highlightLineBase {
+    position: absolute;
+    content: '';
+    background-color: $highlight-color;
+    z-index: 3;
+}
+
+/**
+ * +-----+
+ * |     |
+ * |     |
+ * |     |
+ * ======>
+ */
+.highlightArrow {
+    $arrow-size: 18px;
+    z-index: 3;
+
+    &::before {
+        content: '';
+        position: absolute;
+        border-bottom: solid $highlight-line-size $highlight-color;
+        height: calc(100% - #{$highlight-line-size / 2});
+        top: 0;
+        right: $arrow-size;
+        width: calc(100% - #{$arrow-size});
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        height: 0;
+        right: 0;
+        top: 100%;
+        margin-top: -1 * $arrow-size / 1.46 ;
+        border-top: $arrow-size / 1.4 solid transparent;
+        border-bottom: $arrow-size / 1.4 solid transparent;
+        border-left: $arrow-size solid $highlight-color;
+    }
+}
+
+/**
+ * +--+--+
+ * |  |  |
+ * |  |  |
+ * |  |  |
+ * +--+--+
+ */
+.highlightLineVertical {
+    &::before {
+        @extend %highlightLineBase;
+        width: $highlight-line-size;
+        margin-left: $highlight-line-size / -2;
+        left: 50%;
+        top: 0;
+        height: 100%;
+    }
+
+    @keyframes arrow-pulse {
+        $base-multiplier: 10;
+        0% {
+            transform: translate(0, 0);
+            opacity: 0;
+        }
+        30% {
+            transform: translate(0, 30% * $base-multiplier);
+            opacity: 1;
+        }
+        70% {
+            transform: translate(0, 70% * $base-multiplier);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(0, 100% * $base-multiplier);
+            opacity: 0;
+        }
+    }
+
+    &::after {
+        z-index: 3;
+        content: '';
+        position: absolute;
+        height: 0;
+        margin-left: -1 * $highlight-line-size / 2;
+        left: 50%;
+        top: 0;
+        border-left: $highlight-line-size / 2 solid transparent;
+        border-right: $highlight-line-size / 2 solid transparent;
+        border-top: $highlight-line-size / 2 solid white;
+        animation: arrow-pulse 1s infinite linear both;
+    }
+}
+
+.highlightTopLeftCorner {
+    &::before {
+        z-index: 3;
+        content: '';
+        position: absolute;
+        border-top: solid $highlight-line-size $highlight-color;
+        border-left: solid $highlight-line-size $highlight-color;
+        height: calc(50% - #{$highlight-line-size / 2});
+        top: 50%;
+        margin-top: $highlight-line-size / -2;
+        right: 0;
+        width: calc(50% - #{$highlight-line-size / 2});
+    }
+}
+
+.highlightBottomLeftCorner {
+    &::before {
+        z-index: 3;
+        content: '';
+        position: absolute;
+        border-bottom: solid $highlight-line-size $highlight-color;
+        border-left: solid $highlight-line-size $highlight-color;
+        height: calc(100% - #{$highlight-line-size / 2});
+        top: 0;
+        right: 0;
+        width: calc(50% - #{$highlight-line-size / 2});
     }
 }

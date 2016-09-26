@@ -5,13 +5,16 @@ import styles from './tree-node.scss';
 const TreeNode = ({
     children,
     listIndex,
+    swapFrom,
+    swapLength,
+    swapDepth,
     scaffoldBlockPxWidth,
     lowerSiblingCounts,
     connectDropTarget,
     isOver,
     draggedNode,
     canDrop,
-    treeIndex: _treeIndex,   // Delete from otherProps
+    treeIndex,
     getPrevRow: _getPrevRow, // Delete from otherProps
     node: _node,             // Delete from otherProps
     path: _path,             // Delete from otherProps
@@ -21,7 +24,8 @@ const TreeNode = ({
 }) => {
     // Construct the scaffold representing the structure of the tree
     const scaffoldBlockCount = lowerSiblingCounts.length;
-    const scaffold = lowerSiblingCounts.map((lowerSiblingCount, i) => {
+    const scaffold = [];
+    lowerSiblingCounts.forEach((lowerSiblingCount, i) => {
         let lineClass = '';
         if (lowerSiblingCount > 0) {
             // At this level in the tree, the nodes had sibling nodes further down
@@ -69,13 +73,49 @@ const TreeNode = ({
             lineClass = `${styles.lineHalfVerticalTop} ${styles.lineHalfHorizontalRight}`;
         }
 
-        return (
+        scaffold.push(
             <div
                 key={`pre_${i}`}
                 style={{ width: scaffoldBlockPxWidth }}
                 className={`${styles.lineBlock} ${lineClass}`}
             />
         );
+
+        if (treeIndex !== listIndex) {
+            // This row has been shifted
+            let highlightLineClass = '';
+            if (i === swapDepth) {
+                // This block is at the depth of the line pointing to the new destination
+
+                if (listIndex === swapFrom + swapLength - 1) {
+                    // This block is on the bottom (target) line
+                    highlightLineClass = styles.highlightBottomLeftCorner;
+                } else if (treeIndex === swapFrom) {
+                    // This block is on the top (source) line
+                    highlightLineClass = styles.highlightTopLeftCorner;
+                } else {
+                    // This block is between the bottom and top
+                    highlightLineClass = styles.highlightLineVertical;
+                }
+            } else if (i === swapDepth + 1 && listIndex === swapFrom + swapLength - 1) {
+                // This block points at the target block (where the row will go when released)
+                highlightLineClass = styles.highlightArrow;
+            }
+
+            // Add the highlight line block if it met one of the conditions above
+            if (highlightLineClass) {
+                scaffold.push(
+                    <div
+                        key={`highlight_${i}`}
+                        style={{
+                            width: scaffoldBlockPxWidth,
+                            left: scaffoldBlockPxWidth * i,
+                        }}
+                        className={`${styles.absoluteLineBlock} ${highlightLineClass}`}
+                    />
+                );
+            }
+        }
     });
 
     return connectDropTarget(
@@ -103,6 +143,9 @@ TreeNode.propTypes = {
     treeIndex:            PropTypes.number.isRequired,
     node:                 PropTypes.object.isRequired,
     path:                 PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
+    swapFrom:             PropTypes.number,
+    swapDepth:            PropTypes.number,
+    swapLength:           PropTypes.number,
     scaffoldBlockPxWidth: PropTypes.number.isRequired,
     lowerSiblingCounts:   PropTypes.array.isRequired,
 

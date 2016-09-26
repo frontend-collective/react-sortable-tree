@@ -59,6 +59,9 @@ class ReactSortableTree extends Component {
 
         this.state = {
             draggingTreeData: null,
+            swapFrom: null,
+            swapLength: null,
+            swapDepth: null,
             rows: this.getRows(props.treeData),
         };
 
@@ -79,6 +82,9 @@ class ReactSortableTree extends Component {
             // Calculate the rows to be shown from the new tree data
             this.setState({
                 draggingTreeData: null,
+                swapFrom: null,
+                swapLength: null,
+                swapDepth: null,
                 rows: this.getRows(nextProps.treeData),
             });
         }
@@ -113,15 +119,17 @@ class ReactSortableTree extends Component {
             expandParent: true,
         });
 
-        const rows = this.getRows(addedResult.treeData);
+        const rows               = this.getRows(addedResult.treeData);
         const expandedParentPath = rows[addedResult.treeIndex].path;
+
+        const swapFrom   = addedResult.treeIndex;
+        const swapTo     = minimumTreeIndex;
+        const swapLength = 1 + getDescendantCount({ node: draggedNode });
         this.setState({
-            rows: swapRows(
-                rows,
-                addedResult.treeIndex,
-                minimumTreeIndex,
-                1 + getDescendantCount({ node: draggedNode })
-            ),
+            rows: swapRows(rows, swapFrom, swapTo, swapLength),
+            swapFrom,
+            swapLength,
+            swapDepth: depth,
             draggingTreeData: changeNodeAtPath({
                 treeData: this.state.draggingTreeData,
                 path: expandedParentPath.slice(0, -1),
@@ -135,6 +143,9 @@ class ReactSortableTree extends Component {
         if (!dropResult) {
             return this.setState({
                 draggingTreeData: null,
+                swapFrom: null,
+                swapLength: null,
+                swapDepth: null,
                 rows: this.getRows(this.props.treeData),
             });
         }
@@ -238,6 +249,9 @@ class ReactSortableTree extends Component {
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}
                 scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
+                swapFrom={this.state.swapFrom}
+                swapLength={this.state.swapLength}
+                swapDepth={this.state.swapDepth}
                 maxDepth={this.props.maxDepth}
                 dragHover={this.dragHover}
             >
