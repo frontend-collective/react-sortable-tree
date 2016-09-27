@@ -41,7 +41,13 @@ $row-padding: 10px;
     }
 }
 
+%rowItem {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .rowContents {
+    @extend %rowItem;
     position: relative;
     height: 100%;
     border: solid #BBB 1px;
@@ -58,18 +64,15 @@ $row-padding: 10px;
 }
 
 .rowLabel {
+    @extend %rowItem;
     flex: 0 1 auto;
     padding-right: 20px;
 }
 
 .rowToolbar {
+    @extend %rowItem;
     flex: 0 1 auto;
     display: flex;
-}
-
-%rowItem {
-    display: inline-block;
-    vertical-align: middle;
 }
 
 .moveHandle {
