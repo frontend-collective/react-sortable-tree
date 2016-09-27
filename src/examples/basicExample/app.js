@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import SortableTree, { toggleExpandedForAll } from '../../index';
 import styles from './stylesheets/app.scss';
+import '../shared/favicon/apple-touch-icon.png';
+import '../shared/favicon/favicon-16x16.png';
+import '../shared/favicon/favicon-32x32.png';
+import '../shared/favicon/favicon.ico';
+import '../shared/favicon/safari-pinned-tab.svg';
 
 class App extends Component {
     constructor(props) {
