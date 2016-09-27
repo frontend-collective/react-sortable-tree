@@ -104,47 +104,6 @@
 $highlight-color: #36C2F6;
 $highlight-line-size: 8px; // Make it an even number for clean rendering
 
-%highlightLineBase {
-    position: absolute;
-    content: '';
-    background-color: $highlight-color;
-    z-index: 3;
-}
-
-/**
- * +-----+
- * |     |
- * |     |
- * |     |
- * ======>
- */
-.highlightArrow {
-    $arrow-size: 18px;
-    z-index: 3;
-
-    &::before {
-        content: '';
-        position: absolute;
-        border-bottom: solid $highlight-line-size $highlight-color;
-        height: calc(100% - #{$highlight-line-size / 2});
-        top: 0;
-        right: $arrow-size;
-        width: calc(100% - #{$arrow-size});
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        height: 0;
-        right: 0;
-        top: 100%;
-        margin-top: -1 * $arrow-size / 1.46 ;
-        border-top: $arrow-size / 1.4 solid transparent;
-        border-bottom: $arrow-size / 1.4 solid transparent;
-        border-left: $arrow-size solid $highlight-color;
-    }
-}
-
 /**
  * +--+--+
  * |  |  |
@@ -153,8 +112,12 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
  * +--+--+
  */
 .highlightLineVertical {
+    z-index: 3;
+
     &::before {
-        @extend %highlightLineBase;
+        position: absolute;
+        content: '';
+        background-color: $highlight-color;
         width: $highlight-line-size;
         margin-left: $highlight-line-size / -2;
         left: 50%;
@@ -183,7 +146,6 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
     }
 
     &::after {
-        z-index: 3;
         content: '';
         position: absolute;
         height: 0;
@@ -197,6 +159,13 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
     }
 }
 
+/**
+ * +-----+
+ * |     |
+ * |  +--+
+ * |  |  |
+ * +--+--+
+ */
 .highlightTopLeftCorner {
     &::before {
         z-index: 3;
@@ -212,16 +181,37 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
     }
 }
 
+/**
+ * +--+--+
+ * |  |  |
+ * |  |  |
+ * |  +->|
+ * +-----+
+ */
 .highlightBottomLeftCorner {
+    $arrow-size: 12px;
+    z-index: 3;
+
     &::before {
-        z-index: 3;
         content: '';
         position: absolute;
         border-bottom: solid $highlight-line-size $highlight-color;
         border-left: solid $highlight-line-size $highlight-color;
         height: calc(100% - #{$highlight-line-size / 2});
         top: 0;
+        right: $arrow-size;
+        width: calc(50% - #{$arrow-size + ($highlight-line-size / 2)});
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        height: 0;
         right: 0;
-        width: calc(50% - #{$highlight-line-size / 2});
+        top: 100%;
+        margin-top: -1 * $arrow-size ;
+        border-top: $arrow-size solid transparent;
+        border-bottom: $arrow-size solid transparent;
+        border-left: $arrow-size solid $highlight-color;
     }
 }
