@@ -1,6 +1,6 @@
 # React Sortable Tree
 
-![tree200](https://cloud.githubusercontent.com/assets/4413963/18860410/26f64de8-84b8-11e6-9284-350308eed30a.png)
+[![tree200](https://cloud.githubusercontent.com/assets/4413963/18860410/26f64de8-84b8-11e6-9284-350308eed30a.png)](https://fritz-c.github.io/react-sortable-tree/)
 
 __Note: This is a work in progress; most of the features are not yet implemented.__
 
