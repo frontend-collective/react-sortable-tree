@@ -173,11 +173,12 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
         position: absolute;
         border-top: solid $highlight-line-size $highlight-color;
         border-left: solid $highlight-line-size $highlight-color;
-        height: calc(50% - #{$highlight-line-size / 2});
+        box-sizing: border-box;
+        height: calc(50% + #{$highlight-line-size / 2});
         top: 50%;
         margin-top: $highlight-line-size / -2;
         right: 0;
-        width: calc(50% - #{$highlight-line-size / 2});
+        width: calc(50% + #{$highlight-line-size / 2});
     }
 }
 
@@ -197,10 +198,11 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
         position: absolute;
         border-bottom: solid $highlight-line-size $highlight-color;
         border-left: solid $highlight-line-size $highlight-color;
-        height: calc(100% - #{$highlight-line-size / 2});
+        box-sizing: border-box;
+        height: calc(100% + #{$highlight-line-size / 2});
         top: 0;
         right: $arrow-size;
-        width: calc(50% - #{$arrow-size + ($highlight-line-size / 2)});
+        width: calc(50% - #{$arrow-size - ($highlight-line-size / 2)});
     }
 
     &::after {
