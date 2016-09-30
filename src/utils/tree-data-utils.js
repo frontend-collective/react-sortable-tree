@@ -29,7 +29,7 @@ function getNodeDataAtTreeIndexOrNextIndex({
         return { nextIndex: currentIndex + 1 };
     }
 
-    // Iterate over each child and their ancestors and return the
+    // Iterate over each child and their descendants and return the
     // target node if childIndex reaches the targetIndex
     let childIndex   = currentIndex + 1;
     const childCount = node.children.length;
@@ -823,4 +823,133 @@ export function getDepth(node, depth = 0) {
         (deepest, child) => Math.max(deepest, getDepth(child, depth + 1)),
         depth
     );
+}
+
+/**
+ * Find nodes matching a search query in the tree,
+ *
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {!Object[]} treeData - Tree data
+ * @param {?string|number} searchQuery - Function returning a boolean to indicate whether the node is a match or not
+ * @param {!function} searchMethod - Function returning a boolean to indicate whether the node is a match or not
+ * @param {?number} searchFocusOffset - The offset of the match to focus on
+ *                                      (e.g., 0 focuses on the first match, 1 on the second)
+ * @param {boolean=} expandAllMatchPaths - If true, expands the paths to any matched node
+ * @param {boolean=} expandFocusMatchPaths - If true, expands the path to the focused node
+ *
+ * @return {Object[]} matches - An array of objects containing the matching `node`s, their `path`s and `treeIndex`s
+ * @return {Object[]} treeData - The original tree data with all relevant nodes expanded.
+ *                               If expandAllMatchPaths and expandFocusMatchPaths are both false,
+ *                               it will be the same as the original tree data.
+ */
+export function find({
+    getNodeKey,
+    treeData,
+    searchQuery,
+    searchMethod,
+    searchFocusOffset,
+    expandAllMatchPaths = false,
+    expandFocusMatchPaths = true,
+}) {
+    const matches = [];
+
+    const trav = ({
+        isPseudoRoot = false,
+        node,
+        currentIndex,
+        path = [],
+    }) => {
+        let hasMatch = false;
+        let hasFocusMatch = false;
+        // The pseudo-root is not considered in the path
+        const selfPath = isPseudoRoot ? [] : [
+            ...path,
+            getNodeKey({ node, treeIndex: currentIndex }),
+        ];
+        const extraInfo = isPseudoRoot ? null : {
+            path: selfPath,
+            treeIndex: currentIndex,
+        };
+
+        // Nodes with with children that aren't lazy
+        const hasChildren = node.children &&
+            typeof node.children !== 'function' &&
+            node.children.length > 0;
+
+        let childIndex = currentIndex;
+        const newNode = { ...node };
+
+        // Examine the current node to see if it is a match
+        if (!isPseudoRoot && searchMethod({ ...extraInfo, node: newNode, searchQuery })) {
+            hasMatch = true;
+            if (matches.length === searchFocusOffset) {
+                hasFocusMatch = true;
+                if ((expandAllMatchPaths || expandFocusMatchPaths) && hasChildren) {
+                    newNode.expanded = true;
+                }
+            }
+
+            matches.push({ ...extraInfo, node: newNode });
+        }
+
+        if (hasChildren) {
+            // Get all descendants
+            newNode.children = newNode.children.map((child) => {
+                const mapResult = trav({
+                    node: child,
+                    currentIndex: childIndex + 1,
+                    path: selfPath,
+                });
+
+                // Ignore hidden nodes by only advancing the index counter to the returned treeIndex
+                // if the child is expanded.
+                //
+                // The child could have been expanded from the start,
+                // or expanded due to a matching node being found in its descendants
+                if (mapResult.node.expanded) {
+                    childIndex = mapResult.treeIndex;
+                } else {
+                    childIndex += 1;
+                }
+
+                if (mapResult.hasMatch || mapResult.hasFocusMatch) {
+                    hasMatch = true;
+
+                    if (mapResult.hasFocusMatch) {
+                        hasFocusMatch = true;
+                    }
+
+                    // Expand the current node if it has descendants matching the search
+                    // and the settings are set to do so.
+                    if ((expandAllMatchPaths && mapResult.hasMatch) ||
+                        ((expandAllMatchPaths || expandFocusMatchPaths) && mapResult.hasFocusMatch)
+                    ) {
+                        newNode.expanded = true;
+                    }
+                }
+
+                return mapResult.node;
+            });
+        } else {
+            childIndex += 1;
+        }
+
+        return {
+            node: hasMatch ? newNode : node,
+            hasMatch,
+            hasFocusMatch,
+            treeIndex: childIndex,
+        };
+    };
+
+    const result = trav({
+        node: { children: treeData },
+        isPseudoRoot: true,
+        currentIndex: -1,
+    });
+
+    return {
+        matches,
+        treeData: result.node.children,
+    };
 }

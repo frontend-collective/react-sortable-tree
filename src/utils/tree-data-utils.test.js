@@ -12,6 +12,7 @@ import {
     isDescendant,
     getDepth,
     getDescendantCount,
+    find,
 } from './tree-data-utils';
 
 const keyFromTreeIndex = ({ treeIndex }) => treeIndex;
@@ -1772,5 +1773,87 @@ describe('getDescendantCount', () => {
 
         expect(getDescendantCount({ ignoreCollapsed: false, node: nested })).toEqual(4);
         expect(getDescendantCount({ ignoreCollapsed: true, node: nested })).toEqual(3);
+    });
+});
+
+describe('find', () => {
+    const commonArgs = {
+        searchQuery: 42,
+        searchMethod: ({ node, searchQuery }) => (node.key === searchQuery),
+        expandAllMatchPaths: false,
+        expandFocusMatchPaths: true,
+        getNodeKey: keyFromKey,
+        searchFocusOffset: 0,
+    };
+
+    it('should work with flat data', () => {
+        let result;
+
+        result = find({ ...commonArgs, treeData: [{}] });
+        expect(result.matches).toEqual([]);
+
+        result = find({ ...commonArgs, treeData: [{ key: 41 }] });
+        expect(result.matches).toEqual([]);
+
+        result = find({ ...commonArgs, treeData: [{ key: 42 }] });
+        expect(result.matches).toEqual([
+            { node: { key: 42 }, treeIndex: 0, path: [42] },
+        ]);
+        expect(result.matches[commonArgs.searchFocusOffset].treeIndex).toEqual(0);
+
+        result = find({ ...commonArgs, treeData: [{ key: 41 }, { key: 42 }] });
+        expect(result.matches).toEqual([
+            { node: { key: 42 }, treeIndex: 1, path: [42] },
+        ]);
+        expect(result.matches[commonArgs.searchFocusOffset].treeIndex).toEqual(1);
+
+        result = find({ ...commonArgs, treeData: [{ key: 42 }, { key: 42 }] });
+        expect(result.matches).toEqual([
+            { node: { key: 42 }, treeIndex: 0, path: [42] },
+            { node: { key: 42 }, treeIndex: 1, path: [42] },
+        ]);
+        expect(result.matches[commonArgs.searchFocusOffset].treeIndex).toEqual(0);
+    });
+
+    it('should work with nested data', () => {
+        let result;
+
+        result = find({
+            ...commonArgs,
+            treeData: [{ children: [{ key: 42 }] }],
+        });
+        expect(result.matches.length).toEqual(1);
+        expect(result.matches[commonArgs.searchFocusOffset].treeIndex).toEqual(1);
+
+        result = find({
+            ...commonArgs,
+            treeData: [{ children: [{ key: 41 }] }, { children: [{ key: 42 }] }],
+        });
+        expect(result.matches.length).toEqual(1);
+        expect(result.matches[commonArgs.searchFocusOffset].treeIndex).toEqual(2);
+        expect(result.treeData).toEqual(
+            [{ children: [{ key: 41 }] }, { expanded: true, children: [{ key: 42 }] }]
+        );
+
+        result = find({
+            ...commonArgs,
+            treeData: [{ children: [{ children: [{ key: 42 }] }] }],
+        });
+        expect(result.matches.length).toEqual(1);
+        expect(result.matches[commonArgs.searchFocusOffset].treeIndex).toEqual(2);
+
+        result = find({
+            ...commonArgs,
+            treeData: [{ children: [{ key: 42, children: [{ key: 42 }] }] }],
+        });
+        expect(result.matches.length).toEqual(2);
+        expect(result.matches[commonArgs.searchFocusOffset].treeIndex).toEqual(1);
+
+        result = find({
+            ...commonArgs,
+            treeData: [{}, { children: [{ key: 42, expanded: true, children: [{ key: 42 }] }] }],
+        });
+        expect(result.matches.length).toEqual(2);
+        expect(result.matches[commonArgs.searchFocusOffset].treeIndex).toEqual(2);
     });
 });
