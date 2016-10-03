@@ -15,6 +15,9 @@ class App extends Component {
         const renderDepthTitle = ({ path }) => `Depth: ${path.length}`;
 
         this.state = {
+            searchString: '',
+            searchFocusIndex: 0,
+            searchFoundCount: null,
             treeData: [
                 {
                     title: '`title`',
@@ -155,6 +158,13 @@ class App extends Component {
         const authorUrl = 'https://github.com/fritz-c';
         const githubUrl = 'https://github.com/fritz-c/react-sortable-tree';
 
+        const {
+            treeData,
+            searchString,
+            searchFocusIndex,
+            searchFoundCount,
+        } = this.state;
+
         const alertNodeInfo = ({
             node,
             path,
@@ -173,6 +183,18 @@ class App extends Component {
             );
         };
 
+        const selectPrevMatch = () => this.setState({
+            searchFocusIndex: searchFocusIndex !== null ?
+                ((searchFoundCount + searchFocusIndex - 1) % searchFoundCount) :
+                searchFoundCount - 1,
+        });
+
+        const selectNextMatch = () => this.setState({
+            searchFocusIndex: searchFocusIndex !== null ?
+                ((searchFocusIndex + 1) % searchFoundCount) :
+                0,
+        });
+
         return (
             <div>
                 <section className={styles['page-header']}>
@@ -189,7 +211,7 @@ class App extends Component {
                     </span>
                     <h3>Demo</h3>
 
-                    <div style={{ height: 785 }}>
+                    <div style={{ height: 450 }}>
                         <button onClick={this.expandAll}>
                             Expand All
                         </button>
@@ -198,10 +220,60 @@ class App extends Component {
                             Collapse All
                         </button>
 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <form
+                            style={{ display: 'inline-block' }}
+                            onSubmit={(event) => {
+                                event.preventDefault();
+                            }}
+                        >
+                            <label htmlFor="find-box">
+                                Search:&nbsp;
+
+                                <input
+                                    id="find-box"
+                                    type="text"
+                                    value={searchString}
+                                    onChange={event => this.setState({ searchString: event.target.value })}
+                                />
+                            </label>
+
+                            <button
+                                type="button"
+                                disabled={!searchFoundCount}
+                                onClick={selectPrevMatch}
+                            >
+                                &lt;
+                            </button>
+
+                            <button
+                                type="submit"
+                                disabled={!searchFoundCount}
+                                onClick={selectNextMatch}
+                            >
+                                &gt;
+                            </button>
+
+                            <span>
+                                &nbsp;
+                                {searchFoundCount > 0 ? (searchFocusIndex + 1) : 0}
+                                &nbsp;/&nbsp;
+                                {searchFoundCount || 0}
+                            </span>
+                        </form>
+
                         <SortableTree
-                            treeData={this.state.treeData}
+                            treeData={treeData}
                             updateTreeData={this.updateTreeData}
                             maxDepth={5}
+                            searchQuery={searchString}
+                            searchFocusOffset={searchFocusIndex}
+                            searchFinishCallback={matches =>
+                                this.setState({
+                                    searchFoundCount: matches.length,
+                                    searchFocusIndex: matches.length > 0 ? searchFocusIndex % matches.length : 0,
+                                })
+                            }
                             generateNodeProps={rowInfo => ({
                                 buttons: [
                                     <button
