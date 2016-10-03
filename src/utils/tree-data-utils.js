@@ -876,16 +876,10 @@ export function find({
             typeof node.children !== 'function' &&
             node.children.length > 0;
 
-        let childIndex = currentIndex;
-        const newNode = { ...node };
-
         // Examine the current node to see if it is a match
-        if (!isPseudoRoot && searchMethod({ ...extraInfo, node: newNode, searchQuery })) {
+        if (!isPseudoRoot && searchMethod({ ...extraInfo, node, searchQuery })) {
             if (matchCount === searchFocusOffset) {
                 hasFocusMatch = true;
-                if ((expandAllMatchPaths || expandFocusMatchPaths) && hasChildren) {
-                    newNode.expanded = true;
-                }
             }
 
             // Keep track of the number of matching nodes, so we know when the searchFocusOffset
@@ -899,6 +893,8 @@ export function find({
             isSelfMatch = true;
         }
 
+        let childIndex = currentIndex;
+        const newNode = { ...node };
         if (hasChildren) {
             // Get all descendants
             newNode.children = newNode.children.map((child) => {
@@ -938,12 +934,26 @@ export function find({
             });
         }
 
-        return {
-            node: matches.length > 0 ? newNode : node,
-            matches: !isSelfMatch ? matches : [
+        // Cannot assign a treeIndex to hidden nodes
+        if (!isPseudoRoot && !newNode.expanded) {
+            matches = matches.map(match => ({
+                ...match,
+                treeIndex: null,
+            }));
+        }
+
+        // Add this node to the matches if it fits the search criteria.
+        // This is performed at the last minute so newNode can be sent in its final form.
+        if (isSelfMatch) {
+            matches = [
                 { ...extraInfo, node: newNode },
                 ...matches,
-            ],
+            ];
+        }
+
+        return {
+            node: matches.length > 0 ? newNode : node,
+            matches,
             hasFocusMatch,
             treeIndex: childIndex,
         };
