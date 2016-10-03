@@ -61,9 +61,11 @@ class App extends Component {
                 },
                 {
                     title: 'Show node children by setting `expanded`',
+                    subtitle: ({ node }) => `expanded: ${node.expanded ? 'true' : 'false'}`,
                     children: [
                         {
                             title: 'Bruce',
+                            subtitle: ({ node }) => `expanded: ${node.expanded ? 'true' : 'false'}`,
                             children: [
                                 { title: 'Bruce Jr.' },
                                 { title: 'Brucette' },
