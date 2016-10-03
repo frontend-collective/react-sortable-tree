@@ -15,6 +15,7 @@ import {
     removeNodeAtPath,
     insertNode,
     getDescendantCount,
+    find,
 } from './utils/tree-data-utils';
 import {
     swapRows,
@@ -23,6 +24,7 @@ import {
     defaultGetNodeKey,
     defaultToggleChildrenVisibility,
     defaultMoveNode,
+    defaultSearchMethod,
 } from './utils/default-handlers';
 import {
     dndWrapRoot,
@@ -63,6 +65,8 @@ class ReactSortableTree extends Component {
             swapLength: null,
             swapDepth: null,
             rows: this.getRows(props.treeData),
+            searchMatches: [],
+            searchFocusTreeIndex: null,
         };
 
         this.startDrag = this.startDrag.bind(this);
@@ -72,12 +76,21 @@ class ReactSortableTree extends Component {
 
     componentWillMount() {
         this.loadLazyChildren();
+        this.search(this.props, false, false);
+        this.ignoreOneTreeUpdate = false;
     }
 
     componentWillReceiveProps(nextProps) {
+        this.setState({ searchFocusTreeIndex: null });
         if (this.props.treeData !== nextProps.treeData) {
-            // Load any children defined by a function
-            this.loadLazyChildren(nextProps);
+            // Ignore updates caused by search, in order to avoid infinite looping
+            if (this.ignoreOneTreeUpdate) {
+                this.ignoreOneTreeUpdate = false;
+            } else {
+                this.loadLazyChildren(nextProps);
+                // Load any children defined by a function
+                this.search(nextProps, false, false);
+            }
 
             // Calculate the rows to be shown from the new tree data
             this.setState({
@@ -87,6 +100,12 @@ class ReactSortableTree extends Component {
                 swapDepth: null,
                 rows: this.getRows(nextProps.treeData),
             });
+        } else if (this.props.searchQuery !== nextProps.searchQuery ||
+            this.props.searchMethod !== nextProps.searchMethod
+        ) {
+            this.search(nextProps);
+        } else if (this.props.searchFocusOffset !== nextProps.searchFocusOffset) {
+            this.search(nextProps, true, true, true);
         }
     }
 
@@ -95,6 +114,68 @@ class ReactSortableTree extends Component {
             ignoreCollapsed: true,
             getNodeKey: this.getNodeKey,
             treeData,
+        });
+    }
+
+    search(props = this.props, seekIndex = true, expand = true, singleSearch = false) {
+        const {
+            treeData,
+            updateTreeData,
+            searchFinishCallback,
+            searchQuery,
+            searchMethod,
+            searchFocusOffset,
+        } = props;
+
+        // Skip search if no conditions are specified
+        if ((searchQuery === null || typeof searchQuery === 'undefined' || String(searchQuery) === '') &&
+            !searchMethod
+        ) {
+            this.setState({
+                searchMatches: [],
+            });
+
+            if (searchFinishCallback) {
+                searchFinishCallback([]);
+            }
+
+            return;
+        }
+
+        const {
+            treeData: expandedTreeData,
+            matches: searchMatches,
+        } = find({
+            getNodeKey: this.getNodeKey,
+            treeData,
+            searchQuery,
+            searchMethod: searchMethod || defaultSearchMethod,
+            searchFocusOffset,
+            expandAllMatchPaths: expand && !singleSearch,
+            expandFocusMatchPaths: expand && true,
+        });
+
+        // Update the tree with data leaving all paths leading to matching nodes open
+        if (expand) {
+            this.ignoreOneTreeUpdate = true; // Prevents infinite loop
+            updateTreeData(expandedTreeData);
+        }
+
+        if (searchFinishCallback) {
+            searchFinishCallback(searchMatches);
+        }
+
+        let searchFocusTreeIndex = null;
+        if (seekIndex &&
+            searchFocusOffset !== null &&
+            searchFocusOffset < searchMatches.length
+        ) {
+            searchFocusTreeIndex = searchMatches[searchFocusOffset].treeIndex;
+        }
+
+        this.setState({
+            searchMatches,
+            searchFocusTreeIndex,
         });
     }
 
@@ -198,7 +279,18 @@ class ReactSortableTree extends Component {
             innerStyle,
             rowHeight,
         } = this.props;
-        const { rows } = this.state;
+        const {
+            rows,
+            searchMatches,
+            searchFocusTreeIndex,
+        } = this.state;
+
+        // Get indices for rows that match the search conditions
+        const matchIndices = {};
+        searchMatches.forEach(({ treeIndex: tIndex }, i) => { matchIndices[tIndex] = i; });
+
+        // Seek to the focused search result if there is one specified
+        const scrollToInfo = searchFocusTreeIndex !== null ? { scrollToIndex: searchFocusTreeIndex } : {};
 
         return (
             <div
@@ -208,6 +300,8 @@ class ReactSortableTree extends Component {
                 <AutoSizer>
                     {({height, width}) => (
                         <List
+                            {...scrollToInfo}
+                            scrollToAlignment="start"
                             className={styles.virtualScrollOverride}
                             width={width}
                             height={height}
@@ -220,7 +314,8 @@ class ReactSortableTree extends Component {
                                 index,
                                 key,
                                 rowStyle,
-                                () => (rows[index - 1] || null)
+                                () => (rows[index - 1] || null),
+                                matchIndices
                             )}
                         />
                     )}
@@ -229,13 +324,19 @@ class ReactSortableTree extends Component {
         );
     }
 
-    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow) {
+    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, matchIndices) {
         const NodeContentRenderer = this.nodeContentRenderer;
+        const isSearchMatch = treeIndex in matchIndices;
+        const isSearchFocus = isSearchMatch &&
+            matchIndices[treeIndex] === this.props.searchFocusOffset;
+
         const nodeProps = !this.props.generateNodeProps ? {} : this.props.generateNodeProps({
             node,
             path,
             lowerSiblingCounts,
             treeIndex,
+            isSearchMatch,
+            isSearchFocus,
         });
 
         return (
@@ -258,6 +359,8 @@ class ReactSortableTree extends Component {
                 <NodeContentRenderer
                     node={node}
                     path={path}
+                    isSearchMatch={isSearchMatch}
+                    isSearchFocus={isSearchFocus}
                     treeIndex={treeIndex}
                     startDrag={this.startDrag}
                     endDrag={this.endDrag}
@@ -291,6 +394,12 @@ ReactSortableTree.propTypes = {
 
     maxDepth: PropTypes.number,
 
+    // Search stuff
+    searchQuery:          PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+    searchFocusOffset:    PropTypes.number,
+    searchMethod:         PropTypes.func,
+    searchFinishCallback: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+
     nodeContentRenderer: PropTypes.any,
     generateNodeProps:   PropTypes.func,
 
@@ -305,6 +414,7 @@ ReactSortableTree.defaultProps = {
     innerStyle: {},
     scaffoldBlockPxWidth: 44,
     loadCollapsedLazyChildren: false,
+    searchQuery: null,
 };
 
 export default dndWrapRoot(ReactSortableTree);

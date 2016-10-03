@@ -27,6 +27,8 @@ const NodeRendererDefault = ({
     draggedNode,
     path,
     treeIndex,
+    isSearchMatch,
+    isSearchFocus,
     buttons,
     className,
     style = {},
@@ -88,6 +90,8 @@ const NodeRendererDefault = ({
                         className={styles.row +
                             (isDragging && isOver ? ` ${styles.rowLandingPad}` : '') +
                             (isDragging && !isOver && canDrop ? ` ${styles.rowCancelPad}` : '') +
+                            (isSearchMatch ? ` ${styles.rowSearchMatch}` : '') +
+                            (isSearchFocus ? ` ${styles.rowSearchFocus}` : '') +
                             (className ? ` ${className}` : '')
                         }
                         style={{
@@ -136,9 +140,11 @@ const NodeRendererDefault = ({
 };
 
 NodeRendererDefault.propTypes = {
-    node:               PropTypes.object.isRequired,
-    path:               PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
-    treeIndex:          PropTypes.number.isRequired,
+    node:          PropTypes.object.isRequired,
+    path:          PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
+    treeIndex:     PropTypes.number.isRequired,
+    isSearchMatch: PropTypes.bool,
+    isSearchFocus: PropTypes.bool,
 
     scaffoldBlockPxWidth:     PropTypes.number.isRequired,
     toggleChildrenVisibility: PropTypes.func,

@@ -11,6 +11,9 @@ $row-padding: 10px;
     display: flex;
 }
 
+/**
+ * The outline of where the element will go if dropped, displayed while dragging
+ */
 .rowLandingPad {
     border: none !important;
     box-shadow: none !important;
@@ -33,12 +36,29 @@ $row-padding: 10px;
     }
 }
 
+/**
+ * Alternate appearance of the landing pad when the dragged location is invalid
+ */
 .rowCancelPad {
     @extend .rowLandingPad;
 
     &::before {
         background-color: #E6A8AD;
     }
+}
+
+/**
+ * Nodes matching the search conditions are highlighted
+ */
+.rowSearchMatch {
+    outline: solid 3px #0080FF;
+}
+
+/**
+ * The node that matches the search conditions and is currently focused
+ */
+.rowSearchFocus {
+    outline: solid 3px #FC6421;
 }
 
 %rowItem {
