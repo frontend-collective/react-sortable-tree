@@ -851,15 +851,15 @@ export function find({
     expandAllMatchPaths = false,
     expandFocusMatchPaths = true,
 }) {
-    const matches = [];
-
+    let matchCount = 0;
     const trav = ({
         isPseudoRoot = false,
         node,
         currentIndex,
         path = [],
     }) => {
-        let hasMatch = false;
+        let matches = [];
+        let isSelfMatch = false;
         let hasFocusMatch = false;
         // The pseudo-root is not considered in the path
         const selfPath = isPseudoRoot ? [] : [
@@ -881,15 +881,22 @@ export function find({
 
         // Examine the current node to see if it is a match
         if (!isPseudoRoot && searchMethod({ ...extraInfo, node: newNode, searchQuery })) {
-            hasMatch = true;
-            if (matches.length === searchFocusOffset) {
+            if (matchCount === searchFocusOffset) {
                 hasFocusMatch = true;
                 if ((expandAllMatchPaths || expandFocusMatchPaths) && hasChildren) {
                     newNode.expanded = true;
                 }
             }
 
-            matches.push({ ...extraInfo, node: newNode });
+            // Keep track of the number of matching nodes, so we know when the searchFocusOffset
+            //  is reached
+            matchCount++;
+
+            // We cannot add this node to the matches right away, as it may be changed
+            //  during the search of the descendants. The entire node is used in
+            //  comparisons between nodes inside the `matches` and `treeData` results
+            //  of this method (`find`)
+            isSelfMatch = true;
         }
 
         if (hasChildren) {
@@ -912,16 +919,15 @@ export function find({
                     childIndex += 1;
                 }
 
-                if (mapResult.hasMatch || mapResult.hasFocusMatch) {
-                    hasMatch = true;
-
+                if (mapResult.matches.length > 0 || mapResult.hasFocusMatch) {
+                    matches = [ ...matches, ...mapResult.matches ];
                     if (mapResult.hasFocusMatch) {
                         hasFocusMatch = true;
                     }
 
                     // Expand the current node if it has descendants matching the search
                     // and the settings are set to do so.
-                    if ((expandAllMatchPaths && mapResult.hasMatch) ||
+                    if ((expandAllMatchPaths && mapResult.matches.length > 0) ||
                         ((expandAllMatchPaths || expandFocusMatchPaths) && mapResult.hasFocusMatch)
                     ) {
                         newNode.expanded = true;
@@ -930,13 +936,14 @@ export function find({
 
                 return mapResult.node;
             });
-        } else {
-            childIndex += 1;
         }
 
         return {
-            node: hasMatch ? newNode : node,
-            hasMatch,
+            node: matches.length > 0 ? newNode : node,
+            matches: !isSelfMatch ? matches : [
+                { ...extraInfo, node: newNode },
+                ...matches,
+            ],
             hasFocusMatch,
             treeIndex: childIndex,
         };
@@ -949,7 +956,7 @@ export function find({
     });
 
     return {
-        matches,
+        matches: result.matches,
         treeData: result.node.children,
     };
 }

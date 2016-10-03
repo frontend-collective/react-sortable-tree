@@ -1813,6 +1813,30 @@ describe('find', () => {
             { node: { key: 42 }, treeIndex: 1, path: [42] },
         ]);
         expect(result.matches[commonArgs.searchFocusOffset].treeIndex).toEqual(0);
+
+        result = find({
+            ...commonArgs,
+            searchFocusOffset: 3,
+            treeData: [
+                { key: 1 },
+                { key: 42 },
+                { key: 3 },
+                { key: 3 },
+                { key: 3 },
+                { key: 4 },
+                { key: 42 },
+                { key: 42 },
+                { key: 4 },
+                { key: 42 },
+            ],
+        });
+        expect(result.matches).toEqual([
+            { node: { key: 42 }, treeIndex: 1, path: [42] },
+            { node: { key: 42 }, treeIndex: 6, path: [42] },
+            { node: { key: 42 }, treeIndex: 7, path: [42] },
+            { node: { key: 42 }, treeIndex: 9, path: [42] },
+        ]);
+        expect(result.matches[3].treeIndex).toEqual(9);
     });
 
     it('should work with nested data', () => {
