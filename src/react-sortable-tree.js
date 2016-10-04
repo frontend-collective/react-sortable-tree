@@ -286,8 +286,8 @@ class ReactSortableTree extends Component {
         } = this.state;
 
         // Get indices for rows that match the search conditions
-        const matchIndices = {};
-        searchMatches.forEach(({ treeIndex: tIndex }, i) => { matchIndices[tIndex] = i; });
+        const matchKeys = {};
+        searchMatches.forEach(({ path }, i) => { matchKeys[path[path.length - 1]] = i; });
 
         // Seek to the focused search result if there is one specified
         const scrollToInfo = searchFocusTreeIndex !== null ? { scrollToIndex: searchFocusTreeIndex } : {};
@@ -315,7 +315,7 @@ class ReactSortableTree extends Component {
                                 key,
                                 rowStyle,
                                 () => (rows[index - 1] || null),
-                                matchIndices
+                                matchKeys
                             )}
                         />
                     )}
@@ -324,11 +324,12 @@ class ReactSortableTree extends Component {
         );
     }
 
-    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, matchIndices) {
+    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, matchKeys) {
         const NodeContentRenderer = this.nodeContentRenderer;
-        const isSearchMatch = treeIndex in matchIndices;
+        const nodeKey = path[path.length - 1];
+        const isSearchMatch = nodeKey in matchKeys;
         const isSearchFocus = isSearchMatch &&
-            matchIndices[treeIndex] === this.props.searchFocusOffset;
+            matchKeys[nodeKey] === this.props.searchFocusOffset;
 
         const nodeProps = !this.props.generateNodeProps ? {} : this.props.generateNodeProps({
             node,
