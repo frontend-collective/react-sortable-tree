@@ -1879,5 +1879,11 @@ describe('find', () => {
         });
         expect(result.matches.length).toEqual(2);
         expect(result.matches[commonArgs.searchFocusOffset].treeIndex).toEqual(2);
+
+        result = find({
+            ...commonArgs,
+            treeData: [{}, { children: [{ key: 1, expanded: true, children: [{ key: 1 }] }] }],
+        });
+        expect(result.matches.length).toEqual(0);
     });
 });

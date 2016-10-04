@@ -100,9 +100,7 @@ class ReactSortableTree extends Component {
                 swapDepth: null,
                 rows: this.getRows(nextProps.treeData),
             });
-        } else if (this.props.searchQuery !== nextProps.searchQuery ||
-            this.props.searchMethod !== nextProps.searchMethod
-        ) {
+        } else if (this.props.searchQuery !== nextProps.searchQuery) {
             this.search(nextProps);
         } else if (this.props.searchFocusOffset !== nextProps.searchFocusOffset) {
             this.search(nextProps, true, true, true);
@@ -396,9 +394,9 @@ ReactSortableTree.propTypes = {
     maxDepth: PropTypes.number,
 
     // Search stuff
-    searchQuery:          PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+    searchQuery:          PropTypes.any,
     searchFocusOffset:    PropTypes.number,
-    searchMethod:         PropTypes.func,
+    searchMethod:         PropTypes.func, // eslint-disable-line react/no-unused-prop-types
     searchFinishCallback: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
 
     nodeContentRenderer: PropTypes.any,
