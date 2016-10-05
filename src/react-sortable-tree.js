@@ -6,6 +6,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { AutoSizer, List } from 'react-virtualized';
+import isEqual from 'lodash.isequal';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
 import NodeRendererDefault from './node-renderer-default';
@@ -115,7 +116,7 @@ class ReactSortableTree extends Component {
                 swapDepth: null,
                 rows: this.getRows(nextProps.treeData),
             });
-        } else if (this.props.searchQuery !== nextProps.searchQuery) {
+        } else if (!isEqual(this.props.searchQuery, nextProps.searchQuery)) {
             this.search(nextProps);
         } else if (this.props.searchFocusOffset !== nextProps.searchFocusOffset) {
             this.search(nextProps, true, true, true);

@@ -1,6 +1,6 @@
 {
   "name": "react-sortable-tree",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "description": "Drag-and-drop sortable representation of hierarchical data",
   "scripts": {
     "build": "npm run lint && npm run test && npm run build:demo && npm run build:umd",
@@ -31,6 +31,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "lodash.isequal": "^4.4.0",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
     "react-virtualized": "^8.0.4"
