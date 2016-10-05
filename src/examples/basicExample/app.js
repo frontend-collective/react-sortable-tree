@@ -208,9 +208,6 @@ class App extends Component {
                 </section>
 
                 <section className={styles['main-content']}>
-                    <span style={{ color: 'firebrick' }}>
-                        Note: This is a work in progress; most of the features are not yet implemented.
-                    </span>
                     <h3>Demo</h3>
 
                     <div style={{ height: 450 }}>
