@@ -266,7 +266,7 @@ class App extends Component {
 
                         <SortableTree
                             treeData={treeData}
-                            updateTreeData={this.updateTreeData}
+                            onChange={this.updateTreeData}
                             maxDepth={5}
                             searchQuery={searchString}
                             searchFocusOffset={searchFocusIndex}

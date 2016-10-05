@@ -8,6 +8,7 @@ import React, { Component, PropTypes } from 'react';
 import { AutoSizer, List } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
+import NodeRendererDefault from './node-renderer-default';
 import {
     walk,
     getFlatDataFromTree,
@@ -22,8 +23,6 @@ import {
 } from './utils/generic-utils';
 import {
     defaultGetNodeKey,
-    defaultToggleChildrenVisibility,
-    defaultMoveNode,
     defaultSearchMethod,
 } from './utils/default-handlers';
 import {
@@ -36,28 +35,7 @@ class ReactSortableTree extends Component {
     constructor(props) {
         super(props);
 
-        if (process.env.NODE_ENV === 'development') {
-            /* eslint-disable no-console */
-            const usesDefaultHandlers = (
-                !props.toggleChildrenVisibility
-            );
-
-            if (!props.updateTreeData && usesDefaultHandlers) {
-                console.warn('Need to add specify updateTreeData prop if default event handlers are used');
-            }
-            /* eslint-enable */
-        }
-
-        // Fall back to default event listeners if necessary and bind them to the tree
-        this.getNodeKey = (props.getNodeKey || defaultGetNodeKey).bind(this);
-        this.moveNode   = (props.moveNode || defaultMoveNode).bind(this);
-        this.toggleChildrenVisibility = (
-            props.toggleChildrenVisibility || defaultToggleChildrenVisibility
-        ).bind(this);
-        this.nodeContentRenderer = dndWrapSource(
-            props.nodeContentRenderer ||
-            require('./node-renderer-default').default // eslint-disable-line global-require
-        );
+        this.nodeContentRenderer = dndWrapSource(props.nodeContentRenderer);
 
         this.state = {
             draggingTreeData: null,
@@ -69,6 +47,8 @@ class ReactSortableTree extends Component {
             searchFocusTreeIndex: null,
         };
 
+        this.toggleChildrenVisibility = this.toggleChildrenVisibility.bind(this);
+        this.moveNode  = this.moveNode.bind(this);
         this.startDrag = this.startDrag.bind(this);
         this.dragHover = this.dragHover.bind(this);
         this.endDrag   = this.endDrag.bind(this);
@@ -78,6 +58,41 @@ class ReactSortableTree extends Component {
         this.loadLazyChildren();
         this.search(this.props, false, false);
         this.ignoreOneTreeUpdate = false;
+    }
+
+    toggleChildrenVisibility({ node: targetNode, path, treeIndex: _treeIndex }) {
+        const treeData = changeNodeAtPath({
+            treeData: this.props.treeData,
+            path,
+            newNode: ({ node }) => ({ ...node, expanded: !node.expanded }),
+            getNodeKey: this.props.getNodeKey,
+        });
+
+        this.props.onChange(treeData);
+
+        if (this.props.onVisibilityToggle) {
+            this.props.onVisibilityToggle({
+                treeData,
+                node: targetNode,
+                expanded: !targetNode.expanded,
+            });
+        }
+    }
+
+    moveNode({ node, depth, minimumTreeIndex }) {
+        const treeData = insertNode({
+            treeData: this.state.draggingTreeData,
+            newNode: node,
+            depth,
+            minimumTreeIndex,
+            expandParent: true,
+        }).treeData;
+
+        this.props.onChange(treeData);
+
+        if (this.props.onMoveNode) {
+            this.props.onMoveNode({ treeData, node });
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -110,7 +125,7 @@ class ReactSortableTree extends Component {
     getRows(treeData) {
         return getFlatDataFromTree({
             ignoreCollapsed: true,
-            getNodeKey: this.getNodeKey,
+            getNodeKey: this.props.getNodeKey,
             treeData,
         });
     }
@@ -118,7 +133,7 @@ class ReactSortableTree extends Component {
     search(props = this.props, seekIndex = true, expand = true, singleSearch = false) {
         const {
             treeData,
-            updateTreeData,
+            onChange,
             searchFinishCallback,
             searchQuery,
             searchMethod,
@@ -144,7 +159,7 @@ class ReactSortableTree extends Component {
             treeData: expandedTreeData,
             matches: searchMatches,
         } = find({
-            getNodeKey: this.getNodeKey,
+            getNodeKey: this.props.getNodeKey,
             treeData,
             searchQuery,
             searchMethod: searchMethod || defaultSearchMethod,
@@ -156,7 +171,7 @@ class ReactSortableTree extends Component {
         // Update the tree with data leaving all paths leading to matching nodes open
         if (expand) {
             this.ignoreOneTreeUpdate = true; // Prevents infinite loop
-            updateTreeData(expandedTreeData);
+            onChange(expandedTreeData);
         }
 
         if (searchFinishCallback) {
@@ -181,7 +196,7 @@ class ReactSortableTree extends Component {
         const draggingTreeData = removeNodeAtPath({
             treeData: this.props.treeData,
             path,
-            getNodeKey: this.getNodeKey,
+            getNodeKey: this.props.getNodeKey,
         });
 
         this.setState({
@@ -213,7 +228,7 @@ class ReactSortableTree extends Component {
                 treeData: this.state.draggingTreeData,
                 path: expandedParentPath.slice(0, -1),
                 newNode: ({ node }) => ({ ...node, expanded: true }),
-                getNodeKey: this.getNodeKey,
+                getNodeKey: this.props.getNodeKey,
             }),
         });
     }
@@ -238,7 +253,7 @@ class ReactSortableTree extends Component {
     loadLazyChildren(props = this.props) {
         walk({
             treeData: props.treeData,
-            getNodeKey: this.getNodeKey,
+            getNodeKey: this.props.getNodeKey,
             callback: ({ node, path, lowerSiblingCounts, treeIndex }) => {
                 // If the node has children defined by a function, and is either expanded
                 //  or set to load even before expansion, run the function.
@@ -254,7 +269,7 @@ class ReactSortableTree extends Component {
                         treeIndex,
 
                         // Provide a helper to append the new data when it is received
-                        done: childrenArray => this.props.updateTreeData(changeNodeAtPath({
+                        done: childrenArray => this.props.onChange(changeNodeAtPath({
                             treeData: this.props.treeData,
                             path,
                             newNode: ({ node: oldNode }) => (
@@ -262,7 +277,7 @@ class ReactSortableTree extends Component {
                                 //  for in the first place
                                 oldNode === node ? { ...oldNode, children: childrenArray } : oldNode
                             ),
-                            getNodeKey: this.getNodeKey,
+                            getNodeKey: this.props.getNodeKey,
                         })),
                     });
                 }
@@ -373,46 +388,84 @@ class ReactSortableTree extends Component {
 }
 
 ReactSortableTree.propTypes = {
+    // Tree data in the following format:
+    // [{title: 'main', subtitle: 'sub'}, { title: 'value2', expanded: true, children: [{ title: 'value3') }] }]
+    // `title` is the primary label for the node
+    // `subtitle` is a secondary label for the node
+    // `expanded` shows children of the node if true, or hides them if false. Defaults to false.
+    // `children` is an array of child nodes belonging to the node.
     treeData: PropTypes.arrayOf(PropTypes.object).isRequired,
-
-    // Callback for move operation.
-    // Called as moveNode({ node, path, parentPath, minimumTreeIndex })
-    moveNode: PropTypes.func,
 
     // Style applied to the container wrapping the tree (style defaults to {height: '100%'})
     style: PropTypes.object,
+
+    // Class name for the container wrapping the tree
     className: PropTypes.string,
 
     // Style applied to the inner, scrollable container (for padding, etc.)
     innerStyle: PropTypes.object,
 
-    // Height of each node row, used for react-virtualized
+    // Used by react-virtualized
+    // Either a fixed row height (number) or a function that returns the
+    // height of a row given its index: `({ index: number }): number`
     rowHeight: PropTypes.oneOfType([ PropTypes.number, PropTypes.func ]),
 
+    // The width of the blocks containing the lines representing the structure of the tree.
     scaffoldBlockPxWidth: PropTypes.number,
 
+    // Maximum depth nodes can be inserted at. Defaults to infinite.
     maxDepth: PropTypes.number,
 
-    // Search stuff
-    searchQuery:          PropTypes.any,
-    searchFocusOffset:    PropTypes.number,
-    searchMethod:         PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+    // The method used to search nodes.
+    // Defaults to a function that uses the `searchQuery` string to search for nodes with
+    // matching `title` or `subtitle` values.
+    // NOTE: Changing `searchMethod` will not update the search, but changing the `searchQuery` will.
+    searchMethod: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+
+    // Used by the `searchMethod` to highlight and scroll to matched nodes.
+    // Should be a string for the default `searchMethod`, but can be anything when using a custom search.
+    searchQuery: PropTypes.any,
+
+    // Outline the <`searchFocusOffset`>th node and scroll to it.
+    searchFocusOffset: PropTypes.number,
+
+    // Get the nodes that match the search criteria. Used for counting total matches, etc.
     searchFinishCallback: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
 
-    nodeContentRenderer: PropTypes.any,
-    generateNodeProps:   PropTypes.func,
+    // Generate an object with additional props to be passed to the node renderer.
+    // Use this for adding buttons via the `buttons` key,
+    // or additional `style` / `className` settings.
+    generateNodeProps: PropTypes.func,
 
-    getNodeKey:                PropTypes.func,
-    updateTreeData:            PropTypes.func,
-    toggleChildrenVisibility:  PropTypes.func,
+    // Override the default component for rendering nodes (but keep the scaffolding generator)
+    // This is an advanced option for complete customization of the appearance.
+    // It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
+    nodeContentRenderer: PropTypes.any,
+
+    // Determine the unique key used to identify each node and
+    // generate the `path` array passed in callbacks.
+    // By default, returns the index in the tree (omitting hidden nodes).
+    getNodeKey: PropTypes.func,
+
+    // Called whenever tree data changed.
+    // Just like with React input elements, you have to update your
+    // own component's data to see the changes reflected.
+    onChange: PropTypes.func.isRequired,
+
+    // Called after node move operation.
+    onMoveNode: PropTypes.func,
+
+    // Called after children nodes collapsed or expanded.
+    onVisibilityToggle: PropTypes.func,
 };
 
 ReactSortableTree.defaultProps = {
+    getNodeKey: defaultGetNodeKey,
+    nodeContentRenderer: NodeRendererDefault,
     rowHeight: 62,
+    scaffoldBlockPxWidth: 44,
     style: {},
     innerStyle: {},
-    scaffoldBlockPxWidth: 44,
-    loadCollapsedLazyChildren: false,
     searchQuery: null,
 };
 
