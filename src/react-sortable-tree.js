@@ -331,6 +331,7 @@ class ReactSortableTree extends Component {
                                 () => (rows[index - 1] || null),
                                 matchKeys
                             )}
+                            {...this.props.reactVirtualizedListProps}
                         />
                     )}
                 </AutoSizer>
@@ -410,6 +411,10 @@ ReactSortableTree.propTypes = {
     // Either a fixed row height (number) or a function that returns the
     // height of a row given its index: `({ index: number }): number`
     rowHeight: PropTypes.oneOfType([ PropTypes.number, PropTypes.func ]),
+
+    // Custom properties to hand to the react-virtualized list
+    // https://github.com/bvaughn/react-virtualized/blob/master/docs/List.md#prop-types
+    reactVirtualizedListProps: PropTypes.object,
 
     // The width of the blocks containing the lines representing the structure of the tree.
     scaffoldBlockPxWidth: PropTypes.number,
