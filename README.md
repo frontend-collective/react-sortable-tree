@@ -17,16 +17,18 @@ import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
 
 export default class Tree extends Component {
-    constructor() {
+    constructor(props) {
+        super(props);
+
         this.state = {
-            treeData: { title: 'Chicken', children: [ { title: 'Egg' } ] },
+            treeData: [{ title: 'Chicken', children: [ { title: 'Egg' } ] }],
         };
     }
 
     render() {
         return (
             <SortableTree
-                treeData={treeData}
+                treeData={this.state.treeData}
                 onChange={treeData => this.setState({ treeData })}
             />
         );
