@@ -61,6 +61,24 @@ slideRegionSize           | number         | `100`               |          | Si
 scaffoldBlockPxWidth      | number         | `44`                |          | The width of the blocks containing the lines representing the structure of the tree.
 nodeContentRenderer       | any            | NodeRendererDefault |          | Override the default component for rendering nodes (but keep the scaffolding generator) This is an advanced option for complete customization of the appearance. It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
 
+## Data Helper Functions
+
+Need a hand turning your flat data into nested tree data?
+Want to perform add/remove operations on the tree data without creating your own recursive function?
+Check out the helper functions exported from [`tree-data-utils.js`](https://github.com/fritz-c/react-sortable-tree/blob/master/src/utils/tree-data-utils.js).
+
+Notable among the available functions:
+
+- __`getTreeFromFlatData`__: Convert flat data (like that from a database) into nested tree data
+- __`getFlatDataFromTree`__: Convert tree data back to flat data
+- __`addNodeUnderParent`__: Add a node under the parent node at the given path
+- __`removeNodeAtPath`__: Remove the node at the given path
+- __`map`__: Perform a change on every node in the tree
+- __`walk`__: Visit every node in the tree in order
+
+Documentation for each method is only available in the code at this time.
+If your hobbies happen to include writing documentation, by all means submit a pull request. It would really help out.
+
 ## Browser Compatibility
 
 | Browser | Works? |
