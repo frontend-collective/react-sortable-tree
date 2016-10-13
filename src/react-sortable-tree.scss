@@ -9,9 +9,6 @@
  * Extra class applied to VirtualScroll through className prop
  */
 .virtualScrollOverride {
-    overflow-x: visible !important;
-    overflow-y: auto !important;
-
     * {
         box-sizing: border-box;
     }

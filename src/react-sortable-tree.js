@@ -46,6 +46,7 @@ class ReactSortableTree extends Component {
             rows: this.getRows(props.treeData),
             searchMatches: [],
             searchFocusTreeIndex: null,
+            scrollToPixel: null,
         };
 
         this.toggleChildrenVisibility = this.toggleChildrenVisibility.bind(this);
@@ -286,17 +287,34 @@ class ReactSortableTree extends Component {
         });
     }
 
+    scrollBy(x, y) {
+        if (!this.containerRef) {
+            return;
+        }
+
+        if (x !== 0) {
+            this.containerRef.getElementsByClassName(styles.virtualScrollOverride)[0].scrollLeft += x;
+        }
+
+        if (y !== 0) {
+            this.scrollTop = this.scrollTop ? (this.scrollTop + y) : y;
+            this.setState({ scrollToPixel: this.scrollTop });
+        }
+    }
+
     render() {
         const {
             style,
             className,
             innerStyle,
             rowHeight,
+            _connectDropTarget,
         } = this.props;
         const {
             rows,
             searchMatches,
             searchFocusTreeIndex,
+            scrollToPixel,
         } = this.state;
 
         // Get indices for rows that match the search conditions
@@ -306,10 +324,11 @@ class ReactSortableTree extends Component {
         // Seek to the focused search result if there is one specified
         const scrollToInfo = searchFocusTreeIndex !== null ? { scrollToIndex: searchFocusTreeIndex } : {};
 
-        return (
+        return _connectDropTarget(
             <div
                 className={styles.tree + (className ? ` ${className}` : '')}
                 style={{ height: '100%', ...style }}
+                ref={(el) => { this.containerRef = el; }}
             >
                 <AutoSizer>
                     {({height, width}) => (
@@ -318,6 +337,8 @@ class ReactSortableTree extends Component {
                             scrollToAlignment="start"
                             className={styles.virtualScrollOverride}
                             width={width}
+                            scrollTop={scrollToPixel}
+                            onScroll={({ scrollTop }) => { this.scrollTop = scrollTop; }}
                             height={height}
                             style={innerStyle}
                             rowCount={rows.length}
@@ -412,6 +433,9 @@ ReactSortableTree.propTypes = {
     // height of a row given its index: `({ index: number }): number`
     rowHeight: PropTypes.oneOfType([ PropTypes.number, PropTypes.func ]),
 
+    // Size in px of the region near the edges that initiates scrolling on dragover
+    slideRegionSize: PropTypes.number.isRequired, // eslint-disable-line react/no-unused-prop-types
+
     // Custom properties to hand to the react-virtualized list
     // https://github.com/bvaughn/react-virtualized/blob/master/docs/List.md#prop-types
     reactVirtualizedListProps: PropTypes.object,
@@ -463,12 +487,16 @@ ReactSortableTree.propTypes = {
 
     // Called after children nodes collapsed or expanded.
     onVisibilityToggle: PropTypes.func,
+
+    // Injected by react-dnd
+    _connectDropTarget: PropTypes.func.isRequired,
 };
 
 ReactSortableTree.defaultProps = {
     getNodeKey: defaultGetNodeKey,
     nodeContentRenderer: NodeRendererDefault,
     rowHeight: 62,
+    slideRegionSize: 100,
     scaffoldBlockPxWidth: 44,
     style: {},
     innerStyle: {},
