@@ -84,9 +84,9 @@ If your hobbies happen to include writing documentation, by all means submit a p
 | Browser | Works? |
 |:-----|:-----|
 | Chrome | Yes |
-| Firefox | Yes, but [no auto-scroll on drag](https://github.com/fritz-c/react-sortable-tree/issues/3) |
-| Safari | Yes, but [no auto-scroll on drag](https://github.com/fritz-c/react-sortable-tree/issues/3) |
-| IE >= 9 | Yes, but [no auto-scroll on drag](https://github.com/fritz-c/react-sortable-tree/issues/3) |
+| Firefox | Yes |
+| Safari | Yes |
+| IE >= 9 | Yes |
 
 ## Contributing
 
