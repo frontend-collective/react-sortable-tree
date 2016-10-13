@@ -5,6 +5,7 @@
 [![tree200](https://cloud.githubusercontent.com/assets/4413963/18860410/26f64de8-84b8-11e6-9284-350308eed30a.png)](https://fritz-c.github.io/react-sortable-tree/)
 
 ### [Demo](https://fritz-c.github.io/react-sortable-tree/)
+[![demo](https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif)](https://fritz-c.github.io/react-sortable-tree/)
 
 ### Features
 
