@@ -87,7 +87,8 @@ If your hobbies happen to include writing documentation, by all means submit a p
 | Chrome | Yes |
 | Firefox | Yes |
 | Safari | Yes |
-| IE >= 9 | Yes |
+| IE >= 10 | Yes |
+| IE 9 | Broken due to flexbox issues. [Plan to fix.](https://github.com/fritz-c/react-sortable-tree/issues/6)  |
 
 ## Contributing
 
