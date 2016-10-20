@@ -68,7 +68,8 @@ const NodeRendererDefault = ({
         <div style={{ height: '100%' }}>
             {toggleChildrenVisibility && node.children && node.children.length > 0 && (
                 <div>
-                    <div
+                    <button
+                        aria-label={node.expanded ? 'Collapse' : 'Expand'}
                         className={node.expanded ? styles.collapseButton : styles.expandButton}
                         style={{ left: -0.5 * scaffoldBlockPxWidth }}
                         onClick={() => toggleChildrenVisibility({node, path, treeIndex})}
