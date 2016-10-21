@@ -36,9 +36,8 @@ class ReactSortableTree extends Component {
     constructor(props) {
         super(props);
 
-        this.nodeContentRenderer = dndWrapSource(props.nodeContentRenderer);
-
         this.state = {
+            nodeContentRenderer: dndWrapSource(props.nodeContentRenderer),
             draggingTreeData: null,
             swapFrom: null,
             swapLength: null,
@@ -361,7 +360,7 @@ class ReactSortableTree extends Component {
     }
 
     renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, matchKeys) {
-        const NodeContentRenderer = this.nodeContentRenderer;
+        const NodeContentRenderer = this.state.nodeContentRenderer || this.props.nodeContentRenderer;
         const nodeKey = path[path.length - 1];
         const isSearchMatch = nodeKey in matchKeys;
         const isSearchFocus = isSearchMatch &&
