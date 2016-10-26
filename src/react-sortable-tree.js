@@ -30,6 +30,9 @@ import {
     dndWrapRoot,
     dndWrapSource,
 } from './utils/drag-and-drop-utils';
+import {
+    contentRenderer
+} from './content-renderer';
 import styles from './react-sortable-tree.scss';
 
 class ReactSortableTree extends Component {
@@ -393,6 +396,7 @@ class ReactSortableTree extends Component {
                 dragHover={this.dragHover}
             >
                 <NodeContentRenderer
+                    contentRenderer={this.props.contentRenderer}
                     node={node}
                     path={path}
                     isSearchMatch={isSearchMatch}
@@ -470,6 +474,7 @@ ReactSortableTree.propTypes = {
     // This is an advanced option for complete customization of the appearance.
     // It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
     nodeContentRenderer: PropTypes.any,
+    contentRenderer: PropTypes.func.isRequired,
 
     // Determine the unique key used to identify each node and
     // generate the `path` array passed in callbacks.
@@ -492,6 +497,7 @@ ReactSortableTree.propTypes = {
 };
 
 ReactSortableTree.defaultProps = {
+    contentRenderer,
     getNodeKey: defaultGetNodeKey,
     nodeContentRenderer: NodeRendererDefault,
     rowHeight: 62,
