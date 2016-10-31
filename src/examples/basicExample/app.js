@@ -180,7 +180,7 @@ class App extends Component {
             alert( // eslint-disable-line no-alert
                 `Info passed to the button generator:\n\n` +
                 `node: {\n   ${objectString}\n},\n` +
-                `path: ${path.join(', ')},\n` +
+                `path: [${path.join(', ')}],\n` +
                 `treeIndex: ${treeIndex}`
             );
         };
@@ -210,57 +210,57 @@ class App extends Component {
                 <section className={styles['main-content']}>
                     <h3>Demo</h3>
 
-                    <div style={{ height: 450 }}>
-                        <button onClick={this.expandAll}>
-                            Expand All
-                        </button>
+                    <button onClick={this.expandAll}>
+                        Expand All
+                    </button>
 
-                        <button onClick={this.collapseAll}>
-                            Collapse All
-                        </button>
+                    <button onClick={this.collapseAll}>
+                        Collapse All
+                    </button>
 
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <form
-                            style={{ display: 'inline-block' }}
-                            onSubmit={(event) => {
-                                event.preventDefault();
-                            }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <form
+                        style={{ display: 'inline-block' }}
+                        onSubmit={(event) => {
+                            event.preventDefault();
+                        }}
+                    >
+                        <label htmlFor="find-box">
+                            Search:&nbsp;
+
+                            <input
+                                id="find-box"
+                                type="text"
+                                value={searchString}
+                                onChange={event => this.setState({ searchString: event.target.value })}
+                            />
+                        </label>
+
+                        <button
+                            type="button"
+                            disabled={!searchFoundCount}
+                            onClick={selectPrevMatch}
                         >
-                            <label htmlFor="find-box">
-                                Search:&nbsp;
+                            &lt;
+                        </button>
 
-                                <input
-                                    id="find-box"
-                                    type="text"
-                                    value={searchString}
-                                    onChange={event => this.setState({ searchString: event.target.value })}
-                                />
-                            </label>
+                        <button
+                            type="submit"
+                            disabled={!searchFoundCount}
+                            onClick={selectNextMatch}
+                        >
+                            &gt;
+                        </button>
 
-                            <button
-                                type="button"
-                                disabled={!searchFoundCount}
-                                onClick={selectPrevMatch}
-                            >
-                                &lt;
-                            </button>
+                        <span>
+                            &nbsp;
+                            {searchFoundCount > 0 ? (searchFocusIndex + 1) : 0}
+                            &nbsp;/&nbsp;
+                            {searchFoundCount || 0}
+                        </span>
+                    </form>
 
-                            <button
-                                type="submit"
-                                disabled={!searchFoundCount}
-                                onClick={selectNextMatch}
-                            >
-                                &gt;
-                            </button>
-
-                            <span>
-                                &nbsp;
-                                {searchFoundCount > 0 ? (searchFocusIndex + 1) : 0}
-                                &nbsp;/&nbsp;
-                                {searchFoundCount || 0}
-                            </span>
-                        </form>
-
+                    <div style={{ height: 450 }}>
                         <SortableTree
                             treeData={treeData}
                             onChange={this.updateTreeData}
@@ -287,11 +287,6 @@ class App extends Component {
                             })}
                         />
                     </div>
-
-                    <h3>Features</h3>
-                    <ul>
-                        <li>Works right out of the box, but is highly customizable</li>
-                    </ul>
 
                     <a href={githubUrl}>Documentation on Github</a>
 
