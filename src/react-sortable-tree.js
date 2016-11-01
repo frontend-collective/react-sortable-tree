@@ -475,7 +475,6 @@ ReactSortableTree.propTypes = {
     // This is an advanced option for complete customization of the appearance.
     // It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
     nodeContentRenderer: PropTypes.any,
-    contentRenderer: PropTypes.func.isRequired,
 
     // Determine the unique key used to identify each node and
     // generate the `path` array passed in callbacks.
