@@ -32,15 +32,15 @@ import {
 } from './utils/drag-and-drop-utils';
 import {
     contentRenderer
-} from './content-renderer';
+} from './default-inner-content-renderer';
 import styles from './react-sortable-tree.scss';
 
 class ReactSortableTree extends Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
-            nodeContentRenderer: dndWrapSource(props.nodeContentRenderer),
             draggingTreeData: null,
             swapFrom: null,
             swapLength: null,
@@ -51,6 +51,7 @@ class ReactSortableTree extends Component {
             scrollToPixel: null,
         };
 
+        this.nodeContentRenderer = dndWrapSource(props.nodeContentRenderer);
         this.toggleChildrenVisibility = this.toggleChildrenVisibility.bind(this);
         this.moveNode  = this.moveNode.bind(this);
         this.startDrag = this.startDrag.bind(this);
@@ -363,7 +364,7 @@ class ReactSortableTree extends Component {
     }
 
     renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, matchKeys) {
-        const NodeContentRenderer = this.state.nodeContentRenderer || this.props.nodeContentRenderer;
+        const NodeContentRenderer = this.nodeContentRenderer;
         const nodeKey = path[path.length - 1];
         const isSearchMatch = nodeKey in matchKeys;
         const isSearchFocus = isSearchMatch &&
