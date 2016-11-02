@@ -10,6 +10,7 @@ import isEqual from 'lodash.isequal';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
 import NodeRendererDefault from './node-renderer-default';
+import InnerContentRenderer from './inner-content-renderer-default';
 import {
     walk,
     getFlatDataFromTree,
@@ -36,8 +37,6 @@ class ReactSortableTree extends Component {
     constructor(props) {
         super(props);
 
-        this.nodeContentRenderer = dndWrapSource(props.nodeContentRenderer);
-
         this.state = {
             draggingTreeData: null,
             swapFrom: null,
@@ -49,6 +48,7 @@ class ReactSortableTree extends Component {
             scrollToPixel: null,
         };
 
+        this.nodeContentRenderer = dndWrapSource(props.nodeContentRenderer);
         this.toggleChildrenVisibility = this.toggleChildrenVisibility.bind(this);
         this.moveNode  = this.moveNode.bind(this);
         this.startDrag = this.startDrag.bind(this);
@@ -394,6 +394,7 @@ class ReactSortableTree extends Component {
                 dragHover={this.dragHover}
             >
                 <NodeContentRenderer
+                    innerContentRenderer={this.props.}
                     node={node}
                     path={path}
                     isSearchMatch={isSearchMatch}
@@ -404,7 +405,9 @@ class ReactSortableTree extends Component {
                     toggleChildrenVisibility={this.toggleChildrenVisibility}
                     scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
                     {...nodeProps}
-                />
+                >
+
+                </NodeContentRenderer>
             </TreeNode>
         );
     }
@@ -472,6 +475,10 @@ ReactSortableTree.propTypes = {
     // It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
     nodeContentRenderer: PropTypes.any,
 
+    // Override the default node contents (everything next to the drag handle - the title and subtitle).
+    // Reference the file `inner-content-renderer-default.js` to customize.
+    innerContentRenderer: PropTypes.any,
+
     // Determine the unique key used to identify each node and
     // generate the `path` array passed in callbacks.
     // By default, returns the index in the tree (omitting hidden nodes).
@@ -495,6 +502,7 @@ ReactSortableTree.propTypes = {
 ReactSortableTree.defaultProps = {
     getNodeKey: defaultGetNodeKey,
     nodeContentRenderer: NodeRendererDefault,
+    innerContentRenderer: InnerContentRenderer,
     rowHeight: 62,
     slideRegionSize: 100,
     scaffoldBlockPxWidth: 44,

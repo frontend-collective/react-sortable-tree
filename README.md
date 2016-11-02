@@ -61,6 +61,7 @@ rowHeight                 | number or func | `62`                |          | Us
 slideRegionSize           | number         | `100`               |          | Size in px of the region near the edges that initiates scrolling on dragover.
 scaffoldBlockPxWidth      | number         | `44`                |          | The width of the blocks containing the lines representing the structure of the tree.
 nodeContentRenderer       | any            | NodeRendererDefault |          | Override the default component for rendering nodes (but keep the scaffolding generator) This is an advanced option for complete customization of the appearance. It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
+innerContentRenderer      | any            | InnerContentRenderer |         | Override the default node contents (everything next to the drag handle - the title and subtitle). Reference the file `inner-content-renderer-default.js` to customize.
 
 ## Data Helper Functions
 
@@ -103,7 +104,7 @@ npm start
 npm run lint
 
 # Lints and builds the code, placing the result in the dist directory.
-# This build is necessary to reflect changes if you're 
+# This build is necessary to reflect changes if you're
 #  `npm link`-ed to this repository from another local project.
 npm run build
 ```
