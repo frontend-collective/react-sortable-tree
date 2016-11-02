@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export const contentRenderer = function({node, styles, path, treeIndex, buttons}) {
+const InnerContentRenderer = ({node, styles, path, treeIndex, buttons}) => {
     return (<div className={styles.rowContents}>
         <div className={styles.rowLabel}>
             <span className={styles.rowTitle + (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')}>
@@ -29,3 +29,13 @@ export const contentRenderer = function({node, styles, path, treeIndex, buttons}
         </div>
     </div>);
 };
+
+InnerContentRenderer.propTypes = {
+    node:          PropTypes.object.isRequired,
+    path:          PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
+    styles:        PropTypes.object,
+    treeIndex:     PropTypes.number.isRequired,
+    buttons:       PropTypes.arrayOf(PropTypes.node),
+};
+
+export default InnerContentRenderer;

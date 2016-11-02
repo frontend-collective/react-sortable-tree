@@ -32,9 +32,11 @@ const NodeRendererDefault = ({
     buttons,
     className,
     style = {},
-    contentRenderer
+    innerContentRenderer
 }) => {
+    const InnerContentRenderer = innerContentRenderer;
     let handle;
+
     if (typeof node.children === 'function' && node.expanded) {
         // Show a loading symbol on the handle when the children are expanded
         //  and yet still defined by a function (a callback to fetch the children)
@@ -102,7 +104,7 @@ const NodeRendererDefault = ({
                         }}
                     >
                         {handle}
-                        {contentRenderer({node, styles, path, treeIndex, buttons})}
+                        <InnerContentRenderer {...node, styles, path, treeIndex, buttons} />
                     </div>
                 )}
             </div>
@@ -133,7 +135,7 @@ NodeRendererDefault.propTypes = {
     isOver:  PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
 
-    contentRenderer:   PropTypes.func.isRequired,
+    innerContentRenderer: PropTypes.any,
 };
 
 export default NodeRendererDefault;
