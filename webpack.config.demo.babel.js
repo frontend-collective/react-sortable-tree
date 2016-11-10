@@ -41,7 +41,7 @@ module.exports = {
                 test: /\.scss$/,
                 loaders: [
                     'style-loader?insertAt=top',
-                    'css-loader?modules&importLoaders=1&localIdentName=rst__[local]',
+                    'css-loader?modules&-autoprefixer&importLoaders=1&localIdentName=rst__[local]',
                     'postcss-loader',
                     'sass-loader',
                 ],
@@ -51,7 +51,7 @@ module.exports = {
                 test: /\.css$/,
                 loaders: [
                     'style-loader?insertAt=top',
-                    'css-loader',
+                    'css-loader?-autoprefixer',
                     'postcss-loader',
                 ],
             },

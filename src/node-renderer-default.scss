@@ -193,7 +193,7 @@ $row-padding: 10px;
     width: 16px;
     height: 16px;
     top: 50%;
-    transform: translateY(-50%) translateX(-50%);
+    transform: translate(-50%, -50%);
     cursor: pointer;
 
     &:focus {
