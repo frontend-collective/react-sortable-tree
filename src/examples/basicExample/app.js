@@ -8,6 +8,8 @@ import '../shared/favicon/favicon-32x32.png';
 import '../shared/favicon/favicon.ico';
 import '../shared/favicon/safari-pinned-tab.svg';
 
+const maxDepth = 5;
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -99,7 +101,7 @@ class App extends Component {
                         {
                             expanded: true,
                             title: 'Limit nesting with `maxDepth`',
-                            subtitle: 'It\'s set to 5 for this example',
+                            subtitle: `It's set to ${maxDepth} for this example`,
                             children: [
                                 {
                                     expanded: true,
@@ -111,7 +113,10 @@ class App extends Component {
                                             children: [
                                                 { title: renderDepthTitle },
                                                 {
-                                                    title: 'This cannot be dragged deeper',
+                                                    title: ({ path }) => (path.length >= maxDepth ?
+                                                        'This cannot be dragged deeper' :
+                                                        'This can be dragged deeper'
+                                                    ),
                                                 },
                                             ],
                                         },
@@ -264,7 +269,7 @@ class App extends Component {
                         <SortableTree
                             treeData={treeData}
                             onChange={this.updateTreeData}
-                            maxDepth={5}
+                            maxDepth={maxDepth}
                             searchQuery={searchString}
                             searchFocusOffset={searchFocusIndex}
                             searchFinishCallback={matches =>
