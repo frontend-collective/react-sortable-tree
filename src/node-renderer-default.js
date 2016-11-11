@@ -32,6 +32,9 @@ const NodeRendererDefault = ({
     buttons,
     className,
     style = {},
+    startDrag: _startDrag,
+    endDrag: _endDrag,
+    ...otherProps,
 }) => {
     let handle;
     if (typeof node.children === 'function' && node.expanded) {
@@ -65,7 +68,10 @@ const NodeRendererDefault = ({
     const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node);
 
     return (
-        <div style={{ height: '100%' }}>
+        <div
+            style={{ height: '100%' }}
+            {...otherProps}
+        >
             {toggleChildrenVisibility && node.children && node.children.length > 0 && (
                 <div>
                     <button
@@ -157,6 +163,8 @@ NodeRendererDefault.propTypes = {
     // Drag source
     connectDragPreview: PropTypes.func.isRequired,
     connectDragSource:  PropTypes.func.isRequired,
+    startDrag:          PropTypes.func.isRequired, // Needed for drag-and-drop utils
+    endDrag:            PropTypes.func.isRequired, // Needed for drag-and-drop utils
     isDragging:         PropTypes.bool.isRequired,
     draggedNode:        PropTypes.object,
     // Drop target
