@@ -243,6 +243,8 @@ export function getVisibleNodeInfoAtIndex({ treeData, index: targetIndex, getNod
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {function} callback - Function to call on each node
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ *
+ * @return void
  */
 export function walk({ treeData, getNodeKey, callback, ignoreCollapsed = true }) {
     if (!treeData || treeData.length < 1) {
@@ -269,6 +271,8 @@ export function walk({ treeData, getNodeKey, callback, ignoreCollapsed = true })
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {function} callback - Function to call on each node
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ *
+ * @return {Object[]} changedTreeData - The changed tree data
  */
 export function map({ treeData, getNodeKey, callback, ignoreCollapsed = true }) {
     if (!treeData || treeData.length < 1) {
@@ -292,6 +296,8 @@ export function map({ treeData, getNodeKey, callback, ignoreCollapsed = true }) 
  *
  * @param {!Object[]} treeData - Tree data
  * @param {?boolean} expanded - Whether the node is expanded or not
+ *
+ * @return {Object[]} changedTreeData - The changed tree data
  */
 export function toggleExpandedForAll({ treeData, expanded = true }) {
     return map({
@@ -311,7 +317,7 @@ export function toggleExpandedForAll({ treeData, expanded = true }) {
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  *
- * @return {Object} changedTreeData - The updated tree data
+ * @return {Object[]} changedTreeData - The changed tree data
  */
 export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCollapsed = true }) {
     const RESULT_MISS = 'RESULT_MISS';
@@ -395,7 +401,7 @@ export function changeNodeAtPath({ treeData, path, newNode, getNodeKey, ignoreCo
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  *
- * @return {Object} changedTreeData - The updated tree data
+ * @return {Object[]} changedTreeData - The tree data with the node removed
  */
 export function removeNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed = true }) {
     return changeNodeAtPath({
@@ -449,7 +455,7 @@ export function getNodeAtPath({ treeData, path, getNodeKey, ignoreCollapsed = tr
  * @param {boolean=} expandParent - If true, expands the parentNode specified by parentPath
  *
  * @return {Object} result
- * @return {Object} result.treeData - The updated tree data
+ * @return {Object[]} result.treeData - The updated tree data
  * @return {number} result.treeIndex - The tree index at which the node was inserted
  */
 export function addNodeUnderParent({
@@ -670,6 +676,10 @@ function addNodeAtDepthAndIndex({
  * @param {!Object} newNode - The node to insert into the tree
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  * @param {boolean=} expandParent - If true, expands the parent of the inserted node
+ *
+ * @return {Object} result
+ * @return {Object[]} result.treeData - The tree data with the node added
+ * @return {number} result.treeIndex - The tree index at which the node was inserted
  */
 export function insertNode({
     treeData,
@@ -744,16 +754,18 @@ export function getFlatDataFromTree({ treeData, getNodeKey, ignoreCollapsed = tr
  * Generate a tree structure from flat data.
  *
  * @param {!Object[]} flatData
- * @param {!function} getKey - Function to get the key from the nodeData
- * @param {!function} getParentKey - Function to get the parent key from the nodeData
+ * @param {!function=} getKey - Function to get the key from the nodeData
+ * @param {!function=} getParentKey - Function to get the parent key from the nodeData
+ * @param {string|number=} rootKey - The value returned by `getParentKey` that corresponds to the root node.
+ *                                  For example, if your nodes have id 1-99, you might use rootKey = 0
  *
  * @return {Object[]} treeData - The flat data represented as a tree
  */
 export function getTreeFromFlatData({
     flatData,
-    getKey,
-    getParentKey,
-    rootKey,
+    getKey = (node => node.id),
+    getParentKey = (node => node.parentId),
+    rootKey = '0',
 }) {
     if (!flatData) {
         return [];
@@ -808,7 +820,7 @@ export function isDescendant(older, younger) {
  * @param {!Object} node - Node in the tree
  * @param {?number} depth - The current depth
  *
- * @return {boolean}
+ * @return {number} maxDepth - The deepest depth in the tree
  */
 export function getDepth(node, depth = 0) {
     if (!node.children) {
