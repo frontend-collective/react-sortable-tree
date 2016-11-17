@@ -15,11 +15,13 @@ const TreeNode = ({
     draggedNode,
     canDrop,
     treeIndex,
-    getPrevRow: _getPrevRow, // Delete from otherProps
-    node: _node,             // Delete from otherProps
-    path: _path,             // Delete from otherProps
-    maxDepth: _maxDepth,     // Delete from otherProps
-    dragHover: _dragHover,   // Delete from otherProps
+    shouldMoveNode,
+    getPrevRow: _getPrevRow,     // Delete from otherProps
+    getParentRow: _getParentRow, // Delete from otherProps
+    node: _node,                 // Delete from otherProps
+    path: _path,                 // Delete from otherProps
+    maxDepth: _maxDepth,         // Delete from otherProps
+    dragHover: _dragHover,       // Delete from otherProps
     ...otherProps,
 }) => {
     // Construct the scaffold representing the structure of the tree
@@ -150,6 +152,7 @@ TreeNode.propTypes = {
     isOver:            PropTypes.bool.isRequired,
     canDrop:           PropTypes.bool.isRequired,
     draggedNode:       PropTypes.object,
+    shouldMoveNode:    PropTypes.func,
 };
 
 export default dndWrapTarget(TreeNode);

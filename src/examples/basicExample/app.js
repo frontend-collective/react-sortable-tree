@@ -142,6 +142,11 @@ class App extends Component {
         this.setState({ treeData });
     }
 
+    shouldMoveNode(prevNode, nextNode) {
+        console.log(nextNode)
+        return true;
+    }
+
     expand(expanded) {
         this.setState({
             treeData: toggleExpandedForAll({
@@ -290,6 +295,7 @@ class App extends Component {
                                     </button>,
                                 ],
                             })}
+                            shouldMoveNode={this.shouldMoveNode}
                         />
                     </div>
 

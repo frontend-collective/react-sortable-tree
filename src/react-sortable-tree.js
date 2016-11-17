@@ -350,6 +350,11 @@ class ReactSortableTree extends Component {
                                 key,
                                 rowStyle,
                                 () => (rows[index - 1] || null),
+                                () => {
+                                    const nodePath = rows[index].path;
+                                    const parentIndex = nodePath[nodePath.length - 2];
+                                    return typeof parentIndex !== 'undefined' ? rows[parentIndex] : null;
+                                },
                                 matchKeys
                             )}
                             {...this.props.reactVirtualizedListProps}
@@ -360,7 +365,7 @@ class ReactSortableTree extends Component {
         );
     }
 
-    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, matchKeys) {
+    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, getParentRow, matchKeys) {
         const NodeContentRenderer = this.nodeContentRenderer;
         const nodeKey = path[path.length - 1];
         const isSearchMatch = nodeKey in matchKeys;
@@ -383,6 +388,7 @@ class ReactSortableTree extends Component {
                 treeIndex={treeIndex}
                 listIndex={listIndex}
                 getPrevRow={getPrevRow}
+                getParentRow={getParentRow}
                 node={node}
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}
@@ -392,6 +398,7 @@ class ReactSortableTree extends Component {
                 swapDepth={this.state.swapDepth}
                 maxDepth={this.props.maxDepth}
                 dragHover={this.dragHover}
+                shouldMoveNode={this.props.shouldMoveNode}
             >
                 <NodeContentRenderer
                     node={node}
@@ -445,6 +452,9 @@ ReactSortableTree.propTypes = {
 
     // Maximum depth nodes can be inserted at. Defaults to infinite.
     maxDepth: PropTypes.number,
+
+    // Called on node move operation which decide the node is moving or not. Return true by defaults.
+    shouldMoveNode: PropTypes.func,
 
     // The method used to search nodes.
     // Defaults to a function that uses the `searchQuery` string to search for nodes with
@@ -501,6 +511,7 @@ ReactSortableTree.defaultProps = {
     style: {},
     innerStyle: {},
     searchQuery: null,
+    shouldMoveNode: () => true,
 };
 
 export default dndWrapRoot(ReactSortableTree);
