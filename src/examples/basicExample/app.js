@@ -51,6 +51,7 @@ class App extends Component {
                         {
                             expanded: true,
                             title: 'Chicken',
+                            disabled: true,
                             children: [
                                 { title: 'Egg' },
                             ],
@@ -202,7 +203,7 @@ class App extends Component {
                 0,
         });
 
-        const shouldMoveNode = (movingNode, parentNode) => movingNode.title !== 'Egg' && parentNode.title !== 'Chicken';
+        const shouldMoveNode = (movingNode, parentNode) => movingNode.disabled !== true && parentNode.title !== 'Chicken';
 
         return (
             <div>
