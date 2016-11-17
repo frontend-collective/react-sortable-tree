@@ -365,7 +365,15 @@ class ReactSortableTree extends Component {
         );
     }
 
-    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, getParentRow, matchKeys) {
+    renderRow(
+        { node, path, lowerSiblingCounts, treeIndex },
+        listIndex,
+        key,
+        style,
+        getPrevRow,
+        getParentRow,
+        matchKeys
+    ) {
         const NodeContentRenderer = this.nodeContentRenderer;
         const nodeKey = path[path.length - 1];
         const isSearchMatch = nodeKey in matchKeys;

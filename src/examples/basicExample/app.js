@@ -142,11 +142,6 @@ class App extends Component {
         this.setState({ treeData });
     }
 
-    shouldMoveNode(prevNode, nextNode) {
-        console.log(nextNode)
-        return true;
-    }
-
     expand(expanded) {
         this.setState({
             treeData: toggleExpandedForAll({
@@ -206,6 +201,8 @@ class App extends Component {
                 ((searchFocusIndex + 1) % searchFoundCount) :
                 0,
         });
+
+        const shouldMoveNode = (movingNode, parentNode) => movingNode.title !== 'Egg' && parentNode.title !== 'Chicken';
 
         return (
             <div>
@@ -275,6 +272,7 @@ class App extends Component {
                             treeData={treeData}
                             onChange={this.updateTreeData}
                             maxDepth={maxDepth}
+                            shouldMoveNode={shouldMoveNode}
                             searchQuery={searchString}
                             searchFocusOffset={searchFocusIndex}
                             searchFinishCallback={matches =>
@@ -295,7 +293,6 @@ class App extends Component {
                                     </button>,
                                 ],
                             })}
-                            shouldMoveNode={this.shouldMoveNode}
                         />
                     </div>
 

@@ -15,7 +15,6 @@ const TreeNode = ({
     draggedNode,
     canDrop,
     treeIndex,
-    shouldMoveNode,
     getPrevRow: _getPrevRow,     // Delete from otherProps
     getParentRow: _getParentRow, // Delete from otherProps
     node: _node,                 // Delete from otherProps
