@@ -28,10 +28,12 @@ export default class Tree extends Component {
 
     render() {
         return (
-            <SortableTree
-                treeData={this.state.treeData}
-                onChange={treeData => this.setState({ treeData })}
-            />
+            <div style={{ height: 400 }}>
+                <SortableTree
+                    treeData={this.state.treeData}
+                    onChange={treeData => this.setState({ treeData })}
+                />
+            </div>
         );
     }
 }
