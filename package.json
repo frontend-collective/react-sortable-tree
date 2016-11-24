@@ -59,7 +59,7 @@
     "eslint-plugin-jsx-a11y": "^2.0.1",
     "eslint-plugin-react": "^6.0.0",
     "file-loader": "^0.9.0",
-    "gh-pages": "^0.11.0",
+    "gh-pages": "^0.12.0",
     "html-webpack-plugin": "^2.22.0",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.2",
