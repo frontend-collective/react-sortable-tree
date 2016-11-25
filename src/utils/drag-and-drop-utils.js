@@ -222,8 +222,10 @@ export function dndWrapTarget(el, treeName = '') {
     return dropTarget(getType(treeName), nodeDropTarget, nodeDropTargetPropInjection)(el);
 }
 
-export function dndWrapRoot(el, treeName = '') {
-    return dragDropContext(HTML5Backend)(
-        dropTarget(getType(treeName), scrollDropTarget, scrollDropTargetPropInjection)(el)
-    );
+export function dndWrapRootContext(el) {
+    return dragDropContext(HTML5Backend)(el);
+}
+
+export function dndWrapRootTarget(el, treeName = '') {
+    return dropTarget(getType(treeName), scrollDropTarget, scrollDropTargetPropInjection)(el);
 }

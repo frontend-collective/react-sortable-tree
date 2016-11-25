@@ -153,12 +153,25 @@ TreeNode.propTypes = {
     draggedNode:       PropTypes.object,
 };
 
-export default function TreeNodeWrapper(props) {
-    const WrappedTreeNode = dndWrapTarget(TreeNode, props.treeName);
+class TreeNodeWrapper extends React.Component {
+    constructor(props) {
+        super(props);
 
-    return <WrappedTreeNode {...props} />;
+        this.Node = dndWrapTarget(TreeNode, props.treeName);
+    }
+    render() {
+        const { Node } = this;
+
+        const props = { ...this.props };
+
+        delete props.treeName;
+
+        return <Node {...props} />;
+    }
 }
 
 TreeNodeWrapper.propTypes = {
     treeName: PropTypes.string,
 };
+
+export default TreeNodeWrapper;
