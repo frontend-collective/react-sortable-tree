@@ -134,6 +134,7 @@ const TreeNode = ({
 
 TreeNode.propTypes = {
     treeIndex:            PropTypes.number.isRequired,
+    treeName:             PropTypes.string,
     node:                 PropTypes.object.isRequired,
     path:                 PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
     swapFrom:             PropTypes.number,
@@ -152,4 +153,25 @@ TreeNode.propTypes = {
     draggedNode:       PropTypes.object,
 };
 
-export default dndWrapTarget(TreeNode);
+class TreeNodeWrapper extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.Node = dndWrapTarget(TreeNode, props.treeName);
+    }
+    render() {
+        const { Node } = this;
+
+        const props = { ...this.props };
+
+        delete props.treeName;
+
+        return <Node {...props} />;
+    }
+}
+
+TreeNodeWrapper.propTypes = {
+    treeName: PropTypes.string,
+};
+
+export default TreeNodeWrapper;
