@@ -134,6 +134,7 @@ const TreeNode = ({
 
 TreeNode.propTypes = {
     treeIndex:            PropTypes.number.isRequired,
+    treeName:             PropTypes.string,
     node:                 PropTypes.object.isRequired,
     path:                 PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
     swapFrom:             PropTypes.number,
@@ -152,4 +153,12 @@ TreeNode.propTypes = {
     draggedNode:       PropTypes.object,
 };
 
-export default dndWrapTarget(TreeNode);
+export default function TreeNodeWrapper(props) {
+    const WrappedTreeNode = dndWrapTarget(TreeNode, props.treeName);
+
+    return <WrappedTreeNode {...props} />;
+}
+
+TreeNodeWrapper.propTypes = {
+    treeName: PropTypes.string,
+};

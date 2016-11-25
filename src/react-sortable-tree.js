@@ -36,7 +36,7 @@ class ReactSortableTree extends Component {
     constructor(props) {
         super(props);
 
-        this.nodeContentRenderer = dndWrapSource(props.nodeContentRenderer);
+        this.nodeContentRenderer = dndWrapSource(props.nodeContentRenderer, props.treeName);
 
         this.state = {
             draggingTreeData: null,
@@ -378,6 +378,7 @@ class ReactSortableTree extends Component {
 
         return (
             <TreeNode
+                treeName={this.props.treeName}
                 style={style}
                 key={key}
                 treeIndex={treeIndex}
@@ -418,6 +419,8 @@ ReactSortableTree.propTypes = {
     // `expanded` shows children of the node if true, or hides them if false. Defaults to false.
     // `children` is an array of child nodes belonging to the node.
     treeData: PropTypes.arrayOf(PropTypes.object).isRequired,
+
+    treeName: PropTypes.string,
 
     // Style applied to the container wrapping the tree (style defaults to {height: '100%'})
     style: PropTypes.object,
@@ -503,4 +506,12 @@ ReactSortableTree.defaultProps = {
     searchQuery: null,
 };
 
-export default dndWrapRoot(ReactSortableTree);
+export default function ReactSortableTreeWrapper(props) {
+    const WrappedReactSortableTree = dndWrapRoot(ReactSortableTree, props.treeName);
+
+    return <WrappedReactSortableTree {...props} />;
+}
+
+ReactSortableTreeWrapper.propTypes = {
+    treeName: PropTypes.string,
+};

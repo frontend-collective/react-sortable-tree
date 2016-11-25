@@ -210,16 +210,20 @@ function scrollDropTargetPropInjection(connect) {
     };
 }
 
-export function dndWrapSource(el) {
-    return dragSource(ItemTypes.HANDLE, nodeDragSource, nodeDragSourcePropInjection)(el);
+function getType(treeName) {
+    return ItemTypes.HANDLE + (treeName ? '/' + treeName : '');
 }
 
-export function dndWrapTarget(el) {
-    return dropTarget(ItemTypes.HANDLE, nodeDropTarget, nodeDropTargetPropInjection)(el);
+export function dndWrapSource(el, treeName = '') {
+    return dragSource(getType(treeName), nodeDragSource, nodeDragSourcePropInjection)(el);
 }
 
-export function dndWrapRoot(el) {
+export function dndWrapTarget(el, treeName = '') {
+    return dropTarget(getType(treeName), nodeDropTarget, nodeDropTargetPropInjection)(el);
+}
+
+export function dndWrapRoot(el, treeName = '') {
     return dragDropContext(HTML5Backend)(
-        dropTarget(ItemTypes.HANDLE, scrollDropTarget, scrollDropTargetPropInjection)(el)
+        dropTarget(getType(treeName), scrollDropTarget, scrollDropTargetPropInjection)(el)
     );
 }
