@@ -1,5 +1,4 @@
 import React, { PropTypes, Children, cloneElement } from 'react';
-import { dndWrapTarget } from './utils/drag-and-drop-utils';
 import styles from './tree-node.scss';
 
 const TreeNode = ({
@@ -152,4 +151,4 @@ TreeNode.propTypes = {
     draggedNode:       PropTypes.object,
 };
 
-export default dndWrapTarget(TreeNode);
+export default TreeNode;

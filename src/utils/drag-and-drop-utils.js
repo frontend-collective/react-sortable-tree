@@ -4,7 +4,6 @@ import {
     DropTarget as dropTarget,
 } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import ItemTypes from '../item-types';
 import {
     getDepth,
 } from './tree-data-utils';
@@ -126,12 +125,12 @@ function nodeDropTargetPropInjection(connect, monitor) {
     };
 }
 
-export function dndWrapSource(el) {
-    return dragSource(ItemTypes.HANDLE, nodeDragSource, nodeDragSourcePropInjection)(el);
+export function dndWrapSource(el, type) {
+    return dragSource(type, nodeDragSource, nodeDragSourcePropInjection)(el);
 }
 
-export function dndWrapTarget(el) {
-    return dropTarget(ItemTypes.HANDLE, nodeDropTarget, nodeDropTargetPropInjection)(el);
+export function dndWrapTarget(el, type) {
+    return dropTarget(type, nodeDropTarget, nodeDropTargetPropInjection)(el);
 }
 
 export function dndWrapRoot(el) {
