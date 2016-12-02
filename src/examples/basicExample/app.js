@@ -180,10 +180,10 @@ class App extends Component {
         }) => {
             const objectString = Object.keys(node)
                 .map(k => (k === 'children' ? 'children: Array' : `${k}: '${node[k]}'`))
-                .join(`,\n   `);
+                .join(',\n   ');
 
             alert( // eslint-disable-line no-alert
-                `Info passed to the button generator:\n\n` +
+                'Info passed to the button generator:\n\n' +
                 `node: {\n   ${objectString}\n},\n` +
                 `path: [${path.join(', ')}],\n` +
                 `treeIndex: ${treeIndex}`
