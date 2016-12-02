@@ -269,6 +269,13 @@ class App extends Component {
                         <SortableTree
                             treeData={treeData}
                             onChange={this.updateTreeData}
+                            onMoveNode={({ node, treeIndex, path }) =>
+                                console.debug( // eslint-disable-line no-console
+                                    'node:', node,
+                                    'treeIndex:', treeIndex,
+                                    'path:', path,
+                                )
+                            }
                             maxDepth={maxDepth}
                             searchQuery={searchString}
                             searchFocusOffset={searchFocusIndex}
