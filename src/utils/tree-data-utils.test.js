@@ -1062,22 +1062,25 @@ describe('insertNode', () => {
             depth: 0,
             minimumTreeIndex: 0,
             newNode: {},
-        })).toEqual({ treeData: [{}], treeIndex: 0 });
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual({ treeData: [{}], treeIndex: 0, path: [0] });
         expect(insertNode({
             treeData: null,
             depth: 0,
             minimumTreeIndex: 0,
             newNode: {},
-        })).toEqual({ treeData: [{}], treeIndex: 0 });
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual({ treeData: [{}], treeIndex: 0, path: [0] });
         expect(insertNode({
             treeData: undefined,
             depth: 0,
             minimumTreeIndex: 0,
             newNode: {},
-        })).toEqual({ treeData: [{}], treeIndex: 0 });
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual({ treeData: [{}], treeIndex: 0, path: [0] });
     });
 
-    it('should handle a depth that deeper than any branch in the tree', () => {
+    it('should handle a depth that is deeper than any branch in the tree', () => {
         const treeData = [
             {
                 expanded: true,
@@ -1100,6 +1103,7 @@ describe('insertNode', () => {
             depth: 4,
             minimumTreeIndex: 0,
             newNode: { key: 'new' },
+            getNodeKey: keyFromKey,
         }).treeData[0]).toEqual({ key: 'new' });
     });
 
@@ -1127,19 +1131,23 @@ describe('insertNode', () => {
             depth: 0,
             minimumTreeIndex: 15,
             newNode: { key: 'new' },
+            getNodeKey: keyFromKey,
         });
         expect(insertResult.treeData[2]).toEqual({ key: 'new' });
         expect(insertResult.treeIndex).toEqual(5);
+        expect(insertResult.path).toEqual(['new']);
 
         insertResult = insertNode({
             treeData,
             depth: 2,
             minimumTreeIndex: 15,
             newNode: { key: 'new' },
+            getNodeKey: keyFromKey,
         });
 
         expect(insertResult.treeData[1].children[0]).toEqual({ key: 'new' });
         expect(insertResult.treeIndex).toEqual(5);
+        expect(insertResult.path).toEqual([4, 'new']);
     });
 
     it('should handle flat data (before)', () => {
@@ -1148,7 +1156,12 @@ describe('insertNode', () => {
             depth: 0,
             minimumTreeIndex: 0,
             newNode: { key: 1 },
-        })).toEqual({ treeData: [{ key: 1 }, { key: 0 }], treeIndex: 0 });
+            getNodeKey: keyFromKey,
+        })).toEqual({
+            treeData: [{ key: 1 }, { key: 0 }],
+            treeIndex: 0,
+            path: [1],
+        });
     });
 
     it('should handle flat data (after)', () => {
@@ -1157,7 +1170,12 @@ describe('insertNode', () => {
             depth: 0,
             minimumTreeIndex: 1,
             newNode: { key: 1 },
-        })).toEqual({ treeData: [{ key: 0 }, { key: 1 }], treeIndex: 1 });
+            getNodeKey: keyFromKey,
+        })).toEqual({
+            treeData: [{ key: 0 }, { key: 1 }],
+            treeIndex: 1,
+            path: [1],
+        });
     });
 
     it('should handle flat data (child)', () => {
@@ -1166,7 +1184,12 @@ describe('insertNode', () => {
             depth: 1,
             minimumTreeIndex: 1,
             newNode: { key: 1 },
-        })).toEqual({ treeData: [{ key: 0, children: [{ key: 1 }] }], treeIndex: 1 });
+            getNodeKey: keyFromKey,
+        })).toEqual({
+            treeData: [{ key: 0, children: [{ key: 1 }] }],
+            treeIndex: 1,
+            path: [0, 1],
+        });
     });
 
     // Tree looks like this
@@ -1209,6 +1232,7 @@ describe('insertNode', () => {
             { key: 7 },
         ],
         newNode: { key: 'new' },
+        getNodeKey: keyFromKey,
     };
 
     it('should handle nested data #1', () => {
@@ -1220,6 +1244,7 @@ describe('insertNode', () => {
 
         expect(result.treeData[0].children[1]).toEqual(nestedParams.newNode);
         expect(result.treeIndex).toEqual(5);
+        expect(result.path).toEqual([0, 'new']);
     });
 
     it('should handle nested data #2', () => {
@@ -1232,6 +1257,7 @@ describe('insertNode', () => {
 
         expect(result.treeData[0].children[0].children[3]).toEqual(nestedParams.newNode);
         expect(result.treeIndex).toEqual(5);
+        expect(result.path).toEqual([0, 1, 'new']);
 
         result = insertNode({
             ...nestedParams,
@@ -1242,6 +1268,7 @@ describe('insertNode', () => {
 
         expect(result.treeData[0].children[0].children[2]).toEqual(nestedParams.newNode);
         expect(result.treeIndex).toEqual(5);
+        expect(result.path).toEqual([0, 1, 'new']);
     });
 
     it('should handle nested data #3', () => {
@@ -1253,21 +1280,24 @@ describe('insertNode', () => {
 
         expect(result.treeData[0].children[0].children[0].children[0]).toEqual(nestedParams.newNode);
         expect(result.treeIndex).toEqual(3);
+        expect(result.path).toEqual([0, 1, 2, 'new']);
     });
 
     it('should handle nested data #4', () => {
-        const result = insertNode({
+        expect(insertNode({
             treeData: [{ key: 0, expanded: true, children: [{ key: 1 }] }, { key: 2 }],
             newNode: { key: 'new' },
             depth: 1,
             minimumTreeIndex: 3,
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual({
+            treeData: [
+                { key: 0, expanded: true, children: [{ key: 1 }] },
+                { key: 2, children: [{ key: 'new' }] },
+            ],
+            treeIndex: 3,
+            path: [2, 3],
         });
-
-        expect(result.treeData).toEqual([
-            { key: 0, expanded: true, children: [{ key: 1 }] },
-            { key: 2, children: [{ key: 'new' }] },
-        ]);
-        expect(result.treeIndex).toEqual(3);
     });
 
     it('should work with a preceding node with children #1', () => {
@@ -1276,12 +1306,14 @@ describe('insertNode', () => {
             newNode: { key: 'new' },
             depth: 1,
             minimumTreeIndex: 3,
+            getNodeKey: keyFromTreeIndex,
         })).toEqual({
             treeData: [
                 { children: [{}] },
                 { expanded: true, children: [{}, { key: 'new' }, {}] },
             ],
             treeIndex: 3,
+            path: [1, 3],
         });
     });
 
@@ -1291,12 +1323,14 @@ describe('insertNode', () => {
             newNode: { key: 'new' },
             depth: 2,
             minimumTreeIndex: 4,
+            getNodeKey: keyFromTreeIndex,
         })).toEqual({
             treeData: [
                 { children: [{}] },
                 { expanded: true, children: [{}, { children: [{ key: 'new' }] }] },
             ],
             treeIndex: 4,
+            path: [1, 3, 4],
         });
     });
 
@@ -1306,12 +1340,14 @@ describe('insertNode', () => {
             newNode: { key: 'new' },
             depth: 2,
             minimumTreeIndex: 4,
+            getNodeKey: keyFromTreeIndex,
         })).toEqual({
             treeData: [
                 { children: [{}, {}, {}, {}] },
                 { expanded: true, children: [{}, { children: [{ key: 'new' }] }] },
             ],
             treeIndex: 4,
+            path: [1, 3, 4],
         });
     });
 });

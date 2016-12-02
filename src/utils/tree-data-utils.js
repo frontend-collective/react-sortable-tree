@@ -543,7 +543,15 @@ function addNodeAtDepthAndIndex({
     node,
     currentIndex,
     currentDepth,
+    getNodeKey,
+    path = [],
 }) {
+    const selfPath = n => (isPseudoRoot ? [] : [
+        ...path,
+        getNodeKey({ node: n, treeIndex: currentIndex }),
+    ]);
+
+    // If the potential parent node is at the targetDepth, it isn't eligible
     if (currentDepth === targetDepth) {
         return {
             node,
@@ -557,15 +565,18 @@ function addNodeAtDepthAndIndex({
             throw new Error('Cannot add to children defined by a function');
         } else {
             const extraNodeProps = expandParent ? { expanded: true } : {};
-            return {
-                node: {
-                    ...node,
+            const nextNode = {
+                ...node,
 
-                    ...extraNodeProps,
-                    children: node.children ? [newNode, ...node.children] : [newNode],
-                },
+                ...extraNodeProps,
+                children: node.children ? [newNode, ...node.children] : [newNode],
+            };
+
+            return {
+                node: nextNode,
                 nextIndex: currentIndex + 2,
                 insertedTreeIndex: currentIndex + 1,
+                parentPath: selfPath(nextNode),
             };
         }
     }
@@ -601,17 +612,20 @@ function addNodeAtDepthAndIndex({
             insertIndex = node.children.length;
         }
 
+        const nextNode = {
+            ...node,
+            children: [
+                ...node.children.slice(0, insertIndex),
+                newNode,
+                ...node.children.slice(insertIndex),
+            ],
+        };
+
         return {
-            node: {
-                ...node,
-                children: [
-                    ...node.children.slice(0, insertIndex),
-                    newNode,
-                    ...node.children.slice(insertIndex),
-                ],
-            },
+            node: nextNode,
             nextIndex: childIndex,
             insertedTreeIndex,
+            parentPath: selfPath(nextNode),
         };
     }
 
@@ -625,6 +639,7 @@ function addNodeAtDepthAndIndex({
 
     // Get all descendants
     let insertedTreeIndex = null;
+    let pathFragment      = null;
     let childIndex        = currentIndex + 1;
     let newChildren       = node.children;
     if (typeof newChildren !== 'function') {
@@ -643,10 +658,12 @@ function addNodeAtDepthAndIndex({
                 node: child,
                 currentIndex: childIndex,
                 currentDepth: currentDepth + 1,
+                getNodeKey,
+                path: [], // Cannot determine the parent path until the children have been processed
             });
 
             if ('insertedTreeIndex' in mapResult) {
-                ({ insertedTreeIndex } = mapResult);
+                ({ insertedTreeIndex, parentPath: pathFragment } = mapResult);
             }
 
             childIndex = mapResult.nextIndex;
@@ -655,13 +672,15 @@ function addNodeAtDepthAndIndex({
         });
     }
 
+    const nextNode = { ...node, children: newChildren };
     const result = {
-        node: { ...node, children: newChildren },
+        node: nextNode,
         nextIndex: childIndex,
     };
 
     if (insertedTreeIndex !== null) {
         result.insertedTreeIndex = insertedTreeIndex;
+        result.parentPath        = [ ...selfPath(nextNode), ...pathFragment ];
     }
 
     return result;
@@ -676,23 +695,28 @@ function addNodeAtDepthAndIndex({
  * @param {!Object} newNode - The node to insert into the tree
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  * @param {boolean=} expandParent - If true, expands the parent of the inserted node
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  *
+
  * @return {Object} result
  * @return {Object[]} result.treeData - The tree data with the node added
  * @return {number} result.treeIndex - The tree index at which the node was inserted
+ * @return {number[]|string[]} result.path - Array of keys leading to the node location after insertion
  */
 export function insertNode({
     treeData,
     depth: targetDepth,
     minimumTreeIndex,
     newNode,
+    getNodeKey = () => {},
     ignoreCollapsed = true,
     expandParent = false,
 }) {
     if (!treeData && targetDepth === 0) {
         return {
-            treeData: [newNode],
+            treeData:  [newNode],
             treeIndex: 0,
+            path:      [getNodeKey({ node: newNode, treeIndex: 0 })],
         };
     }
 
@@ -702,6 +726,7 @@ export function insertNode({
         newNode,
         ignoreCollapsed,
         expandParent,
+        getNodeKey,
         isPseudoRoot: true,
         isLastChild: true,
         node: { children: treeData },
@@ -713,9 +738,11 @@ export function insertNode({
         throw new Error('No suitable position found to insert.');
     }
 
+    const treeIndex = insertResult.insertedTreeIndex;
     return {
-        treeData:  insertResult.node.children,
-        treeIndex: insertResult.insertedTreeIndex,
+        treeData: insertResult.node.children,
+        treeIndex,
+        path:     [ ...insertResult.parentPath, getNodeKey({ node: newNode, treeIndex }) ],
     };
 }
 
