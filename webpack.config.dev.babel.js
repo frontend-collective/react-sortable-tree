@@ -23,12 +23,6 @@ module.exports = {
         ]),
         new webpack.NoErrorsPlugin(),
     ],
-    resolve: {
-        alias: {
-            // For react-hot-loader 1.x issue (https://github.com/gaearon/react-hot-loader/issues/417)
-            'react/lib/ReactMount': 'react-dom/lib/ReactMount',
-        },
-    },
     postcss: [
         autoprefixer({ browsers: ['IE >= 9', 'last 2 versions', '> 1%'] }),
     ],
