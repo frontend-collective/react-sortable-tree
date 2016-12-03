@@ -58,7 +58,6 @@ class ReactSortableTree extends Component {
             rows: this.getRows(props.treeData),
             searchMatches: [],
             searchFocusTreeIndex: null,
-            scrollToPixel: null,
         };
 
         this.toggleChildrenVisibility = this.toggleChildrenVisibility.bind(this);
@@ -315,7 +314,6 @@ class ReactSortableTree extends Component {
             rows,
             searchMatches,
             searchFocusTreeIndex,
-            scrollToPixel,
         } = this.state;
 
         // Get indices for rows that match the search conditions
@@ -343,7 +341,6 @@ class ReactSortableTree extends Component {
                             scrollToAlignment="start"
                             className={styles.virtualScrollOverride}
                             width={width}
-                            scrollTop={scrollToPixel}
                             onScroll={({ scrollTop }) => { this.scrollTop = scrollTop; }}
                             height={height}
                             style={innerStyle}
