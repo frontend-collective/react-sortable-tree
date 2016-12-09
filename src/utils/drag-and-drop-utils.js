@@ -5,7 +5,7 @@ import {
 } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import {
-    getDepth,
+    getDepth
 } from './tree-data-utils';
 
 const nodeDragSource = {
@@ -68,6 +68,9 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
 
     const targetDepth = getTargetDepth(dropTargetProps, monitor);
     const draggedNode = monitor.getItem().node;
+
+    const parentNode = dropTargetProps.rows[dropTargetProps.path[dropTargetProps.path.length - 2]];
+
     return (
         // Either we're not adding to the children of the row above...
         targetDepth < abovePath.length ||
@@ -78,6 +81,10 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         !(dropTargetProps.node === draggedNode && isHover === true) ||
         // ...unless it's at a different level than the current one
         targetDepth !== (dropTargetProps.path.length - 1)
+    ) && (
+        typeof parentNode === 'undefined' ||
+        typeof parentNode.node.canHaveChildren === 'undefined' ||
+        parentNode.node.canHaveChildren
     );
 }
 

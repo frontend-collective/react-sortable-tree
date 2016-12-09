@@ -27,8 +27,9 @@ class App extends Component {
                     expanded: true,
                     children: [
                         {
-                            title: 'Child Node',
+                            title: 'Cannot have children',
                             subtitle: 'Defined in `children` array belonging to parent',
+                            canHaveChildren: false
                         },
                         {
                             title: 'Nested structure is rendered virtually',
