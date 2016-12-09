@@ -1442,6 +1442,21 @@ describe('walk', () => {
             },
         })).not.toThrow();
     });
+
+    it('can get parents while walking', () => {
+        const treeData = [{ key: 1, children: [{ key: 12, children: [{ key: 3 }] }, { key: 4 }]}, { key: 5 }];
+        const results = [];
+        walk({
+            treeData,
+            getNodeKey: keyFromTreeIndex,
+            ignoreCollapsed: false,
+            callback: ({ parentNode }) => {
+                results.push(parentNode ? parentNode.key : null);
+            },
+        });
+
+        expect(results).toEqual([null, 1, 12, 1, null]);
+    });
 });
 
 describe('getTreeFromFlatData', () => {
@@ -1634,6 +1649,58 @@ describe('map', () => {
                 expected: [{ key: 1, children: []}, { key: 5 }],
             },
         ].forEach(checkFunction);
+    });
+
+    it('can get parents', () => {
+        checkFunction({
+            getNodeKey: keyFromKey,
+            callback: ({ node, parentNode }) => ({
+                ...node,
+                parentKey: parentNode ? parentNode.key : null,
+            }),
+            ignoreCollapsed: false,
+            treeData: [
+                {
+                    key: 1,
+                    children: [
+                        {
+                            key: 12,
+                            children: [
+                                { key: 3 },
+                            ],
+                        },
+                        { key: 4 },
+                    ],
+                },
+                { key: 5 }
+            ],
+            expected: [
+                {
+                    key: 1,
+                    parentKey: null,
+                    children: [
+                        {
+                            key: 12,
+                            parentKey: 1,
+                            children: [
+                                {
+                                    key: 3,
+                                    parentKey: 12,
+                                },
+                            ],
+                        },
+                        {
+                            key: 4,
+                            parentKey: 1,
+                        },
+                    ],
+                },
+                {
+                    key: 5,
+                    parentKey: null,
+                },
+            ],
+        });
     });
 
     it('can sort part of the tree', () => {

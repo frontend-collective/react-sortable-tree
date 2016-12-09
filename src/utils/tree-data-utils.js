@@ -66,7 +66,23 @@ export function getDescendantCount({ node, ignoreCollapsed = true }) {
 }
 
 /**
- * Walk all descendants of the given node
+ * Walk all descendants of the given node, depth-first
+ *
+ * @param {Object} args - Function parameters
+ * @param {function} args.callback - Function to call on each node
+ * @param {function} args.getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {boolean} args.ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ * @param {boolean=} args.isPseudoRoot - If true, this node has no real data, and only serves
+ *                                        as the parent of all the nodes in the tree
+ * @param {Object} args.node - A tree node
+ * @param {Object=} args.parentNode - The parent node of `node`
+ * @param {number} args.currentIndex - The treeIndex of `node`
+ * @param {number[]|string[]} args.path - Array of keys leading up to node to be changed
+ * @param {number[]} args.lowerSiblingCounts - An array containing the count of siblings beneath the
+ *                                             previous nodes in this path
+ *
+ * @return {number|false} nextIndex - Index of the next sibling of `node`,
+ *                                    or false if the walk should be terminated
  */
 function walkDescendants({
     callback,
@@ -74,13 +90,24 @@ function walkDescendants({
     ignoreCollapsed,
     isPseudoRoot = false,
     node,
+    parentNode = null,
     currentIndex,
     path = [],
     lowerSiblingCounts = [],
 }) {
     // The pseudo-root is not considered in the path
-    const selfPath = !isPseudoRoot ? [ ...path, getNodeKey({ node, treeIndex: currentIndex }) ] : [];
-    const selfInfo = !isPseudoRoot ? { node, path: selfPath, lowerSiblingCounts, treeIndex: currentIndex } : null;
+    const selfPath = isPseudoRoot ? [] : [
+        ...path,
+        getNodeKey({ node, treeIndex: currentIndex }),
+    ];
+    const selfInfo = isPseudoRoot ? null : {
+        node,
+        parentNode,
+        path: selfPath,
+        lowerSiblingCounts,
+        treeIndex: currentIndex,
+    };
+
     if (!isPseudoRoot) {
         const callbackResult = callback(selfInfo);
 
@@ -105,6 +132,7 @@ function walkDescendants({
                 getNodeKey,
                 ignoreCollapsed,
                 node: node.children[i],
+                parentNode: isPseudoRoot ? null : node,
                 currentIndex: childIndex + 1,
                 lowerSiblingCounts: [ ...lowerSiblingCounts, childCount - i - 1 ],
                 path: selfPath,
@@ -121,7 +149,23 @@ function walkDescendants({
 }
 
 /**
- * Perform a change on the given node and all its descendants
+ * Perform a change on the given node and all its descendants, traversing the tree depth-first
+ *
+ * @param {Object} args - Function parameters
+ * @param {function} args.callback - Function to call on each node
+ * @param {function} args.getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {boolean} args.ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ * @param {boolean=} args.isPseudoRoot - If true, this node has no real data, and only serves
+ *                                        as the parent of all the nodes in the tree
+ * @param {Object} args.node - A tree node
+ * @param {Object=} args.parentNode - The parent node of `node`
+ * @param {number} args.currentIndex - The treeIndex of `node`
+ * @param {number[]|string[]} args.path - Array of keys leading up to node to be changed
+ * @param {number[]} args.lowerSiblingCounts - An array containing the count of siblings beneath the
+ *                                             previous nodes in this path
+ *
+ * @return {number|false} nextIndex - Index of the next sibling of `node`,
+ *                                    or false if the walk should be terminated
  */
 function mapDescendants({
     callback,
@@ -129,16 +173,28 @@ function mapDescendants({
     ignoreCollapsed,
     isPseudoRoot = false,
     node,
+    parentNode = null,
     currentIndex,
     path = [],
     lowerSiblingCounts = [],
 }) {
+    const nextNode = { ...node };
+
     // The pseudo-root is not considered in the path
-    const selfPath = !isPseudoRoot ? [ ...path, getNodeKey({ node, treeIndex: currentIndex }) ] : [];
-    const selfInfo = !isPseudoRoot ? { node, path: selfPath, lowerSiblingCounts, treeIndex: currentIndex } : null;
+    const selfPath = isPseudoRoot ? [] : [
+        ...path,
+        getNodeKey({ node: nextNode, treeIndex: currentIndex }),
+    ];
+    const selfInfo = {
+        node: nextNode,
+        parentNode,
+        path: selfPath,
+        lowerSiblingCounts,
+        treeIndex: currentIndex,
+    };
 
     // Return self on nodes with no children or hidden children
-    if (!node.children || (node.expanded !== true && ignoreCollapsed && !isPseudoRoot)) {
+    if (!nextNode.children || (nextNode.expanded !== true && ignoreCollapsed && !isPseudoRoot)) {
         return {
             treeIndex: currentIndex,
             node: callback(selfInfo),
@@ -147,15 +203,15 @@ function mapDescendants({
 
     // Get all descendants
     let childIndex   = currentIndex;
-    const childCount = node.children.length;
-    let newChildren  = node.children;
-    if (typeof newChildren !== 'function') {
-        newChildren = newChildren.map((child, i) => {
+    const childCount = nextNode.children.length;
+    if (typeof nextNode.children !== 'function') {
+        nextNode.children = nextNode.children.map((child, i) => {
             const mapResult = mapDescendants({
                 callback,
                 getNodeKey,
                 ignoreCollapsed,
                 node: child,
+                parentNode: isPseudoRoot ? null : nextNode,
                 currentIndex: childIndex + 1,
                 lowerSiblingCounts: [ ...lowerSiblingCounts, childCount - i - 1 ],
                 path: selfPath,
@@ -167,13 +223,7 @@ function mapDescendants({
     }
 
     return {
-        node: callback({
-            ...selfInfo,
-            node: {
-                ...node,
-                children: newChildren,
-            },
-        }),
+        node: callback(selfInfo),
         treeIndex: childIndex,
     };
 }
