@@ -85,6 +85,8 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         typeof parentNode === 'undefined' ||
         typeof parentNode.node.canHaveChildren === 'undefined' ||
         parentNode.node.canHaveChildren
+    ) && (
+        !(dropTargetProps.node.alwaysAtRootLevel && parentNode)
     );
 }
 

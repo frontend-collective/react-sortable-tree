@@ -23,8 +23,9 @@ class App extends Component {
             treeData: [
                 {
                     title: '`title`',
-                    subtitle: '`subtitle`',
+                    subtitle: '`subtitle` - stays at rootLevel always',
                     expanded: true,
+                    alwaysAtRootLevel: true,
                     children: [
                         {
                             title: 'Cannot have children',
