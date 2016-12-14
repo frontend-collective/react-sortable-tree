@@ -14,6 +14,7 @@ const TreeNode = ({
     draggedNode,
     canDrop,
     treeIndex,
+    rows: _rows,             // Delete from otherProps
     getPrevRow: _getPrevRow, // Delete from otherProps
     node:       _node,       // Delete from otherProps
     path:       _path,       // Delete from otherProps
@@ -140,6 +141,7 @@ TreeNode.propTypes = {
     swapLength:           PropTypes.number,
     scaffoldBlockPxWidth: PropTypes.number.isRequired,
     lowerSiblingCounts:   PropTypes.array.isRequired,
+    rows:                 PropTypes.arrayOf(PropTypes.object).isRequired,
 
     listIndex: PropTypes.number.isRequired,
     children:  PropTypes.node,

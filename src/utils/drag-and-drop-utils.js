@@ -68,8 +68,8 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
 
     const targetDepth = getTargetDepth(dropTargetProps, monitor);
     const draggedNode = monitor.getItem().node;
-
-    const parentNode = dropTargetProps.rows[dropTargetProps.path[dropTargetProps.path.length - 2]];
+    const parentPath = dropTargetProps.path.slice(0, -1);
+    const parentNode = dropTargetProps.rows.find(row => row.path.toString() === parentPath.toString());
 
     return (
         // Either we're not adding to the children of the row above...
