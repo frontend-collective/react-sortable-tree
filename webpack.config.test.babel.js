@@ -64,7 +64,13 @@ module.exports = {
                 ],
                 include: path.join(__dirname, 'src')
             },
+            { test: /\.json$/, loader: 'json' }, // For the cheerio dependency of enzyme
         ],
+    },
+    externals: { // All of these are for enzyme
+        'react/addons': true,
+        'react/lib/ExecutionEnvironment': true,
+        'react/lib/ReactContext': true,
     },
     devServer: {
         contentBase: 'build',
