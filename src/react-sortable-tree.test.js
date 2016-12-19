@@ -1,12 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { mount } from 'enzyme';
 import jasmineEnzyme from 'jasmine-enzyme';
 
 import { AutoSizer } from 'react-virtualized';
-import TreeNode from './tree-node';
-
 import SortableTree from './react-sortable-tree';
+import sortableTreeStyles from './react-sortable-tree.scss';
+import TreeNode from './tree-node';
+import treeNodeStyles from './tree-node.scss';
+import DefaultNodeRenderer from './node-renderer-default';
+import defaultNodeRendererStyles from './node-renderer-default.scss';
+
 
 describe('<SortableTree />', () => {
     beforeEach(() => {
@@ -105,6 +109,52 @@ describe('<SortableTree />', () => {
         expect(wrapper.find(TreeNode).length).toEqual(3);
     });
 
+    it('should reveal hidden nodes when visibility toggled', () => {
+        const wrapper = mount(
+            <SortableTree
+                treeData={[{ title: 'a', children: [{ title: 'b' }] }]}
+                onChange={treeData => wrapper.setProps({ treeData })}
+            />
+        );
+
+        // Check nodes in collapsed state
+        expect(wrapper.find(TreeNode).length).toEqual(1);
+
+        // Expand node and check for the existence of the revealed child
+        wrapper.find(`.${defaultNodeRendererStyles.expandButton}`).first().simulate('click');
+        expect(wrapper.find(TreeNode).length).toEqual(2);
+
+        // Collapse node and make sure the child has been hidden
+        wrapper.find(`.${defaultNodeRendererStyles.collapseButton}`).first().simulate('click');
+        expect(wrapper.find(TreeNode).length).toEqual(1);
+    });
+
+    it('should change outer wrapper style via `style` and `className` props', () => {
+        const wrapper = mount(
+            <SortableTree
+                treeData={[{ title: 'a' }]}
+                onChange={() => {}}
+                style={{ borderWidth: 42 }}
+                className="extra-classy"
+            />
+        );
+
+        expect(wrapper.find(`.${sortableTreeStyles.tree}`)).toHaveStyle('borderWidth', 42);
+        expect(wrapper.find(`.${sortableTreeStyles.tree}`)).toHaveClassName('extra-classy');
+    });
+
+    it('should change style of scroll container with `innerStyle` prop', () => {
+        const wrapper = mount(
+            <SortableTree
+                treeData={[{ title: 'a' }]}
+                onChange={() => {}}
+                innerStyle={{ borderWidth: 42 }}
+            />
+        );
+
+        expect(wrapper.find(`.${sortableTreeStyles.virtualScrollOverride}`)).toHaveStyle('borderWidth', 42);
+    });
+
     it('should change height according to rowHeight prop', () => {
         const wrapper = mount(
             <SortableTree
@@ -115,5 +165,62 @@ describe('<SortableTree />', () => {
         );
 
         expect(wrapper.find(TreeNode)).toHaveStyle('height', 12);
+    });
+
+    it('should change scaffold width according to scaffoldBlockPxWidth prop', () => {
+        const wrapper = mount(
+            <SortableTree
+                treeData={[{ title: 'a' }]}
+                onChange={() => {}}
+                scaffoldBlockPxWidth={12}
+            />
+        );
+
+        expect(wrapper.find(`.${treeNodeStyles.lineBlock}`)).toHaveStyle('width', 12);
+    });
+
+    it('should pass props to the node renderer from `generateNodeProps`', () => {
+        const title = 42;
+        const wrapper = mount(
+            <SortableTree
+                treeData={[{ title }]}
+                onChange={() => {}}
+                generateNodeProps={({ node }) => ({ buttons: [ node.title ] })}
+            />
+        );
+
+        expect(wrapper.find(DefaultNodeRenderer)).toHaveProp('buttons', [ title ]);
+    });
+
+    it('should call the callback in `onVisibilityToggle` when visibility toggled', () => {
+        let out = null;
+
+        const wrapper = mount(
+            <SortableTree
+                treeData={[{ title: 'a', children: [{ title: 'b' }] }]}
+                onChange={treeData => wrapper.setProps({ treeData })}
+                onVisibilityToggle={({ expanded }) => { out = expanded ? 'expanded' : 'collapsed'; }}
+            />
+        );
+
+        wrapper.find(`.${defaultNodeRendererStyles.expandButton}`).first().simulate('click');
+        expect(out).toEqual('expanded');
+        wrapper.find(`.${defaultNodeRendererStyles.collapseButton}`).first().simulate('click');
+        expect(out).toEqual('collapsed');
+    });
+
+    it('should render with a custom `nodeContentRenderer`', () => {
+        const FakeNode = (({ node }) => (<div>{node.title}</div>));
+        FakeNode.propTypes = { node: PropTypes.object.isRequired };
+
+        const wrapper = mount(
+            <SortableTree
+                treeData={[{ title: 'a' }]}
+                onChange={() => {}}
+                nodeContentRenderer={FakeNode}
+            />
+        );
+
+        expect(wrapper.find(FakeNode).length).toEqual(1);
     });
 });
