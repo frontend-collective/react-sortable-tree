@@ -62,6 +62,7 @@ reactVirtualizedListProps | object         |                     |          | Cu
 rowHeight                 | number or func | `62`                |          | Used by react-virtualized. Either a fixed row height (number) or a function that returns the height of a row given its index: `({ index: number }): number`
 slideRegionSize           | number         | `100`               |          | Size in px of the region near the edges that initiates scrolling on dragover.
 scaffoldBlockPxWidth      | number         | `44`                |          | The width of the blocks containing the lines representing the structure of the tree.
+isVirtualized             | bool           | `true`              |          | Set to false to disable virtualization. __NOTE__: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
 nodeContentRenderer       | any            | NodeRendererDefault |          | Override the default component for rendering nodes (but keep the scaffolding generator) This is an advanced option for complete customization of the appearance. It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
 
 ## Data Helper Functions

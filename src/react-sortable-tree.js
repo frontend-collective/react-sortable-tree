@@ -40,22 +40,32 @@ class ReactSortableTree extends Component {
     constructor(props) {
         super(props);
 
+        const {
+            dndType,
+            nodeContentRenderer,
+            isVirtualized,
+            slideRegionSize,
+            treeData,
+        } = props;
+
         // Wrapping classes for use with react-dnd
-        this.dndType             = props.dndType || `rst__${dndTypeCounter++}`;
-        this.nodeContentRenderer = dndWrapSource(props.nodeContentRenderer, this.dndType);
+        this.dndType             = dndType || `rst__${dndTypeCounter++}`;
+        this.nodeContentRenderer = dndWrapSource(nodeContentRenderer, this.dndType);
         this.treeNodeRenderer    = dndWrapTarget(TreeNode, this.dndType);
 
         // Prepare scroll-on-drag options for this list
-        this.scrollZoneVirtualList = withScrolling(List);
-        this.vStrength             = createVerticalStrength(props.slideRegionSize);
-        this.hStrength             = createHorizontalStrength(props.slideRegionSize);
+        if (isVirtualized) {
+            this.scrollZoneVirtualList = withScrolling(List);
+            this.vStrength             = createVerticalStrength(slideRegionSize);
+            this.hStrength             = createHorizontalStrength(slideRegionSize);
+        }
 
         this.state = {
             draggingTreeData: null,
             swapFrom: null,
             swapLength: null,
             swapDepth: null,
-            rows: this.getRows(props.treeData),
+            rows: this.getRows(treeData),
             searchMatches: [],
             searchFocusTreeIndex: null,
         };
@@ -309,6 +319,8 @@ class ReactSortableTree extends Component {
             className,
             innerStyle,
             rowHeight,
+            getNodeKey,
+            isVirtualized,
         } = this.props;
         const {
             rows,
@@ -323,14 +335,14 @@ class ReactSortableTree extends Component {
         // Seek to the focused search result if there is one specified
         const scrollToInfo = searchFocusTreeIndex !== null ? { scrollToIndex: searchFocusTreeIndex } : {};
 
-        const ScrollZoneVirtualList = this.scrollZoneVirtualList;
+        let containerStyle = style;
+        let list;
+        if (isVirtualized) {
+            containerStyle = { height: '100%', ...containerStyle  };
 
-        return (
-            <div
-                className={styles.tree + (className ? ` ${className}` : '')}
-                style={{ height: '100%', ...style }}
-                ref={(el) => { this.containerRef = el; }}
-            >
+            const ScrollZoneVirtualList = this.scrollZoneVirtualList;
+            // Render list with react-virtualized
+            list = (
                 <AutoSizer>
                     {({height, width}) => (
                         <ScrollZoneVirtualList
@@ -359,6 +371,28 @@ class ReactSortableTree extends Component {
                         />
                     )}
                 </AutoSizer>
+            );
+        } else {
+            // Render list without react-virtualized
+            list = rows.map((row, index) => this.renderRow(
+                row,
+                index,
+                getNodeKey({
+                    node:      row.node,
+                    treeIndex: row.treeIndex,
+                }),
+                { height: rowHeight },
+                () => (rows[index - 1] || null),
+                matchKeys
+            ));
+        }
+
+        return (
+            <div
+                className={styles.tree + (className ? ` ${className}` : '')}
+                style={containerStyle}
+            >
+                {list}
             </div>
         );
     }
@@ -471,6 +505,10 @@ ReactSortableTree.propTypes = {
     // or additional `style` / `className` settings.
     generateNodeProps: PropTypes.func,
 
+    // Set to false to disable virtualization.
+    // NOTE: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
+    isVirtualized: PropTypes.bool,
+
     // Override the default component for rendering nodes (but keep the scaffolding generator)
     // This is an advanced option for complete customization of the appearance.
     // It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
@@ -504,6 +542,7 @@ ReactSortableTree.defaultProps = {
     style: {},
     innerStyle: {},
     searchQuery: null,
+    isVirtualized: true,
 };
 
 export default dndWrapRoot(ReactSortableTree);

@@ -202,6 +202,9 @@ class App extends Component {
                 0,
         });
 
+        const isVirtualized = true;
+        const treeContainerStyle = isVirtualized ? { height: 450 } : {};
+
         return (
             <div>
                 <section className={styles['page-header']}>
@@ -265,7 +268,7 @@ class App extends Component {
                         </span>
                     </form>
 
-                    <div style={{ height: 450 }}>
+                    <div style={treeContainerStyle}>
                         <SortableTree
                             treeData={treeData}
                             onChange={this.updateTreeData}
@@ -285,6 +288,7 @@ class App extends Component {
                                     searchFocusIndex: matches.length > 0 ? searchFocusIndex % matches.length : 0,
                                 })
                             }
+                            isVirtualized={isVirtualized}
                             generateNodeProps={rowInfo => ({
                                 buttons: [
                                     <button

@@ -3,12 +3,17 @@ $row-padding: 10px;
 .rowWrapper {
     padding: $row-padding $row-padding $row-padding 0;
     height: 100%;
+    box-sizing: border-box;
 }
 
 .row {
     height: 100%;
     white-space: nowrap;
     display: flex;
+
+    & > * {
+        box-sizing: border-box;
+    }
 }
 
 /**
