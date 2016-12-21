@@ -545,4 +545,4 @@ ReactSortableTree.defaultProps = {
     isVirtualized: true,
 };
 
-export default dndWrapRoot(ReactSortableTree);
+export default ReactSortableTree;
