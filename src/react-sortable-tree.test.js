@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import { mount } from 'enzyme';
 import jasmineEnzyme from 'jasmine-enzyme';
 
-import { AutoSizer } from 'react-virtualized';
+import { List, AutoSizer } from 'react-virtualized';
 import SortableTree from './react-sortable-tree';
 import sortableTreeStyles from './react-sortable-tree.scss';
 import TreeNode from './tree-node';
@@ -171,6 +171,28 @@ describe('<SortableTree />', () => {
         wrapper.setProps({ rowHeight: ({ index }) => 42 + index });
         expect(wrapper.find(TreeNode).first()).toHaveStyle('height', 42);
         expect(wrapper.find(TreeNode).last()).toHaveStyle('height', 43);
+    });
+
+    it('should toggle virtualization according to isVirtualized prop', () => {
+        const virtualized = mount(
+            <SortableTree
+                treeData={[{ title: 'a' }, { title: 'b' }]}
+                onChange={() => {}}
+                isVirtualized
+            />
+        );
+
+        expect(virtualized.find(List).length).toEqual(1);
+
+        const notVirtualized = mount(
+            <SortableTree
+                treeData={[{ title: 'a' }, { title: 'b' }]}
+                onChange={() => {}}
+                isVirtualized={false}
+            />
+        );
+
+        expect(notVirtualized.find(List).length).toEqual(0);
     });
 
     it('should change scaffold width according to scaffoldBlockPxWidth prop', () => {
