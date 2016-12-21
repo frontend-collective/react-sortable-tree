@@ -158,13 +158,19 @@ describe('<SortableTree />', () => {
     it('should change height according to rowHeight prop', () => {
         const wrapper = mount(
             <SortableTree
-                treeData={[{ title: 'a' }]}
+                treeData={[{ title: 'a' }, { title: 'b' }]}
                 onChange={() => {}}
                 rowHeight={12}
             />
         );
 
-        expect(wrapper.find(TreeNode)).toHaveStyle('height', 12);
+        // Works with static value
+        expect(wrapper.find(TreeNode).first()).toHaveStyle('height', 12);
+
+        // Works with function callback
+        wrapper.setProps({ rowHeight: ({ index }) => 42 + index });
+        expect(wrapper.find(TreeNode).first()).toHaveStyle('height', 42);
+        expect(wrapper.find(TreeNode).last()).toHaveStyle('height', 43);
     });
 
     it('should change scaffold width according to scaffoldBlockPxWidth prop', () => {
