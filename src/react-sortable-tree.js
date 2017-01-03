@@ -7,6 +7,7 @@
 import React, { Component, PropTypes } from 'react';
 import { AutoSizer, List } from 'react-virtualized';
 import isEqual from 'lodash.isequal';
+import withScrolling, { createVerticalStrength, createHorizontalStrength } from 'react-dnd-scrollzone';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
 import NodeRendererDefault from './node-renderer-default';
@@ -29,31 +30,51 @@ import {
 import {
     dndWrapRoot,
     dndWrapSource,
+    dndWrapTarget,
 } from './utils/drag-and-drop-utils';
 import styles from './react-sortable-tree.scss';
+
+let dndTypeCounter = 1;
 
 class ReactSortableTree extends Component {
     constructor(props) {
         super(props);
 
-        this.nodeContentRenderer = dndWrapSource(props.nodeContentRenderer);
+        const {
+            dndType,
+            nodeContentRenderer,
+            isVirtualized,
+            slideRegionSize,
+            treeData,
+        } = props;
+
+        // Wrapping classes for use with react-dnd
+        this.dndType             = dndType || `rst__${dndTypeCounter++}`;
+        this.nodeContentRenderer = dndWrapSource(nodeContentRenderer, this.dndType);
+        this.treeNodeRenderer    = dndWrapTarget(TreeNode, this.dndType);
+
+        // Prepare scroll-on-drag options for this list
+        if (isVirtualized) {
+            this.scrollZoneVirtualList = withScrolling(List);
+            this.vStrength             = createVerticalStrength(slideRegionSize);
+            this.hStrength             = createHorizontalStrength(slideRegionSize);
+        }
 
         this.state = {
             draggingTreeData: null,
             swapFrom: null,
             swapLength: null,
             swapDepth: null,
-            rows: this.getRows(props.treeData),
+            rows: this.getRows(treeData),
             searchMatches: [],
             searchFocusTreeIndex: null,
-            scrollToPixel: null,
         };
 
         this.toggleChildrenVisibility = this.toggleChildrenVisibility.bind(this);
-        this.moveNode  = this.moveNode.bind(this);
-        this.startDrag = this.startDrag.bind(this);
-        this.dragHover = this.dragHover.bind(this);
-        this.endDrag   = this.endDrag.bind(this);
+        this.moveNode                 = this.moveNode.bind(this);
+        this.startDrag                = this.startDrag.bind(this);
+        this.dragHover                = this.dragHover.bind(this);
+        this.endDrag                  = this.endDrag.bind(this);
     }
 
     componentWillMount() {
@@ -82,18 +103,23 @@ class ReactSortableTree extends Component {
     }
 
     moveNode({ node, depth, minimumTreeIndex }) {
-        const treeData = insertNode({
+        const {
+            treeData,
+            treeIndex,
+            path,
+        } = insertNode({
             treeData: this.state.draggingTreeData,
             newNode: node,
             depth,
             minimumTreeIndex,
             expandParent: true,
-        }).treeData;
+            getNodeKey: this.props.getNodeKey,
+        });
 
         this.props.onChange(treeData);
 
         if (this.props.onMoveNode) {
-            this.props.onMoveNode({ treeData, node });
+            this.props.onMoveNode({ treeData, node, treeIndex, path });
         }
     }
 
@@ -287,34 +313,19 @@ class ReactSortableTree extends Component {
         });
     }
 
-    scrollBy(x, y) {
-        if (!this.containerRef) {
-            return;
-        }
-
-        if (x !== 0) {
-            this.containerRef.getElementsByClassName(styles.virtualScrollOverride)[0].scrollLeft += x;
-        }
-
-        if (y !== 0) {
-            this.scrollTop = this.scrollTop ? (this.scrollTop + y) : y;
-            this.setState({ scrollToPixel: this.scrollTop });
-        }
-    }
-
     render() {
         const {
             style,
             className,
             innerStyle,
             rowHeight,
-            _connectDropTarget,
+            getNodeKey,
+            isVirtualized,
         } = this.props;
         const {
             rows,
             searchMatches,
             searchFocusTreeIndex,
-            scrollToPixel,
         } = this.state;
 
         // Get indices for rows that match the search conditions
@@ -324,25 +335,29 @@ class ReactSortableTree extends Component {
         // Seek to the focused search result if there is one specified
         const scrollToInfo = searchFocusTreeIndex !== null ? { scrollToIndex: searchFocusTreeIndex } : {};
 
-        return _connectDropTarget(
-            <div
-                className={styles.tree + (className ? ` ${className}` : '')}
-                style={{ height: '100%', ...style }}
-                ref={(el) => { this.containerRef = el; }}
-            >
+        let containerStyle = style;
+        let list;
+        if (isVirtualized) {
+            containerStyle = { height: '100%', ...containerStyle  };
+
+            const ScrollZoneVirtualList = this.scrollZoneVirtualList;
+            // Render list with react-virtualized
+            list = (
                 <AutoSizer>
                     {({height, width}) => (
-                        <List
+                        <ScrollZoneVirtualList
                             {...scrollToInfo}
+                            verticalStrength={this.vStrength}
+                            horizontalStrength={this.hStrength}
+                            speed={30}
                             scrollToAlignment="start"
                             className={styles.virtualScrollOverride}
                             width={width}
-                            scrollTop={scrollToPixel}
                             onScroll={({ scrollTop }) => { this.scrollTop = scrollTop; }}
                             height={height}
                             style={innerStyle}
                             rowCount={rows.length}
-                            estimatedRowSize={rowHeight}
+                            estimatedRowSize={typeof rowHeight !== 'function' ? rowHeight : undefined}
                             rowHeight={rowHeight}
                             rowRenderer={({ index, key, style: rowStyle }) => this.renderRow(
                                 rows[index],
@@ -361,19 +376,34 @@ class ReactSortableTree extends Component {
                         />
                     )}
                 </AutoSizer>
+            );
+        } else {
+            // Render list without react-virtualized
+            list = rows.map((row, index) => this.renderRow(
+                row,
+                index,
+                getNodeKey({
+                    node:      row.node,
+                    treeIndex: row.treeIndex,
+                }),
+                { height: typeof rowHeight !== 'function' ? rowHeight : rowHeight({ index }) },
+                () => (rows[index - 1] || null),
+                matchKeys
+            ));
+        }
+
+        return (
+            <div
+                className={styles.tree + (className ? ` ${className}` : '')}
+                style={containerStyle}
+            >
+                {list}
             </div>
         );
     }
 
-    renderRow(
-        { node, path, lowerSiblingCounts, treeIndex },
-        listIndex,
-        key,
-        style,
-        getPrevRow,
-        getParentRow,
-        matchKeys
-    ) {
+    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, getParentRow, matchKeys) {
+        const TreeNodeRenderer    = this.treeNodeRenderer;
         const NodeContentRenderer = this.nodeContentRenderer;
         const nodeKey = path[path.length - 1];
         const isSearchMatch = nodeKey in matchKeys;
@@ -390,7 +420,7 @@ class ReactSortableTree extends Component {
         });
 
         return (
-            <TreeNode
+            <TreeNodeRenderer
                 style={style}
                 key={key}
                 treeIndex={treeIndex}
@@ -420,7 +450,7 @@ class ReactSortableTree extends Component {
                     scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
                     {...nodeProps}
                 />
-            </TreeNode>
+            </TreeNodeRenderer>
         );
     }
 }
@@ -485,6 +515,10 @@ ReactSortableTree.propTypes = {
     // or additional `style` / `className` settings.
     generateNodeProps: PropTypes.func,
 
+    // Set to false to disable virtualization.
+    // NOTE: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
+    isVirtualized: PropTypes.bool,
+
     // Override the default component for rendering nodes (but keep the scaffolding generator)
     // This is an advanced option for complete customization of the appearance.
     // It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
@@ -506,8 +540,7 @@ ReactSortableTree.propTypes = {
     // Called after children nodes collapsed or expanded.
     onVisibilityToggle: PropTypes.func,
 
-    // Injected by react-dnd
-    _connectDropTarget: PropTypes.func.isRequired,
+    dndType: PropTypes.string,
 };
 
 ReactSortableTree.defaultProps = {
@@ -520,6 +553,7 @@ ReactSortableTree.defaultProps = {
     innerStyle: {},
     searchQuery: null,
     shouldMoveNode: () => true,
+    isVirtualized: true,
 };
 
 export default dndWrapRoot(ReactSortableTree);

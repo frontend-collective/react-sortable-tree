@@ -4,7 +4,6 @@ import {
     DropTarget as dropTarget,
 } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import ItemTypes from '../item-types';
 import {
     getDepth,
 } from './tree-data-utils';
@@ -116,84 +115,6 @@ const nodeDropTarget = {
     canDrop,
 };
 
-const scrollDropTarget = {
-    hover(props, monitor, component) {
-        const cancelAnimationFrame = window.cancelAnimationFrame || (timeout => clearTimeout(timeout));
-        const requestAnimationFrame = window.requestAnimationFrame || (func => setTimeout(func, 1000 / 60));
-
-        // If already scrolling, stop the previous scroll loop
-        if (this.lastScroll) {
-            cancelAnimationFrame(this.lastScroll);
-            this.lastScroll = null;
-            clearTimeout(this.removeTimeout);
-        }
-
-        const slideRegionSize = component.props.slideRegionSize;
-        const { x: dragXOffset, y: dragYOffset } = monitor.getClientOffset();
-        const {
-            top:    containerTop,
-            bottom: containerBottom,
-            left:   containerLeft,
-            right:  containerRight,
-        } = component.containerRef.getBoundingClientRect();
-        let yScrollDirection = 0;
-        let yScrollMagnitude = 0;
-        const fromTop = dragYOffset - slideRegionSize - Math.max(containerTop, 0);
-        if (fromTop <= 0) {
-            // Move up
-            yScrollDirection = -1;
-            yScrollMagnitude = Math.sqrt(-1 * fromTop);
-        } else {
-            const fromBottom = dragYOffset + slideRegionSize - Math.min(containerBottom, window.innerHeight);
-            if (fromBottom >= 0) {
-                // Move down
-                yScrollDirection = 1;
-                yScrollMagnitude = Math.sqrt(fromBottom);
-            }
-        }
-
-        let xScrollDirection = 0;
-        let xScrollMagnitude = 0;
-        const fromLeft = dragXOffset - slideRegionSize - Math.max(containerLeft, 0);
-        if (fromLeft <= 0) {
-            // Move up
-            xScrollDirection = -1;
-            xScrollMagnitude = Math.ceil(Math.sqrt(-1 * fromLeft));
-        } else {
-            const fromRight = dragXOffset + slideRegionSize - Math.min(containerRight, window.innerWidth);
-            if (fromRight >= 0) {
-                // Move down
-                xScrollDirection = 1;
-                xScrollMagnitude = Math.ceil(Math.sqrt(fromRight));
-            }
-        }
-
-        // Don't do anything if there is no scroll operation
-        if (xScrollDirection === 0 && yScrollDirection === 0) {
-            return;
-        }
-
-        // Indefinitely scrolls the container at a constant rate
-        const doScroll = () => {
-            component.scrollBy(xScrollDirection * xScrollMagnitude, yScrollDirection * yScrollMagnitude);
-            this.lastScroll = requestAnimationFrame(doScroll);
-        };
-
-        // Stop the scroll loop after a period of inactivity
-        this.removeTimeout = setTimeout(() => {
-            cancelAnimationFrame(this.lastScroll);
-            this.lastScroll = null;
-        }, 20);
-
-        // Start the scroll loop
-        this.lastScroll = requestAnimationFrame(doScroll);
-    },
-
-    canDrop() {
-        return false;
-    },
-};
-
 function nodeDragSourcePropInjection(connect, monitor) {
     return {
         connectDragSource:  connect.dragSource(),
@@ -212,22 +133,14 @@ function nodeDropTargetPropInjection(connect, monitor) {
     };
 }
 
-function scrollDropTargetPropInjection(connect) {
-    return {
-        _connectDropTarget: connect.dropTarget(),
-    };
+export function dndWrapSource(el, type) {
+    return dragSource(type, nodeDragSource, nodeDragSourcePropInjection)(el);
 }
 
-export function dndWrapSource(el) {
-    return dragSource(ItemTypes.HANDLE, nodeDragSource, nodeDragSourcePropInjection)(el);
-}
-
-export function dndWrapTarget(el) {
-    return dropTarget(ItemTypes.HANDLE, nodeDropTarget, nodeDropTargetPropInjection)(el);
+export function dndWrapTarget(el, type) {
+    return dropTarget(type, nodeDropTarget, nodeDropTargetPropInjection)(el);
 }
 
 export function dndWrapRoot(el) {
-    return dragDropContext(HTML5Backend)(
-        dropTarget(ItemTypes.HANDLE, scrollDropTarget, scrollDropTargetPropInjection)(el)
-    );
+    return dragDropContext(HTML5Backend)(el);
 }

@@ -51,7 +51,6 @@ class App extends Component {
                         {
                             expanded: true,
                             title: 'Chicken',
-                            disabled: true,
                             children: [
                                 { title: 'Egg' },
                             ],
@@ -181,10 +180,10 @@ class App extends Component {
         }) => {
             const objectString = Object.keys(node)
                 .map(k => (k === 'children' ? 'children: Array' : `${k}: '${node[k]}'`))
-                .join(`,\n   `);
+                .join(',\n   ');
 
             alert( // eslint-disable-line no-alert
-                `Info passed to the button generator:\n\n` +
+                'Info passed to the button generator:\n\n' +
                 `node: {\n   ${objectString}\n},\n` +
                 `path: [${path.join(', ')}],\n` +
                 `treeIndex: ${treeIndex}`
@@ -203,7 +202,8 @@ class App extends Component {
                 0,
         });
 
-        const shouldMoveNode = (movingNode, parentNode) => movingNode.disabled !== true && parentNode.title !== 'Chicken';
+        const isVirtualized = true;
+        const treeContainerStyle = isVirtualized ? { height: 450 } : {};
 
         return (
             <div>
@@ -268,12 +268,18 @@ class App extends Component {
                         </span>
                     </form>
 
-                    <div style={{ height: 450 }}>
+                    <div style={treeContainerStyle}>
                         <SortableTree
                             treeData={treeData}
                             onChange={this.updateTreeData}
+                            onMoveNode={({ node, treeIndex, path }) =>
+                                console.debug( // eslint-disable-line no-console
+                                    'node:', node,
+                                    'treeIndex:', treeIndex,
+                                    'path:', path,
+                                )
+                            }
                             maxDepth={maxDepth}
-                            shouldMoveNode={shouldMoveNode}
                             searchQuery={searchString}
                             searchFocusOffset={searchFocusIndex}
                             searchFinishCallback={matches =>
@@ -282,6 +288,7 @@ class App extends Component {
                                     searchFocusIndex: matches.length > 0 ? searchFocusIndex % matches.length : 0,
                                 })
                             }
+                            isVirtualized={isVirtualized}
                             generateNodeProps={rowInfo => ({
                                 buttons: [
                                     <button
