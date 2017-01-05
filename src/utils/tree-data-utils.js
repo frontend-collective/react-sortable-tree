@@ -359,6 +359,23 @@ export function toggleExpandedForAll({ treeData, expanded = true }) {
 }
 
 /**
+ * Select or unselect every node in the tree
+ *
+ * @param {!Object[]} treeData - Tree data
+ * @param {?boolean} selected - Whether the node is selected or not
+ *
+ * @return {Object[]} changedTreeData - The changed tree data
+ */
+export function toggleSelectedForAll({ treeData, selected = true }) {
+    return map({
+        treeData,
+        callback: ({ node }) => ({ ...node, selected }),
+        getNodeKey: ({ treeIndex }) => treeIndex,
+        ignoreCollapsed: false,
+    });
+}
+
+/**
  * Replaces node at path with object, or callback-defined object
  *
  * @param {!Object[]} treeData
@@ -582,10 +599,10 @@ export function addNodeUnderParent({
     };
 }
 
-function addNodeAtDepthAndIndex({
+function addNodesAtDepthAndIndex({
     targetDepth,
     minimumTreeIndex,
-    newNode,
+    newNodes,
     ignoreCollapsed,
     expandParent,
     isPseudoRoot = false,
@@ -619,7 +636,7 @@ function addNodeAtDepthAndIndex({
                 ...node,
 
                 ...extraNodeProps,
-                children: node.children ? [newNode, ...node.children] : [newNode],
+                children: node.children ? newNodes.concat(node.children) : newNodes,
             };
 
             return {
@@ -666,7 +683,7 @@ function addNodeAtDepthAndIndex({
             ...node,
             children: [
                 ...node.children.slice(0, insertIndex),
-                newNode,
+                ...newNodes,
                 ...node.children.slice(insertIndex),
             ],
         };
@@ -698,10 +715,10 @@ function addNodeAtDepthAndIndex({
                 return child;
             }
 
-            const mapResult = addNodeAtDepthAndIndex({
+            const mapResult = addNodesAtDepthAndIndex({
                 targetDepth,
                 minimumTreeIndex,
-                newNode,
+                newNodes,
                 ignoreCollapsed,
                 expandParent,
                 isLastChild: isLastChild && i === newChildren.length - 1,
@@ -737,43 +754,47 @@ function addNodeAtDepthAndIndex({
 }
 
 /**
- * Insert a node into the tree at the given depth, after the minimum index
+ * Insert nodes into the tree at the given depth, after the minimum index
  *
  * @param {!Object[]} treeData - Tree data
  * @param {!number} depth - The depth to insert the node at
  * @param {!number} minimumTreeIndex - The lowest possible treeIndex to insert the node at
- * @param {!Object} newNode - The node to insert into the tree
+ * @param {!Object[]} newNodes - The nodes to insert into the tree
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
- * @param {boolean=} expandParent - If true, expands the parent of the inserted node
+ * @param {boolean=} expandParent - If true, expands the parent of the inserted nodes
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  *
 
  * @return {Object} result
- * @return {Object[]} result.treeData - The tree data with the node added
- * @return {number} result.treeIndex - The tree index at which the node was inserted
- * @return {number[]|string[]} result.path - Array of keys leading to the node location after insertion
+ * @return {Object[]} result.treeData - The tree data with the nodes added
+ * @return {number} result.treeIndex - The tree index at which the first node was inserted
+ * @return {number[]|string[]} result.path - Array of keys leading to the first node location after insertion
  */
-export function insertNode({
+export function insertNodes({
     treeData,
     depth: targetDepth,
     minimumTreeIndex,
-    newNode,
+    newNodes,
     getNodeKey = () => {},
     ignoreCollapsed = true,
     expandParent = false,
 }) {
+    if (newNodes.length === 0) {
+        throw new Error('At least one node must be inserted.');
+    }
+
     if (!treeData && targetDepth === 0) {
         return {
-            treeData:  [newNode],
+            treeData:  newNodes,
             treeIndex: 0,
-            path:      [getNodeKey({ node: newNode, treeIndex: 0 })],
+            path:      [getNodeKey({ node: newNodes[0], treeIndex: 0 })]
         };
     }
 
-    const insertResult = addNodeAtDepthAndIndex({
+    const insertResult = addNodesAtDepthAndIndex({
         targetDepth,
         minimumTreeIndex,
-        newNode,
+        newNodes,
         ignoreCollapsed,
         expandParent,
         getNodeKey,
@@ -792,8 +813,45 @@ export function insertNode({
     return {
         treeData: insertResult.node.children,
         treeIndex,
-        path:     [ ...insertResult.parentPath, getNodeKey({ node: newNode, treeIndex }) ],
+        path:     [ ...insertResult.parentPath, getNodeKey({ node: newNodes[0], treeIndex }) ],
     };
+}
+
+/**
+ * Insert a node into the tree at the given depth, after the minimum index
+ *
+ * @param {!Object[]} treeData - Tree data
+ * @param {!number} depth - The depth to insert the node at
+ * @param {!number} minimumTreeIndex - The lowest possible treeIndex to insert the node at
+ * @param {!Object} newNode - The node to insert into the tree
+ * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ * @param {boolean=} expandParent - If true, expands the parent of the inserted node
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
+ *
+
+ * @return {Object} result
+ * @return {Object[]} result.treeData - The tree data with the node added
+ * @return {number} result.treeIndex - The tree index at which the node was inserted
+ * @return {number[]|string[]} result.path - Array of keys leading to the node location after insertion
+ */
+export function insertNode({
+    treeData,
+    depth,
+    minimumTreeIndex,
+    newNode,
+    getNodeKey = () => {},
+    ignoreCollapsed = true,
+    expandParent = false,
+}) {
+    return insertNodes({
+        treeData,
+        depth,
+        minimumTreeIndex,
+        newNodes: [newNode],
+        getNodeKey,
+        ignoreCollapsed,
+        expandParent,
+    });
 }
 
 /**

@@ -24,7 +24,7 @@ const NodeRendererDefault = ({
     isOver,
     canDrop,
     node,
-    draggedNode,
+    draggedNodes,
     path,
     treeIndex,
     isSearchMatch,
@@ -34,6 +34,7 @@ const NodeRendererDefault = ({
     style = {},
     startDrag: _startDrag,
     endDrag: _endDrag,
+    selectNode = () => {},
     ...otherProps,
 }) => {
     let handle;
@@ -59,13 +60,18 @@ const NodeRendererDefault = ({
             </div>
         );
     } else {
+        const handleSelect = event => selectNode({node, path, event});
+
         // Show the handle used to initiate a drag-and-drop
         handle = connectDragSource((
-            <div className={styles.moveHandle} />
+            <button
+                className={styles.moveHandle + (node.selected ? ` ${styles.selected}` : '')}
+                onClick={handleSelect}
+            />
         ), { dropEffect: 'copy' });
     }
 
-    const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node);
+    const isDraggedDescendant = draggedNodes && draggedNodes.some(draggedNode => isDescendant(draggedNode, node));
 
     return (
         <div
@@ -166,10 +172,13 @@ NodeRendererDefault.propTypes = {
     startDrag:          PropTypes.func.isRequired, // Needed for drag-and-drop utils
     endDrag:            PropTypes.func.isRequired, // Needed for drag-and-drop utils
     isDragging:         PropTypes.bool.isRequired,
-    draggedNode:        PropTypes.object,
+    draggedNodes:       PropTypes.arrayOf(PropTypes.object),
     // Drop target
     isOver:  PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
+
+    // Select API functions
+    selectNode: PropTypes.func,
 };
 
 export default NodeRendererDefault;

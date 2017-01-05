@@ -10,10 +10,9 @@ import {
 
 const nodeDragSource = {
     beginDrag(props) {
-        props.startDrag(props);
-
+        const nodes = props.startDrag(props);
         return {
-            node: props.node,
+            nodes,
             path: props.path,
         };
     },
@@ -23,10 +22,10 @@ const nodeDragSource = {
     },
 
     isDragging(props, monitor) {
-        const dropTargetNode = monitor.getItem().node;
-        const draggedNode    = props.node;
+        const dropTargetNodes = monitor.getItem().nodes;
+        const draggedNode     = props.node;
 
-        return draggedNode === dropTargetNode;
+        return dropTargetNodes.includes(draggedNode);
     }
 };
 
@@ -48,8 +47,8 @@ function getTargetDepth(dropTargetProps, monitor) {
 
     // If a maxDepth is defined, constrain the target depth
     if (typeof dropTargetProps.maxDepth !== 'undefined' && dropTargetProps.maxDepth !== null) {
-        const draggedNode       = monitor.getItem().node;
-        const draggedChildDepth = getDepth(draggedNode);
+        const draggedNodes      = monitor.getItem().nodes;
+        const draggedChildDepth = Math.max(...draggedNodes.map(draggedNode => getDepth(draggedNode)));
 
         targetDepth = Math.min(targetDepth, dropTargetProps.maxDepth - draggedChildDepth - 1);
     }
@@ -66,8 +65,8 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         aboveNode = rowAbove.node;
     }
 
-    const targetDepth = getTargetDepth(dropTargetProps, monitor);
-    const draggedNode = monitor.getItem().node;
+    const targetDepth  = getTargetDepth(dropTargetProps, monitor);
+    const draggedNodes = monitor.getItem().nodes;
     return (
         // Either we're not adding to the children of the row above...
         targetDepth < abovePath.length ||
@@ -75,7 +74,7 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         typeof aboveNode.children !== 'function'
     ) && (
         // Ignore when hovered above the identical node...
-        !(dropTargetProps.node === draggedNode && isHover === true) ||
+        !(draggedNodes.length === 1 && dropTargetProps.node === draggedNodes[0] && isHover === true) ||
         // ...unless it's at a different level than the current one
         targetDepth !== (dropTargetProps.path.length - 1)
     );
@@ -84,7 +83,7 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
 const nodeDropTarget = {
     drop(dropTargetProps, monitor) {
         return {
-            node:             monitor.getItem().node,
+            nodes:            monitor.getItem().nodes,
             path:             monitor.getItem().path,
             minimumTreeIndex: dropTargetProps.treeIndex,
             depth:            getTargetDepth(dropTargetProps, monitor),
@@ -97,7 +96,7 @@ const nodeDropTarget = {
         }
 
         dropTargetProps.dragHover({
-            node:             monitor.getItem().node,
+            nodes:            monitor.getItem().nodes,
             path:             monitor.getItem().path,
             minimumTreeIndex: dropTargetProps.listIndex,
             depth:            getTargetDepth(dropTargetProps, monitor),
@@ -121,7 +120,7 @@ function nodeDropTargetPropInjection(connect, monitor) {
         connectDropTarget: connect.dropTarget(),
         isOver:            monitor.isOver(),
         canDrop:           monitor.canDrop(),
-        draggedNode:       dragged ? dragged.node : null,
+        draggedNodes:      dragged ? dragged.nodes : null,
     };
 }
 
