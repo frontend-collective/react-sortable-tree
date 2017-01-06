@@ -93,6 +93,19 @@ If your hobbies happen to include writing documentation, by all means submit a p
 | IE >= 10 | Yes |
 | IE 9 | Broken due to flexbox issues. [Plan to fix.](https://github.com/fritz-c/react-sortable-tree/issues/6)  |
 
+## Troubleshooting
+
+### If it doesn't work with other components that use react-dnd
+
+react-dnd only allows for one DragDropContext at a time (see: https://github.com/gaearon/react-dnd/issues/186). To get around this, you can import the context-less tree component via `SortableTreeWithoutDndContext`.
+```js
+// before
+import SortableTree from 'react-sortable-tree';
+
+// after
+import { SortableTreeWithoutDndContext as SortableTree } from 'react-sortable-tree';
+```
+
 ## Contributing
 
 After cloning the repository and running `npm install` inside, you can use the following commands to develop and build the project.
