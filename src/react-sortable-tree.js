@@ -545,6 +545,9 @@ ReactSortableTree.defaultProps = {
     isVirtualized: true,
 };
 
-export { ReactSortableTree as UnwrappedSortableTree };
+// Export the tree component without the react-dnd DragDropContext,
+// for when component is used with other components using react-dnd.
+// see: https://github.com/gaearon/react-dnd/issues/186
+export { ReactSortableTree as SortableTreeWithoutDndContext };
 
 export default dndWrapRoot(ReactSortableTree);
