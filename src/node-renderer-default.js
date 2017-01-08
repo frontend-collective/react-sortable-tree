@@ -90,13 +90,13 @@ const NodeRendererDefault = ({
                 </div>
             )}
 
-            <div className={styles.rowWrapper}>
+            <div className={styles.rowWrapper}>    
                 {/* Set the row preview to be used during drag and drop */}
                 {connectDragPreview(
                     <div
                         className={styles.row +
                             (isDragging && isOver ? ` ${styles.rowLandingPad}` : '') +
-                            (isDragging && !isOver && canDrop ? ` ${styles.rowCancelPad}` : '') +
+                            (isDragging && !!(isOver ^ canDrop) ? ` ${styles.rowCancelPad}` : '') +
                             (isSearchMatch ? ` ${styles.rowSearchMatch}` : '') +
                             (isSearchFocus ? ` ${styles.rowSearchFocus}` : '') +
                             (className ? ` ${className}` : '')
