@@ -44,17 +44,7 @@ function getTargetDepth(dropTargetProps, monitor) {
         dropTargetProps.scaffoldBlockPxWidth
     );
 
-    let targetDepth = Math.min(dropTargetDepth, Math.max(0, draggedItem.path.length + blocksOffset - 1));
-
-    // If a maxDepth is defined, constrain the target depth
-    if (typeof dropTargetProps.maxDepth !== 'undefined' && dropTargetProps.maxDepth !== null) {
-        const draggedNode       = monitor.getItem().node;
-        const draggedChildDepth = getDepth(draggedNode);
-
-        targetDepth = Math.min(targetDepth, dropTargetProps.maxDepth - draggedChildDepth - 1);
-    }
-
-    return targetDepth;
+    return Math.min(dropTargetDepth, Math.max(0, draggedItem.path.length + blocksOffset - 1));
 }
 
 function canDrop(dropTargetProps, monitor, isHover = false) {
@@ -70,6 +60,16 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
     const draggedNode = monitor.getItem().node;
     const parentPath = dropTargetProps.path.slice(0, -1);
     const parentNode = dropTargetProps.rows.find(row => row.path.toString() === parentPath.toString());
+
+    // If a maxDepth is defined, constrain the target depth
+    if (typeof dropTargetProps.maxDepth !== 'undefined' && dropTargetProps.maxDepth !== null) {
+        const draggedChildDepth = getDepth(draggedNode);
+
+        // Allow on hover, so we can display the red shadow
+        if (!isHover && targetDepth > dropTargetProps.maxDepth - draggedChildDepth - 1) {
+            return false;
+        }
+    }
 
     return (
         // Either we're not adding to the children of the row above...
