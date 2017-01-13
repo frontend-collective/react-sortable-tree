@@ -61,16 +61,6 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
     const parentPath = dropTargetProps.path.slice(0, -1);
     const parentNode = dropTargetProps.rows.find(row => row.path.toString() === parentPath.toString());
 
-    // If a maxDepth is defined, constrain the target depth
-    if (typeof dropTargetProps.maxDepth !== 'undefined' && dropTargetProps.maxDepth !== null) {
-        const draggedChildDepth = getDepth(draggedNode);
-
-        // Allow on hover, so we can display the red shadow
-        if (!isHover && targetDepth > dropTargetProps.maxDepth - draggedChildDepth - 1) {
-            return false;
-        }
-    }
-
     return (
         // Either we're not adding to the children of the row above...
         targetDepth < abovePath.length ||
@@ -78,15 +68,22 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         typeof aboveNode.children !== 'function'
     ) && (
         // Ignore when hovered above the identical node...
-        !(dropTargetProps.node === draggedNode && isHover === true) ||
+        !(dropTargetProps.node === draggedNode && isHover) ||
         // ...unless it's at a different level than the current one
         targetDepth !== (dropTargetProps.path.length - 1)
     ) && (
+        // Allow adding children if valid
         typeof parentNode === 'undefined' ||
         typeof parentNode.node.canHaveChildren === 'undefined' ||
         parentNode.node.canHaveChildren
     ) && (
+        // Disallow move if node alwaysAtRootLevel gets parent
         !(dropTargetProps.node.alwaysAtRootLevel && parentNode)
+    ) && (
+        // If a maxDepth is defined, constrain the target depth while not hovered
+        !dropTargetProps.maxDepth ||
+        (targetDepth <= dropTargetProps.maxDepth - getDepth(draggedNode) - 1 || isHover)
+        
     );
 }
 
