@@ -610,7 +610,8 @@ function addNodeAtDepthAndIndex({
     }
 
     // If the current position is the only possible place to add, add it
-    if (currentIndex >= minimumTreeIndex - 1 || (isLastChild && !node.children)) {
+    if (currentIndex >= minimumTreeIndex - 1
+      || (isLastChild && !(node.children && node.children.length))) {
         if (typeof node.children === 'function') {
             throw new Error('Cannot add to children defined by a function');
         } else {
