@@ -610,7 +610,8 @@ function addNodeAtDepthAndIndex({
     }
 
     // If the current position is the only possible place to add, add it
-    if (currentIndex >= minimumTreeIndex - 1 || (isLastChild && !node.children)) {
+    if (currentIndex >= minimumTreeIndex - 1
+      || (isLastChild && !(node.children && node.children.length))) {
         if (typeof node.children === 'function') {
             throw new Error('Cannot add to children defined by a function');
         } else {
@@ -740,7 +741,7 @@ function addNodeAtDepthAndIndex({
  * Insert a node into the tree at the given depth, after the minimum index
  *
  * @param {!Object[]} treeData - Tree data
- * @param {!number} depth - The depth to insert the node at
+ * @param {!number} depth - The depth to insert the node at (the first level of the array being depth 0)
  * @param {!number} minimumTreeIndex - The lowest possible treeIndex to insert the node at
  * @param {!Object} newNode - The node to insert into the tree
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`

@@ -1350,6 +1350,45 @@ describe('insertNode', () => {
             path: [1, 3, 4],
         });
     });
+
+    it('should work with nodes with an empty children array', () => {
+        expect(insertNode({
+            treeData: [
+                {
+                    expanded: true,
+                    children: [
+                        {
+                            expanded: true,
+                            children: [
+                                { children: [] },
+                            ],
+                        },
+                    ],
+                },
+            ],
+            newNode: { key: 'new' },
+            depth: 2,
+            minimumTreeIndex: 2,
+            getNodeKey: keyFromTreeIndex,
+        })).toEqual({
+            treeData: [
+                {
+                    expanded: true,
+                    children: [
+                        {
+                            expanded: true,
+                            children: [
+                                { key: 'new' },
+                                { children: [] },
+                            ],
+                        },
+                    ],
+                },
+            ],
+            treeIndex: 2,
+            path: [0, 1, 2],
+        });
+    });
 });
 
 describe('walk', () => {
