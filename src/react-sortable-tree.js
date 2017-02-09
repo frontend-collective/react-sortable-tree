@@ -46,6 +46,7 @@ class ReactSortableTree extends Component {
             isVirtualized,
             slideRegionSize,
             treeData,
+	        draggable
         } = props;
 
         // Wrapping classes for use with react-dnd
@@ -439,6 +440,7 @@ class ReactSortableTree extends Component {
                     treeIndex={treeIndex}
                     startDrag={this.startDrag}
                     endDrag={this.endDrag}
+                    draggable={this.props.draggable}
                     toggleChildrenVisibility={this.toggleChildrenVisibility}
                     scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
                     {...nodeProps}

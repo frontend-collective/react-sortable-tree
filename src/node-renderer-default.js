@@ -34,6 +34,7 @@ const NodeRendererDefault = ({
     style = {},
     startDrag: _startDrag,
     endDrag: _endDrag,
+	draggable,
     ...otherProps,
 }) => {
     let handle;
@@ -58,7 +59,7 @@ const NodeRendererDefault = ({
                 </div>
             </div>
         );
-    } else {
+    } else if(draggable) {
         // Show the handle used to initiate a drag-and-drop
         handle = connectDragSource((
             <div className={styles.moveHandle} />
@@ -108,7 +109,7 @@ const NodeRendererDefault = ({
                     >
                         {handle}
 
-                        <div className={styles.rowContents}>
+                        <div className={styles.rowContents + ' ' + (draggable ? '' : styles.rowContentsNotDraggable)}>
                             <div className={styles.rowLabel}>
                                 <span
                                     className={styles.rowTitle +
