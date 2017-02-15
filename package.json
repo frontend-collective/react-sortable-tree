@@ -1,7 +1,7 @@
 {
   "name": "react-sortable-tree",
   "version": "0.1.12",
-  "description": "Drag-and-drop sortable representation of hierarchical data",
+  "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
     "build": "npm run lint && npm run test && npm run build:demo && npm run build:umd",
     "build:demo": "npm run clean:demo && cross-env NODE_ENV=production webpack --config webpack.config.demo.babel.js --bail",
