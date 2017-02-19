@@ -1063,21 +1063,21 @@ describe('insertNode', () => {
             minimumTreeIndex: 0,
             newNode: {},
             getNodeKey: keyFromTreeIndex,
-        })).toEqual({ treeData: [{}], treeIndex: 0, path: [0] });
+        })).toEqual({ parentNode: null, treeData: [{}], treeIndex: 0, path: [0] });
         expect(insertNode({
             treeData: null,
             depth: 0,
             minimumTreeIndex: 0,
             newNode: {},
             getNodeKey: keyFromTreeIndex,
-        })).toEqual({ treeData: [{}], treeIndex: 0, path: [0] });
+        })).toEqual({ parentNode: null, treeData: [{}], treeIndex: 0, path: [0] });
         expect(insertNode({
             treeData: undefined,
             depth: 0,
             minimumTreeIndex: 0,
             newNode: {},
             getNodeKey: keyFromTreeIndex,
-        })).toEqual({ treeData: [{}], treeIndex: 0, path: [0] });
+        })).toEqual({ parentNode: null, treeData: [{}], treeIndex: 0, path: [0] });
     });
 
     it('should handle a depth that is deeper than any branch in the tree', () => {
@@ -1158,6 +1158,7 @@ describe('insertNode', () => {
             newNode: { key: 1 },
             getNodeKey: keyFromKey,
         })).toEqual({
+            parentNode: null,
             treeData: [{ key: 1 }, { key: 0 }],
             treeIndex: 0,
             path: [1],
@@ -1172,6 +1173,7 @@ describe('insertNode', () => {
             newNode: { key: 1 },
             getNodeKey: keyFromKey,
         })).toEqual({
+            parentNode: null,
             treeData: [{ key: 0 }, { key: 1 }],
             treeIndex: 1,
             path: [1],
@@ -1186,6 +1188,7 @@ describe('insertNode', () => {
             newNode: { key: 1 },
             getNodeKey: keyFromKey,
         })).toEqual({
+            parentNode: { key: 0, children: [{ key: 1 }] },
             treeData: [{ key: 0, children: [{ key: 1 }] }],
             treeIndex: 1,
             path: [0, 1],
@@ -1291,6 +1294,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 3,
             getNodeKey: keyFromTreeIndex,
         })).toEqual({
+            parentNode: { key: 2, children: [{ key: 'new' }] },
             treeData: [
                 { key: 0, expanded: true, children: [{ key: 1 }] },
                 { key: 2, children: [{ key: 'new' }] },
@@ -1308,6 +1312,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 3,
             getNodeKey: keyFromTreeIndex,
         })).toEqual({
+            parentNode: { expanded: true, children: [{}, { key: 'new' }, {}] },
             treeData: [
                 { children: [{}] },
                 { expanded: true, children: [{}, { key: 'new' }, {}] },
@@ -1325,6 +1330,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 4,
             getNodeKey: keyFromTreeIndex,
         })).toEqual({
+            parentNode: { children: [{ key: 'new' }] },
             treeData: [
                 { children: [{}] },
                 { expanded: true, children: [{}, { children: [{ key: 'new' }] }] },
@@ -1342,6 +1348,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 4,
             getNodeKey: keyFromTreeIndex,
         })).toEqual({
+            parentNode: { children: [{ key: 'new' }] },
             treeData: [
                 { children: [{}, {}, {}, {}] },
                 { expanded: true, children: [{}, { children: [{ key: 'new' }] }] },
@@ -1371,6 +1378,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 2,
             getNodeKey: keyFromTreeIndex,
         })).toEqual({
+            parentNode: { expanded: true, children: [{ key: 'new' }, { children: [] }] },
             treeData: [
                 {
                     expanded: true,

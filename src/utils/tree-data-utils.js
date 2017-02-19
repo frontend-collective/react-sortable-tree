@@ -620,6 +620,7 @@ function addNodeAtDepthAndIndex({
                 nextIndex: currentIndex + 2,
                 insertedTreeIndex: currentIndex + 1,
                 parentPath: selfPath(nextNode),
+                parentNode: isPseudoRoot ? null : nextNode,
             };
         }
     }
@@ -682,6 +683,7 @@ function addNodeAtDepthAndIndex({
             nextIndex: childIndex,
             insertedTreeIndex,
             parentPath: selfPath(nextNode),
+            parentNode: isPseudoRoot ? null : nextNode,
         };
     }
 
@@ -696,6 +698,7 @@ function addNodeAtDepthAndIndex({
     // Get all descendants
     let insertedTreeIndex = null;
     let pathFragment      = null;
+    let parentNode        = null;
     let childIndex        = currentIndex + 1;
     let newChildren       = node.children;
     if (typeof newChildren !== 'function') {
@@ -719,7 +722,9 @@ function addNodeAtDepthAndIndex({
             });
 
             if ('insertedTreeIndex' in mapResult) {
-                ({ insertedTreeIndex, parentPath: pathFragment } = mapResult);
+                insertedTreeIndex = mapResult.insertedTreeIndex;
+                pathFragment      = mapResult.parentPath;
+                parentNode        = mapResult.parentNode;
             }
 
             childIndex = mapResult.nextIndex;
@@ -737,6 +742,7 @@ function addNodeAtDepthAndIndex({
     if (insertedTreeIndex !== null) {
         result.insertedTreeIndex = insertedTreeIndex;
         result.parentPath        = [ ...selfPath(nextNode), ...pathFragment ];
+        result.parentNode        = parentNode;
     }
 
     return result;
@@ -757,6 +763,7 @@ function addNodeAtDepthAndIndex({
  * @return {Object[]} result.treeData - The tree data with the node added
  * @return {number} result.treeIndex - The tree index at which the node was inserted
  * @return {number[]|string[]} result.path - Array of keys leading to the node location after insertion
+ * @return {Object} result.parentNode - The parent node of the inserted node
  */
 export function insertNode({
     treeData,
@@ -769,9 +776,10 @@ export function insertNode({
 }) {
     if (!treeData && targetDepth === 0) {
         return {
-            treeData:  [newNode],
-            treeIndex: 0,
-            path:      [getNodeKey({ node: newNode, treeIndex: 0 })],
+            treeData:   [newNode],
+            treeIndex:  0,
+            path:       [getNodeKey({ node: newNode, treeIndex: 0 })],
+            parentNode: null,
         };
     }
 
@@ -798,6 +806,7 @@ export function insertNode({
         treeData: insertResult.node.children,
         treeIndex,
         path:     [ ...insertResult.parentPath, getNodeKey({ node: newNode, treeIndex }) ],
+        parentNode: insertResult.parentNode,
     };
 }
 
