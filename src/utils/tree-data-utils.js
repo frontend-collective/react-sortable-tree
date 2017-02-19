@@ -601,14 +601,6 @@ function addNodeAtDepthAndIndex({
         getNodeKey({ node: n, treeIndex: currentIndex }),
     ]);
 
-    // If the potential parent node is at the targetDepth, it isn't eligible
-    if (currentDepth === targetDepth) {
-        return {
-            node,
-            nextIndex: currentIndex + 1 + getDescendantCount({ node, ignoreCollapsed }),
-        };
-    }
-
     // If the current position is the only possible place to add, add it
     if (currentIndex >= minimumTreeIndex - 1
       || (isLastChild && !(node.children && node.children.length))) {
@@ -632,7 +624,9 @@ function addNodeAtDepthAndIndex({
         }
     }
 
-    if (currentDepth === targetDepth - 1) {
+    // If this is the target depth for the insertion,
+    // i.e., where the newNode can be added to the current node's children
+    if (currentDepth >= targetDepth - 1) {
         // Skip over nodes with no children or hidden children
         if (!node.children ||
             typeof node.children === 'function' ||
@@ -641,28 +635,38 @@ function addNodeAtDepthAndIndex({
             return { node, nextIndex: currentIndex + 1 };
         }
 
+        // Scan over the children to see if there's a place among them that fulfills
+        // the minimumTreeIndex requirement
         let childIndex        = currentIndex + 1;
         let insertedTreeIndex = null;
         let insertIndex       = null;
         for (let i = 0; i < node.children.length; i++) {
+            // If a valid location is found, mark it as the insertion location and
+            // break out of the loop
             if (childIndex >= minimumTreeIndex) {
                 insertedTreeIndex = childIndex;
                 insertIndex = i;
                 break;
             }
 
+            // Increment the index by the child itself plus the number of descendants it has
             childIndex += 1 + getDescendantCount({ node: node.children[i], ignoreCollapsed });
         }
 
+        // If no valid indices to add the node were found
         if (insertIndex === null) {
+            // If the last position in this node's children is less than the minimum index
+            // and there are more children on the level of this node, return without insertion
             if (childIndex < minimumTreeIndex && !isLastChild) {
                 return { node, nextIndex: childIndex };
             }
 
+            // Use the last position in the children array to insert the newNode
             insertedTreeIndex = childIndex;
             insertIndex = node.children.length;
         }
 
+        // Insert the newNode at the insertIndex
         const nextNode = {
             ...node,
             children: [
@@ -672,6 +676,7 @@ function addNodeAtDepthAndIndex({
             ],
         };
 
+        // Return node with successful insert result
         return {
             node: nextNode,
             nextIndex: childIndex,
@@ -748,7 +753,6 @@ function addNodeAtDepthAndIndex({
  * @param {boolean=} expandParent - If true, expands the parent of the inserted node
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  *
-
  * @return {Object} result
  * @return {Object[]} result.treeData - The tree data with the node added
  * @return {number} result.treeIndex - The tree index at which the node was inserted
