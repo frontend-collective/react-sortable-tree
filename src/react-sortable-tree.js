@@ -18,6 +18,7 @@ import {
     removeNodeAtPath,
     insertNodes,
     getDescendantCount,
+    getNodeAtPath,
     find,
     toggleSelectedForAll,
 } from './utils/tree-data-utils';
@@ -226,49 +227,89 @@ class ReactSortableTree extends Component {
 
     selectNode({node, path, event}) {
         let treeData = this.props.treeData;
-        if (!event.ctrlKey && !event.metaKey) {
+        const oldTreeData = treeData;
+        const clearSelected = !event.ctrlKey && !event.metaKey;
+        if (clearSelected) {
             // Remove old selection.
             treeData = toggleSelectedForAll({treeData, selected: false});
-        }
-        toggleSelectedForAll({treeData: [node], selected: true}).forEach((newNode) => {
-            treeData = changeNodeAtPath({
-                treeData,
-                path,
-                newNode,
-                getNodeKey: this.props.getNodeKey,
+        } else if (!node.selected) {
+            // Check if any ancestor is already selected.
+            for (const ancestorPath = path.slice(0, path.length - 1); ancestorPath.length > 0; ancestorPath.pop()) {
+                if (getNodeAtPath({treeData, path: ancestorPath, getNodeKey: this.props.getNodeKey}).node.selected) {
+                    // An ancestor is already selected, so do nothing.
+                    return;
+                }
+            }
+            // Deselect all descendants.
+            toggleSelectedForAll({treeData: [node], selected: false}).forEach((newNode) => {
+                treeData = changeNodeAtPath({
+                    treeData,
+                    path,
+                    newNode,
+                    getNodeKey: this.props.getNodeKey,
+                });
             });
+        }
+        // Change selection of node.
+        treeData = changeNodeAtPath({
+            treeData,
+            path,
+            newNode: ({ node: oldNode }) => ({ ...oldNode, selected: !oldNode.selected }),
+            getNodeKey: this.props.getNodeKey,
         });
 
         this.props.onChange(treeData);
+
+        if (this.props.onSelectedToggle) {
+            let deselectionTree;
+            if (clearSelected) {
+                deselectionTree = oldTreeData;
+            } else {
+                deselectionTree = [node];
+            }
+            // Notify deselected nodes
+            walk({
+                treeData: deselectionTree,
+                callback: ({ node: oldNode }) => {
+                    if (oldNode.selected) {
+                        this.props.onSelectedToggle({
+                            treeData,
+                            node: oldNode,
+                            selected: false,
+                        });
+                    }
+                },
+                getNodeKey: ({ treeIndex }) => treeIndex,
+                ignoreCollapsed: false,
+            });
+            // Notify clicked node
+            this.props.onSelectedToggle({
+                treeData,
+                node,
+                selected: clearSelected || !node.selected,
+            });
+        }
     }
 
     startDrag(props) {
         let nodeProps;
         if (props.node.selected) {
-            // Move all selected node
-            nodeProps = find({...this.props, searchMethod: ({node}) => node.selected}).matches.reverse();
-            // Remove descendants of selected nodes, since moving ancestor implies moving descendants
-            for (let n = nodeProps.length - 2; n >= 0; n--) {
-                const a = nodeProps[n].path;
-                const b = nodeProps[n + 1].path;
-                if (a.length > b.length && b.every((v, i) => a[i] === v)) {
-                    nodeProps.splice(n, 1);
-                }
-            }
+            // Move all selected nodes
+            nodeProps = find({...this.props, searchMethod: ({node}) => node.selected}).matches;
         } else {
             // Move only current node
             nodeProps = [props];
         }
 
-        // Remove dragging nodes from tree, assumes nodeProps is sorted by descending tree position
+        // Remove dragging nodes from tree, assumes nodeProps is sorted by ascending tree position
         let draggingTreeData = this.props.treeData;
-        nodeProps.forEach((p) => {
+        for (let i = nodeProps.length - 1; i >= 0; i--) {
             draggingTreeData = removeNodeAtPath({
                 treeData: draggingTreeData,
-                path: p.path,
+                path: nodeProps[i].path,
                 getNodeKey: this.props.getNodeKey,
             });
-        });
+        }
 
         this.setState({
             draggingTreeData,
@@ -576,6 +617,9 @@ ReactSortableTree.propTypes = {
 
     // Called after children nodes collapsed or expanded.
     onVisibilityToggle: PropTypes.func,
+
+    // Called after nodes selected or unselected.
+    onSelectedToggle: PropTypes.func,
 
     dndType: PropTypes.string,
 };
