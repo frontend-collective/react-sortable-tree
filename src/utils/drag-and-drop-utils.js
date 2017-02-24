@@ -74,7 +74,7 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         typeof aboveNode.children !== 'function'
     ) && (
         // Ignore when hovered above the identical node...
-        !(draggedNodes.length === 1 && dropTargetProps.node === draggedNodes[0] && isHover === true) ||
+        !(dropTargetProps.node === draggedNodes[0] && isHover === true) ||
         // ...unless it's at a different level than the current one
         targetDepth !== (dropTargetProps.path.length - 1)
     );
