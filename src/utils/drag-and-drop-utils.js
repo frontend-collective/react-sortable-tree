@@ -60,10 +60,15 @@ function getTargetDepth(dropTargetProps, monitor) {
 function canDrop(dropTargetProps, monitor, isHover = false) {
     let abovePath      = [];
     let aboveNode      = {};
+    let parentNode     = {};
     const rowAbove = dropTargetProps.getPrevRow();
     if (rowAbove) {
         abovePath = rowAbove.path;
         aboveNode = rowAbove.node;
+    }
+    const parentRow = dropTargetProps.getParentRow();
+    if (parentRow) {
+        parentNode = parentRow.node;
     }
 
     const targetDepth = getTargetDepth(dropTargetProps, monitor);
@@ -78,6 +83,9 @@ function canDrop(dropTargetProps, monitor, isHover = false) {
         !(dropTargetProps.node === draggedNode && isHover === true) ||
         // ...unless it's at a different level than the current one
         targetDepth !== (dropTargetProps.path.length - 1)
+    ) && (
+        // Finally decide whenever the node can be dropped or not
+        dropTargetProps.shouldMoveNode(draggedNode, parentNode)
     );
 }
 

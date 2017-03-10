@@ -14,6 +14,7 @@ const TreeNode = ({
     draggedNode,
     canDrop,
     treeIndex,
+    shouldMoveNode,
     getPrevRow: _getPrevRow, // Delete from otherProps
     node:       _node,       // Delete from otherProps
     path:       _path,       // Delete from otherProps
@@ -149,6 +150,7 @@ TreeNode.propTypes = {
     isOver:            PropTypes.bool.isRequired,
     canDrop:           PropTypes.bool.isRequired,
     draggedNode:       PropTypes.object,
+    shouldMoveNode:    PropTypes.func,
 };
 
 export default TreeNode;
