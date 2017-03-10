@@ -262,7 +262,7 @@ class ReactSortableTree extends Component {
     }
 
     endDrag(dropResult) {
-        if (!dropResult) {
+        if (!dropResult || !dropResult.node) {
             return this.setState({
                 draggingTreeData: null,
                 swapFrom: null,
