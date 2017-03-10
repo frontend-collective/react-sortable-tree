@@ -1,19 +1,30 @@
-import KarmaJasmine from 'karma-jasmine';
-import KarmaWebpack from 'karma-webpack';
-import KarmaJasmineDiffReporter from 'karma-jasmine-diff-reporter';
-import KarmaJasmineHtmlReporter from 'karma-jasmine-html-reporter';
-import KarmaNotifyReporter from 'karma-notify-reporter';
-import KarmaSourcemapLoader from 'karma-sourcemap-loader';
-import KarmaPhantomjsLauncher from 'karma-phantomjs-launcher';
+// import KarmaJasmine from 'karma-jasmine';
+// import KarmaWebpack from 'karma-webpack';
+// import KarmaJasmineDiffReporter from 'karma-jasmine-diff-reporter';
+// import KarmaJasmineHtmlReporter from 'karma-jasmine-html-reporter';
+// import KarmaNotifyReporter from 'karma-notify-reporter';
+// import KarmaSourcemapLoader from 'karma-sourcemap-loader';
+// import KarmaPhantomjsLauncher from 'karma-phantomjs-launcher';
 import webpackConfig from './webpack.config.test.babel';
 
 export default function setConfig(config) {
     config.set({
-        browsers: ['PhantomJS'],
+        browsers: ['HeadlessChrome'],
         frameworks: ['jasmine'],
         files: ['src/tests.js'],
         preprocessors: {
             'src/tests.js': ['webpack', 'sourcemap']
+        },
+        // you can define custom flags
+        customLaunchers: {
+            'HeadlessChrome': {
+                base: 'Chrome',
+                flags: ['--headless'],
+            },
+        },
+        phantomjsLauncher: {
+            // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
+            exitOnResourceError: true,
         },
         // plugins: [
         //     KarmaJasmine,
