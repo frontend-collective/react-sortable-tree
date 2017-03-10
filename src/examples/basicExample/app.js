@@ -23,12 +23,14 @@ class App extends Component {
             treeData: [
                 {
                     title: '`title`',
-                    subtitle: '`subtitle`',
+                    subtitle: '`subtitle` - stays at rootLevel always',
                     expanded: true,
+                    alwaysAtRootLevel: true,
                     children: [
                         {
-                            title: 'Child Node',
+                            title: 'Cannot have children',
                             subtitle: 'Defined in `children` array belonging to parent',
+                            canHaveChildren: false
                         },
                         {
                             title: 'Nested structure is rendered virtually',
