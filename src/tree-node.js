@@ -11,7 +11,7 @@ const TreeNode = ({
     lowerSiblingCounts,
     connectDropTarget,
     isOver,
-    draggedNode,
+    draggedNodes,
     canDrop,
     treeIndex,
     getPrevRow: _getPrevRow, // Delete from otherProps
@@ -124,7 +124,7 @@ const TreeNode = ({
                 {Children.map(children, child => cloneElement(child, {
                     isOver,
                     canDrop,
-                    draggedNode,
+                    draggedNodes,
                 }))}
             </div>
         </div>
@@ -148,7 +148,7 @@ TreeNode.propTypes = {
     connectDropTarget: PropTypes.func.isRequired,
     isOver:            PropTypes.bool.isRequired,
     canDrop:           PropTypes.bool.isRequired,
-    draggedNode:       PropTypes.object,
+    draggedNodes:      PropTypes.arrayOf(PropTypes.object),
 };
 
 export default TreeNode;

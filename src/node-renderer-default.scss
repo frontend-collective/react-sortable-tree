@@ -113,6 +113,10 @@ $row-padding: 10px;
     z-index: 1;
 }
 
+.moveHandle.selected {
+    background-color: #D9D9FF;
+}
+
 .loadingHandle {
     @extend .moveHandle;
 

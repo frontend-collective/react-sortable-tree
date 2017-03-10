@@ -16,9 +16,11 @@ import {
     getFlatDataFromTree,
     changeNodeAtPath,
     removeNodeAtPath,
-    insertNode,
+    insertNodes,
     getDescendantCount,
+    getNodeAtPath,
     find,
+    toggleSelectedForAll,
 } from './utils/tree-data-utils';
 import {
     swapRows,
@@ -71,10 +73,11 @@ class ReactSortableTree extends Component {
         };
 
         this.toggleChildrenVisibility = this.toggleChildrenVisibility.bind(this);
-        this.moveNode                 = this.moveNode.bind(this);
+        this.moveNodes                = this.moveNodes.bind(this);
         this.startDrag                = this.startDrag.bind(this);
         this.dragHover                = this.dragHover.bind(this);
         this.endDrag                  = this.endDrag.bind(this);
+        this.selectNode               = this.selectNode.bind(this);
     }
 
     componentWillMount() {
@@ -102,14 +105,14 @@ class ReactSortableTree extends Component {
         }
     }
 
-    moveNode({ node, depth, minimumTreeIndex }) {
+    moveNodes({ nodes, depth, minimumTreeIndex }) {
         const {
             treeData,
             treeIndex,
             path,
-        } = insertNode({
+        } = insertNodes({
             treeData: this.state.draggingTreeData,
-            newNode: node,
+            newNodes: nodes,
             depth,
             minimumTreeIndex,
             expandParent: true,
@@ -119,7 +122,9 @@ class ReactSortableTree extends Component {
         this.props.onChange(treeData);
 
         if (this.props.onMoveNode) {
-            this.props.onMoveNode({ treeData, node, treeIndex, path });
+            nodes.forEach((node) => {
+                this.props.onMoveNode({ treeData, node, treeIndex, path });
+            });
         }
     }
 
@@ -220,22 +225,103 @@ class ReactSortableTree extends Component {
         });
     }
 
-    startDrag({ path }) {
-        const draggingTreeData = removeNodeAtPath({
-            treeData: this.props.treeData,
+    selectNode({node, path, event}) {
+        let treeData = this.props.treeData;
+        const oldTreeData = treeData;
+        const clearSelected = !event.ctrlKey && !event.metaKey;
+        if (clearSelected) {
+            // Remove old selection.
+            treeData = toggleSelectedForAll({treeData, selected: false});
+        } else if (!node.selected) {
+            // Check if any ancestor is already selected.
+            for (const ancestorPath = path.slice(0, path.length - 1); ancestorPath.length > 0; ancestorPath.pop()) {
+                if (getNodeAtPath({treeData, path: ancestorPath, getNodeKey: this.props.getNodeKey}).node.selected) {
+                    // An ancestor is already selected, so do nothing.
+                    return;
+                }
+            }
+            // Deselect all descendants.
+            toggleSelectedForAll({treeData: [node], selected: false}).forEach((newNode) => {
+                treeData = changeNodeAtPath({
+                    treeData,
+                    path,
+                    newNode,
+                    getNodeKey: this.props.getNodeKey,
+                });
+            });
+        }
+        // Change selection of node.
+        treeData = changeNodeAtPath({
+            treeData,
             path,
+            newNode: ({ node: oldNode }) => ({ ...oldNode, selected: !oldNode.selected }),
             getNodeKey: this.props.getNodeKey,
         });
+
+        this.props.onChange(treeData);
+
+        if (this.props.onSelectedToggle) {
+            let deselectionTree;
+            if (clearSelected) {
+                deselectionTree = oldTreeData;
+            } else {
+                deselectionTree = [node];
+            }
+            // Notify deselected nodes
+            walk({
+                treeData: deselectionTree,
+                callback: ({ node: oldNode }) => {
+                    if (oldNode.selected) {
+                        this.props.onSelectedToggle({
+                            treeData,
+                            node: oldNode,
+                            selected: false,
+                        });
+                    }
+                },
+                getNodeKey: ({ treeIndex }) => treeIndex,
+                ignoreCollapsed: false,
+            });
+            // Notify clicked node
+            this.props.onSelectedToggle({
+                treeData,
+                node,
+                selected: clearSelected || !node.selected,
+            });
+        }
+    }
+
+    startDrag(props) {
+        let nodeProps;
+        if (props.node.selected) {
+            // Move all selected nodes
+            nodeProps = find({...this.props, searchMethod: ({node}) => node.selected}).matches;
+        } else {
+            // Move only current node
+            nodeProps = [props];
+        }
+
+        // Remove dragging nodes from tree, assumes nodeProps is sorted by ascending tree position
+        let draggingTreeData = this.props.treeData;
+        for (let i = nodeProps.length - 1; i >= 0; i--) {
+            draggingTreeData = removeNodeAtPath({
+                treeData: draggingTreeData,
+                path: nodeProps[i].path,
+                getNodeKey: this.props.getNodeKey,
+            });
+        }
 
         this.setState({
             draggingTreeData,
         });
+
+        return nodeProps.map(n => n.node);
     }
 
-    dragHover({ node: draggedNode, depth, minimumTreeIndex }) {
-        const addedResult = insertNode({
+    dragHover({ nodes: draggedNodes, depth, minimumTreeIndex }) {
+        const addedResult = insertNodes({
             treeData: this.state.draggingTreeData,
-            newNode: draggedNode,
+            newNodes: draggedNodes,
             depth,
             minimumTreeIndex,
             expandParent: true,
@@ -246,7 +332,8 @@ class ReactSortableTree extends Component {
 
         const swapFrom   = addedResult.treeIndex;
         const swapTo     = minimumTreeIndex;
-        const swapLength = 1 + getDescendantCount({ node: draggedNode });
+        const swapLength = draggedNodes.length +
+            draggedNodes.map(draggedNode => getDescendantCount({ node: draggedNode })).reduce((x, y) => x + y);
         this.setState({
             rows: swapRows(rows, swapFrom, swapTo, swapLength),
             swapFrom,
@@ -272,7 +359,7 @@ class ReactSortableTree extends Component {
             });
         }
 
-        this.moveNode(dropResult);
+        this.moveNodes(dropResult);
     }
 
     /**
@@ -439,6 +526,7 @@ class ReactSortableTree extends Component {
                     treeIndex={treeIndex}
                     startDrag={this.startDrag}
                     endDrag={this.endDrag}
+                    selectNode={this.selectNode}
                     toggleChildrenVisibility={this.toggleChildrenVisibility}
                     scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
                     {...nodeProps}
@@ -529,6 +617,9 @@ ReactSortableTree.propTypes = {
 
     // Called after children nodes collapsed or expanded.
     onVisibilityToggle: PropTypes.func,
+
+    // Called after nodes selected or unselected.
+    onSelectedToggle: PropTypes.func,
 
     dndType: PropTypes.string,
 };
