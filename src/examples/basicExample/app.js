@@ -20,6 +20,7 @@ class App extends Component {
             searchString: '',
             searchFocusIndex: 0,
             searchFoundCount: null,
+	        draggable: true,
             treeData: [
                 {
                     title: '`title`',
@@ -136,6 +137,11 @@ class App extends Component {
         this.updateTreeData = this.updateTreeData.bind(this);
         this.expandAll = this.expandAll.bind(this);
         this.collapseAll = this.collapseAll.bind(this);
+
+        this.setDraggable = this.setDraggable.bind(this);
+        this.toggleDraggable = this.toggleDraggable.bind(this);
+        this.disableDraggable = this.disableDraggable.bind(this);
+        this.enableDraggable = this.enableDraggable.bind(this);
     }
 
     updateTreeData(treeData) {
@@ -158,6 +164,21 @@ class App extends Component {
     collapseAll() {
         this.expand(false);
     }
+
+    toggleDraggable(){
+    	this.setDraggable(!this.state.draggable);
+    }
+	setDraggable(draggable){
+		this.setState({
+			draggable
+		});
+	}
+    disableDraggable(){
+    	this.setDraggable(false);
+    }
+	enableDraggable(){
+		this.setDraggable(true);
+	}
 
     render() {
         const projectName = 'React Sortable Tree';
@@ -226,6 +247,10 @@ class App extends Component {
                         Collapse All
                     </button>
 
+                    <button onClick={this.toggleDraggable}>
+                        Toggle dragging
+                    </button>
+
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <form
                         style={{ display: 'inline-block' }}
@@ -270,6 +295,7 @@ class App extends Component {
 
                     <div style={treeContainerStyle}>
                         <SortableTree
+	                        draggable={this.state.draggable}
                             treeData={treeData}
                             onChange={this.updateTreeData}
                             onMoveNode={({ node, treeIndex, path }) =>
