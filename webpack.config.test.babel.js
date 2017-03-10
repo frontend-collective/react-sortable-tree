@@ -9,7 +9,7 @@ module.exports = {
         demo: './src/examples/basicExample/app',
     },
     output: {
-        path: 'build',
+        path: path.join(__dirname, 'build'),
         filename: 'static/[name].js',
     },
     plugins: [
@@ -22,28 +22,35 @@ module.exports = {
             "NODE_ENV",
         ]),
     ],
-    postcss: [
-        autoprefixer({ browsers: ['IE >= 9', 'last 2 versions', '> 1%'] }),
-    ],
+    node: {
+        fs: 'empty',
+    },
     module: {
-        preLoaders: [
+        rules: [
             {
+                enforce: 'pre',
                 test: /\.jsx?$/,
-                loader: 'eslint-loader',
-                include: path.join(__dirname, 'src')
+                use: 'eslint-loader',
+                include: path.join(__dirname, 'src'),
             },
-        ],
-        loaders: [
             {
                 test: /\.jsx?$/,
-                loaders: ['react-hot', 'babel'],
+                use: ['react-hot-loader', 'babel-loader'],
                 include: path.join(__dirname, 'src')
             },
             {
                 test: /\.scss$/,
-                loaders: [
-                    'style-loader?insertAt=top',
-                    'css-loader?modules&-autoprefixer&importLoaders=1&localIdentName=rst__[local]',
+                use: [
+                    { loader: 'style-loader', options: { insertAt: 'top' } },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            '-autoprefixer': true,
+                            importLoaders: 1,
+                            localIdentName: 'rst__[local]',
+                        },
+                    },
                     'postcss-loader',
                     'sass-loader',
                 ],
@@ -51,20 +58,19 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loaders: [
-                    'style-loader?insertAt=top',
-                    'css-loader?-autoprefixer',
+                use: [
+                    { loader: 'style-loader', options: { insertAt: 'top' } },
+                    { loader: 'css-loader', options: { '-autoprefixer': true } },
                     'postcss-loader',
                 ],
             },
             {
                 test: /\.(jpe?g|png|gif|ico|svg)$/,
-                loaders: [
-                    'file-loader?name=static/[name].[ext]',
+                use: [
+                    { loader: 'file-loader', options: { name: 'static/[name].[ext]' } },
                 ],
                 include: path.join(__dirname, 'src')
             },
-            { test: /\.json$/, loader: 'json' }, // For the cheerio dependency of enzyme
         ],
     },
     externals: { // All of these are for enzyme

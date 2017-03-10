@@ -23,40 +23,46 @@ module.exports = {
         libraryTarget: 'umd',
         library: 'ReactSortableTree',
     },
-    resolve: {
-        extensions: ['', '.js']
-    },
     devtool: 'source-map',
     plugins: [
         new webpack.EnvironmentPlugin([
             "NODE_ENV",
         ]),
-        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false
+                warnings: false,
             },
             mangle: false,
             beautify: true,
             comments: true,
+            sourceMap: true,
         }),
     ],
-    postcss: [
-        autoprefixer({ browsers: ['IE >= 9', 'last 2 versions', '> 1%'] }),
-    ],
+    node: {
+        fs: 'empty',
+    },
     externals,
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
-                loaders: ['babel'],
+                use: 'babel-loader',
                 include: path.join(__dirname, 'src')
             },
             {
                 test: /\.scss$/,
-                loaders: [
-                    'style-loader?insertAt=top',
-                    'css-loader?modules&-autoprefixer&importLoaders=1&localIdentName=rst__[local]',
+                use: [
+                    { loader: 'style-loader', options: { insertAt: 'top' } },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            '-autoprefixer': true,
+                            importLoaders: 1,
+                            localIdentName: 'rst__[local]',
+                        },
+                    },
                     'postcss-loader',
                     'sass-loader',
                 ],
@@ -64,9 +70,9 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loaders: [
-                    'style-loader?insertAt=top',
-                    'css-loader?-autoprefixer',
+                use: [
+                    { loader: 'style-loader', options: { insertAt: 'top' } },
+                    { loader: 'css-loader', options: { '-autoprefixer': true } },
                     'postcss-loader',
                 ],
             },

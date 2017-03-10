@@ -15,15 +15,15 @@ export default function setConfig(config) {
         preprocessors: {
             'src/tests.js': ['webpack', 'sourcemap']
         },
-        plugins: [
-            KarmaJasmine,
-            KarmaWebpack,
-            KarmaJasmineDiffReporter,
-            KarmaJasmineHtmlReporter,
-            KarmaNotifyReporter,
-            KarmaSourcemapLoader,
-            KarmaPhantomjsLauncher,
-        ],
+        // plugins: [
+        //     KarmaJasmine,
+        //     KarmaWebpack,
+        //     KarmaJasmineDiffReporter,
+        //     KarmaJasmineHtmlReporter,
+        //     KarmaNotifyReporter,
+        //     KarmaSourcemapLoader,
+        //     KarmaPhantomjsLauncher,
+        // ],
         reporters: [
             'jasmine-diff',
             'progress',
@@ -32,7 +32,6 @@ export default function setConfig(config) {
         ],
         jasmineDiffReporter: {
             pretty: 4,
-            json: true,
             multiline: {
                 before: 2, // 2 newlines
                 after:  2, // 2 newlines
