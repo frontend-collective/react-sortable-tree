@@ -34,10 +34,11 @@ class NodeRendererDefault extends Component {
             className,
             style = {},
             didDrop,
-            isOver:     _isOver,     // Not needed, but preserved for other renderers
-            parentNode: _parentNode, // Needed for drag-and-drop utils
-            endDrag:    _endDrag,    // Needed for drag-and-drop utils
-            startDrag:  _startDrag,  // Needed for drag-and-drop utils
+            isOver:         _isOver,         // Not needed, but preserved for other renderers
+            parentNode:     _parentNode,     // Needed for drag-and-drop utils
+            endDrag:        _endDrag,        // Needed for drag-and-drop utils
+            startDrag:      _startDrag,      // Needed for drag-and-drop utils
+            onHeightChange: _onHeightChange, // Not needed, but preserved for other renderers
             ...otherProps,
         } = this.props;
 
@@ -165,6 +166,7 @@ NodeRendererDefault.propTypes = {
     buttons:                  PropTypes.arrayOf(PropTypes.node),
     className:                PropTypes.string,
     style:                    PropTypes.object,
+    onHeightChange:           PropTypes.func,
 
     // Drag and drop API functions
     // Drag source
