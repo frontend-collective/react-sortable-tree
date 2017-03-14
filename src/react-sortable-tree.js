@@ -21,6 +21,9 @@ import {
     find,
 } from './utils/tree-data-utils';
 import {
+    memoizedInsertNode,
+} from './utils/memoized-tree-data-utils';
+import {
     swapRows,
 } from './utils/generic-utils';
 import {
@@ -233,12 +236,13 @@ class ReactSortableTree extends Component {
     }
 
     dragHover({ node: draggedNode, depth, minimumTreeIndex }) {
-        const addedResult = insertNode({
+        const addedResult = memoizedInsertNode({
             treeData: this.state.draggingTreeData,
             newNode: draggedNode,
             depth,
             minimumTreeIndex,
             expandParent: true,
+            getNodeKey: this.props.getNodeKey,
         });
 
         const rows               = this.getRows(addedResult.treeData);
@@ -421,6 +425,9 @@ class ReactSortableTree extends Component {
                 treeIndex={treeIndex}
                 listIndex={listIndex}
                 getPrevRow={getPrevRow}
+                treeData={this.state.draggingTreeData || this.state.treeData}
+                getNodeKey={this.props.getNodeKey}
+                canDrop={this.props.canDrop}
                 node={node}
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}
@@ -526,6 +533,9 @@ ReactSortableTree.propTypes = {
 
     // Called after node move operation.
     onMoveNode: PropTypes.func,
+
+    // Determine whether a node can be dropped based on its path and parents'.
+    canDrop: PropTypes.func,
 
     // Called after children nodes collapsed or expanded.
     onVisibilityToggle: PropTypes.func,
