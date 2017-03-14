@@ -102,12 +102,14 @@ function canDrop(dropTargetProps, monitor) {
 
 const nodeDropTarget = {
     drop(dropTargetProps, monitor) {
-        return {
+        const dropResults = {
             node:             monitor.getItem().node,
             path:             monitor.getItem().path,
             minimumTreeIndex: dropTargetProps.treeIndex,
             depth:            getTargetDepth(dropTargetProps, monitor),
         };
+        dropTargetProps.drop(dropResults);
+        return dropResults;
     },
 
     hover(dropTargetProps, monitor) {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import SortableTree, { toggleExpandedForAll } from '../../index';
+import {DragDropContext, DragSource} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { SortableTreeWithoutDndContext as SortableTree, toggleExpandedForAll } from '../../index';
 import styles from './stylesheets/app.scss';
 import '../shared/favicon/apple-touch-icon.png';
 import '../shared/favicon/favicon-16x16.png';
@@ -8,8 +10,44 @@ import '../shared/favicon/favicon-32x32.png';
 import '../shared/favicon/favicon.ico';
 import '../shared/favicon/safari-pinned-tab.svg';
 
+const dragSource = {
+  beginDrag(props) {
+    return {node: {...props.node}, path: []}
+  },
+
+  endDrag(props, monitor, component) {
+    if (!monitor.didDrop()) {
+      return
+    }
+  }
+}
+
+function collect (connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
+
+const Node = DragSource('NEW_NODE', dragSource, collect)(
+class Node extends Component {
+    render () {
+        const {connectDragSource} = this.props
+
+        return connectDragSource(
+            <span className={styles['new-node']}>{this.props.node.title}</span>
+        )
+    }
+})
+
+const newNodes = [
+    {title: 'Just title'},
+    {title: 'Title with subtitle', subtitle: 'This is subtitle'},
+]
+
 const maxDepth = 5;
 
+const App = DragDropContext(HTML5Backend)(
 class App extends Component {
     constructor(props) {
         super(props);
@@ -228,6 +266,14 @@ class App extends Component {
                 <section className={styles['main-content']}>
                     <h3>Demo</h3>
 
+                    <p>Drag below nodes into the tree to insert.</p>
+
+                    <div>
+                        {newNodes.map((node, index) =>
+                            <Node key={index} node={node} />
+                        )}
+                    </div>
+
                     <button onClick={this.expandAll}>
                         Expand All
                     </button>
@@ -281,6 +327,7 @@ class App extends Component {
                     <div style={treeContainerStyle}>
                         <SortableTree
                             treeData={treeData}
+                            dndDropTypes={['NEW_NODE']}
                             onChange={this.updateTreeData}
                             onMoveNode={({ node, treeIndex, path }) =>
                                 console.debug( // eslint-disable-line no-console
@@ -340,6 +387,6 @@ class App extends Component {
             </div>
         );
     }
-}
+})
 
 ReactDOM.render(<App />, document.getElementById('app'));
