@@ -42,6 +42,7 @@ class ReactSortableTree extends Component {
 
         const {
             dndType,
+            dndDropTypes,
             nodeContentRenderer,
             isVirtualized,
             slideRegionSize,
@@ -50,8 +51,12 @@ class ReactSortableTree extends Component {
 
         // Wrapping classes for use with react-dnd
         this.dndType             = dndType || `rst__${dndTypeCounter++}`;
+        this.dndDropTypes        = dndDropTypes || [this.dndType]
+        if (!this.dndDropTypes.includes(this.dndType)) {
+            this.dndDropTypes.push(this.dndType)
+        }
         this.nodeContentRenderer = dndWrapSource(nodeContentRenderer, this.dndType);
-        this.treeNodeRenderer    = dndWrapTarget(TreeNode, this.dndType);
+        this.treeNodeRenderer    = dndWrapTarget(TreeNode, this.dndDropTypes);
 
         // Prepare scroll-on-drag options for this list
         if (isVirtualized) {
@@ -233,8 +238,13 @@ class ReactSortableTree extends Component {
     }
 
     dragHover({ node: draggedNode, depth, minimumTreeIndex }) {
+        let {draggingTreeData} = this.state
+        if (!draggingTreeData) {
+            draggingTreeData = this.props.treeData
+        }
+
         const addedResult = insertNode({
-            treeData: this.state.draggingTreeData,
+            treeData: draggingTreeData,
             newNode: draggedNode,
             depth,
             minimumTreeIndex,
@@ -253,7 +263,7 @@ class ReactSortableTree extends Component {
             swapLength,
             swapDepth: depth,
             draggingTreeData: changeNodeAtPath({
-                treeData: this.state.draggingTreeData,
+                treeData: draggingTreeData,
                 path: expandedParentPath.slice(0, -1),
                 newNode: ({ node }) => ({ ...node, expanded: true }),
                 getNodeKey: this.props.getNodeKey,
@@ -531,6 +541,8 @@ ReactSortableTree.propTypes = {
     onVisibilityToggle: PropTypes.func,
 
     dndType: PropTypes.string,
+
+    dndDropTypes: PropTypes.arrayOf(PropTypes.string),
 };
 
 ReactSortableTree.defaultProps = {
