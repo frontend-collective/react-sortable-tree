@@ -427,7 +427,7 @@ class ReactSortableTree extends Component {
                 getPrevRow={getPrevRow}
                 treeData={this.state.draggingTreeData || this.state.treeData}
                 getNodeKey={this.props.getNodeKey}
-                canDrop={this.props.canDrop}
+                customCanDrop={this.props.canDrop}
                 node={node}
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}

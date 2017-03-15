@@ -76,7 +76,7 @@ function canDrop(dropTargetProps, monitor) {
         return false;
     }
 
-    if (typeof dropTargetProps.canDrop === 'function') {
+    if (typeof dropTargetProps.customCanDrop === 'function') {
         const draggedNode = monitor.getItem().node;
         const addedResult = memoizedInsertNode({
             treeData:         dropTargetProps.treeData,
@@ -87,7 +87,7 @@ function canDrop(dropTargetProps, monitor) {
             expandParent:     true,
         });
 
-        return dropTargetProps.canDrop({
+        return dropTargetProps.customCanDrop({
             draggedNode,
             prevPath:   monitor.getItem().path,
             nextPath:   addedResult.path,
