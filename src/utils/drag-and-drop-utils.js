@@ -138,6 +138,7 @@ function nodeDragSourcePropInjection(connect, monitor) {
         connectDragSource:  connect.dragSource(),
         connectDragPreview: connect.dragPreview(),
         isDragging:         monitor.isDragging(),
+        didDrop:            monitor.didDrop(),
     };
 }
 

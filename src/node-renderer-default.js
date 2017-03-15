@@ -21,7 +21,6 @@ const NodeRendererDefault = ({
     connectDragPreview,
     connectDragSource,
     isDragging,
-    isOver,
     canDrop,
     node,
     draggedNode,
@@ -32,8 +31,10 @@ const NodeRendererDefault = ({
     buttons,
     className,
     style = {},
-    startDrag: _startDrag,
-    endDrag: _endDrag,
+    didDrop,
+    isOver:    _isOver,    // Not needed, but preserved for other renderers
+    endDrag:   _endDrag,   // Needed for drag-and-drop utils
+    startDrag: _startDrag, // Needed for drag-and-drop utils
     ...otherProps,
 }) => {
     let handle;
@@ -66,6 +67,7 @@ const NodeRendererDefault = ({
     }
 
     const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node);
+    const isLandingPadActive  = !didDrop && isDragging;
 
     return (
         <div
@@ -95,8 +97,8 @@ const NodeRendererDefault = ({
                 {connectDragPreview(
                     <div
                         className={styles.row +
-                            (isDragging && isOver ? ` ${styles.rowLandingPad}` : '') +
-                            (isDragging && !isOver && canDrop ? ` ${styles.rowCancelPad}` : '') +
+                            (isLandingPadActive ? ` ${styles.rowLandingPad}` : '') +
+                            (isLandingPadActive && !canDrop ? ` ${styles.rowCancelPad}` : '') +
                             (isSearchMatch ? ` ${styles.rowSearchMatch}` : '') +
                             (isSearchFocus ? ` ${styles.rowSearchFocus}` : '') +
                             (className ? ` ${className}` : '')
@@ -166,6 +168,7 @@ NodeRendererDefault.propTypes = {
     startDrag:          PropTypes.func.isRequired, // Needed for drag-and-drop utils
     endDrag:            PropTypes.func.isRequired, // Needed for drag-and-drop utils
     isDragging:         PropTypes.bool.isRequired,
+    didDrop:            PropTypes.bool.isRequired,
     draggedNode:        PropTypes.object,
     // Drop target
     isOver:  PropTypes.bool.isRequired,
