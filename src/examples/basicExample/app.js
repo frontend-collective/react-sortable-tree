@@ -125,6 +125,11 @@ class App extends Component {
                             ],
                         },
                         {
+                            title: 'You cannot give this children',
+                            subtitle: 'Dropping is prevented via the `canDrop` API using `nextParent`',
+                            noChildren: true,
+                        },
+                        {
                             title: 'When node contents are really long, it will cause a horizontal scrollbar' +
                                 ' to appear. Deeply nested elements will also trigger the scrollbar.',
                         },
@@ -282,6 +287,7 @@ class App extends Component {
                             maxDepth={maxDepth}
                             searchQuery={searchString}
                             searchFocusOffset={searchFocusIndex}
+                            canDrop={({ nextParent }) => !nextParent || !nextParent.noChildren}
                             searchFinishCallback={matches =>
                                 this.setState({
                                     searchFoundCount: matches.length,
