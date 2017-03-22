@@ -174,7 +174,7 @@ NodeRendererDefault.propTypes = {
     draggedNode:        PropTypes.object,
     // Drop target
     isOver:  PropTypes.bool.isRequired,
-    canDrop: PropTypes.bool.isRequired,
+    canDrop: PropTypes.bool,
 };
 
 export default NodeRendererDefault;

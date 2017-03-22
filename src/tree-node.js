@@ -150,7 +150,7 @@ TreeNode.propTypes = {
     // Drop target
     connectDropTarget: PropTypes.func.isRequired,
     isOver:            PropTypes.bool.isRequired,
-    canDrop:           PropTypes.bool.isRequired,
+    canDrop:           PropTypes.bool,
     draggedNode:       PropTypes.object,
 };
 
