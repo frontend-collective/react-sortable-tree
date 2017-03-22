@@ -13,11 +13,3 @@
         box-sizing: border-box;
     }
 }
-
-:global .ReactVirtualized__Grid__innerScrollContainer {
-    overflow: visible;
-}
-
-:global .ReactVirtualized__Grid {
-    outline: none;
-}
