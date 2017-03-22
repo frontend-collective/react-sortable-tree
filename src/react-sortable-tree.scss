@@ -13,3 +13,7 @@
         box-sizing: border-box;
     }
 }
+
+:global .ReactVirtualized__Grid {
+    outline: none;
+}
