@@ -7,14 +7,18 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import {
     getDepth,
 } from './tree-data-utils';
+import {
+    memoizedInsertNode,
+} from './memoized-tree-data-utils';
 
 const nodeDragSource = {
     beginDrag(props) {
         props.startDrag(props);
 
         return {
-            node: props.node,
-            path: props.path,
+            node:       props.node,
+            parentNode: props.parentNode,
+            path:       props.path,
         };
     },
 
@@ -57,28 +61,43 @@ function getTargetDepth(dropTargetProps, monitor) {
     return targetDepth;
 }
 
-function canDrop(dropTargetProps, monitor, isHover = false) {
-    let abovePath      = [];
-    let aboveNode      = {};
-    const rowAbove = dropTargetProps.getPrevRow();
-    if (rowAbove) {
-        abovePath = rowAbove.path;
-        aboveNode = rowAbove.node;
+function canDrop(dropTargetProps, monitor) {
+    if (!monitor.isOver()) {
+        return false;
     }
 
+    const rowAbove    = dropTargetProps.getPrevRow();
+    const abovePath   = rowAbove ? rowAbove.path : [];
+    const aboveNode   = rowAbove ? rowAbove.node : {};
     const targetDepth = getTargetDepth(dropTargetProps, monitor);
-    const draggedNode = monitor.getItem().node;
-    return (
-        // Either we're not adding to the children of the row above...
-        targetDepth < abovePath.length ||
-        // ...or we guarantee it's not a function we're trying to add to
-        typeof aboveNode.children !== 'function'
-    ) && (
-        // Ignore when hovered above the identical node...
-        !(dropTargetProps.node === draggedNode && isHover === true) ||
-        // ...unless it's at a different level than the current one
-        targetDepth !== (dropTargetProps.path.length - 1)
-    );
+
+    // Cannot drop if we're adding to the children of the row above and
+    //  the row above is a function
+    if (targetDepth >= abovePath.length && typeof aboveNode.children === 'function') {
+        return false;
+    }
+
+    if (typeof dropTargetProps.customCanDrop === 'function') {
+        const node = monitor.getItem().node;
+        const addedResult = memoizedInsertNode({
+            treeData:         dropTargetProps.treeData,
+            newNode:          node,
+            depth:            targetDepth,
+            getNodeKey:       dropTargetProps.getNodeKey,
+            minimumTreeIndex: dropTargetProps.listIndex,
+            expandParent:     true,
+        });
+
+        return dropTargetProps.customCanDrop({
+            node,
+            prevPath:   monitor.getItem().path,
+            prevParent: monitor.getItem().parentNode,
+            nextPath:   addedResult.path,
+            nextParent: addedResult.parentNode,
+        });
+    }
+
+    return true;
 }
 
 const nodeDropTarget = {
@@ -92,15 +111,24 @@ const nodeDropTarget = {
     },
 
     hover(dropTargetProps, monitor) {
-        if (!canDrop(dropTargetProps, monitor, true)) {
+        const targetDepth = getTargetDepth(dropTargetProps, monitor);
+        const draggedNode = monitor.getItem().node;
+        const needsRedraw = (
+            // Redraw if hovered above different nodes
+            dropTargetProps.node !== draggedNode ||
+            // Or hovered above the same node but at a different depth
+            targetDepth !== (dropTargetProps.path.length - 1)
+        );
+
+        if (!needsRedraw) {
             return;
         }
 
         dropTargetProps.dragHover({
-            node:             monitor.getItem().node,
+            node:             draggedNode,
             path:             monitor.getItem().path,
             minimumTreeIndex: dropTargetProps.listIndex,
-            depth:            getTargetDepth(dropTargetProps, monitor),
+            depth:            targetDepth,
         });
     },
 
@@ -112,6 +140,7 @@ function nodeDragSourcePropInjection(connect, monitor) {
         connectDragSource:  connect.dragSource(),
         connectDragPreview: connect.dragPreview(),
         isDragging:         monitor.isDragging(),
+        didDrop:            monitor.didDrop(),
     };
 }
 

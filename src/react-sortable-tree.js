@@ -21,6 +21,9 @@ import {
     find,
 } from './utils/tree-data-utils';
 import {
+    memoizedInsertNode,
+} from './utils/memoized-tree-data-utils';
+import {
     swapRows,
 } from './utils/generic-utils';
 import {
@@ -233,12 +236,13 @@ class ReactSortableTree extends Component {
     }
 
     dragHover({ node: draggedNode, depth, minimumTreeIndex }) {
-        const addedResult = insertNode({
+        const addedResult = memoizedInsertNode({
             treeData: this.state.draggingTreeData,
             newNode: draggedNode,
             depth,
             minimumTreeIndex,
             expandParent: true,
+            getNodeKey: this.props.getNodeKey,
         });
 
         const rows               = this.getRows(addedResult.treeData);
@@ -397,7 +401,14 @@ class ReactSortableTree extends Component {
         );
     }
 
-    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, matchKeys) {
+    renderRow(
+        { node, parentNode, path, lowerSiblingCounts, treeIndex },
+        listIndex,
+        key,
+        style,
+        getPrevRow,
+        matchKeys
+    ) {
         const TreeNodeRenderer    = this.treeNodeRenderer;
         const NodeContentRenderer = this.nodeContentRenderer;
         const nodeKey = path[path.length - 1];
@@ -407,6 +418,7 @@ class ReactSortableTree extends Component {
 
         const nodeProps = !this.props.generateNodeProps ? {} : this.props.generateNodeProps({
             node,
+            parentNode,
             path,
             lowerSiblingCounts,
             treeIndex,
@@ -421,6 +433,9 @@ class ReactSortableTree extends Component {
                 treeIndex={treeIndex}
                 listIndex={listIndex}
                 getPrevRow={getPrevRow}
+                treeData={this.state.draggingTreeData || this.state.treeData}
+                getNodeKey={this.props.getNodeKey}
+                customCanDrop={this.props.canDrop}
                 node={node}
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}
@@ -433,6 +448,7 @@ class ReactSortableTree extends Component {
             >
                 <NodeContentRenderer
                     node={node}
+                    parentNode={parentNode}
                     path={path}
                     isSearchMatch={isSearchMatch}
                     isSearchFocus={isSearchFocus}
@@ -526,6 +542,9 @@ ReactSortableTree.propTypes = {
 
     // Called after node move operation.
     onMoveNode: PropTypes.func,
+
+    // Determine whether a node can be dropped based on its path and parents'.
+    canDrop: PropTypes.func,
 
     // Called after children nodes collapsed or expanded.
     onVisibilityToggle: PropTypes.func,
