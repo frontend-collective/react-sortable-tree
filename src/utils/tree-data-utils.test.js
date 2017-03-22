@@ -446,7 +446,7 @@ describe('getFlatDataFromTree', () => {
             getNodeKey: keyFromTreeIndex,
             treeData: [ { key: 0 } ],
         })).toEqual([
-            { node: { key: 0 }, path: [0], lowerSiblingCounts: [ 0 ], treeIndex: 0 },
+            { node: { key: 0 }, parentNode: null, path: [0], lowerSiblingCounts: [ 0 ], treeIndex: 0 },
         ]);
 
         expect(getFlatDataFromTree({
@@ -454,8 +454,8 @@ describe('getFlatDataFromTree', () => {
             treeData: [ { key: 0 }, { key: 1 } ],
             getNodeKey: keyFromTreeIndex
         })).toEqual([
-            { node: { key: 0 }, path: [0], lowerSiblingCounts: [ 1 ], treeIndex: 0 },
-            { node: { key: 1 }, path: [1], lowerSiblingCounts: [ 0 ], treeIndex: 1 }
+            { node: { key: 0 }, parentNode: null, path: [0], lowerSiblingCounts: [ 1 ], treeIndex: 0 },
+            { node: { key: 1 }, parentNode: null, path: [1], lowerSiblingCounts: [ 0 ], treeIndex: 1 }
         ]);
     });
 
@@ -487,8 +487,8 @@ describe('getFlatDataFromTree', () => {
             getNodeKey: keyFromTreeIndex,
             treeData,
         })).toEqual([
-            { node: treeData[0], path: [0], lowerSiblingCounts: [ 1 ], treeIndex: 0 },
-            { node: treeData[1], path: [1], lowerSiblingCounts: [ 0 ], treeIndex: 1 }
+            { node: treeData[0], parentNode: null, path: [0], lowerSiblingCounts: [ 1 ], treeIndex: 0 },
+            { node: treeData[1], parentNode: null, path: [1], lowerSiblingCounts: [ 0 ], treeIndex: 1 }
         ]);
     });
 
@@ -524,30 +524,35 @@ describe('getFlatDataFromTree', () => {
         })).toEqual([
             {
                 node: treeData[0],
+                parentNode: null,
                 path: [0],
                 lowerSiblingCounts: [ 1 ],
                 treeIndex: 0,
             },
             {
                 node: treeData[0].children[0],
+                parentNode: treeData[0],
                 path: [0, 1],
                 lowerSiblingCounts: [ 1, 1 ],
                 treeIndex: 1,
             },
             {
                 node: treeData[0].children[1],
+                parentNode: treeData[0],
                 path: [0, 4],
                 lowerSiblingCounts: [ 1, 0 ],
                 treeIndex: 2,
             },
             {
                 node: treeData[0].children[1].children[0],
+                parentNode: treeData[0].children[1],
                 path: [0, 4, 5],
                 lowerSiblingCounts: [ 1, 0, 0 ],
                 treeIndex: 3,
             },
             {
                 node: treeData[1],
+                parentNode: null,
                 path: [6],
                 lowerSiblingCounts: [ 0 ],
                 treeIndex: 4,
@@ -588,42 +593,49 @@ describe('getFlatDataFromTree', () => {
         })).toEqual([
             {
                 node: treeData[0],
+                parentNode: null,
                 path: [0],
                 lowerSiblingCounts: [1],
                 treeIndex: 0,
             },
             {
                 node: treeData[0].children[0],
+                parentNode: treeData[0],
                 path: [0, 1],
                 lowerSiblingCounts: [1, 1],
                 treeIndex: 1,
             },
             {
                 node: treeData[0].children[0].children[0],
+                parentNode: treeData[0].children[0],
                 path: [0, 1, 2],
                 lowerSiblingCounts: [1, 1, 1],
                 treeIndex: 2,
             },
             {
                 node: treeData[0].children[0].children[1],
+                parentNode: treeData[0].children[0],
                 path: [0, 1, 3],
                 lowerSiblingCounts: [1, 1, 0],
                 treeIndex: 3,
             },
             {
                 node: treeData[0].children[1],
+                parentNode: treeData[0],
                 path: [0, 4],
                 lowerSiblingCounts: [1, 0],
                 treeIndex: 4,
             },
             {
                 node: treeData[0].children[1].children[0],
+                parentNode: treeData[0].children[1],
                 path: [0, 4, 5],
                 lowerSiblingCounts: [1, 0, 0],
                 treeIndex: 5,
             },
             {
                 node: treeData[1],
+                parentNode: null,
                 path: [6],
                 lowerSiblingCounts: [0],
                 treeIndex: 6,

@@ -833,8 +833,8 @@ export function getFlatDataFromTree({ treeData, getNodeKey, ignoreCollapsed = tr
         treeData,
         getNodeKey,
         ignoreCollapsed,
-        callback: ({ node, lowerSiblingCounts, path, treeIndex }) => {
-            flattened.push({ node, lowerSiblingCounts, path, treeIndex });
+        callback: (nodeInfo) => {
+            flattened.push(nodeInfo);
         },
     });
 
