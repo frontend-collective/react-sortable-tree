@@ -32,9 +32,10 @@ const NodeRendererDefault = ({
     className,
     style = {},
     didDrop,
-    isOver:    _isOver,    // Not needed, but preserved for other renderers
-    endDrag:   _endDrag,   // Needed for drag-and-drop utils
-    startDrag: _startDrag, // Needed for drag-and-drop utils
+    isOver:     _isOver,     // Not needed, but preserved for other renderers
+    parentNode: _parentNode, // Needed for drag-and-drop utils
+    endDrag:    _endDrag,    // Needed for drag-and-drop utils
+    startDrag:  _startDrag,  // Needed for drag-and-drop utils
     ...otherProps,
 }) => {
     let handle;
@@ -165,6 +166,7 @@ NodeRendererDefault.propTypes = {
     // Drag source
     connectDragPreview: PropTypes.func.isRequired,
     connectDragSource:  PropTypes.func.isRequired,
+    parentNode:         PropTypes.object,          // Needed for drag-and-drop utils
     startDrag:          PropTypes.func.isRequired, // Needed for drag-and-drop utils
     endDrag:            PropTypes.func.isRequired, // Needed for drag-and-drop utils
     isDragging:         PropTypes.bool.isRequired,

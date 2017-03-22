@@ -16,8 +16,9 @@ const nodeDragSource = {
         props.startDrag(props);
 
         return {
-            node: props.node,
-            path: props.path,
+            node:       props.node,
+            parentNode: props.parentNode,
+            path:       props.path,
         };
     },
 
@@ -90,6 +91,7 @@ function canDrop(dropTargetProps, monitor) {
         return dropTargetProps.customCanDrop({
             draggedNode,
             prevPath:   monitor.getItem().path,
+            prevParent: monitor.getItem().parentNode,
             nextPath:   addedResult.path,
             nextParent: addedResult.parentNode,
         });

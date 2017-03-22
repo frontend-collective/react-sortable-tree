@@ -401,7 +401,14 @@ class ReactSortableTree extends Component {
         );
     }
 
-    renderRow({ node, path, lowerSiblingCounts, treeIndex }, listIndex, key, style, getPrevRow, matchKeys) {
+    renderRow(
+        { node, parentNode, path, lowerSiblingCounts, treeIndex },
+        listIndex,
+        key,
+        style,
+        getPrevRow,
+        matchKeys
+    ) {
         const TreeNodeRenderer    = this.treeNodeRenderer;
         const NodeContentRenderer = this.nodeContentRenderer;
         const nodeKey = path[path.length - 1];
@@ -411,6 +418,7 @@ class ReactSortableTree extends Component {
 
         const nodeProps = !this.props.generateNodeProps ? {} : this.props.generateNodeProps({
             node,
+            parentNode,
             path,
             lowerSiblingCounts,
             treeIndex,
@@ -440,6 +448,7 @@ class ReactSortableTree extends Component {
             >
                 <NodeContentRenderer
                     node={node}
+                    parentNode={parentNode}
                     path={path}
                     isSearchMatch={isSearchMatch}
                     isSearchFocus={isSearchFocus}
