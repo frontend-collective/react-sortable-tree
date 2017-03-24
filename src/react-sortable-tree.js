@@ -4,7 +4,7 @@
  * @license Open source under the MIT License
  */
 
-import React, { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { AutoSizer, List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 import isEqual from 'lodash.isequal';
 import withScrolling, { createVerticalStrength, createHorizontalStrength } from 'react-dnd-scrollzone';
@@ -38,28 +38,6 @@ import {
 import styles from './react-sortable-tree.scss';
 
 let dndTypeCounter = 1;
-
-const cellMeasurerCache = new CellMeasurerCache({
-    fixedWidth: true
-});
-
-const DynamicRow = ({ parent, rowIndex, children, ...extraProps }) => (
-    <CellMeasurer
-        cache={cellMeasurerCache}
-        columnIndex={0}
-        parent={parent}
-        rowIndex={rowIndex}
-    >
-        {cloneElement(children, extraProps)}
-    </CellMeasurer>
-);
-
-DynamicRow.propTypes = {
-    rowIndex: PropTypes.number,
-    parent: PropTypes.any,
-    children: PropTypes.node
-};
-
 
 class ReactSortableTree extends Component {
     constructor(props) {
@@ -104,13 +82,21 @@ class ReactSortableTree extends Component {
     }
 
     componentWillMount() {
+        if (this.props.isDynamicHeight) {
+            this.cellMeasurerCache = new CellMeasurerCache({
+                fixedWidth: true,
+            });
+        }
+
         this.loadLazyChildren();
         this.search(this.props, false, false);
         this.ignoreOneTreeUpdate = false;
     }
 
     componentWillUnmount() {
-        cellMeasurerCache.clearAll();
+        if (this.props.isDynamicHeight) {
+            this.cellMeasurerCache.clearAll();
+        }
     }
 
     toggleChildrenVisibility({ node: targetNode, path, treeIndex: _treeIndex }) {
@@ -280,6 +266,17 @@ class ReactSortableTree extends Component {
         const swapFrom   = addedResult.treeIndex;
         const swapTo     = minimumTreeIndex;
         const swapLength = 1 + getDescendantCount({ node: draggedNode });
+
+        // if (this.props.isDynamicHeight && this._list) {
+        //     const firstRowChanged = Math.min(swapFrom, swapTo);
+        //     const lastRowChanged = Math.max(swapFrom, swapTo, firstRowChanged + swapLength);
+        //     for (let rowIndex = firstRowChanged; rowIndex < lastRowChanged; rowIndex++) {
+        //         this.cellMeasurerCache.clear(rowIndex, 0);
+        //     }
+
+        //     this._list.wrappedInstance.recomputeRowHeights();
+        // }
+
         this.setState({
             rows: swapRows(rows, swapFrom, swapTo, swapLength),
             swapFrom,
@@ -347,10 +344,8 @@ class ReactSortableTree extends Component {
     }
 
     handleResize() {
-        const { isDynamicHeight } = this.props;
-
-        if (isDynamicHeight && this._list) {
-            cellMeasurerCache.clearAll();
+        if (this.props.isDynamicHeight && this._list) {
+            this.cellMeasurerCache.clearAll();
             this._list.wrappedInstance.recomputeRowHeights();
         }
     }
@@ -404,8 +399,8 @@ class ReactSortableTree extends Component {
                             style={innerStyle}
                             rowCount={rows.length}
                             estimatedRowSize={typeof rowHeight !== 'function' ? rowHeight : undefined}
-                            deferredMeasurementCache={isDynamicHeight ? cellMeasurerCache : undefined}
-                            rowHeight={isDynamicHeight ? cellMeasurerCache.rowHeight : rowHeight}
+                            deferredMeasurementCache={this.cellMeasurerCache}
+                            rowHeight={isDynamicHeight ? this.cellMeasurerCache.rowHeight : rowHeight}
                             rowRenderer={({ index, key, style: rowStyle, parent }) => this.renderRow(
                                 rows[index],
                                 index,
@@ -483,7 +478,7 @@ class ReactSortableTree extends Component {
                 endDrag={this.endDrag}
                 toggleChildrenVisibility={this.toggleChildrenVisibility}
                 scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
-                onHeightChange={() => cellMeasurerCache.clear(treeIndex, 0)}
+                onHeightChange={() => this.cellMeasurerCache && this.cellMeasurerCache.clear(treeIndex, 0)}
                 {...nodeProps}
             />
         );
@@ -491,9 +486,14 @@ class ReactSortableTree extends Component {
         let row;
         if (this.props.isDynamicHeight) {
             row = (
-                <DynamicRow parent={parent} rowIndex={listIndex}>
+                <CellMeasurer
+                    cache={this.cellMeasurerCache}
+                    columnIndex={0}
+                    parent={parent}
+                    rowIndex={listIndex}
+                >
                     {content}
-                </DynamicRow>
+                </CellMeasurer>
             );
         } else {
             row = content;
@@ -548,6 +548,10 @@ ReactSortableTree.propTypes = {
     // height of a row given its index: `({ index: number }): number`
     rowHeight: PropTypes.oneOfType([ PropTypes.number, PropTypes.func ]),
 
+    // Set to true to enable dynamic row heights. May incur a performance penalty.
+    // NOTE: rowHeight prop will be ignored.
+    isDynamicHeight: PropTypes.bool,
+
     // Size in px of the region near the edges that initiates scrolling on dragover
     slideRegionSize: PropTypes.number.isRequired, // eslint-disable-line react/no-unused-prop-types
 
@@ -585,10 +589,6 @@ ReactSortableTree.propTypes = {
     // Set to false to disable virtualization.
     // NOTE: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
     isVirtualized: PropTypes.bool,
-
-    // Set to false to disable CellMeasurer.
-    // NOTE: rowHeight will be ignored.
-    isDynamicHeight: PropTypes.bool,
 
     // Override the default component for rendering nodes (but keep the scaffolding generator)
     // This is an advanced option for complete customization of the appearance.

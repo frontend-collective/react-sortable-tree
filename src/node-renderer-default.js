@@ -179,7 +179,7 @@ NodeRendererDefault.propTypes = {
     didDrop:            PropTypes.bool.isRequired,
     draggedNode:        PropTypes.object,
     // Drop target
-    isOver:  PropTypes.bool.isRequired,
+    isOver:  PropTypes.bool,
     canDrop: PropTypes.bool,
 };
 

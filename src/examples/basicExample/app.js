@@ -295,6 +295,7 @@ class App extends Component {
                                 })
                             }
                             isVirtualized={isVirtualized}
+                            isDynamicHeight
                             generateNodeProps={rowInfo => ({
                                 buttons: [
                                     <button
