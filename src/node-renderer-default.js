@@ -24,6 +24,7 @@ class NodeRendererDefault extends Component {
             connectDragSource,
             isDragging,
             canDrop,
+            canDrag,
             node,
             draggedNode,
             path,
@@ -42,32 +43,34 @@ class NodeRendererDefault extends Component {
         } = this.props;
 
         let handle;
-        if (typeof node.children === 'function' && node.expanded) {
-            // Show a loading symbol on the handle when the children are expanded
-            //  and yet still defined by a function (a callback to fetch the children)
-            handle = (
-                <div className={styles.loadingHandle}>
-                    <div className={styles.loadingCircle}>
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
-                        <div className={styles.loadingCirclePoint} />
+        if (canDrag) {
+            if (typeof node.children === 'function' && node.expanded) {
+                // Show a loading symbol on the handle when the children are expanded
+                //  and yet still defined by a function (a callback to fetch the children)
+                handle = (
+                    <div className={styles.loadingHandle}>
+                        <div className={styles.loadingCircle}>
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                            <div className={styles.loadingCirclePoint} />
+                        </div>
                     </div>
-                </div>
-            );
-        } else {
-            // Show the handle used to initiate a drag-and-drop
-            handle = connectDragSource((
-                <div className={styles.moveHandle} />
-            ), { dropEffect: 'copy' });
+                );
+            } else {
+                // Show the handle used to initiate a drag-and-drop
+                handle = connectDragSource((
+                    <div className={styles.moveHandle} />
+                ), { dropEffect: 'copy' });
+            }
         }
 
         const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node);
@@ -114,7 +117,11 @@ class NodeRendererDefault extends Component {
                         >
                             {handle}
 
-                            <div className={styles.rowContents}>
+                            <div
+                                className={styles.rowContents +
+                                    (!canDrag ? ` ${styles.rowContentsDragDisabled}` : '')
+                                }
+                            >
                                 <div className={styles.rowLabel}>
                                     <span
                                         className={styles.rowTitle +
@@ -154,17 +161,17 @@ class NodeRendererDefault extends Component {
 }
 
 NodeRendererDefault.propTypes = {
-    node:          PropTypes.object.isRequired,
-    path:          PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
-    treeIndex:     PropTypes.number.isRequired,
+    node: PropTypes.object.isRequired,
+    path: PropTypes.arrayOf(PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])).isRequired,
+    treeIndex: PropTypes.number.isRequired,
     isSearchMatch: PropTypes.bool,
     isSearchFocus: PropTypes.bool,
-
-    scaffoldBlockPxWidth:     PropTypes.number.isRequired,
+    canDrag: PropTypes.bool,
+    scaffoldBlockPxWidth: PropTypes.number.isRequired,
     toggleChildrenVisibility: PropTypes.func,
-    buttons:                  PropTypes.arrayOf(PropTypes.node),
-    className:                PropTypes.string,
-    style:                    PropTypes.object,
+    buttons: PropTypes.arrayOf(PropTypes.node),
+    className: PropTypes.string,
+    style: PropTypes.object,
 
     // Drag and drop API functions
     // Drag source
