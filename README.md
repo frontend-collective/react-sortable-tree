@@ -92,7 +92,7 @@ If your hobbies happen to include writing documentation, by all means submit a p
 | Firefox | Yes |
 | Safari | Yes |
 | IE >= 10 | Yes |
-| IE 9 | Broken due to flexbox issues. [Plan to fix.](https://github.com/fritz-c/react-sortable-tree/issues/6)  |
+| IE 9 | Displays the tree, but drag-and-drop is hit-and-miss |
 
 ## Troubleshooting
 
