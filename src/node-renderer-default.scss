@@ -88,6 +88,10 @@ $row-padding: 10px;
     background-color: white;
 }
 
+.rowContentsDragDisabled {
+    border-left: solid #BBB 1px;
+}
+
 .rowLabel {
     @extend %rowItem;
     flex: 0 1 auto;

@@ -125,6 +125,11 @@ class App extends Component {
                             ],
                         },
                         {
+                            title: 'Disable dragging on a per-node basis with the `canDrag` prop',
+                            subtitle: 'Or set it to false to disable all dragging.',
+                            noDragging: true,
+                        },
+                        {
                             title: 'You cannot give this children',
                             subtitle: 'Dropping is prevented via the `canDrop` API using `nextParent`',
                             noChildren: true,
@@ -287,6 +292,7 @@ class App extends Component {
                             maxDepth={maxDepth}
                             searchQuery={searchString}
                             searchFocusOffset={searchFocusIndex}
+                            canDrag={({ node }) => !node.noDragging}
                             canDrop={({ nextParent }) => !nextParent || !nextParent.noChildren}
                             searchFinishCallback={matches =>
                                 this.setState({

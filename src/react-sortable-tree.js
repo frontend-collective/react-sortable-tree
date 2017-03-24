@@ -409,14 +409,21 @@ class ReactSortableTree extends Component {
         getPrevRow,
         matchKeys
     ) {
+        const {
+            canDrag,
+            canDrop,
+            generateNodeProps,
+            getNodeKey,
+            maxDepth,
+            scaffoldBlockPxWidth,
+            searchFocusOffset,
+        } = this.props;
         const TreeNodeRenderer    = this.treeNodeRenderer;
         const NodeContentRenderer = this.nodeContentRenderer;
         const nodeKey = path[path.length - 1];
         const isSearchMatch = nodeKey in matchKeys;
-        const isSearchFocus = isSearchMatch &&
-            matchKeys[nodeKey] === this.props.searchFocusOffset;
-
-        const nodeProps = !this.props.generateNodeProps ? {} : this.props.generateNodeProps({
+        const isSearchFocus = isSearchMatch && matchKeys[nodeKey] === searchFocusOffset;
+        const callbackParams = {
             node,
             parentNode,
             path,
@@ -424,7 +431,9 @@ class ReactSortableTree extends Component {
             treeIndex,
             isSearchMatch,
             isSearchFocus,
-        });
+        };
+        const nodeProps = !generateNodeProps ? {} : generateNodeProps(callbackParams);
+        const rowCanDrag = typeof canDrag !== 'function' ? canDrag : canDrag(callbackParams);
 
         return (
             <TreeNodeRenderer
@@ -434,16 +443,16 @@ class ReactSortableTree extends Component {
                 listIndex={listIndex}
                 getPrevRow={getPrevRow}
                 treeData={this.state.draggingTreeData || this.state.treeData}
-                getNodeKey={this.props.getNodeKey}
-                customCanDrop={this.props.canDrop}
+                getNodeKey={getNodeKey}
+                customCanDrop={canDrop}
                 node={node}
                 path={path}
                 lowerSiblingCounts={lowerSiblingCounts}
-                scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
+                scaffoldBlockPxWidth={scaffoldBlockPxWidth}
                 swapFrom={this.state.swapFrom}
                 swapLength={this.state.swapLength}
                 swapDepth={this.state.swapDepth}
-                maxDepth={this.props.maxDepth}
+                maxDepth={maxDepth}
                 dragHover={this.dragHover}
             >
                 <NodeContentRenderer
@@ -455,8 +464,9 @@ class ReactSortableTree extends Component {
                     treeIndex={treeIndex}
                     startDrag={this.startDrag}
                     endDrag={this.endDrag}
+                    canDrag={rowCanDrag}
                     toggleChildrenVisibility={this.toggleChildrenVisibility}
-                    scaffoldBlockPxWidth={this.props.scaffoldBlockPxWidth}
+                    scaffoldBlockPxWidth={scaffoldBlockPxWidth}
                     {...nodeProps}
                 />
             </TreeNodeRenderer>
@@ -543,6 +553,9 @@ ReactSortableTree.propTypes = {
     // Called after node move operation.
     onMoveNode: PropTypes.func,
 
+    // Determine whether a node can be dragged. Set to false to disable dragging on all nodes.
+    canDrag: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+
     // Determine whether a node can be dropped based on its path and parents'.
     canDrop: PropTypes.func,
 
@@ -562,6 +575,7 @@ ReactSortableTree.defaultProps = {
     innerStyle: {},
     searchQuery: null,
     isVirtualized: true,
+    canDrag: true,
 };
 
 // Export the tree component without the react-dnd DragDropContext,
