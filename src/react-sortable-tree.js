@@ -94,12 +94,6 @@ class ReactSortableTree extends Component {
         this.ignoreOneTreeUpdate = false;
     }
 
-    componentWillUnmount() {
-        if (this.props.isDynamicHeight) {
-            this.cellMeasurerCache.clearAll();
-        }
-    }
-
     toggleChildrenVisibility({ node: targetNode, path, treeIndex: _treeIndex }) {
         const treeData = changeNodeAtPath({
             treeData: this.props.treeData,
