@@ -42,7 +42,6 @@ class ReactSortableTree extends Component {
 
         const {
             dndType,
-            dndDropTypes,
             nodeContentRenderer,
             isVirtualized,
             slideRegionSize,
@@ -51,12 +50,8 @@ class ReactSortableTree extends Component {
 
         // Wrapping classes for use with react-dnd
         this.dndType             = dndType || `rst__${dndTypeCounter++}`;
-        this.dndDropTypes        = dndDropTypes || [this.dndType]
-        if (!this.dndDropTypes.includes(this.dndType)) {
-            this.dndDropTypes.push(this.dndType)
-        }
         this.nodeContentRenderer = dndWrapSource(nodeContentRenderer, this.dndType);
-        this.treeNodeRenderer    = dndWrapTarget(TreeNode, this.dndDropTypes);
+        this.treeNodeRenderer    = dndWrapTarget(TreeNode, this.dndType);
 
         // Prepare scroll-on-drag options for this list
         if (isVirtualized) {
@@ -226,6 +221,11 @@ class ReactSortableTree extends Component {
     }
 
     startDrag({ path }) {
+        console.log({
+            treeData: this.props.treeData,
+            path,
+            getNodeKey: this.props.getNodeKey,
+        });
         const draggingTreeData = removeNodeAtPath({
             treeData: this.props.treeData,
             path,
@@ -541,8 +541,6 @@ ReactSortableTree.propTypes = {
     onVisibilityToggle: PropTypes.func,
 
     dndType: PropTypes.string,
-
-    dndDropTypes: PropTypes.arrayOf(PropTypes.string),
 };
 
 ReactSortableTree.defaultProps = {

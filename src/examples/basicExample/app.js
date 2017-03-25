@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import {DragDropContext, DragSource} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { SortableTreeWithoutDndContext as SortableTree, toggleExpandedForAll } from '../../index';
@@ -9,7 +10,6 @@ import '../shared/favicon/favicon-16x16.png';
 import '../shared/favicon/favicon-32x32.png';
 import '../shared/favicon/favicon.ico';
 import '../shared/favicon/safari-pinned-tab.svg';
-
 const dragSource = {
   beginDrag(props) {
     return {node: {...props.node}, path: []}
@@ -19,6 +19,7 @@ const dragSource = {
     if (!monitor.didDrop()) {
       return
     }
+    props.addNewItem(monitor.getDropResult());
   }
 }
 
@@ -32,10 +33,10 @@ function collect (connect, monitor) {
 const Node = DragSource('NEW_NODE', dragSource, collect)(
 class Node extends Component {
     render () {
-        const {connectDragSource} = this.props
+        const {connectDragSource} = this.props;
 
         return connectDragSource(
-            <span className={styles['new-node']}>{this.props.node.title}</span>
+            <span className={styles['new-node']}>{this.props.node.title}</span>,  { dropEffect: 'copy' }
         )
     }
 })
@@ -89,9 +90,6 @@ class App extends Component {
                         {
                             expanded: true,
                             title: 'Chicken',
-                            children: [
-                                { title: 'Egg' },
-                            ],
                         },
                     ],
                 },
@@ -106,10 +104,6 @@ class App extends Component {
                         {
                             title: 'Bruce',
                             subtitle: ({ node }) => `expanded: ${node.expanded ? 'true' : 'false'}`,
-                            children: [
-                                { title: 'Bruce Jr.' },
-                                { title: 'Brucette' },
-                            ],
                         },
                     ],
                 },
@@ -140,27 +134,6 @@ class App extends Component {
                             expanded: true,
                             title: 'Limit nesting with `maxDepth`',
                             subtitle: `It's set to ${maxDepth} for this example`,
-                            children: [
-                                {
-                                    expanded: true,
-                                    title: renderDepthTitle,
-                                    children: [
-                                        {
-                                            expanded: true,
-                                            title: renderDepthTitle,
-                                            children: [
-                                                { title: renderDepthTitle },
-                                                {
-                                                    title: ({ path }) => (path.length >= maxDepth ?
-                                                        'This cannot be dragged deeper' :
-                                                        'This can be dragged deeper'
-                                                    ),
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
                         },
                         {
                             title: 'When node contents are really long, it will cause a horizontal scrollbar' +
@@ -174,9 +147,12 @@ class App extends Component {
         this.updateTreeData = this.updateTreeData.bind(this);
         this.expandAll = this.expandAll.bind(this);
         this.collapseAll = this.collapseAll.bind(this);
+        this.addItem = this.addItem.bind(this);
     }
 
     updateTreeData(treeData) {
+        console.log('updateTreeData');
+        console.log(treeData);
         this.setState({ treeData });
     }
 
@@ -196,7 +172,35 @@ class App extends Component {
     collapseAll() {
         this.expand(false);
     }
-
+    addItem(newItem) {
+        let index = newItem.minimumTreeIndex;
+        const treeData = _.cloneDeep(this.state.treeData);
+        console.log(treeData);
+        let added = false;
+        let res = [];
+        for (let i = 0; i < treeData.length; i++) {
+            const item = treeData[i];
+            console.log(index);
+            if(index === 0 && newItem.depth === 0){
+                !added ? res.push(newItem.node) : null;
+                added = true;
+                res.push(item);
+            } else if(item.children && 0 >= (index - item.children.length - 1)){
+                console.log('add as child')
+                !added ? item.children.splice(index - 1, 0, newItem.node) : null;
+                added = true;
+                res.push(item);
+            } else {
+                index--;
+                if(item.children){
+                    index = index - item.children.length;
+                }
+                res.push(item);
+            }
+        }
+        
+        this.setState({treeData: res})
+    }
     render() {
         const projectName = 'React Sortable Tree';
         const authorName = 'Chris Fritz';
@@ -247,31 +251,24 @@ class App extends Component {
             <div>
                 <section className={styles['page-header']}>
                     <h1 className={styles['project-name']}>{projectName}</h1>
-
                     <h2 className={styles['project-tagline']}>
                         Drag-and-drop sortable representation of hierarchical data
                     </h2>
                 </section>
-
                 <section className={styles['main-content']}>
                     <h3>Demo</h3>
-
                     <p>Drag below nodes into the tree to insert.</p>
-
                     <div>
                         {newNodes.map((node, index) =>
-                            <Node key={index} node={node} />
+                            <Node key={index} node={node} addNewItem={this.addItem} />
                         )}
                     </div>
-
                     <button onClick={this.expandAll}>
                         Expand All
                     </button>
-
                     <button onClick={this.collapseAll}>
                         Collapse All
                     </button>
-
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <form
                         style={{ display: 'inline-block' }}
@@ -317,7 +314,7 @@ class App extends Component {
                     <div style={treeContainerStyle}>
                         <SortableTree
                             treeData={treeData}
-                            dndDropTypes={['NEW_NODE']}
+                            dndType="NEW_NODE"
                             onChange={this.updateTreeData}
                             onMoveNode={({ node, treeIndex, path }) =>
                                 console.debug( // eslint-disable-line no-console
