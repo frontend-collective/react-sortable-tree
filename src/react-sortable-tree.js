@@ -221,11 +221,6 @@ class ReactSortableTree extends Component {
     }
 
     startDrag({ path }) {
-        console.log({
-            treeData: this.props.treeData,
-            path,
-            getNodeKey: this.props.getNodeKey,
-        });
         const draggingTreeData = removeNodeAtPath({
             treeData: this.props.treeData,
             path,

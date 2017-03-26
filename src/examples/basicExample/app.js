@@ -160,8 +160,8 @@ class App extends Component {
                                                 { title: renderDepthTitle },
                                                 {
                                                     title: ({ path }) => (path.length >= maxDepth ?
-                                                            'This cannot be dragged deeper' :
-                                                            'This can be dragged deeper'
+                                                        'This cannot be dragged deeper' :
+                                                        'This can be dragged deeper'
                                                     ),
                                                 },
                                             ],
@@ -169,16 +169,6 @@ class App extends Component {
                                     ],
                                 },
                             ],
-                        },
-                        {
-                            title: 'Disable dragging on a per-node basis with the `canDrag` prop',
-                            subtitle: 'Or set it to false to disable all dragging.',
-                            noDragging: true,
-                        },
-                        {
-                            title: 'You cannot give this children',
-                            subtitle: 'Dropping is prevented via the `canDrop` API using `nextParent`',
-                            noChildren: true,
                         },
                         {
                             title: 'When node contents are really long, it will cause a horizontal scrollbar' +
@@ -196,8 +186,6 @@ class App extends Component {
     }
 
     updateTreeData(treeData) {
-        console.log('updateTreeData');
-        console.log(treeData);
         this.setState({ treeData });
     }
 
@@ -278,12 +266,15 @@ class App extends Component {
             <div>
                 <section className={styles['page-header']}>
                     <h1 className={styles['project-name']}>{projectName}</h1>
+
                     <h2 className={styles['project-tagline']}>
                         Drag-and-drop sortable representation of hierarchical data
                     </h2>
                 </section>
+
                 <section className={styles['main-content']}>
                     <h3>Demo</h3>
+
                     <p>Drag below nodes into the tree to insert.</p>
                     <div>
                         {newNodes.map((node, index) =>
@@ -293,9 +284,11 @@ class App extends Component {
                     <button onClick={this.expandAll}>
                         Expand All
                     </button>
+
                     <button onClick={this.collapseAll}>
                         Collapse All
                     </button>
+
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <form
                         style={{ display: 'inline-block' }}
