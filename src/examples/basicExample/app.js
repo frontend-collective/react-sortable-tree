@@ -175,21 +175,24 @@ class App extends Component {
     addItem(newItem) {
         let index = newItem.minimumTreeIndex;
         const treeData = _.cloneDeep(this.state.treeData);
-        console.log(treeData);
         let added = false;
         let res = [];
         for (let i = 0; i < treeData.length; i++) {
             const item = treeData[i];
-            console.log(index);
             if(index === 0 && newItem.depth === 0){
                 !added ? res.push(newItem.node) : null;
                 added = true;
                 res.push(item);
             } else if(item.children && 0 >= (index - item.children.length - 1)){
-                console.log('add as child')
-                !added ? item.children.splice(index - 1, 0, newItem.node) : null;
-                added = true;
-                res.push(item);
+                if(newItem.depth!==0){
+                    !added ? item.children.splice(index - 1, 0, newItem.node) : null;
+                    added = true;
+                    res.push(item);
+                }else{
+                    res.push(item);
+                    !added ? res.push(newItem.node) : null;
+                    added = true;
+                }
             } else {
                 index--;
                 if(item.children){
