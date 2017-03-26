@@ -16,41 +16,42 @@ import '../shared/favicon/favicon-16x16.png';
 import '../shared/favicon/favicon-32x32.png';
 import '../shared/favicon/favicon.ico';
 import '../shared/favicon/safari-pinned-tab.svg';
+
 const dragSource = {
-  beginDrag(props) {
-    return {node: {...props.node}, path: []}
-  },
+    beginDrag(props) {
+        return {node: {...props.node}, path: []};
+    },
 
-  endDrag(props, monitor, component) {
-    if (!monitor.didDrop()) {
-      return
+    endDrag(props, monitor) {
+        if (!monitor.didDrop()) {
+            return;
+        }
+        props.addNewItem(monitor.getDropResult());
     }
-    props.addNewItem(monitor.getDropResult());
-  }
-}
+};
 
-function collect (connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  }
+function collect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    };
 }
 
 const Node = DragSource('NEW_NODE', dragSource, collect)(
 class Node extends Component {
-    render () {
+    render() {
         const {connectDragSource} = this.props;
 
         return connectDragSource(
             <span className={styles['new-node']}>{this.props.node.title}</span>,  { dropEffect: 'copy' }
-        )
+        );
     }
-})
+});
 
 const newNodes = [
     {title: 'Just title'},
     {title: 'Title with subtitle', subtitle: 'This is subtitle'},
-]
+];
 
 const maxDepth = 5;
 
@@ -213,7 +214,7 @@ class App extends Component {
             expandParent: true,
             getNodeKey: defaultGetNodeKey,
         });
-        this.setState({ treeData })
+        this.setState({ treeData });
     }
     render() {
         const projectName = 'React Sortable Tree';
@@ -391,6 +392,6 @@ class App extends Component {
             </div>
         );
     }
-})
+});
 
 ReactDOM.render(<App />, document.getElementById('app'));
