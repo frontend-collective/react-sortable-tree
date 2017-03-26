@@ -233,7 +233,6 @@ class ReactSortableTree extends Component {
     }
 
     dragHover({ node: draggedNode, depth, minimumTreeIndex }) {
-        
         const addedResult = insertNode({
             treeData: this.props.treeData,
             newNode: draggedNode,
