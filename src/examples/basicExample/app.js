@@ -5,6 +5,13 @@ import {DragDropContext, DragSource} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { SortableTreeWithoutDndContext as SortableTree, toggleExpandedForAll } from '../../index';
 import styles from './stylesheets/app.scss';
+import {
+    defaultGetNodeKey,
+} from './../../utils/default-handlers';
+import {
+    insertNode,
+} from './../../utils/tree-data-utils';
+
 import '../shared/favicon/apple-touch-icon.png';
 import '../shared/favicon/favicon-16x16.png';
 import '../shared/favicon/favicon-32x32.png';
@@ -173,36 +180,15 @@ class App extends Component {
         this.expand(false);
     }
     addItem(newItem) {
-        let index = newItem.minimumTreeIndex;
-        const treeData = _.cloneDeep(this.state.treeData);
-        let added = false;
-        let res = [];
-        for (let i = 0; i < treeData.length; i++) {
-            const item = treeData[i];
-            if(index === 0 && newItem.depth === 0){
-                !added ? res.push(newItem.node) : null;
-                added = true;
-                res.push(item);
-            } else if(item.children && 0 >= (index - item.children.length - 1)){
-                if(newItem.depth!==0){
-                    !added ? item.children.splice(index - 1, 0, newItem.node) : null;
-                    added = true;
-                    res.push(item);
-                }else{
-                    res.push(item);
-                    !added ? res.push(newItem.node) : null;
-                    added = true;
-                }
-            } else {
-                index--;
-                if(item.children){
-                    index = index - item.children.length;
-                }
-                res.push(item);
-            }
-        }
-        
-        this.setState({treeData: res})
+        const {treeData} = insertNode({
+            treeData: this.state.treeData,
+            newNode: newItem.node,
+            depth: newItem.depth,
+            minimumTreeIndex: newItem.minimumTreeIndex,
+            expandParent: true,
+            getNodeKey: defaultGetNodeKey,
+        });
+        this.setState({ treeData })
     }
     render() {
         const projectName = 'React Sortable Tree';
