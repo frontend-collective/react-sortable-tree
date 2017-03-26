@@ -97,6 +97,9 @@ class App extends Component {
                         {
                             expanded: true,
                             title: 'Chicken',
+                            children: [
+                                { title: 'Egg' },
+                            ],
                         },
                     ],
                 },
@@ -111,6 +114,10 @@ class App extends Component {
                         {
                             title: 'Bruce',
                             subtitle: ({ node }) => `expanded: ${node.expanded ? 'true' : 'false'}`,
+                            children: [
+                                { title: 'Bruce Jr.' },
+                                { title: 'Brucette' },
+                            ],
                         },
                     ],
                 },
@@ -141,6 +148,37 @@ class App extends Component {
                             expanded: true,
                             title: 'Limit nesting with `maxDepth`',
                             subtitle: `It's set to ${maxDepth} for this example`,
+                            children: [
+                                {
+                                    expanded: true,
+                                    title: renderDepthTitle,
+                                    children: [
+                                        {
+                                            expanded: true,
+                                            title: renderDepthTitle,
+                                            children: [
+                                                { title: renderDepthTitle },
+                                                {
+                                                    title: ({ path }) => (path.length >= maxDepth ?
+                                                            'This cannot be dragged deeper' :
+                                                            'This can be dragged deeper'
+                                                    ),
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            title: 'Disable dragging on a per-node basis with the `canDrag` prop',
+                            subtitle: 'Or set it to false to disable all dragging.',
+                            noDragging: true,
+                        },
+                        {
+                            title: 'You cannot give this children',
+                            subtitle: 'Dropping is prevented via the `canDrop` API using `nextParent`',
+                            noChildren: true,
                         },
                         {
                             title: 'When node contents are really long, it will cause a horizontal scrollbar' +
