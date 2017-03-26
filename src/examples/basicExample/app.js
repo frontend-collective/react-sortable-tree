@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'lodash';
 import {DragDropContext, DragSource} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { SortableTreeWithoutDndContext as SortableTree, toggleExpandedForAll } from '../../index';
