@@ -79,10 +79,11 @@ Notable among the available functions:
 - __`getFlatDataFromTree`__: Convert tree data back to flat data
 - __`addNodeUnderParent`__: Add a node under the parent node at the given path
 - __`removeNodeAtPath`__: Remove the node at the given path
+- __`changeNodeAtPath`__: Modify the node object at the given path
 - __`map`__: Perform a change on every node in the tree
 - __`walk`__: Visit every node in the tree in order
 
-Documentation for each method is only available in the code at this time.
+Documentation for each method is only available in the code at this time. You can also refer to the tests for simple usage examples.
 If your hobbies happen to include writing documentation, by all means submit a pull request. It would really help out.
 
 ## Browser Compatibility
