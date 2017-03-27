@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {DragDropContext, DragSource} from 'react-dnd';
+import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { SortableTreeWithoutDndContext as SortableTree, toggleExpandedForAll } from '../../index';
 import styles from './stylesheets/app.scss';
+import Node from './node';
 import {
     defaultGetNodeKey,
 } from './../../utils/default-handlers';
@@ -17,36 +18,6 @@ import '../shared/favicon/favicon-32x32.png';
 import '../shared/favicon/favicon.ico';
 import '../shared/favicon/safari-pinned-tab.svg';
 
-const dragSource = {
-    beginDrag(props) {
-        return {node: {...props.node}, path: []};
-    },
-
-    endDrag(props, monitor) {
-        if (!monitor.didDrop()) {
-            return;
-        }
-        props.addNewItem(monitor.getDropResult());
-    }
-};
-
-function collect(connect, monitor) {
-    return {
-        connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging()
-    };
-}
-
-const Node = DragSource('NEW_NODE', dragSource, collect)(
-class Node extends Component {
-    render() {
-        const {connectDragSource} = this.props;
-
-        return connectDragSource(
-            <span className={styles['new-node']}>{this.props.node.title}</span>,  { dropEffect: 'copy' }
-        );
-    }
-});
 
 const newNodes = [
     {title: 'Just title'},
