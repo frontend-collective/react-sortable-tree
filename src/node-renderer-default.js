@@ -84,6 +84,7 @@ class NodeRendererDefault extends Component {
                 {toggleChildrenVisibility && node.children && node.children.length > 0 && (
                     <div>
                         <button
+                            type="button"
                             aria-label={node.expanded ? 'Collapse' : 'Expand'}
                             className={node.expanded ? styles.collapseButton : styles.expandButton}
                             style={{ left: -0.5 * scaffoldBlockPxWidth }}
