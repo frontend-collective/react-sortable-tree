@@ -34,7 +34,7 @@ class Node extends Component {
 }
 
 Node.propTypes = {
-    connectDragSource: PropTypes.object.isRequired,
+    connectDragSource: PropTypes.func.isRequired,
     node: PropTypes.object.isRequired,
 };
 export default DragSource('NEW_NODE', dragSource, collect)(Node);
