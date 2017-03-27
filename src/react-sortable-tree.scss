@@ -15,7 +15,7 @@
 }
 
 :global .ReactVirtualized__Grid__innerScrollContainer {
-    overflow: visible;
+    overflow: visible !important;
 }
 
 :global .ReactVirtualized__Grid {

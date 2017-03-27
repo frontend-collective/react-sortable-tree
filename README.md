@@ -58,6 +58,8 @@ generateNodeProps         | func           |                     |          | Ge
 getNodeKey                | func           | defaultGetNodeKey   |          | Determine the unique key used to identify each node and generate the `path` array passed in callbacks. By default, returns the index in the tree (omitting hidden nodes).<div>`({ node: object, treeIndex: number }): string or number`</div>
 onMoveNode                | func           |                     |          | Called after node move operation. <div>`({ treeData: object[], node: object, treeIndex: number, path: number[] or string[] }): void`</div>
 onVisibilityToggle        | func           |                     |          | Called after children nodes collapsed or expanded. <div>`({ treeData: object[], node: object, expanded: bool }): void`</div>
+canDrag                   | func or bool   | `true`              |          | Return false from callback to prevent node from dragging, by hiding the drag handle. Set prop to `false` to disable dragging on all nodes. <div>`({ node: object, path: number[] or string[], treeIndex: number, lowerSiblingCounts: number[], isSearchMatch: bool, isSearchFocus: bool }): bool`</div>
+canDrop                   | func           |                     |          | Return false to prevent node from dropping in the given location. <div>`({ node: object, prevPath: number[] or string[], prevParent: object, nextPath: number[] or string[], nextParent: object}): bool`</div>
 reactVirtualizedListProps | object         |                     |          | Custom properties to hand to the [react-virtualized list](https://github.com/bvaughn/react-virtualized/blob/master/docs/List.md#prop-types)
 rowHeight                 | number or func | `62`                |          | Used by react-virtualized. Either a fixed row height (number) or a function that returns the height of a row given its index: `({ index: number }): number`
 slideRegionSize           | number         | `100`               |          | Size in px of the region near the edges that initiates scrolling on dragover.
@@ -77,10 +79,11 @@ Notable among the available functions:
 - __`getFlatDataFromTree`__: Convert tree data back to flat data
 - __`addNodeUnderParent`__: Add a node under the parent node at the given path
 - __`removeNodeAtPath`__: Remove the node at the given path
+- __`changeNodeAtPath`__: Modify the node object at the given path
 - __`map`__: Perform a change on every node in the tree
 - __`walk`__: Visit every node in the tree in order
 
-Documentation for each method is only available in the code at this time.
+Documentation for each method is only available in the code at this time. You can also refer to the tests for simple usage examples.
 If your hobbies happen to include writing documentation, by all means submit a pull request. It would really help out.
 
 ## Browser Compatibility
@@ -91,7 +94,7 @@ If your hobbies happen to include writing documentation, by all means submit a p
 | Firefox | Yes |
 | Safari | Yes |
 | IE >= 10 | Yes |
-| IE 9 | Broken due to flexbox issues. [Plan to fix.](https://github.com/fritz-c/react-sortable-tree/issues/6)  |
+| IE 9 | Displays the tree, but drag-and-drop is hit-and-miss |
 
 ## Troubleshooting
 

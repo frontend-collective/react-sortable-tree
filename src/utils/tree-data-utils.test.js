@@ -446,7 +446,7 @@ describe('getFlatDataFromTree', () => {
             getNodeKey: keyFromTreeIndex,
             treeData: [ { key: 0 } ],
         })).toEqual([
-            { node: { key: 0 }, path: [0], lowerSiblingCounts: [ 0 ], treeIndex: 0 },
+            { node: { key: 0 }, parentNode: null, path: [0], lowerSiblingCounts: [ 0 ], treeIndex: 0 },
         ]);
 
         expect(getFlatDataFromTree({
@@ -454,8 +454,8 @@ describe('getFlatDataFromTree', () => {
             treeData: [ { key: 0 }, { key: 1 } ],
             getNodeKey: keyFromTreeIndex
         })).toEqual([
-            { node: { key: 0 }, path: [0], lowerSiblingCounts: [ 1 ], treeIndex: 0 },
-            { node: { key: 1 }, path: [1], lowerSiblingCounts: [ 0 ], treeIndex: 1 }
+            { node: { key: 0 }, parentNode: null, path: [0], lowerSiblingCounts: [ 1 ], treeIndex: 0 },
+            { node: { key: 1 }, parentNode: null, path: [1], lowerSiblingCounts: [ 0 ], treeIndex: 1 }
         ]);
     });
 
@@ -487,8 +487,8 @@ describe('getFlatDataFromTree', () => {
             getNodeKey: keyFromTreeIndex,
             treeData,
         })).toEqual([
-            { node: treeData[0], path: [0], lowerSiblingCounts: [ 1 ], treeIndex: 0 },
-            { node: treeData[1], path: [1], lowerSiblingCounts: [ 0 ], treeIndex: 1 }
+            { node: treeData[0], parentNode: null, path: [0], lowerSiblingCounts: [ 1 ], treeIndex: 0 },
+            { node: treeData[1], parentNode: null, path: [1], lowerSiblingCounts: [ 0 ], treeIndex: 1 }
         ]);
     });
 
@@ -524,30 +524,35 @@ describe('getFlatDataFromTree', () => {
         })).toEqual([
             {
                 node: treeData[0],
+                parentNode: null,
                 path: [0],
                 lowerSiblingCounts: [ 1 ],
                 treeIndex: 0,
             },
             {
                 node: treeData[0].children[0],
+                parentNode: treeData[0],
                 path: [0, 1],
                 lowerSiblingCounts: [ 1, 1 ],
                 treeIndex: 1,
             },
             {
                 node: treeData[0].children[1],
+                parentNode: treeData[0],
                 path: [0, 4],
                 lowerSiblingCounts: [ 1, 0 ],
                 treeIndex: 2,
             },
             {
                 node: treeData[0].children[1].children[0],
+                parentNode: treeData[0].children[1],
                 path: [0, 4, 5],
                 lowerSiblingCounts: [ 1, 0, 0 ],
                 treeIndex: 3,
             },
             {
                 node: treeData[1],
+                parentNode: null,
                 path: [6],
                 lowerSiblingCounts: [ 0 ],
                 treeIndex: 4,
@@ -588,42 +593,49 @@ describe('getFlatDataFromTree', () => {
         })).toEqual([
             {
                 node: treeData[0],
+                parentNode: null,
                 path: [0],
                 lowerSiblingCounts: [1],
                 treeIndex: 0,
             },
             {
                 node: treeData[0].children[0],
+                parentNode: treeData[0],
                 path: [0, 1],
                 lowerSiblingCounts: [1, 1],
                 treeIndex: 1,
             },
             {
                 node: treeData[0].children[0].children[0],
+                parentNode: treeData[0].children[0],
                 path: [0, 1, 2],
                 lowerSiblingCounts: [1, 1, 1],
                 treeIndex: 2,
             },
             {
                 node: treeData[0].children[0].children[1],
+                parentNode: treeData[0].children[0],
                 path: [0, 1, 3],
                 lowerSiblingCounts: [1, 1, 0],
                 treeIndex: 3,
             },
             {
                 node: treeData[0].children[1],
+                parentNode: treeData[0],
                 path: [0, 4],
                 lowerSiblingCounts: [1, 0],
                 treeIndex: 4,
             },
             {
                 node: treeData[0].children[1].children[0],
+                parentNode: treeData[0].children[1],
                 path: [0, 4, 5],
                 lowerSiblingCounts: [1, 0, 0],
                 treeIndex: 5,
             },
             {
                 node: treeData[1],
+                parentNode: null,
                 path: [6],
                 lowerSiblingCounts: [0],
                 treeIndex: 6,
@@ -1063,21 +1075,21 @@ describe('insertNode', () => {
             minimumTreeIndex: 0,
             newNode: {},
             getNodeKey: keyFromTreeIndex,
-        })).toEqual({ treeData: [{}], treeIndex: 0, path: [0] });
+        })).toEqual({ parentNode: null, treeData: [{}], treeIndex: 0, path: [0] });
         expect(insertNode({
             treeData: null,
             depth: 0,
             minimumTreeIndex: 0,
             newNode: {},
             getNodeKey: keyFromTreeIndex,
-        })).toEqual({ treeData: [{}], treeIndex: 0, path: [0] });
+        })).toEqual({ parentNode: null, treeData: [{}], treeIndex: 0, path: [0] });
         expect(insertNode({
             treeData: undefined,
             depth: 0,
             minimumTreeIndex: 0,
             newNode: {},
             getNodeKey: keyFromTreeIndex,
-        })).toEqual({ treeData: [{}], treeIndex: 0, path: [0] });
+        })).toEqual({ parentNode: null, treeData: [{}], treeIndex: 0, path: [0] });
     });
 
     it('should handle a depth that is deeper than any branch in the tree', () => {
@@ -1158,6 +1170,7 @@ describe('insertNode', () => {
             newNode: { key: 1 },
             getNodeKey: keyFromKey,
         })).toEqual({
+            parentNode: null,
             treeData: [{ key: 1 }, { key: 0 }],
             treeIndex: 0,
             path: [1],
@@ -1172,6 +1185,7 @@ describe('insertNode', () => {
             newNode: { key: 1 },
             getNodeKey: keyFromKey,
         })).toEqual({
+            parentNode: null,
             treeData: [{ key: 0 }, { key: 1 }],
             treeIndex: 1,
             path: [1],
@@ -1186,6 +1200,7 @@ describe('insertNode', () => {
             newNode: { key: 1 },
             getNodeKey: keyFromKey,
         })).toEqual({
+            parentNode: { key: 0, children: [{ key: 1 }] },
             treeData: [{ key: 0, children: [{ key: 1 }] }],
             treeIndex: 1,
             path: [0, 1],
@@ -1291,6 +1306,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 3,
             getNodeKey: keyFromTreeIndex,
         })).toEqual({
+            parentNode: { key: 2, children: [{ key: 'new' }] },
             treeData: [
                 { key: 0, expanded: true, children: [{ key: 1 }] },
                 { key: 2, children: [{ key: 'new' }] },
@@ -1308,6 +1324,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 3,
             getNodeKey: keyFromTreeIndex,
         })).toEqual({
+            parentNode: { expanded: true, children: [{}, { key: 'new' }, {}] },
             treeData: [
                 { children: [{}] },
                 { expanded: true, children: [{}, { key: 'new' }, {}] },
@@ -1325,6 +1342,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 4,
             getNodeKey: keyFromTreeIndex,
         })).toEqual({
+            parentNode: { children: [{ key: 'new' }] },
             treeData: [
                 { children: [{}] },
                 { expanded: true, children: [{}, { children: [{ key: 'new' }] }] },
@@ -1342,6 +1360,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 4,
             getNodeKey: keyFromTreeIndex,
         })).toEqual({
+            parentNode: { children: [{ key: 'new' }] },
             treeData: [
                 { children: [{}, {}, {}, {}] },
                 { expanded: true, children: [{}, { children: [{ key: 'new' }] }] },
@@ -1371,6 +1390,7 @@ describe('insertNode', () => {
             minimumTreeIndex: 2,
             getNodeKey: keyFromTreeIndex,
         })).toEqual({
+            parentNode: { expanded: true, children: [{ key: 'new' }, { children: [] }] },
             treeData: [
                 {
                     expanded: true,
