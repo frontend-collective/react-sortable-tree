@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {DragDropContext, DragSource} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { SortableTreeWithoutDndContext as SortableTree, toggleExpandedForAll } from '../../index';
+import { SortableTreeWithoutDndContext as SortableTree, toggleExpandedForAll, dndWrapExternalSource } from '../../index';
 import styles from './stylesheets/app.scss';
 import '../shared/favicon/apple-touch-icon.png';
 import '../shared/favicon/favicon-16x16.png';
@@ -10,26 +10,7 @@ import '../shared/favicon/favicon-32x32.png';
 import '../shared/favicon/favicon.ico';
 import '../shared/favicon/safari-pinned-tab.svg';
 
-const dragSource = {
-  beginDrag(props) {
-    return {node: {...props.node}, path: []}
-  },
-
-  endDrag(props, monitor, component) {
-    if (!monitor.didDrop()) {
-      return
-    }
-  }
-}
-
-function collect (connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  }
-}
-
-const Node = DragSource('NEW_NODE', dragSource, collect)(
+const Node = dndWrapExternalSource('NEW_NODE', props => ({node: props.node}))(
 class Node extends Component {
     render () {
         const {connectDragSource} = this.props

@@ -34,6 +34,7 @@ import {
     dndWrapRoot,
     dndWrapSource,
     dndWrapTarget,
+    dndWrapExternalSource,
 } from './utils/drag-and-drop-utils';
 import styles from './react-sortable-tree.scss';
 
@@ -598,5 +599,6 @@ ReactSortableTree.defaultProps = {
 // for when component is used with other components using react-dnd.
 // see: https://github.com/gaearon/react-dnd/issues/186
 export { ReactSortableTree as SortableTreeWithoutDndContext };
+export { dndWrapExternalSource };
 
 export default dndWrapRoot(ReactSortableTree);

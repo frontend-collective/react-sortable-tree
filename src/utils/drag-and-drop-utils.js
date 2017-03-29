@@ -167,3 +167,12 @@ export function dndWrapTarget(el, type) {
 export function dndWrapRoot(el) {
     return dragDropContext(HTML5Backend)(el);
 }
+
+export function dndWrapExternalSource(type, spec) {
+    const externalDragSource = {
+        beginDrag(props) {
+            return {path: [], ...spec(props)};
+        },
+    };
+    return dragSource(type, externalDragSource, nodeDragSourcePropInjection);
+}
