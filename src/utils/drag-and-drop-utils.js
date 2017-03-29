@@ -105,22 +105,30 @@ const nodeDropTarget = {
         const dropResults = {
             node:             monitor.getItem().node,
             path:             monitor.getItem().path,
+            external:       monitor.getItem().external,
             minimumTreeIndex: dropTargetProps.treeIndex,
             depth:            getTargetDepth(dropTargetProps, monitor),
         };
-        dropTargetProps.drop(dropResults);
+        if (dropResults.external) {
+            dropTargetProps.drop(dropResults);
+        }
         return dropResults;
     },
 
     hover(dropTargetProps, monitor) {
         const targetDepth = getTargetDepth(dropTargetProps, monitor);
         const draggedNode = monitor.getItem().node;
+        const external = monitor.getItem().external;
         const needsRedraw = (
             // Redraw if hovered above different nodes
             dropTargetProps.node !== draggedNode ||
             // Or hovered above the same node but at a different depth
             targetDepth !== (dropTargetProps.path.length - 1)
         );
+
+        if (external) {
+            external.updateDrop(dropTargetProps.drop)
+        }
 
         if (!needsRedraw) {
             return;
@@ -171,7 +179,25 @@ export function dndWrapRoot(el) {
 export function dndWrapExternalSource(type, spec) {
     const externalDragSource = {
         beginDrag(props) {
-            return {path: [], ...spec(props)};
+            return {
+                ...spec(props),
+                path: [],
+                external: {
+                    updateDrop(drop) {
+                        if (drop === this._drop) {
+                            return;
+                        }
+                        if (this._drop) {
+                            this._drop();
+                        }
+                        this._drop = drop;
+                    }
+                },
+            };
+        },
+
+        endDrag(props, monitor) {
+            monitor.getItem().external.updateDrop();
         },
     };
     return dragSource(type, externalDragSource, nodeDragSourcePropInjection);

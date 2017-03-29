@@ -277,6 +277,9 @@ class ReactSortableTree extends Component {
     }
 
     endDrag(dropResult) {
+        if (!(dropResult || {}).external) {
+            this.drop(dropResult);
+        }
     }
 
     drop(dropResult) {
