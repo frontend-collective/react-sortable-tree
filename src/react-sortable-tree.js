@@ -6,12 +6,13 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { AutoSizer, List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
+import { AutoSizer, List, CellMeasurerCache } from 'react-virtualized';
 import isEqual from 'lodash.isequal';
 import withScrolling, { createVerticalStrength, createHorizontalStrength } from 'react-dnd-scrollzone';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
 import NodeRendererDefault from './node-renderer-default';
+import NodeAutosizeWrapper from './node-autosize-wrapper';
 import {
     walk,
     getFlatDataFromTree,
@@ -491,14 +492,13 @@ class ReactSortableTree extends Component {
         let row;
         if (this.props.isDynamicHeight) {
             row = (
-                <CellMeasurer
+                <NodeAutosizeWrapper
                     cache={this.cellMeasurerCache}
-                    columnIndex={0}
                     parent={parent}
                     rowIndex={listIndex}
                 >
                     {content}
-                </CellMeasurer>
+                </NodeAutosizeWrapper>
             );
         } else {
             row = content;
