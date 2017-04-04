@@ -4,6 +4,7 @@ import {
     DropTarget as dropTarget,
 } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import { findDOMNode } from 'react-dom';
 import {
     getDepth,
 } from './tree-data-utils';
@@ -34,7 +35,7 @@ const nodeDragSource = {
     }
 };
 
-function getTargetDepth(dropTargetProps, monitor) {
+function getTargetDepth(dropTargetProps, monitor, component) {
     let dropTargetDepth = 0;
     const draggedItem = monitor.getItem();
     const rowAbove = dropTargetProps.getPrevRow();
@@ -42,17 +43,28 @@ function getTargetDepth(dropTargetProps, monitor) {
         // Limit the length of the path to the deepest possible
         dropTargetDepth = Math.min(rowAbove.path.length, dropTargetProps.path.length);
     }
-
-    const blocksOffset = Math.round(
-        monitor.getDifferenceFromInitialOffset().x /
-        dropTargetProps.scaffoldBlockPxWidth
-    );
+    let blocksOffset;
+    if (monitor.getItem().type !== 'newItem') {
+        blocksOffset = Math.round(
+            monitor.getDifferenceFromInitialOffset().x /
+            dropTargetProps.scaffoldBlockPxWidth
+        );
+    } else if (monitor.getItem().type === 'newItem' && component) {
+        const relativePosition = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
+        const leftShift = monitor.getSourceClientOffset().x - relativePosition.left;
+        blocksOffset = Math.round(
+            leftShift /
+            dropTargetProps.scaffoldBlockPxWidth
+        );
+    } else {
+        blocksOffset = 0;
+    }
 
     let targetDepth = Math.min(dropTargetDepth, Math.max(0, draggedItem.path.length + blocksOffset - 1));
 
     // If a maxDepth is defined, constrain the target depth
     if (typeof dropTargetProps.maxDepth !== 'undefined' && dropTargetProps.maxDepth !== null) {
-        const draggedNode       = monitor.getItem().node;
+        const draggedNode = monitor.getItem().node;
         const draggedChildDepth = getDepth(draggedNode);
 
         targetDepth = Math.min(targetDepth, dropTargetProps.maxDepth - draggedChildDepth - 1);
@@ -61,7 +73,7 @@ function getTargetDepth(dropTargetProps, monitor) {
     return targetDepth;
 }
 
-function canDrop(dropTargetProps, monitor) {
+function canDrop(dropTargetProps, monitor, component) {
     if (!monitor.isOver()) {
         return false;
     }
@@ -69,7 +81,7 @@ function canDrop(dropTargetProps, monitor) {
     const rowAbove    = dropTargetProps.getPrevRow();
     const abovePath   = rowAbove ? rowAbove.path : [];
     const aboveNode   = rowAbove ? rowAbove.node : {};
-    const targetDepth = getTargetDepth(dropTargetProps, monitor);
+    const targetDepth = getTargetDepth(dropTargetProps, monitor, component);
 
     // Cannot drop if we're adding to the children of the row above and
     //  the row above is a function
@@ -101,17 +113,17 @@ function canDrop(dropTargetProps, monitor) {
 }
 
 const nodeDropTarget = {
-    drop(dropTargetProps, monitor) {
+    drop(dropTargetProps, monitor, component) {
         return {
             node:             monitor.getItem().node,
             path:             monitor.getItem().path,
             minimumTreeIndex: dropTargetProps.treeIndex,
-            depth:            getTargetDepth(dropTargetProps, monitor),
+            depth:            getTargetDepth(dropTargetProps, monitor, component),
         };
     },
 
-    hover(dropTargetProps, monitor) {
-        const targetDepth = getTargetDepth(dropTargetProps, monitor);
+    hover(dropTargetProps, monitor, component) {
+        const targetDepth = getTargetDepth(dropTargetProps, monitor, component);
         const draggedNode = monitor.getItem().node;
         const needsRedraw = (
             // Redraw if hovered above different nodes

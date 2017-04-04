@@ -4,7 +4,7 @@ import styles from './stylesheets/app.scss';
 
 const dragSource = {
     beginDrag(props) {
-        return { node: { ...props.node }, path: [] };
+        return { node: { ...props.node }, path: [], type: 'newItem' };
     },
 
     endDrag(props, monitor) {
