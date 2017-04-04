@@ -9,9 +9,10 @@ const dragSource = {
 
     endDrag(props, monitor) {
         if (!monitor.didDrop()) {
-            return;
+            props.dropCancelled();
+        }else{
+            props.addNewItem(monitor.getDropResult());
         }
-        props.addNewItem(monitor.getDropResult());
     }
 };
 

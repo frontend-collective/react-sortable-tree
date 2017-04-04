@@ -164,6 +164,7 @@ class App extends Component {
         this.expandAll = this.expandAll.bind(this);
         this.collapseAll = this.collapseAll.bind(this);
         this.addItem = this.addItem.bind(this);
+        this.dropCancelled = this.dropCancelled.bind(this);
     }
 
     updateTreeData(treeData) {
@@ -196,6 +197,9 @@ class App extends Component {
             getNodeKey: defaultGetNodeKey,
         });
         this.setState({ treeData });
+    }
+    dropCancelled(){
+        this.setState({treeData: this.state.treeData.map(item=>({...item, update: Math.random()}))});
     }
     render() {
         const projectName = 'React Sortable Tree';
@@ -243,6 +247,7 @@ class App extends Component {
         const isVirtualized = true;
         const treeContainerStyle = isVirtualized ? { height: 450 } : {};
 
+        console.log(this.state.update);
         return (
             <div>
                 <section className={styles['page-header']}>
@@ -259,7 +264,7 @@ class App extends Component {
                     <p>Drag below nodes into the tree to insert.</p>
                     <div>
                         {newNodes.map((node, index) =>
-                            <Node key={index} node={node} addNewItem={this.addItem} />
+                            <Node key={index} node={node} addNewItem={this.addItem} dropCancelled={this.dropCancelled} />
                         )}
                     </div>
                     <button onClick={this.expandAll}>
