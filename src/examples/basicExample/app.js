@@ -247,7 +247,6 @@ class App extends Component {
         const isVirtualized = true;
         const treeContainerStyle = isVirtualized ? { height: 450 } : {};
 
-        console.log(this.state.update);
         return (
             <div>
                 <section className={styles['page-header']}>
