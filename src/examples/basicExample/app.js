@@ -198,8 +198,8 @@ class App extends Component {
         });
         this.setState({ treeData });
     }
-    dropCancelled(){
-        this.setState({treeData: this.state.treeData.map(item=>({...item, update: Math.random()}))});
+    dropCancelled() {
+        this.setState({treeData: this.state.treeData.map(item => ({...item, update: Math.random()}))});
     }
     render() {
         const projectName = 'React Sortable Tree';

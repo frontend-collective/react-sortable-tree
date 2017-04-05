@@ -5,7 +5,7 @@ const dragSource = {
     beginDrag(props) {
         return { node: { ...props.node }, path: [], type: 'newItem' };
     },
-    
+
     endDrag(props, monitor) {
         if (!monitor.didDrop()) {
             props.dropCancelled();
@@ -22,22 +22,18 @@ function collect(connect, monitor) {
     };
 }
 
-const externalItem = (Component, dndType) => {
-    
-    class ExternalItem extends React.Component {
+const externalItemWrapper = (Component, dndType) => {
+    class ExternalItemWrapper extends React.Component {
         render() {
             const { connectDragSource } = this.props;
-            return connectDragSource(<div><Component {...this.props} /></div>, { dropEffect: 'copy' }
-            )
+            return connectDragSource(<div><Component {...this.props} /></div>, { dropEffect: 'copy' });
         }
-    };
+    }
 
-    ExternalItem.propTypes = {
+    ExternalItemWrapper.propTypes = {
         connectDragSource: PropTypes.func.isRequired,
     };
-    return DragSource(dndType, dragSource, collect)(ExternalItem);
+    return DragSource(dndType, dragSource, collect)(ExternalItemWrapper);
 };
 
-export default (dndType) => {
-    return (target) => externalItem(target, dndType);
-};
+export default dndType => target => externalItemWrapper(target, dndType);

@@ -10,6 +10,7 @@ import isEqual from 'lodash.isequal';
 import withScrolling, { createVerticalStrength, createHorizontalStrength } from 'react-dnd-scrollzone';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
+import ExternalItemWrapper from './external-item-wrapper';
 import NodeRendererDefault from './node-renderer-default';
 import {
     walk,
@@ -586,5 +587,6 @@ ReactSortableTree.defaultProps = {
 // for when component is used with other components using react-dnd.
 // see: https://github.com/gaearon/react-dnd/issues/186
 export { ReactSortableTree as SortableTreeWithoutDndContext };
+export { ExternalItemWrapper };
 
 export default dndWrapRoot(ReactSortableTree);

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './stylesheets/app.scss';
-import ExternalItem from './../../external-item';
+import ExternalItemWrapper from './../../external-item-wrapper';
 
 class Node extends Component {
     render() {
@@ -11,4 +11,4 @@ class Node extends Component {
 Node.propTypes = {
     node: PropTypes.object.isRequired,
 };
-export default ExternalItem('NEW_NODE')(Node);
+export default ExternalItemWrapper('NEW_NODE')(Node);
