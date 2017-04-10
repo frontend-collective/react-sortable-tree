@@ -49,13 +49,17 @@ function getTargetDepth(dropTargetProps, monitor, component) {
             monitor.getDifferenceFromInitialOffset().x /
             dropTargetProps.scaffoldBlockPxWidth
         );
-    } else if (monitor.getItem().type === 'newItem' && component) {
-        const relativePosition = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
-        const leftShift = monitor.getSourceClientOffset().x - relativePosition.left;
-        blocksOffset = Math.round(
-            leftShift /
-            dropTargetProps.scaffoldBlockPxWidth
-        );
+    } else if (monitor.getItem().type === 'newItem') {
+        if (component) {
+            const relativePosition = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
+            const leftShift = monitor.getSourceClientOffset().x - relativePosition.left;
+            blocksOffset = Math.round(
+                leftShift /
+                dropTargetProps.scaffoldBlockPxWidth
+            );
+        } else {
+            blocksOffset = dropTargetProps.path.length;
+        }
     } else {
         blocksOffset = 0;
     }

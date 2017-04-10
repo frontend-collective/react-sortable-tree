@@ -26,7 +26,7 @@ const externalItemWrapper = (Component, dndType) => {
     class ExternalItemWrapper extends React.Component {
         render() {
             const { connectDragSource } = this.props;
-            return connectDragSource(<div><Component {...this.props} /></div>, { dropEffect: 'copy' });
+            return connectDragSource(<span><Component {...this.props} /></span>, { dropEffect: 'copy' });
         }
     }
 
