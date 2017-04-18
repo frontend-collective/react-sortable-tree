@@ -94,6 +94,7 @@ function canDrop(dropTargetProps, monitor) {
             prevParent: monitor.getItem().parentNode,
             nextPath:   addedResult.path,
             nextParent: addedResult.parentNode,
+            nextIndex:  addedResult.treeIndex,
         });
     }
 
