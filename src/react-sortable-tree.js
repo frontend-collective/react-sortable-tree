@@ -4,7 +4,8 @@
  * @license Open source under the MIT License
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { AutoSizer, List } from 'react-virtualized';
 import isEqual from 'lodash.isequal';
 import withScrolling, { createVerticalStrength, createHorizontalStrength } from 'react-dnd-scrollzone';

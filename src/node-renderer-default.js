@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { getIEVersion } from './utils/browser-utils';
 import baseStyles from './node-renderer-default.scss';
 import { isDescendant } from './utils/tree-data-utils';

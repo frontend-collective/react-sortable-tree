@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import jasmineEnzyme from 'jasmine-enzyme';
 
