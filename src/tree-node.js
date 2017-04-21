@@ -19,6 +19,7 @@ class TreeNode extends Component {
             treeIndex,
             customCanDrop: _customCanDrop, // Delete from otherProps
             dragHover:     _dragHover,     // Delete from otherProps
+            drop:          _drop,          // Delete from otherProps
             getNodeKey:    _getNodeKey,    // Delete from otherProps
             getPrevRow:    _getPrevRow,    // Delete from otherProps
             maxDepth:      _maxDepth,      // Delete from otherProps
@@ -160,6 +161,7 @@ TreeNode.propTypes = {
 
     customCanDrop: PropTypes.func,                      // used in drag-and-drop-utils
     dragHover:     PropTypes.func.isRequired,           // used in drag-and-drop-utils
+    drop:          PropTypes.func.isRequired,           // used in drag-and-drop-utils
     getNodeKey:    PropTypes.func,                      // used in drag-and-drop-utils
     getPrevRow:    PropTypes.func,                      // used in drag-and-drop-utils
     maxDepth:      PropTypes.number,                    // used in drag-and-drop-utils
