@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import SortableTree, { toggleExpandedForAll } from '../../index';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { SortableTreeWithoutDndContext as SortableTree, toggleExpandedForAll } from '../../index';
 import styles from './stylesheets/app.scss';
+import Node from './node';
+import {
+    defaultGetNodeKey,
+} from './../../utils/default-handlers';
+import {
+    insertNode,
+} from './../../utils/tree-data-utils';
+
 import '../shared/favicon/apple-touch-icon.png';
 import '../shared/favicon/favicon-16x16.png';
 import '../shared/favicon/favicon-32x32.png';
 import '../shared/favicon/favicon.ico';
 import '../shared/favicon/safari-pinned-tab.svg';
 
+
+const newNodes = [
+    {title: 'Just title'},
+    {title: 'Title with subtitle', subtitle: 'This is subtitle'},
+];
+
 const maxDepth = 5;
 
+const App = DragDropContext(HTML5Backend)(
 class App extends Component {
     constructor(props) {
         super(props);
@@ -146,6 +163,8 @@ class App extends Component {
         this.updateTreeData = this.updateTreeData.bind(this);
         this.expandAll = this.expandAll.bind(this);
         this.collapseAll = this.collapseAll.bind(this);
+        this.addItem = this.addItem.bind(this);
+        this.dropCancelled = this.dropCancelled.bind(this);
     }
 
     updateTreeData(treeData) {
@@ -168,7 +187,20 @@ class App extends Component {
     collapseAll() {
         this.expand(false);
     }
-
+    addItem(newItem) {
+        const {treeData} = insertNode({
+            treeData: this.state.treeData,
+            newNode: newItem.node,
+            depth: newItem.depth,
+            minimumTreeIndex: newItem.minimumTreeIndex,
+            expandParent: true,
+            getNodeKey: defaultGetNodeKey,
+        });
+        this.setState({ treeData });
+    }
+    dropCancelled() {
+        this.setState({treeData: this.state.treeData.map(item => ({...item, update: Math.random()}))});
+    }
     render() {
         const projectName = 'React Sortable Tree';
         const authorName = 'Chris Fritz';
@@ -228,6 +260,12 @@ class App extends Component {
                 <section className={styles['main-content']}>
                     <h3>Demo</h3>
 
+                    <p>Drag below nodes into the tree to insert.</p>
+                    <div>
+                        {newNodes.map((node, index) =>
+                            <Node key={index} node={node} addNewItem={this.addItem} dropCancelled={this.dropCancelled} />
+                        )}
+                    </div>
                     <button onClick={this.expandAll}>
                         Expand All
                     </button>
@@ -281,6 +319,7 @@ class App extends Component {
                     <div style={treeContainerStyle}>
                         <SortableTree
                             treeData={treeData}
+                            dndType="NEW_NODE"
                             onChange={this.updateTreeData}
                             onMoveNode={({ node, treeIndex, path }) =>
                                 console.debug( // eslint-disable-line no-console
@@ -340,6 +379,6 @@ class App extends Component {
             </div>
         );
     }
-}
+});
 
 ReactDOM.render(<App />, document.getElementById('app'));

@@ -11,6 +11,7 @@ import isEqual from 'lodash.isequal';
 import withScrolling, { createVerticalStrength, createHorizontalStrength } from 'react-dnd-scrollzone';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
+import ExternalItemWrapper from './external-item-wrapper';
 import NodeRendererDefault from './node-renderer-default';
 import {
     walk,
@@ -237,8 +238,12 @@ class ReactSortableTree extends Component {
     }
 
     dragHover({ node: draggedNode, depth, minimumTreeIndex }) {
+        let {draggingTreeData} = this.state;
+        if (!draggingTreeData) {
+            draggingTreeData = this.props.treeData;
+        }
         const addedResult = memoizedInsertNode({
-            treeData: this.state.draggingTreeData,
+            treeData: draggingTreeData,
             newNode: draggedNode,
             depth,
             minimumTreeIndex,
@@ -258,7 +263,7 @@ class ReactSortableTree extends Component {
             swapLength,
             swapDepth: depth,
             draggingTreeData: changeNodeAtPath({
-                treeData: this.state.draggingTreeData,
+                treeData: draggingTreeData,
                 path: expandedParentPath.slice(0, -1),
                 newNode: ({ node }) => ({ ...node, expanded: true }),
                 getNodeKey: this.props.getNodeKey,
@@ -583,5 +588,6 @@ ReactSortableTree.defaultProps = {
 // for when component is used with other components using react-dnd.
 // see: https://github.com/gaearon/react-dnd/issues/186
 export { ReactSortableTree as SortableTreeWithoutDndContext };
+export { ExternalItemWrapper };
 
 export default dndWrapRoot(ReactSortableTree);
