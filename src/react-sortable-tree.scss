@@ -9,6 +9,7 @@
  * Extra class applied to VirtualScroll through className prop
  */
 .virtualScrollOverride {
+    overflow: auto !important;
     * {
         box-sizing: border-box;
     }
