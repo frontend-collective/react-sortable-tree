@@ -368,10 +368,13 @@ class ReactSortableTree extends Component {
                             rowCount={rows.length}
                             estimatedRowSize={typeof rowHeight !== 'function' ? rowHeight : undefined}
                             rowHeight={rowHeight}
-                            rowRenderer={({ index, key, style: rowStyle }) => this.renderRow(
+                            rowRenderer={({ index, style: rowStyle }) => this.renderRow(
                                 rows[index],
                                 index,
-                                key,
+                                getNodeKey({
+                                    node:      rows[index].node,
+                                    treeIndex: rows[index].treeIndex,
+                                }),
                                 rowStyle,
                                 () => (rows[index - 1] || null),
                                 matchKeys
