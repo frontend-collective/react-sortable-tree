@@ -32,8 +32,8 @@
     "lodash.isequal": "^4.4.0",
     "prop-types": "^15.5.8",
     "react-dnd": "^2.1.4",
-    "react-dnd-html5-backend": "^2.1.2",
     "react-dnd-scrollzone": "^3.1.0",
+    "react-dnd-touch-backend": "^0.3.9",
     "react-virtualized": "^9.3.0"
   },
   "peerDependencies": {
