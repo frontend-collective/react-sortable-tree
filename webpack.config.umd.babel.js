@@ -2,16 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import packageObj from './package.json';
-
-// Get the external packages used by the project
-const externals = {};
-[ 'dependencies', 'peerDependencies' ].forEach(depGroup => {
-    if (packageObj[depGroup]) {
-        Object.keys(packageObj[depGroup]).forEach(dep => {
-            externals[dep] = dep;
-        });
-    }
-});
+import nodeExternals from 'webpack-node-externals';
 
 module.exports = {
     entry: {
@@ -44,7 +35,10 @@ module.exports = {
     postcss: [
         autoprefixer({ browsers: ['IE >= 9', 'last 2 versions', '> 1%'] }),
     ],
-    externals,
+    externals: [nodeExternals({
+        // load non-javascript files with extensions, presumably via loaders
+        whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
+    })],
     module: {
         loaders: [
             {
