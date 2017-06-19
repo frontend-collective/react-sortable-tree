@@ -1,13 +1,11 @@
 {
-    "parser": "babel-eslint",
-    "extends": "blue-hour",
-    "env": {
-        "browser": true,
-        "jasmine": true
-    },
-    "rules": {
-        "react/jsx-filename-extension": 0,
-        "react/prefer-stateless-function": 0,
-        "import/prefer-default-export": 0
-    }
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "env": {
+    "browser": true,
+    "jasmine": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "react/prefer-stateless-function": 0
+  }
 }

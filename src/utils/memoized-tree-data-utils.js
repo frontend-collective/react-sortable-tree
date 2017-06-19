@@ -2,7 +2,7 @@ import { insertNode } from './tree-data-utils';
 
 let memoizedInsertArgsArray = [];
 let memoizedInsertKeysArray = [];
-let memoizedInsertResult    = null;
+let memoizedInsertResult = null;
 
 /**
  * Insert a node into the tree at the given depth, after the minimum index
@@ -21,19 +21,20 @@ let memoizedInsertResult    = null;
  * @return {number[]|string[]} result.path - Array of keys leading to the node location after insertion
  */
 export function memoizedInsertNode(args) {
-    const keysArray = Object.keys(args).sort();
-    const argsArray = keysArray.map(key => args[key]);
+  const keysArray = Object.keys(args).sort();
+  const argsArray = keysArray.map(key => args[key]);
 
-    // If the arguments for the last insert operation are different than this time,
-    // recalculate the result
-    if (argsArray.length !== memoizedInsertArgsArray.length ||
-        argsArray.some((arg, index) => arg !== memoizedInsertArgsArray[index]) ||
-        keysArray.some((key, index) => key !== memoizedInsertKeysArray[index])
-    ) {
-        memoizedInsertArgsArray = argsArray;
-        memoizedInsertKeysArray = keysArray;
-        memoizedInsertResult    = insertNode(args);
-    }
+  // If the arguments for the last insert operation are different than this time,
+  // recalculate the result
+  if (
+    argsArray.length !== memoizedInsertArgsArray.length ||
+    argsArray.some((arg, index) => arg !== memoizedInsertArgsArray[index]) ||
+    keysArray.some((key, index) => key !== memoizedInsertKeysArray[index])
+  ) {
+    memoizedInsertArgsArray = argsArray;
+    memoizedInsertKeysArray = keysArray;
+    memoizedInsertResult = insertNode(args);
+  }
 
-    return memoizedInsertResult;
+  return memoizedInsertResult;
 }
