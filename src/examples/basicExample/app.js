@@ -183,18 +183,12 @@ class App extends Component {
       searchFoundCount,
     } = this.state;
 
-    const alertNodeInfo = ({
-      node,
-      path,
-      treeIndex,
-      lowerSiblingCounts: _lowerSiblingCounts,
-    }) => {
+    const alertNodeInfo = ({ node, path, treeIndex }) => {
       const objectString = Object.keys(node)
         .map(k => (k === 'children' ? 'children: Array' : `${k}: '${node[k]}'`))
         .join(',\n   ');
 
-      alert(
-        // eslint-disable-line no-alert
+      global.alert(
         'Info passed to the button generator:\n\n' +
           `node: {\n   ${objectString}\n},\n` +
           `path: [${path.join(', ')}],\n` +
@@ -288,8 +282,7 @@ class App extends Component {
               treeData={treeData}
               onChange={this.updateTreeData}
               onMoveNode={({ node, treeIndex, path }) =>
-                console.debug(
-                  // eslint-disable-line no-console
+                global.console.debug(
                   'node:',
                   node,
                   'treeIndex:',

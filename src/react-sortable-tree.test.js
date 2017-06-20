@@ -261,7 +261,7 @@ describe('<SortableTree />', () => {
 
   it('should render with a custom `nodeContentRenderer`', () => {
     const FakeNode = ({ node }) => <div>{node.title}</div>;
-    FakeNode.propTypes = { node: PropTypes.object.isRequired };
+    FakeNode.propTypes = { node: PropTypes.shape({}).isRequired };
 
     const wrapper = mount(
       <SortableTree

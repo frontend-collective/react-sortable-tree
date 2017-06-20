@@ -52,7 +52,8 @@ class ReactSortableTree extends Component {
     } = props;
 
     // Wrapping classes for use with react-dnd
-    this.dndType = dndType || `rst__${dndTypeCounter++}`;
+    this.dndType = dndType || `rst__${dndTypeCounter}`;
+    dndTypeCounter += 1;
     this.nodeContentRenderer = dndWrapSource(nodeContentRenderer, this.dndType);
     this.treeNodeRenderer = dndWrapTarget(TreeNode, this.dndType);
 
@@ -563,7 +564,7 @@ ReactSortableTree.propTypes = {
   // Override the default component for rendering nodes (but keep the scaffolding generator)
   // This is an advanced option for complete customization of the appearance.
   // It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
-  nodeContentRenderer: PropTypes.any,
+  nodeContentRenderer: PropTypes.func,
 
   // Determine the unique key used to identify each node and
   // generate the `path` array passed in callbacks.
@@ -591,16 +592,27 @@ ReactSortableTree.propTypes = {
 };
 
 ReactSortableTree.defaultProps = {
-  getNodeKey: defaultGetNodeKey,
-  nodeContentRenderer: NodeRendererDefault,
-  rowHeight: 62,
-  slideRegionSize: 100,
-  scaffoldBlockPxWidth: 44,
-  style: {},
-  innerStyle: {},
-  searchQuery: null,
-  isVirtualized: true,
   canDrag: true,
+  canDrop: null,
+  className: '',
+  dndType: null,
+  generateNodeProps: null,
+  getNodeKey: defaultGetNodeKey,
+  innerStyle: {},
+  isVirtualized: true,
+  maxDepth: null,
+  nodeContentRenderer: NodeRendererDefault,
+  onMoveNode: null,
+  onVisibilityToggle: null,
+  reactVirtualizedListProps: {},
+  rowHeight: 62,
+  scaffoldBlockPxWidth: 44,
+  searchFinishCallback: null,
+  searchFocusOffset: null,
+  searchMethod: null,
+  searchQuery: null,
+  slideRegionSize: 100,
+  style: {},
 };
 
 // Export the tree component without the react-dnd DragDropContext,

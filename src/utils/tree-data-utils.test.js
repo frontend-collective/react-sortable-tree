@@ -1525,7 +1525,9 @@ describe('walk', () => {
         treeData,
         ignoreCollapsed,
         getNodeKey: keyFromTreeIndex,
-        callback: () => callCount++,
+        callback: () => {
+          callCount += 1;
+        },
       });
 
       expect(callCount).toEqual(expected);
@@ -1543,7 +1545,7 @@ describe('walk', () => {
       callback: ({ treeIndex, path }) => {
         expect(treeIndex).toEqual(counter);
         expect(path).toEqual(paths[treeIndex]);
-        counter++;
+        counter += 1;
       },
     });
   });
@@ -1569,6 +1571,8 @@ describe('walk', () => {
           } else if (node.key === 3) {
             throw new Error('walk not terminated by false');
           }
+
+          return true;
         },
       })
     ).not.toThrow();

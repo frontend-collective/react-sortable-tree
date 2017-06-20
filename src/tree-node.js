@@ -148,6 +148,7 @@ TreeNode.defaultProps = {
   draggedNode: null,
   customCanDrop: null,
   maxDepth: null,
+  treeData: null,
 };
 
 TreeNode.propTypes = {
@@ -176,7 +177,7 @@ TreeNode.propTypes = {
   getNodeKey: PropTypes.func.isRequired, // used in drag-and-drop-utils
   getPrevRow: PropTypes.func.isRequired, // used in drag-and-drop-utils
   maxDepth: PropTypes.number, // used in drag-and-drop-utils
-  treeData: PropTypes.arrayOf(PropTypes.object).isRequired, // used in drag-and-drop-utils
+  treeData: PropTypes.arrayOf(PropTypes.object), // used in drag-and-drop-utils
 };
 
 export default TreeNode;

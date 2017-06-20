@@ -35,7 +35,7 @@ function getNodeDataAtTreeIndexOrNextIndex({
   // target node if childIndex reaches the targetIndex
   let childIndex = currentIndex + 1;
   const childCount = node.children.length;
-  for (let i = 0; i < childCount; i++) {
+  for (let i = 0; i < childCount; i += 1) {
     const result = getNodeDataAtTreeIndexOrNextIndex({
       ignoreCollapsed,
       getNodeKey,
@@ -134,7 +134,7 @@ function walkDescendants({
   let childIndex = currentIndex;
   const childCount = node.children.length;
   if (typeof node.children !== 'function') {
-    for (let i = 0; i < childCount; i++) {
+    for (let i = 0; i < childCount; i += 1) {
       childIndex = walkDescendants({
         callback,
         getNodeKey,
@@ -333,7 +333,7 @@ export function walk({
     return;
   }
 
-  return walkDescendants({
+  walkDescendants({
     callback,
     getNodeKey,
     ignoreCollapsed,
@@ -438,7 +438,7 @@ export function changeNodeAtPath({
     }
 
     let nextTreeIndex = currentTreeIndex + 1;
-    for (let i = 0; i < node.children.length; i++) {
+    for (let i = 0; i < node.children.length; i += 1) {
       const result = traverse({
         node: node.children[i],
         currentTreeIndex: nextTreeIndex,
@@ -618,7 +618,7 @@ export function addNodeUnderParent({
       }
 
       let nextTreeIndex = treeIndex + 1;
-      for (let i = 0; i < parentNode.children.length; i++) {
+      for (let i = 0; i < parentNode.children.length; i += 1) {
         nextTreeIndex +=
           1 +
           getDescendantCount({ node: parentNode.children[i], ignoreCollapsed });
@@ -705,7 +705,7 @@ function addNodeAtDepthAndIndex({
     let childIndex = currentIndex + 1;
     let insertedTreeIndex = null;
     let insertIndex = null;
-    for (let i = 0; i < node.children.length; i++) {
+    for (let i = 0; i < node.children.length; i += 1) {
       // If a valid location is found, mark it as the insertion location and
       // break out of the loop
       if (childIndex >= minimumTreeIndex) {
@@ -1062,7 +1062,7 @@ export function find({
 
       // Keep track of the number of matching nodes, so we know when the searchFocusOffset
       //  is reached
-      matchCount++;
+      matchCount += 1;
 
       // We cannot add this node to the matches right away, as it may be changed
       //  during the search of the descendants. The entire node is used in

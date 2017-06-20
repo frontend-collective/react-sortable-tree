@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+
 /**
  * Get the version of Internet Explorer in use, or undefined
  *

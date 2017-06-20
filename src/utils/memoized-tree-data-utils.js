@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { insertNode } from './tree-data-utils';
 
 let memoizedInsertArgsArray = [];
