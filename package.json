@@ -8,6 +8,7 @@
     "clean": "rimraf dist/umd",
     "clean:demo": "rimraf build",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.babel.js",
+    "start-tfr-example": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.tfr-example.babel.js",
     "lint": "eslint src",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
     "test": "cross-env NODE_ENV=test karma start --single-run",
@@ -29,6 +30,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "freezer-js": "^0.12.2",
     "lodash.isequal": "^4.4.0",
     "prop-types": "^15.5.8",
     "react-dnd": "^2.1.4",
