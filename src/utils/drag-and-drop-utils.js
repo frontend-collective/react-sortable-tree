@@ -4,6 +4,9 @@ import {
   DropTarget as dropTarget,
 } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { findDOMNode } from 'react-dom';
 import { getDepth } from './tree-data-utils';
 import { memoizedInsertNode } from './memoized-tree-data-utils';
 
@@ -15,7 +18,7 @@ const nodeDragSource = {
       node: props.node,
       parentNode: props.parentNode,
       path: props.path,
-      treeIndex: props.treeIndex,
+      treeIndex: props.treeIndex
     };
   },
 
@@ -28,49 +31,72 @@ const nodeDragSource = {
     const draggedNode = props.node;
 
     return draggedNode === dropTargetNode;
-  },
+  }
 };
 
-function getTargetDepth(dropTargetProps, monitor) {
+const externalSource = {
+  beginDrag(props) {
+    return {
+      node: {
+        ...props.node
+      },
+      path: [],
+      type: 'NewItem'
+    }
+  },
+
+  endDrag(props, monitor) {
+    if (!monitor.didDrop()) {
+      props.dropCancelled()
+    } else {
+      props.addNewItem(monitor.getDropResult())
+    }
+  }
+};
+
+function getTargetDepth(dropTargetProps, monitor, component) {
   let dropTargetDepth = 0;
   const draggedItem = monitor.getItem();
   const rowAbove = dropTargetProps.getPrevRow();
   if (rowAbove) {
     // Limit the length of the path to the deepest possible
-    dropTargetDepth = Math.min(
-      rowAbove.path.length,
-      dropTargetProps.path.length
+    dropTargetDepth = Math.min(rowAbove.path.length, dropTargetProps.path.length);
+  }
+  let blocksOffset;
+  if (monitor.getItem().type !== 'NewItem') {
+    blocksOffset = Math.round(
+      monitor.getDifferenceFromInitialOffset().x /
+      dropTargetProps.scaffoldBlockPxWidth
     );
+  } else if (monitor.getItem().type === 'NewItem') {
+    if (component) {
+      const relativePosition = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
+      const leftShift = monitor.getSourceClientOffset().x - relativePosition.left;
+      blocksOffset = Math.round(
+        leftShift /
+        dropTargetProps.scaffoldBlockPxWidth
+      );
+    } else {
+      blocksOffset = dropTargetProps.path.length;
+    }
+  } else {
+    blocksOffset = 0;
   }
 
-  const blocksOffset = Math.round(
-    monitor.getDifferenceFromInitialOffset().x /
-      dropTargetProps.scaffoldBlockPxWidth
-  );
-
-  let targetDepth = Math.min(
-    dropTargetDepth,
-    Math.max(0, draggedItem.path.length + blocksOffset - 1)
-  );
+  let targetDepth = Math.min(dropTargetDepth, Math.max(0, draggedItem.path.length + blocksOffset - 1));
 
   // If a maxDepth is defined, constrain the target depth
-  if (
-    typeof dropTargetProps.maxDepth !== 'undefined' &&
-    dropTargetProps.maxDepth !== null
-  ) {
+  if (typeof dropTargetProps.maxDepth !== 'undefined' && dropTargetProps.maxDepth !== null) {
     const draggedNode = monitor.getItem().node;
     const draggedChildDepth = getDepth(draggedNode);
 
-    targetDepth = Math.min(
-      targetDepth,
-      dropTargetProps.maxDepth - draggedChildDepth - 1
-    );
+    targetDepth = Math.min(targetDepth, dropTargetProps.maxDepth - draggedChildDepth - 1);
   }
 
   return targetDepth;
 }
 
-function canDrop(dropTargetProps, monitor) {
+function canDrop(dropTargetProps, monitor, component) {
   if (!monitor.isOver()) {
     return false;
   }
@@ -78,14 +104,11 @@ function canDrop(dropTargetProps, monitor) {
   const rowAbove = dropTargetProps.getPrevRow();
   const abovePath = rowAbove ? rowAbove.path : [];
   const aboveNode = rowAbove ? rowAbove.node : {};
-  const targetDepth = getTargetDepth(dropTargetProps, monitor);
+  const targetDepth = getTargetDepth(dropTargetProps, monitor, component);
 
   // Cannot drop if we're adding to the children of the row above and
   //  the row above is a function
-  if (
-    targetDepth >= abovePath.length &&
-    typeof aboveNode.children === 'function'
-  ) {
+  if (targetDepth >= abovePath.length && typeof aboveNode.children === 'function') {
     return false;
   }
 
@@ -104,10 +127,8 @@ function canDrop(dropTargetProps, monitor) {
       node,
       prevPath: monitor.getItem().path,
       prevParent: monitor.getItem().parentNode,
-      prevTreeIndex: monitor.getItem().treeIndex,
       nextPath: addedResult.path,
       nextParent: addedResult.parentNode,
-      nextTreeIndex: addedResult.treeIndex,
     });
   }
 
@@ -115,23 +136,24 @@ function canDrop(dropTargetProps, monitor) {
 }
 
 const nodeDropTarget = {
-  drop(dropTargetProps, monitor) {
+  drop(dropTargetProps, monitor, component) {
     return {
       node: monitor.getItem().node,
       path: monitor.getItem().path,
       minimumTreeIndex: dropTargetProps.treeIndex,
-      depth: getTargetDepth(dropTargetProps, monitor),
+      depth: getTargetDepth(dropTargetProps, monitor, component),
     };
   },
 
-  hover(dropTargetProps, monitor) {
-    const targetDepth = getTargetDepth(dropTargetProps, monitor);
+  hover(dropTargetProps, monitor, component) {
+    const targetDepth = getTargetDepth(dropTargetProps, monitor, component);
     const draggedNode = monitor.getItem().node;
-    const needsRedraw =
+    const needsRedraw = (
       // Redraw if hovered above different nodes
       dropTargetProps.node !== draggedNode ||
       // Or hovered above the same node but at a different depth
-      targetDepth !== dropTargetProps.path.length - 1;
+      targetDepth !== (dropTargetProps.path.length - 1)
+    );
 
     if (!needsRedraw) {
       return;
@@ -146,6 +168,13 @@ const nodeDropTarget = {
   },
 
   canDrop,
+};
+
+function externalSourcePropInjection (connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
 };
 
 function nodeDragSourcePropInjection(connect, monitor) {
@@ -165,6 +194,31 @@ function nodeDropTargetPropInjection(connect, monitor) {
     canDrop: monitor.canDrop(),
     draggedNode: dragged ? dragged.node : null,
   };
+}
+
+export function dndWrapExternalSource (UserComponent, type) {
+  class DndWrapExternalSource extends React.Component {
+    render() {
+      return this.props.connectDragSource(
+        <div><UserComponent {...this.props}/></div>, { dropEffect: 'copy'}
+      )
+    }
+  }
+
+  // these defaultProps must be passed to the custom external node component as props
+  DndWrapExternalSource.defaultProps = {
+    dropCanceled () {	    
+      throw new Error('External Nodes must define dropCanceled prop function')	
+    },
+    addNewItem () {
+      throw new Error('External Nodes must define addNewItem prop function')
+    }
+  }
+
+  DndWrapExternalSource.propTypes = {
+    connectDragSource: PropTypes.func.isRequired
+  };
+  return dragSource(type,externalSource,externalSourcePropInjection)(DndWrapExternalSource)
 }
 
 export function dndWrapSource(el, type) {

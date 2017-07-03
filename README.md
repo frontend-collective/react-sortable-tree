@@ -48,6 +48,7 @@ treeData                  | object[]       |                     |   yes    | Tr
 onChange                  | func           |                     |   yes    | Called whenever tree data changed. Just like with React input elements, you have to update your own component's data to see the changes reflected.<div>`( treeData: object[] ): void`</div>
 style                     | object         | `{}`                |          | Style applied to the container wrapping the tree (style defaults to {height: '100%'})
 className                 | string         |                     |          | Class name for the container wrapping the tree
+dndType                 | string        |                     |          | String value used by [react-dnd](http://react-dnd.github.io/react-dnd/docs-overview.html) (see overview at the link) for dropTargets and dragSources types. If not set explicitly, a default value is applied by react-sortable-tree for you for it's internal use. __NOTE:__ Must be explicitly set and the same value used in order for correct functioning of external nodes
 innerStyle                | object         | `{}`                |          | Style applied to the inner, scrollable container (for padding, etc.)
 maxDepth                  | number         |                     |          | Maximum depth nodes can be inserted at. Defaults to infinite.
 searchMethod              | func           |                     |          | The method used to search nodes. Defaults to a function that uses the `searchQuery` string to search for nodes with matching `title` or `subtitle` values. NOTE: Changing `searchMethod` will not update the search, but changing the `searchQuery` will.<div>`({ node: object, path: number[] or string[], treeIndex: number, searchQuery: any }): bool`</div>
@@ -86,6 +87,99 @@ Notable among the available functions:
 Documentation for each method is only available in the code at this time. You can also refer to the tests for simple usage examples.
 If your hobbies happen to include writing documentation, by all means submit a pull request. It would really help out.
 
+## Adding External Nodes
+
+### How to wrap your own component as an external node
+
+To use your own components as external nodes, you can call `dndWrapExternalSource`, exported from [`drag-and-drop-utils.js`](https://github.com/fritz-c/react-sortable-tree/blob/master/src/utils/drag-and-drop-utils.js), like in this example below, as long as you also pass the exact same [react-dnd type](http://react-dnd.github.io/react-dnd/docs-overview.html) as set for your tree component, so your custom components can become valid react-dnd [DragSources](http://react-dnd.github.io/react-dnd/docs-drag-source.html), that can be dropped in to add nodes to your own tree component.
+
+```jsx
+import React, { Component } from 'react'
+import { dndWrapExternalSource } from 'react-sortable-tree';
+
+class YourExternalNodeComponent extends Component {
+
+  render() {
+    return (<div className='some-class'>{this.props.node.title}</div>);
+  }
+}
+
+
+// this will wrap your external node component as a valid react-dnd DragSource
+export default dndWrapExternalSource(YourExternalNodeComponent, 'NEW_NODE');
+```
+
+__NOTE:__ You need to implement a `dropCancelled` method and an `addNewItem` method, passed as props to your external node component from your parent component, so that your tree-component can effectively respond to your external node. Check out the external node demo for an example implementation. A simple example below:
+
+```jsx
+import React, { Component } from 'react'
+import {SortableTree as SortableTreeWithoutDndContext} from 'react-sortable-tree'
+import YourExternalNodeComponent from './YourExternalNodeComponent.js'
+
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.addNewItem = this.addNewItem.bind(this);
+    this.dropCancelled = this.dropCancelled.bind(this);
+    
+    this.state = {
+      treeData: [{...}],
+      // just an example node
+      node: {
+        'title':'I am a title',
+        'subtitle': 'some cool subtitle'
+      }
+    }
+
+  }
+
+  dropCancelled() {
+    this.setState({ 
+      treeData: this.state.treeData.map(item => ({ 
+        ...item, update: Math.random() })) 
+      });
+  }
+
+
+  addNewItem(newItem) {
+    // insertNode is a helper function from tree-data-utils.js
+    const { treeData } = insertNode({
+      treeData: this.state.treeData,
+      newNode: newItem.node,
+      depth: newItem.depth,
+      minimumTreeIndex: newItem.minimumTreeIndex,
+      expandParent: true,
+      getNodeKey: (treeIndex) => treeIndex,
+    });
+    this.setState({ treeData });
+  }
+}
+
+render () {
+  return (
+    <div className='app-container'>
+      <div className='tree-container'>
+        <SortableTree {...props} />
+      </div>
+      <div className='external-nodes-container'>
+        <YourExternalNodeComponent 
+          node={this.state.node}
+          addNewItem={this.addNewItem}
+          dropCancelled={this.dropCancelled}
+        />
+      </div>
+    </div>
+  )
+}
+
+```
+
+
+In addition, the external node wrapper assumes you are using the tree component as `SortableTreeWithoutDndContext`
+
+
 ## Browser Compatibility
 
 | Browser | Works? |
@@ -117,6 +211,9 @@ After cloning the repository and running `npm install` inside, you can use the f
 # Starts a webpack dev server that hosts a demo page with the component.
 # It uses react-hot-loader so changes are reflected on save.
 npm start
+
+# This script will start a webpack dev server for the external nodes demo.
+npm run external-nodes-demo
 
 # Lints the code with eslint and my custom rules.
 npm run lint

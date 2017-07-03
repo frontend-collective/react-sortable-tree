@@ -5,9 +5,12 @@
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production webpack --config webpack.config.umd.babel.js --bail",
     "build:demo": "npm run clean:demo && cross-env NODE_ENV=production webpack --config webpack.config.demo.babel.js --bail",
+    "build:external": "npm run clean:demo && cross-env NODE_ENV=production webpack --config webpack.config.external.babel.js --bail",
     "clean": "rimraf dist/umd",
     "clean:demo": "rimraf build",
+    "clean:external": "rimraf build",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.babel.js",
+    "external-nodes-demo": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev-external.babel.js",
     "lint": "eslint src",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
     "test": "cross-env NODE_ENV=test karma start --single-run",

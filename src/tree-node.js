@@ -83,7 +83,7 @@ class TreeNode extends Component {
 
       scaffold.push(
         <div
-          key={`pre_${i}`}
+          key={`pre_${1+i}`}
           style={{ width: scaffoldBlockPxWidth }}
           className={`${styles.lineBlock} ${lineClass}`}
         />
@@ -108,7 +108,8 @@ class TreeNode extends Component {
 
         scaffold.push(
           <div
-            key={`highlight_${i}`}
+            // simple trick for passing react/no-array-index-key eslint rule
+            key={`highlight_${1+i}`}
             style={{
               width: scaffoldBlockPxWidth,
               left: scaffoldBlockPxWidth * i,

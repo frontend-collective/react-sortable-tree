@@ -23,6 +23,7 @@ describe('<SortableTree />', () => {
       'render'
     ).and.callFake(function renderOverride() {
       return (
+        // eslint-disable-next-line
         <div ref={this._setRef}>
           {this.props.children({ width: 200, height: 99999 })}
         </div>
