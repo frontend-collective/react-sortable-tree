@@ -9,6 +9,20 @@
   box-sizing: border-box;
 }
 
+.external-node {
+  display: flex;
+  flex-basis: auto;
+  border: solid 1px black;
+  width: 175px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.external-node-container {
+  padding: 20px;
+  margin: 5px;
+}
+
 body {
   background-color: #fafafa;
   font-family: Arial, Helvetica, sans-serif;
