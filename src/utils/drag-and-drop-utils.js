@@ -42,6 +42,8 @@ const externalSource = {
       },
       path: [],
       type: 'rst__NewItem',
+      parentNode: null,
+      treeIndex: -1, // Use -1 to indicate external node
     };
   },
 
@@ -143,8 +145,10 @@ function canDrop(dropTargetProps, monitor, component) {
       node,
       prevPath: monitor.getItem().path,
       prevParent: monitor.getItem().parentNode,
+      prevTreeIndex: monitor.getItem().treeIndex, // Equals -1 when dragged from external tree
       nextPath: addedResult.path,
       nextParent: addedResult.parentNode,
+      nextTreeIndex: addedResult.treeIndex,
     });
   }
 
