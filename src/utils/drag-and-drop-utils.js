@@ -41,8 +41,8 @@ const externalSource = {
         ...props.node,
       },
       path: [],
-      type: 'NewItem'
-    }
+      type: 'rst__NewItem',
+    };
   },
 
   endDrag(props, monitor) {
@@ -68,24 +68,23 @@ function getTargetDepth(dropTargetProps, monitor, component) {
   }
 
   let blocksOffset;
-  if (monitor.getItem().type !== 'NewItem') {
-    blocksOffset = Math.round(
-      monitor.getDifferenceFromInitialOffset().x /
-      dropTargetProps.scaffoldBlockPxWidth
-    );
-  } else if (monitor.getItem().type === 'NewItem') {
+  if (monitor.getItem().type === 'rst__NewItem') {
+    // Add new node from external source
     if (component) {
       const relativePosition = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
-      const leftShift = monitor.getSourceClientOffset().x - relativePosition.left;
+      const leftShift =
+        monitor.getSourceClientOffset().x - relativePosition.left;
       blocksOffset = Math.round(
-        leftShift /
-        dropTargetProps.scaffoldBlockPxWidth
+        leftShift / dropTargetProps.scaffoldBlockPxWidth
       );
     } else {
       blocksOffset = dropTargetProps.path.length;
     }
   } else {
-    blocksOffset = 0;
+    blocksOffset = Math.round(
+      monitor.getDifferenceFromInitialOffset().x /
+        dropTargetProps.scaffoldBlockPxWidth
+    );
   }
 
   let targetDepth = Math.min(
