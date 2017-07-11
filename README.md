@@ -48,7 +48,7 @@ treeData                  | object[]       |                     |   yes    | Tr
 onChange                  | func           |                     |   yes    | Called whenever tree data changed. Just like with React input elements, you have to update your own component's data to see the changes reflected.<div>`( treeData: object[] ): void`</div>
 style                     | object         | `{}`                |          | Style applied to the container wrapping the tree (style defaults to {height: '100%'})
 className                 | string         |                     |          | Class name for the container wrapping the tree
-dndType                 | string        |                     |          | String value used by [react-dnd](http://react-dnd.github.io/react-dnd/docs-overview.html) (see overview at the link) for dropTargets and dragSources types. If not set explicitly, a default value is applied by react-sortable-tree for you for it's internal use. __NOTE:__ Must be explicitly set and the same value used in order for correct functioning of external nodes
+dndType                 | string        |                     |          | String value used by [react-dnd](http://react-dnd.github.io/react-dnd/docs-overview.html) (see overview at the link) for dropTargets and dragSources types. If not set explicitly, a default value is applied by react-sortable-tree for you for its internal use. __NOTE:__ Must be explicitly set and the same value used in order for correct functioning of external nodes
 innerStyle                | object         | `{}`                |          | Style applied to the inner, scrollable container (for padding, etc.)
 maxDepth                  | number         |                     |          | Maximum depth nodes can be inserted at. Defaults to infinite.
 searchMethod              | func           |                     |          | The method used to search nodes. Defaults to a function that uses the `searchQuery` string to search for nodes with matching `title` or `subtitle` values. NOTE: Changing `searchMethod` will not update the search, but changing the `searchQuery` will.<div>`({ node: object, path: number[] or string[], treeIndex: number, searchQuery: any }): bool`</div>
@@ -116,7 +116,6 @@ import React, { Component } from 'react'
 import {SortableTree as SortableTreeWithoutDndContext} from 'react-sortable-tree'
 import YourExternalNodeComponent from './YourExternalNodeComponent.js'
 
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -125,23 +124,19 @@ class App extends Component {
     this.dropCancelled = this.dropCancelled.bind(this);
     
     this.state = {
-      treeData: [{...}],
-      // just an example node
-      node: {
-        'title':'I am a title',
-        'subtitle': 'some cool subtitle'
-      }
+      treeData: [
+        { title: 'node1' },
+        { title: 'node2' },
+      ],
     }
-
   }
 
   dropCancelled() {
-    this.setState({ 
-      treeData: this.state.treeData.map(item => ({ 
-        ...item, update: Math.random() })) 
-      });
+    // Update the tree appearance post-drag
+    this.setState({
+      treeData: this.state.treeData.concat(),
+    });
   }
-
 
   addNewItem(newItem) {
     // insertNode is a helper function from tree-data-utils.js
@@ -151,7 +146,7 @@ class App extends Component {
       depth: newItem.depth,
       minimumTreeIndex: newItem.minimumTreeIndex,
       expandParent: true,
-      getNodeKey: (treeIndex) => treeIndex,
+      getNodeKey: ({ treeIndex }) => treeIndex,
     });
     this.setState({ treeData });
   }
@@ -165,7 +160,11 @@ render () {
       </div>
       <div className='external-nodes-container'>
         <YourExternalNodeComponent 
-          node={this.state.node}
+          // just an example external node
+          node={{
+            title: 'I am a title',
+            subtitle: 'some cool subtitle',
+          }}
           addNewItem={this.addNewItem}
           dropCancelled={this.dropCancelled}
         />

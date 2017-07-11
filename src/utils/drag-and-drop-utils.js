@@ -4,8 +4,8 @@ import {
   DropTarget as dropTarget,
 } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { getDepth } from './tree-data-utils';
 import { memoizedInsertNode } from './memoized-tree-data-utils';
@@ -18,7 +18,7 @@ const nodeDragSource = {
       node: props.node,
       parentNode: props.parentNode,
       path: props.path,
-      treeIndex: props.treeIndex
+      treeIndex: props.treeIndex,
     };
   },
 
@@ -31,14 +31,14 @@ const nodeDragSource = {
     const draggedNode = props.node;
 
     return draggedNode === dropTargetNode;
-  }
+  },
 };
 
 const externalSource = {
   beginDrag(props) {
     return {
       node: {
-        ...props.node
+        ...props.node,
       },
       path: [],
       type: 'NewItem'
@@ -47,21 +47,26 @@ const externalSource = {
 
   endDrag(props, monitor) {
     if (!monitor.didDrop()) {
-      props.dropCancelled()
+      props.dropCancelled();
     } else {
-      props.addNewItem(monitor.getDropResult())
+      props.addNewItem(monitor.getDropResult());
     }
-  }
+  },
 };
 
 function getTargetDepth(dropTargetProps, monitor, component) {
   let dropTargetDepth = 0;
   const draggedItem = monitor.getItem();
+
   const rowAbove = dropTargetProps.getPrevRow();
   if (rowAbove) {
     // Limit the length of the path to the deepest possible
-    dropTargetDepth = Math.min(rowAbove.path.length, dropTargetProps.path.length);
+    dropTargetDepth = Math.min(
+      rowAbove.path.length,
+      dropTargetProps.path.length
+    );
   }
+
   let blocksOffset;
   if (monitor.getItem().type !== 'NewItem') {
     blocksOffset = Math.round(
@@ -83,14 +88,23 @@ function getTargetDepth(dropTargetProps, monitor, component) {
     blocksOffset = 0;
   }
 
-  let targetDepth = Math.min(dropTargetDepth, Math.max(0, draggedItem.path.length + blocksOffset - 1));
+  let targetDepth = Math.min(
+    dropTargetDepth,
+    Math.max(0, draggedItem.path.length + blocksOffset - 1)
+  );
 
   // If a maxDepth is defined, constrain the target depth
-  if (typeof dropTargetProps.maxDepth !== 'undefined' && dropTargetProps.maxDepth !== null) {
+  if (
+    typeof dropTargetProps.maxDepth !== 'undefined' &&
+    dropTargetProps.maxDepth !== null
+  ) {
     const draggedNode = monitor.getItem().node;
     const draggedChildDepth = getDepth(draggedNode);
 
-    targetDepth = Math.min(targetDepth, dropTargetProps.maxDepth - draggedChildDepth - 1);
+    targetDepth = Math.min(
+      targetDepth,
+      dropTargetProps.maxDepth - draggedChildDepth - 1
+    );
   }
 
   return targetDepth;
@@ -108,7 +122,10 @@ function canDrop(dropTargetProps, monitor, component) {
 
   // Cannot drop if we're adding to the children of the row above and
   //  the row above is a function
-  if (targetDepth >= abovePath.length && typeof aboveNode.children === 'function') {
+  if (
+    targetDepth >= abovePath.length &&
+    typeof aboveNode.children === 'function'
+  ) {
     return false;
   }
 
@@ -148,12 +165,11 @@ const nodeDropTarget = {
   hover(dropTargetProps, monitor, component) {
     const targetDepth = getTargetDepth(dropTargetProps, monitor, component);
     const draggedNode = monitor.getItem().node;
-    const needsRedraw = (
+    const needsRedraw =
       // Redraw if hovered above different nodes
       dropTargetProps.node !== draggedNode ||
       // Or hovered above the same node but at a different depth
-      targetDepth !== (dropTargetProps.path.length - 1)
-    );
+      targetDepth !== dropTargetProps.path.length - 1;
 
     if (!needsRedraw) {
       return;
@@ -170,12 +186,12 @@ const nodeDropTarget = {
   canDrop,
 };
 
-function externalSourcePropInjection (connect, monitor) {
+function externalSourcePropInjection(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
   };
-};
+}
 
 function nodeDragSourcePropInjection(connect, monitor) {
   return {
@@ -196,29 +212,40 @@ function nodeDropTargetPropInjection(connect, monitor) {
   };
 }
 
-export function dndWrapExternalSource (UserComponent, type) {
+export function dndWrapExternalSource(UserComponent, type) {
   class DndWrapExternalSource extends React.Component {
     render() {
       return this.props.connectDragSource(
-        <div><UserComponent {...this.props}/></div>, { dropEffect: 'copy'}
-      )
+        <div>
+          <UserComponent {...this.props} />
+        </div>,
+        { dropEffect: 'copy' }
+      );
     }
   }
 
   // these defaultProps must be passed to the custom external node component as props
   DndWrapExternalSource.defaultProps = {
-    dropCanceled () {	    
-      throw new Error('External Nodes must define dropCanceled prop function')	
+    dropCanceled() {
+      throw new Error('External Nodes must define dropCanceled prop function');
     },
-    addNewItem () {
-      throw new Error('External Nodes must define addNewItem prop function')
-    }
-  }
+    addNewItem() {
+      throw new Error('External Nodes must define addNewItem prop function');
+    },
+  };
 
   DndWrapExternalSource.propTypes = {
-    connectDragSource: PropTypes.func.isRequired
+    connectDragSource: PropTypes.func.isRequired,
+    /* eslint-disable react/no-unused-prop-types */
+    // The following are called within the react-dnd lifecycle hooks
+    dropCanceled: PropTypes.func.isRequired,
+    addNewItem: PropTypes.func.isRequired,
+    /* eslint-enable react/no-unused-prop-types */
   };
-  return dragSource(type,externalSource,externalSourcePropInjection)(DndWrapExternalSource)
+
+  return dragSource(type, externalSource, externalSourcePropInjection)(
+    DndWrapExternalSource
+  );
 }
 
 export function dndWrapSource(el, type) {
