@@ -206,7 +206,6 @@ class ReactSortableTree extends Component {
       this.ignoreOneTreeUpdate = true; // Prevents infinite loop
       onChange(expandedTreeData);
     }
-    console.log('ctodo((((varName2))))'); // eslint-disable-line no-console
 
     if (searchFinishCallback) {
       searchFinishCallback(searchMatches);
