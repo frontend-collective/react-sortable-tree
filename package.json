@@ -12,6 +12,7 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.babel.js",
     "external-nodes-demo": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev-external.babel.js",
     "lint": "eslint src",
+    "prettier": "prettier --single-quote --trailing-comma es5 --write \"src/**/*.js\"",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
     "test": "cross-env NODE_ENV=test karma start --single-run",
     "test:watch": "cross-env NODE_ENV=test karma start",
