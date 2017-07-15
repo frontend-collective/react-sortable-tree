@@ -368,9 +368,8 @@ class ReactSortableTree extends Component {
     const nodeProps = !generateNodeProps
       ? {}
       : generateNodeProps(callbackParams);
-    const rowCanDrag = typeof canDrag !== 'function'
-      ? canDrag
-      : canDrag(callbackParams);
+    const rowCanDrag =
+      typeof canDrag !== 'function' ? canDrag : canDrag(callbackParams);
 
     return (
       <TreeNodeRenderer
@@ -427,9 +426,10 @@ class ReactSortableTree extends Component {
     });
 
     // Seek to the focused search result if there is one specified
-    const scrollToInfo = searchFocusTreeIndex !== null
-      ? { scrollToIndex: searchFocusTreeIndex }
-      : {};
+    const scrollToInfo =
+      searchFocusTreeIndex !== null
+        ? { scrollToIndex: searchFocusTreeIndex }
+        : {};
 
     let containerStyle = style;
     let list;
@@ -478,9 +478,10 @@ class ReactSortableTree extends Component {
           row,
           index,
           {
-            height: typeof rowHeight !== 'function'
-              ? rowHeight
-              : rowHeight({ index }),
+            height:
+              typeof rowHeight !== 'function'
+                ? rowHeight
+                : rowHeight({ index }),
           },
           () => rows[index - 1] || null,
           matchKeys

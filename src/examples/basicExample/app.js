@@ -91,7 +91,6 @@ class App extends Component {
                   >
                     Any Component
                   </div>
-
                   &nbsp;can be used for `title`
                 </div>
               ),
@@ -137,7 +136,7 @@ class App extends Component {
             {
               title:
                 'When node contents are really long, it will cause a horizontal scrollbar' +
-                  ' to appear. Deeply nested elements will also trigger the scrollbar.',
+                ' to appear. Deeply nested elements will also trigger the scrollbar.',
             },
           ],
         },
@@ -198,16 +197,18 @@ class App extends Component {
 
     const selectPrevMatch = () =>
       this.setState({
-        searchFocusIndex: searchFocusIndex !== null
-          ? (searchFoundCount + searchFocusIndex - 1) % searchFoundCount
-          : searchFoundCount - 1,
+        searchFocusIndex:
+          searchFocusIndex !== null
+            ? (searchFoundCount + searchFocusIndex - 1) % searchFoundCount
+            : searchFoundCount - 1,
       });
 
     const selectNextMatch = () =>
       this.setState({
-        searchFocusIndex: searchFocusIndex !== null
-          ? (searchFocusIndex + 1) % searchFoundCount
-          : 0,
+        searchFocusIndex:
+          searchFocusIndex !== null
+            ? (searchFocusIndex + 1) % searchFoundCount
+            : 0,
       });
 
     const isVirtualized = true;
@@ -216,7 +217,9 @@ class App extends Component {
     return (
       <div>
         <section className={styles['page-header']}>
-          <h1 className={styles['project-name']}>{projectName}</h1>
+          <h1 className={styles['project-name']}>
+            {projectName}
+          </h1>
 
           <h2 className={styles['project-tagline']}>
             Drag-and-drop sortable representation of hierarchical data
@@ -225,15 +228,8 @@ class App extends Component {
 
         <section className={styles['main-content']}>
           <h3>Demo</h3>
-
-          <button onClick={this.expandAll}>
-            Expand All
-          </button>
-
-          <button onClick={this.collapseAll}>
-            Collapse All
-          </button>
-
+          <button onClick={this.expandAll}>Expand All</button>
+          <button onClick={this.collapseAll}>Collapse All</button>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <form
             style={{ display: 'inline-block' }}
@@ -243,7 +239,6 @@ class App extends Component {
           >
             <label htmlFor="find-box">
               Search:&nbsp;
-
               <input
                 id="find-box"
                 type="text"
@@ -276,7 +271,6 @@ class App extends Component {
               {searchFoundCount || 0}
             </span>
           </form>
-
           <div style={treeContainerStyle}>
             <SortableTree
               treeData={treeData}
@@ -299,9 +293,8 @@ class App extends Component {
               searchFinishCallback={matches =>
                 this.setState({
                   searchFoundCount: matches.length,
-                  searchFocusIndex: matches.length > 0
-                    ? searchFocusIndex % matches.length
-                    : 0,
+                  searchFocusIndex:
+                    matches.length > 0 ? searchFocusIndex % matches.length : 0,
                 })}
               isVirtualized={isVirtualized}
               generateNodeProps={rowInfo => ({
@@ -318,9 +311,7 @@ class App extends Component {
               })}
             />
           </div>
-
           <a href={githubUrl}>Documentation on Github</a>
-
           <footer className={styles['site-footer']}>
             <span className={styles['site-footer-owner']}>
               <a href={githubUrl}>{projectName}</a> is maintained by{' '}
