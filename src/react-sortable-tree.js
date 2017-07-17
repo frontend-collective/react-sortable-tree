@@ -141,7 +141,10 @@ class ReactSortableTree extends Component {
     }
   }
 
-  moveNode({ node, depth, minimumTreeIndex }) {
+  moveNode(input) {
+    const {node, depth, minimumTreeIndex} = input;
+    const prevPath = input.path;
+
     const { treeData, treeIndex, path } = insertNode({
       treeData: this.state.draggingTreeData,
       newNode: node,
@@ -154,7 +157,7 @@ class ReactSortableTree extends Component {
     this.props.onChange(treeData);
 
     if (this.props.onMoveNode) {
-      this.props.onMoveNode({ treeData, node, treeIndex, path });
+      this.props.onMoveNode({ treeData, node, treeIndex, path, prevPath});
     }
   }
 
