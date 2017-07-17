@@ -229,8 +229,8 @@ export function dndWrapExternalSource(UserComponent, type) {
 
   // these defaultProps must be passed to the custom external node component as props
   DndWrapExternalSource.defaultProps = {
-    dropCanceled() {
-      throw new Error('External Nodes must define dropCanceled prop function');
+    dropCancelled() {
+      throw new Error('External Nodes must define dropCancelled prop function');
     },
     addNewItem() {
       throw new Error('External Nodes must define addNewItem prop function');
@@ -241,7 +241,7 @@ export function dndWrapExternalSource(UserComponent, type) {
     connectDragSource: PropTypes.func.isRequired,
     /* eslint-disable react/no-unused-prop-types */
     // The following are called within the react-dnd lifecycle hooks
-    dropCanceled: PropTypes.func.isRequired,
+    dropCancelled: PropTypes.func.isRequired,
     addNewItem: PropTypes.func.isRequired,
     /* eslint-enable react/no-unused-prop-types */
   };
