@@ -79,6 +79,7 @@ const config = {
 
 switch (target) {
   case 'umd':
+    // Exclude library dependencies from the bundle
     config.externals = [
       nodeExternals({
         // load non-javascript files with extensions, presumably via loaders
@@ -87,6 +88,10 @@ switch (target) {
     ];
     break;
   case 'development':
+  case 'developmentExternal': {
+    const exampleDir =
+      target === 'development' ? 'basicExample' : 'externalNodeExample';
+
     config.devtool = 'eval';
     config.module.rules.push({
       test: /\.(jpe?g|png|gif|ico|svg)$/,
@@ -95,7 +100,7 @@ switch (target) {
     });
     config.entry = [
       'react-hot-loader/patch',
-      './src/examples/basicExample/index',
+      `./src/examples/${exampleDir}/index`,
     ];
     config.output = {
       path: path.join(__dirname, 'build'),
@@ -104,7 +109,7 @@ switch (target) {
     config.plugins = [
       new HtmlWebpackPlugin({
         inject: true,
-        template: './src/examples/basicExample/index.html',
+        template: `./src/examples/${exampleDir}/index.html`,
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
       new webpack.NoEmitOnErrorsPlugin(),
@@ -112,16 +117,11 @@ switch (target) {
     config.devServer = {
       contentBase: path.join(__dirname, 'build'),
       port: process.env.PORT || 3001,
-      stats: {
-        chunks: false,
-        hash: false,
-        version: false,
-        assets: false,
-        children: false,
-      },
+      stats: 'minimal',
     };
 
     break;
+  }
   case 'demo':
     config.module.rules.push({
       test: /\.(jpe?g|png|gif|ico|svg)$/,
