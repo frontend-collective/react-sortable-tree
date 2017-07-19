@@ -1,3 +1,0 @@
-# Disable linting in root directory
-**/*.js
-!src/**/*.js

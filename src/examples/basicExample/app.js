@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import SortableTree, { toggleExpandedForAll } from '../../index';
 import styles from './stylesheets/app.scss';
 import '../shared/favicon/apple-touch-icon.png';
@@ -342,4 +341,4 @@ class App extends Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+export default App;
