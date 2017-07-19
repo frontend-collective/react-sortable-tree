@@ -15,8 +15,7 @@
     "lint": "eslint src",
     "prettier": "prettier --single-quote --trailing-comma es5 --write \"src/**/*.js\"",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
-    "test": "cross-env NODE_ENV=test karma start --single-run",
-    "test:watch": "cross-env NODE_ENV=test karma start",
+    "test": "jest",
     "deploy": "npm run build:demo && gh-pages -d build"
   },
   "main": "dist/main.js",
@@ -33,6 +32,20 @@
     "Chris Fritz"
   ],
   "license": "MIT",
+  "jest": {
+    "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|scss|less)$": "identity-obj-proxy"
+    }
+  },
   "dependencies": {
     "lodash.isequal": "^4.4.0",
     "prop-types": "^15.5.8",
@@ -50,6 +63,7 @@
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-eslint": "^7.0.0",
+    "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-polyfill": "^6.23.0",
@@ -68,17 +82,10 @@
     "file-loader": "^0.11.2",
     "gh-pages": "^1.0.0",
     "html-webpack-plugin": "^2.29.0",
-    "jasmine-core": "^2.6.4",
-    "jasmine-enzyme": "^3.5.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^20.0.4",
+    "jest-enzyme": "^3.5.3",
     "json-loader": "^0.5.4",
-    "karma": "^1.1.2",
-    "karma-jasmine": "^1.0.2",
-    "karma-jasmine-diff-reporter": "^1.1.0",
-    "karma-jasmine-html-reporter": "^0.2.2",
-    "karma-notify-reporter": "^1.0.1",
-    "karma-phantomjs-launcher": "^1.0.1",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^2.0.4",
     "node-sass": "^4.0.0",
     "postcss-loader": "^2.0.6",
     "prettier": "^1.5.3",

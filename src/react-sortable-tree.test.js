@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
-import jasmineEnzyme from 'jasmine-enzyme';
 
 import { List, AutoSizer } from 'react-virtualized';
 import SortableTree from './react-sortable-tree';
@@ -13,14 +12,12 @@ import defaultNodeRendererStyles from './node-renderer-default.scss';
 
 describe('<SortableTree />', () => {
   beforeEach(() => {
-    jasmineEnzyme(); // Add extra matchers like .toHaveStyle() to jasmine
-
     // Keep react-virtualized's AutoSizer component from hiding everything in
     // enzyme's rendering environment (which has no height/width, apparently)
-    spyOn(
+    jest.spyOn(
       AutoSizer.prototype,
       'render'
-    ).and.callFake(function renderOverride() {
+    ).mockImplementation(function renderOverride() {
       return (
         // eslint-disable-next-line
         <div ref={this._setRef}>
