@@ -240,7 +240,8 @@ export function dndWrapExternalSource(UserComponent, type) {
   DndWrapExternalSource.propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     /* eslint-disable react/no-unused-prop-types */
-    // The following are called within the react-dnd lifecycle hooks
+    // The following are used within the react-dnd lifecycle hooks
+    node: PropTypes.shape({}).isRequired,
     dropCancelled: PropTypes.func.isRequired,
     addNewItem: PropTypes.func.isRequired,
     /* eslint-enable react/no-unused-prop-types */
