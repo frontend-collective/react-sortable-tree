@@ -97,32 +97,31 @@ To use your own components as external nodes, you can call `dndWrapExternalSourc
 import React, { Component } from 'react'
 import { dndWrapExternalSource } from 'react-sortable-tree';
 
-class YourExternalNodeComponent extends Component {
+const YourExternalNodeComponent = ({ node }) =>
+  <div>{node.title}</div>;
 
-  render() {
-    return (<div className='some-class'>{this.props.node.title}</div>);
-  }
-}
-
+export const externalNodeType = 'yourNodeType';
 
 // this will wrap your external node component as a valid react-dnd DragSource
-export default dndWrapExternalSource(YourExternalNodeComponent, 'NEW_NODE');
+export default dndWrapExternalSource(YourExternalNodeComponent, externalNodeType);
 ```
 
 __NOTE:__ You need to implement a `dropCancelled` method and an `addNewItem` method, passed as props to your external node component from your parent component, so that your tree-component can effectively respond to your external node. Check out the external node demo for an example implementation. A simple example below:
 
 ```jsx
 import React, { Component } from 'react'
-import {SortableTree as SortableTreeWithoutDndContext} from 'react-sortable-tree'
-import YourExternalNodeComponent from './YourExternalNodeComponent.js'
+import {
+  SortableTreeWithoutDndContext as SortableTree,
+  insertNode,
+} from 'react-sortable-tree'
+import YourExternalNodeComponent, {
+  externalNodeType,
+} from './YourExternalNodeComponent.js'
 
 class App extends Component {
   constructor(props) {
     super(props)
 
-    this.addNewItem = this.addNewItem.bind(this);
-    this.dropCancelled = this.dropCancelled.bind(this);
-    
     this.state = {
       treeData: [
         { title: 'node1' },
@@ -131,48 +130,39 @@ class App extends Component {
     }
   }
 
-  dropCancelled() {
-    // Update the tree appearance post-drag
-    this.setState({
-      treeData: this.state.treeData.concat(),
-    });
-  }
+  render() {
+    return (
+      <div>
+        <div style={{ height: 200 }}>
+          <SortableTree
+            treeData={this.state.treeData}
+            onChange={treeData => this.setState({ treeData })}
+            dndType={externalNodeType}
+          />
+        </div>
 
-  addNewItem(newItem) {
-    // insertNode is a helper function from tree-data-utils.js
-    const { treeData } = insertNode({
-      treeData: this.state.treeData,
-      newNode: newItem.node,
-      depth: newItem.depth,
-      minimumTreeIndex: newItem.minimumTreeIndex,
-      expandParent: true,
-      getNodeKey: ({ treeIndex }) => treeIndex,
-    });
-    this.setState({ treeData });
-  }
-}
-
-render () {
-  return (
-    <div className='app-container'>
-      <div className='tree-container'>
-        <SortableTree {...props} />
-      </div>
-      <div className='external-nodes-container'>
         <YourExternalNodeComponent 
-          // just an example external node
-          node={{
-            title: 'I am a title',
-            subtitle: 'some cool subtitle',
+          node={{ title: 'I am an external node' }}
+          addNewItem={(newItem) => {
+            const { treeData } = insertNode({
+              treeData: this.state.treeData,
+              newNode: newItem.node,
+              depth: newItem.depth,
+              minimumTreeIndex: newItem.minimumTreeIndex,
+              expandParent: true,
+              getNodeKey: ({ treeIndex }) => treeIndex,
+            });
+            this.setState({ treeData });
           }}
-          addNewItem={this.addNewItem}
-          dropCancelled={this.dropCancelled}
+          // Update the tree appearance post-drag
+          dropCancelled={() => this.setState(state => ({
+            treeData: state.treeData.concat(),
+          }))}
         />
       </div>
-    </div>
-  )
+    )
+  }
 }
-
 ```
 
 
