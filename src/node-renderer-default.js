@@ -36,7 +36,9 @@ class NodeRendererDefault extends Component {
       className,
       style,
       didDrop,
+      treeID,
       /* eslint-disable no-unused-vars */
+      dropCancelled: _dropCancelled,
       isOver: _isOver, // Not needed, but preserved for other renderers
       parentNode: _parentNode, // Needed for drag-and-drop utils
       endDrag: _endDrag, // Needed for drag-and-drop utils
@@ -149,6 +151,7 @@ class NodeRendererDefault extends Component {
                           treeIndex,
                         })
                       : node.title}
+                      {`  \u279E  path: [${path}] treeIndex: ${treeIndex}`}
                   </span>
 
                   {node.subtitle &&
@@ -193,6 +196,7 @@ NodeRendererDefault.defaultProps = {
   parentNode: null,
   draggedNode: null,
   canDrop: false,
+  dropCancelled: null
 };
 
 NodeRendererDefault.propTypes = {
@@ -209,6 +213,7 @@ NodeRendererDefault.propTypes = {
   buttons: PropTypes.arrayOf(PropTypes.node),
   className: PropTypes.string,
   style: PropTypes.shape({}),
+  treeID: PropTypes.string.isRequired,
 
   // Drag and drop API functions
   // Drag source
@@ -219,6 +224,7 @@ NodeRendererDefault.propTypes = {
   endDrag: PropTypes.func.isRequired, // Needed for drag-and-drop utils
   isDragging: PropTypes.bool.isRequired,
   didDrop: PropTypes.bool.isRequired,
+  dropCancelled: PropTypes.func,
   draggedNode: PropTypes.shape({}),
   // Drop target
   isOver: PropTypes.bool.isRequired,

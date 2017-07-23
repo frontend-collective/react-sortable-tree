@@ -1,5 +1,647 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Advanced Drag and drop between Trees 1`] = `
+<div>
+  <div>
+    <div
+      style={
+        Object {
+          "borderBottom": "1px solid black ",
+          "height": 250,
+        }
+      }
+    >
+      <div
+        className="tree"
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+      >
+        <div>
+          <div
+            aria-label="grid"
+            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            id={undefined}
+            onScroll={[Function]}
+            role="grid"
+            style={
+              Object {
+                "WebkitOverflowScrolling": "touch",
+                "boxSizing": "border-box",
+                "direction": "ltr",
+                "height": 99999,
+                "overflowX": "hidden",
+                "overflowY": "hidden",
+                "position": "relative",
+                "width": 200,
+                "willChange": "transform",
+              }
+            }
+            tabIndex={0}
+          >
+            <div
+              className="ReactVirtualized__Grid__innerScrollContainer"
+              style={
+                Object {
+                  "height": 186,
+                  "maxHeight": 186,
+                  "maxWidth": 200,
+                  "overflow": "hidden",
+                  "pointerEvents": "",
+                  "position": "relative",
+                  "width": "auto",
+                }
+              }
+            >
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 0,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div>
+                      <button
+                        aria-label="Collapse"
+                        className="collapseButton"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "left": -22,
+                          }
+                        }
+                        type="button"
+                      />
+                      <div
+                        className="lineChildren"
+                        style={
+                          Object {
+                            "width": 44,
+                          }
+                        }
+                      />
+                    </div>
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle rowTitleWithSubtitle"
+                            >
+                              node1
+                                ➞  path: [0] treeIndex: 0
+                            </span>
+                            <span
+                              className="rowSubtitle"
+                            >
+                              treeOne
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 62,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineFullVertical"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 88,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle rowTitleWithSubtitle"
+                            >
+                              child1
+                                ➞  path: [0,1] treeIndex: 1
+                            </span>
+                            <span
+                              className="rowSubtitle"
+                            >
+                              treeOne
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 124,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle rowTitleWithSubtitle"
+                            >
+                              node2
+                                ➞  path: [2] treeIndex: 2
+                            </span>
+                            <span
+                              className="rowSubtitle"
+                            >
+                              treeOne
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "height": 250,
+        }
+      }
+    >
+      <div
+        className="tree"
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+      >
+        <div>
+          <div
+            aria-label="grid"
+            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            id={undefined}
+            onScroll={[Function]}
+            role="grid"
+            style={
+              Object {
+                "WebkitOverflowScrolling": "touch",
+                "boxSizing": "border-box",
+                "direction": "ltr",
+                "height": 99999,
+                "overflowX": "hidden",
+                "overflowY": "hidden",
+                "position": "relative",
+                "width": 200,
+                "willChange": "transform",
+              }
+            }
+            tabIndex={0}
+          >
+            <div
+              className="ReactVirtualized__Grid__innerScrollContainer"
+              style={
+                Object {
+                  "height": 186,
+                  "maxHeight": 186,
+                  "maxWidth": 200,
+                  "overflow": "hidden",
+                  "pointerEvents": "",
+                  "position": "relative",
+                  "width": "auto",
+                }
+              }
+            >
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 0,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div>
+                      <button
+                        aria-label="Collapse"
+                        className="collapseButton"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "left": -22,
+                          }
+                        }
+                        type="button"
+                      />
+                      <div
+                        className="lineChildren"
+                        style={
+                          Object {
+                            "width": 44,
+                          }
+                        }
+                      />
+                    </div>
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle rowTitleWithSubtitle"
+                            >
+                              node1
+                                ➞  path: [0] treeIndex: 0
+                            </span>
+                            <span
+                              className="rowSubtitle"
+                            >
+                              treeTwo
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 62,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineFullVertical"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 88,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle rowTitleWithSubtitle"
+                            >
+                              child1
+                                ➞  path: [0,1] treeIndex: 1
+                            </span>
+                            <span
+                              className="rowSubtitle"
+                            >
+                              treeTwo
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 124,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle rowTitleWithSubtitle"
+                            >
+                              node2
+                                ➞  path: [2] treeIndex: 2
+                            </span>
+                            <span
+                              className="rowSubtitle"
+                            >
+                              treeTwo
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <a
+    href="https://github.com/fritz-c/react-sortable-tree/tree/master/examples/storybooks/multiple-trees.js"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    View source
+  </a>
+</div>
+`;
+
 exports[`Storyshots Advanced Drag from external source 1`] = `
 <div>
   <div>
@@ -113,6 +755,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                               className="rowTitle"
                             >
                               node1
+                                ➞  path: [0] treeIndex: 0
                             </span>
                           </div>
                           <div
@@ -183,6 +826,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                               className="rowTitle"
                             >
                               node2
+                                ➞  path: [1] treeIndex: 1
                             </span>
                           </div>
                           <div
@@ -366,6 +1010,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                               className="rowTitle"
                             >
                               Chicken
+                                ➞  path: [0] treeIndex: 0
                             </span>
                           </div>
                           <div
@@ -444,6 +1089,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                               className="rowTitle"
                             >
                               Egg
+                                ➞  path: [0,1] treeIndex: 1
                             </span>
                           </div>
                           <div
@@ -585,6 +1231,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                               className="rowTitle"
                             >
                               Peter Olofsson
+                                ➞  path: [0] treeIndex: 0
                             </span>
                           </div>
                           <div
@@ -674,6 +1321,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                               className="rowTitle"
                             >
                               Karl Johansson
+                                ➞  path: [1] treeIndex: 1
                             </span>
                           </div>
                           <div
@@ -859,6 +1507,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                             className="rowTitle"
                           >
                             Chicken
+                              ➞  path: [0] treeIndex: 0
                           </span>
                         </div>
                         <div
@@ -937,6 +1586,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                             className="rowTitle"
                           >
                             Egg
+                              ➞  path: [0,1] treeIndex: 1
                           </span>
                         </div>
                         <div

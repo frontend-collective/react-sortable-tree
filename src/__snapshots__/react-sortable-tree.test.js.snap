@@ -102,7 +102,9 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
                     >
                       <span
                         className="rowTitle"
-                      />
+                      >
+                          ➞  path: [0] treeIndex: 0
+                      </span>
                     </div>
                     <div
                       className="rowToolbar"
