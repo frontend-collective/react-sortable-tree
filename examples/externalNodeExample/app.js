@@ -4,11 +4,11 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import {
   SortableTreeWithoutDndContext as SortableTree,
   toggleExpandedForAll,
-} from '../../index';
+  defaultGetNodeKey,
+  insertNode,
+} from '../../src/index';
 import styles from './stylesheets/app.scss';
 import ExternalNode from './ExternalNode';
-import { defaultGetNodeKey } from './../../utils/default-handlers';
-import { insertNode } from './../../utils/tree-data-utils';
 
 import '../shared/favicon/apple-touch-icon.png';
 import '../shared/favicon/favicon-16x16.png';

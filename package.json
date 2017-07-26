@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production TARGET=umd webpack --bail",
     "build:demo": "npm run clean:demo && cross-env NODE_ENV=production TARGET=demo webpack --bail",
-    "clean": "rimraf dist/umd",
+    "clean": "rimraf dist",
     "clean:demo": "rimraf build",
     "start": "cross-env NODE_ENV=development TARGET=development webpack-dev-server --inline --hot",
     "external-nodes-demo": "cross-env NODE_ENV=development TARGET=developmentExternal webpack-dev-server --inline --hot",

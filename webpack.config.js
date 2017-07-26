@@ -61,12 +61,12 @@ const config = {
       {
         test: /\.jsx?$/,
         use: ['babel-loader'],
-        include: path.join(__dirname, 'src'),
+        exclude: path.join(__dirname, 'node_modules'),
       },
       {
         test: /\.scss$/,
         use: [styleLoader, cssLoader(true), postcssLoader, 'sass-loader'],
-        include: path.join(__dirname, 'src'),
+        exclude: path.join(__dirname, 'node_modules'),
       },
       {
         // Used for importing css from external modules (react-virtualized, etc.)
@@ -96,11 +96,11 @@ switch (target) {
     config.module.rules.push({
       test: /\.(jpe?g|png|gif|ico|svg)$/,
       use: [fileLoader],
-      include: path.join(__dirname, 'src'),
+      exclude: path.join(__dirname, 'node_modules'),
     });
     config.entry = [
       'react-hot-loader/patch',
-      `./src/examples/${exampleDir}/index`,
+      `./examples/${exampleDir}/index`,
     ];
     config.output = {
       path: path.join(__dirname, 'build'),
@@ -109,7 +109,7 @@ switch (target) {
     config.plugins = [
       new HtmlWebpackPlugin({
         inject: true,
-        template: `./src/examples/${exampleDir}/index.html`,
+        template: `./examples/${exampleDir}/index.html`,
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
       new webpack.NoEmitOnErrorsPlugin(),
@@ -126,9 +126,9 @@ switch (target) {
     config.module.rules.push({
       test: /\.(jpe?g|png|gif|ico|svg)$/,
       use: [fileLoader],
-      include: path.join(__dirname, 'src'),
+      exclude: path.join(__dirname, 'node_modules'),
     });
-    config.entry = './src/examples/basicExample/index';
+    config.entry = './examples/basicExample/index';
     config.output = {
       path: path.join(__dirname, 'build'),
       filename: 'static/[name].js',
@@ -136,7 +136,7 @@ switch (target) {
     config.plugins = [
       new HtmlWebpackPlugin({
         inject: true,
-        template: './src/examples/basicExample/index.html',
+        template: './examples/basicExample/index.html',
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: 'production' }),
       new webpack.optimize.UglifyJsPlugin({
