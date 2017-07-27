@@ -7,11 +7,7 @@
 ### [Demo](https://fritz-c.github.io/react-sortable-tree/)
 [![demo](https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif)](https://fritz-c.github.io/react-sortable-tree/)
 
-### Features
-
-- Works right out of the box, but is highly customizable
-
-## Example
+## Usage
 
 ```jsx
 import React, { Component } from 'react';
@@ -37,8 +33,8 @@ export default class Tree extends Component {
     );
   }
 }
-
 ```
+Find more examples in the [Storybook](https://fritz-c.github.io/react-sortable-tree/storybook/)
 
 ## Options
 
