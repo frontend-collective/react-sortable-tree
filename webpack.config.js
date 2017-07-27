@@ -88,20 +88,13 @@ switch (target) {
     ];
     break;
   case 'development':
-  case 'developmentExternal': {
-    const exampleDir =
-      target === 'development' ? 'basic-example' : 'externalNodeExample';
-
     config.devtool = 'eval';
     config.module.rules.push({
       test: /\.(jpe?g|png|gif|ico|svg)$/,
       use: [fileLoader],
       exclude: path.join(__dirname, 'node_modules'),
     });
-    config.entry = [
-      'react-hot-loader/patch',
-      `./examples/${exampleDir}/index`,
-    ];
+    config.entry = ['react-hot-loader/patch', './examples/basic-example/index'];
     config.output = {
       path: path.join(__dirname, 'build'),
       filename: 'static/[name].js',
@@ -109,7 +102,7 @@ switch (target) {
     config.plugins = [
       new HtmlWebpackPlugin({
         inject: true,
-        template: `./examples/${exampleDir}/index.html`,
+        template: './examples/basic-example/index.html',
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
       new webpack.NoEmitOnErrorsPlugin(),
@@ -121,7 +114,6 @@ switch (target) {
     };
 
     break;
-  }
   case 'demo':
     config.module.rules.push({
       test: /\.(jpe?g|png|gif|ico|svg)$/,
