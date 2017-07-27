@@ -14,5 +14,6 @@ const render = Component => {
 
 /* eslint-disable global-require, import/newline-after-import */
 render(require('./app').default);
-if (module.hot) module.hot.accept('./app', () => render(require('./app').default));
+if (module.hot)
+  module.hot.accept('./app', () => render(require('./app').default));
 /* eslint-enable global-require, import/newline-after-import */

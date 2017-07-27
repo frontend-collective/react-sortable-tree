@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import SortableTree, {
-  addNodeUnderParent,
-  removeNodeAtPath,
-} from '../../src';
+import SortableTree, { addNodeUnderParent, removeNodeAtPath } from '../../src';
 
 const firstNames = [
   'Abraham',

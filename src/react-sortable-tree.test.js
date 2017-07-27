@@ -14,17 +14,16 @@ describe('<SortableTree />', () => {
   beforeEach(() => {
     // Keep react-virtualized's AutoSizer component from hiding everything in
     // enzyme's rendering environment (which has no height/width, apparently)
-    jest.spyOn(
-      AutoSizer.prototype,
-      'render'
-    ).mockImplementation(function renderOverride() {
-      return (
-        // eslint-disable-next-line
-        <div ref={this._setRef}>
-          {this.props.children({ width: 200, height: 99999 })}
-        </div>
-      );
-    });
+    jest
+      .spyOn(AutoSizer.prototype, 'render')
+      .mockImplementation(function renderOverride() {
+        return (
+          // eslint-disable-next-line
+          <div ref={this._setRef}>
+            {this.props.children({ width: 200, height: 99999 })}
+          </div>
+        );
+      });
   });
 
   it('should render nodes for flat data', () => {
