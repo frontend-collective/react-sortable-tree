@@ -311,6 +311,8 @@ class App extends Component {
             />
           </div>
           <a href={githubUrl}>Documentation on Github</a>
+          <br />
+          <a href="storybook/index.html">More examples on Storybook</a>
           <footer className={styles['site-footer']}>
             <span className={styles['site-footer-owner']}>
               <a href={githubUrl}>{projectName}</a> is maintained by{' '}

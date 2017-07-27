@@ -90,7 +90,7 @@ switch (target) {
   case 'development':
   case 'developmentExternal': {
     const exampleDir =
-      target === 'development' ? 'basicExample' : 'externalNodeExample';
+      target === 'development' ? 'basic-example' : 'externalNodeExample';
 
     config.devtool = 'eval';
     config.module.rules.push({
@@ -128,7 +128,7 @@ switch (target) {
       use: [fileLoader],
       exclude: path.join(__dirname, 'node_modules'),
     });
-    config.entry = './examples/basicExample/index';
+    config.entry = './examples/basic-example/index';
     config.output = {
       path: path.join(__dirname, 'build'),
       filename: 'static/[name].js',
@@ -136,7 +136,7 @@ switch (target) {
     config.plugins = [
       new HtmlWebpackPlugin({
         inject: true,
-        template: './examples/basicExample/index.html',
+        template: './examples/basic-example/index.html',
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: 'production' }),
       new webpack.optimize.UglifyJsPlugin({
