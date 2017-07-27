@@ -15,7 +15,7 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "deploy": "npm run build:demo && gh-pages -d build",
-    "storybook": "cross-env TARGET=development start-storybook -p 3001",
+    "storybook": "cross-env TARGET=development start-storybook -p 3001 -h 0.0.0.0",
     "build-storybook": "cross-env NODE_ENV=production TARGET=demo build-storybook -o build/storybook"
   },
   "main": "dist/main.js",
@@ -96,6 +96,7 @@
     "react": "^15.6.1",
     "react-addons-shallow-compare": "^15.3.0",
     "react-addons-test-utils": "^15.4.1",
+    "react-dnd-touch-backend": "^0.3.12",
     "react-dom": "^15.6.1",
     "react-hot-loader": "^3.0.0-beta.7",
     "react-test-renderer": "^15.6.1",

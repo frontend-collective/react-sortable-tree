@@ -6,6 +6,7 @@ import { storiesOf } from '@storybook/react';
 import BarebonesExample from './barebones';
 import AddRemoveExample from './add-remove';
 import ExternalNodeExample from './external-node';
+import TouchSupportExample from './touch-support';
 
 const wrapWithSource = (node, src) =>
   <div>
@@ -19,12 +20,18 @@ const wrapWithSource = (node, src) =>
     </a>
   </div>;
 
-storiesOf('Basics', module).add('Minimal implementation', () =>
-  wrapWithSource(<BarebonesExample />, 'barebones.js')
-).add('Add and remove nodes programmatically', () =>
-  wrapWithSource(<AddRemoveExample />, 'add-remove.js')
-);
+storiesOf('Basics', module)
+  .add('Minimal implementation', () =>
+    wrapWithSource(<BarebonesExample />, 'barebones.js')
+  )
+  .add('Add and remove nodes programmatically', () =>
+    wrapWithSource(<AddRemoveExample />, 'add-remove.js')
+  );
 
-storiesOf('Advanced', module).add('Drag from external source', () =>
-  wrapWithSource(<ExternalNodeExample />, 'external-node.js')
-);
+storiesOf('Advanced', module)
+  .add('Drag from external source', () =>
+    wrapWithSource(<ExternalNodeExample />, 'external-node.js')
+  )
+  .add('Touch support (Experimental)', () =>
+    wrapWithSource(<TouchSupportExample />, 'touch-support.js')
+  );
