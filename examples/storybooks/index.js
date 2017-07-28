@@ -15,6 +15,8 @@ const wrapWithSource = (node, src) =>
     <br />
     <a
       href={`https://github.com/fritz-c/react-sortable-tree/tree/master/examples/storybooks/${src}`}
+      target="_blank"
+      rel="noopener noreferrer"
     >
       View source
     </a>
