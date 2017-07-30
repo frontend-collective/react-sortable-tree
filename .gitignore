@@ -2,6 +2,7 @@ node_modules
 npm-debug.log
 yarn.lock
 coverage
+cc-test-reporter
 
 # Editor and other tmp files
 *.swp
