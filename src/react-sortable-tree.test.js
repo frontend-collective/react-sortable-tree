@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
-
-import { List, AutoSizer } from 'react-virtualized';
+import { List } from 'react-virtualized';
 import SortableTree from './react-sortable-tree';
 import sortableTreeStyles from './react-sortable-tree.scss';
 import TreeNode from './tree-node';
@@ -11,19 +11,12 @@ import DefaultNodeRenderer from './node-renderer-default';
 import defaultNodeRendererStyles from './node-renderer-default.scss';
 
 describe('<SortableTree />', () => {
-  beforeEach(() => {
-    // Keep react-virtualized's AutoSizer component from hiding everything in
-    // enzyme's rendering environment (which has no height/width, apparently)
-    jest
-      .spyOn(AutoSizer.prototype, 'render')
-      .mockImplementation(function renderOverride() {
-        return (
-          // eslint-disable-next-line
-          <div ref={this._setRef}>
-            {this.props.children({ width: 200, height: 99999 })}
-          </div>
-        );
-      });
+  it('should render tree correctly', () => {
+    const tree = renderer
+      .create(<SortableTree treeData={[{}]} onChange={() => {}} />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
   });
 
   it('should render nodes for flat data', () => {

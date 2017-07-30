@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SortableTree /> should render tree correctly 1`] = `
+<div
+  className="tree"
+  style={
+    Object {
+      "height": "100%",
+    }
+  }
+>
+  <div>
+    <div
+      aria-label="grid"
+      className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+      id={undefined}
+      onScroll={[Function]}
+      role="grid"
+      style={
+        Object {
+          "WebkitOverflowScrolling": "touch",
+          "boxSizing": "border-box",
+          "direction": "ltr",
+          "height": 99999,
+          "overflowX": "hidden",
+          "overflowY": "hidden",
+          "position": "relative",
+          "width": 200,
+          "willChange": "transform",
+        }
+      }
+      tabIndex={0}
+    >
+      <div
+        className="ReactVirtualized__Grid__innerScrollContainer"
+        style={
+          Object {
+            "height": 62,
+            "maxHeight": 62,
+            "maxWidth": 200,
+            "overflow": "hidden",
+            "pointerEvents": "",
+            "position": "relative",
+            "width": "auto",
+          }
+        }
+      >
+        <div
+          className="node"
+          style={
+            Object {
+              "height": 62,
+              "left": 0,
+              "position": "absolute",
+              "top": 0,
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            className="lineBlock lineHalfHorizontalRight"
+            style={
+              Object {
+                "width": 44,
+              }
+            }
+          />
+          <div
+            className="nodeContent"
+            style={
+              Object {
+                "left": 44,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            >
+              <div
+                className="rowWrapper"
+              >
+                <div
+                  className="row"
+                  style={
+                    Object {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <div
+                    className="moveHandle"
+                  />
+                  <div
+                    className="rowContents"
+                  >
+                    <div
+                      className="rowLabel"
+                    >
+                      <span
+                        className="rowTitle"
+                      />
+                    </div>
+                    <div
+                      className="rowToolbar"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
