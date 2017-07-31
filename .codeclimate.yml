@@ -1,11 +1,6 @@
 engines:
   eslint:
     enabled: true
-    config:
-      config: ./.eslintrc.json
-      complexity:
-        - error
-        - 6
-      max-statements:
-        - error
-        - 30
+    checks:
+      import/extensions:
+        enabled: false
