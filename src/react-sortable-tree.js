@@ -25,7 +25,7 @@ import {
   find,
 } from './utils/tree-data-utils';
 import { memoizedInsertNode } from './utils/memoized-tree-data-utils';
-import { swapRows } from './utils/generic-utils';
+import { slideRows } from './utils/generic-utils';
 import {
   defaultGetNodeKey,
   defaultSearchMethod,
@@ -259,7 +259,7 @@ class ReactSortableTree extends Component {
     const swapTo = minimumTreeIndex;
     const swapLength = 1 + getDescendantCount({ node: draggedNode });
     this.setState({
-      rows: swapRows(rows, swapFrom, swapTo, swapLength),
+      rows: slideRows(rows, swapFrom, swapTo, swapLength),
       swapFrom,
       swapLength,
       swapDepth: depth,

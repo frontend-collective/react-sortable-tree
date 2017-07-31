@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-export function swapRows(rows, fromIndex, toIndex, count = 1) {
+export function slideRows(rows, fromIndex, toIndex, count = 1) {
   const rowsWithoutMoved = [
     ...rows.slice(0, fromIndex),
     ...rows.slice(fromIndex + count),
