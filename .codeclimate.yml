@@ -1,0 +1,10 @@
+eslint:
+  enabled: true
+  config:
+    config: ./.eslintrc.json
+    complexity:
+      - error
+      - 6
+    max-statements:
+      - error
+      - 30
