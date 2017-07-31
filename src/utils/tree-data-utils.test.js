@@ -13,6 +13,7 @@ import {
   getDepth,
   getDescendantCount,
   find,
+  toggleExpandedForAll,
 } from './tree-data-utils';
 
 const keyFromTreeIndex = ({ treeIndex }) => treeIndex;
@@ -2158,5 +2159,38 @@ describe('find', () => {
       ],
     });
     expect(result.matches.length).toEqual(0);
+  });
+});
+
+describe('toggleExpandedForAll', () => {
+  it('should expand all', () => {
+    expect(
+      toggleExpandedForAll({
+        treeData: [{ children: [{ children: [{}] }] }],
+      })
+    ).toEqual([
+      {
+        expanded: true,
+        children: [{ expanded: true, children: [{ expanded: true }] }],
+      },
+    ]);
+  });
+  it('should collapse all', () => {
+    expect(
+      toggleExpandedForAll({
+        expanded: false,
+        treeData: [
+          {
+            expanded: true,
+            children: [{ expanded: true, children: [{ expanded: true }] }],
+          },
+        ],
+      })
+    ).toEqual([
+      {
+        expanded: false,
+        children: [{ expanded: false, children: [{ expanded: false }] }],
+      },
+    ]);
   });
 });
