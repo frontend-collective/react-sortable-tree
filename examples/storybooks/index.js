@@ -7,6 +7,7 @@ import BarebonesExample from './barebones';
 import AddRemoveExample from './add-remove';
 import ExternalNodeExample from './external-node';
 import TouchSupportExample from './touch-support';
+import MultipleTrees from './multiple-trees'
 
 const wrapWithSource = (node, src) =>
   <div>
@@ -36,4 +37,7 @@ storiesOf('Advanced', module)
   )
   .add('Touch support (Experimental)', () =>
     wrapWithSource(<TouchSupportExample />, 'touch-support.js')
+  )
+  .add('Drag and drop between Trees', () =>
+    wrapWithSource(<MultipleTrees />, 'multiple-trees.js')
   );

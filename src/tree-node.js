@@ -17,7 +17,9 @@ class TreeNode extends Component {
       draggedNode,
       canDrop,
       treeIndex,
+      treeID,
       /* eslint-disable no-unused-vars */
+      dropOnOtherTree,
       customCanDrop: _customCanDrop, // Delete from otherProps
       dragHover: _dragHover, // Delete from otherProps
       getNodeKey: _getNodeKey, // Delete from otherProps
@@ -166,12 +168,14 @@ TreeNode.propTypes = {
 
   listIndex: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
+  treeID: PropTypes.string.isRequired,
 
   // Drop target
   connectDropTarget: PropTypes.func.isRequired,
   isOver: PropTypes.bool.isRequired,
   canDrop: PropTypes.bool,
   draggedNode: PropTypes.shape({}),
+  dropOnOtherTree: PropTypes.func.isRequired,
 
   customCanDrop: PropTypes.func, // used in drag-and-drop-utils
   dragHover: PropTypes.func.isRequired, // used in drag-and-drop-utils

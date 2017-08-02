@@ -16,6 +16,7 @@ const nodeDragSource = {
 
     return {
       node: props.node,
+      treeID: props.treeID,      
       parentNode: props.parentNode,
       path: props.path,
       treeIndex: props.treeIndex,
@@ -23,7 +24,13 @@ const nodeDragSource = {
   },
 
   endDrag(props, monitor) {
-    props.endDrag(monitor.getDropResult());
+    
+    // assumes only one tree with the same dndType if dropCancelled prop not given
+    if (!monitor.didDrop() && props.dropCancelled) {
+      props.dropCancelled()
+    } else {
+      props.endDrag({dragFromTreeID:props.treeID, ...monitor.getDropResult()})      
+    }
   },
 
   isDragging(props, monitor) {
@@ -157,8 +164,19 @@ function canDrop(dropTargetProps, monitor, component) {
 
 const nodeDropTarget = {
   drop(dropTargetProps, monitor, component) {
+    if (monitor.getItem().treeID !== dropTargetProps.treeID ) {
+      // just making sure the dropped node is not an external node when 
+      // dragging nodes between trees
+      if (monitor.getItem().type !== 'rst__NewItem') {
+        dropTargetProps.dropOnOtherTree({
+          depth:getTargetDepth(dropTargetProps,monitor,component),
+          ...dropTargetProps
+        })
+      }
+    }
     return {
       node: monitor.getItem().node,
+      treeID: dropTargetProps.treeID,
       path: monitor.getItem().path,
       minimumTreeIndex: dropTargetProps.treeIndex,
       depth: getTargetDepth(dropTargetProps, monitor, component),

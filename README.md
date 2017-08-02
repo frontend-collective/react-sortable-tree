@@ -45,6 +45,7 @@ onChange                  | func           |                     |   yes    | Ca
 style                     | object         | `{}`                |          | Style applied to the container wrapping the tree (style defaults to {height: '100%'})
 className                 | string         |                     |          | Class name for the container wrapping the tree
 dndType                 | string        |                     |          | String value used by [react-dnd](http://react-dnd.github.io/react-dnd/docs-overview.html) (see overview at the link) for dropTargets and dragSources types. If not set explicitly, a default value is applied by react-sortable-tree for you for its internal use. __NOTE:__ Must be explicitly set and the same value used in order for correct functioning of external nodes
+dropCancelled                | func         |                |          | The method used to correctly update each tree in a multi-tree parent component for a cancelled drop event. This method is only necessary if multiple trees all have the same `dndType` and are thus expected to interact. __NOTE:__ the `dropCancelled` method is essentially the `onChange` prop for _all_ `treeData` objects of _all_ the trees involved for multi-tree dragging and dropping.
 innerStyle                | object         | `{}`                |          | Style applied to the inner, scrollable container (for padding, etc.)
 maxDepth                  | number         |                     |          | Maximum depth nodes can be inserted at. Defaults to infinite.
 searchMethod              | func           |                     |          | The method used to search nodes. Defaults to a function that uses the `searchQuery` string to search for nodes with matching `title` or `subtitle` values. NOTE: Changing `searchMethod` will not update the search, but changing the `searchQuery` will.<div>`({ node: object, path: number[] or string[], treeIndex: number, searchQuery: any }): bool`</div>
@@ -164,6 +165,85 @@ class App extends Component {
 
 In addition, the external node wrapper assumes you are using the tree component as `SortableTreeWithoutDndContext`
 
+## Drag and Drop Between Trees
+
+To drag and drop between multiple trees, each tree should have the same `dndType` prop and each tree should have the same `dropCancelled` method given to it. For example:
+
+```jsx
+import React, { Component } from 'react'
+import {SortableTreeWithoutDndContext as SortableTree} from 'react-sortable-tree'
+
+
+class App extends Component {
+
+  constructor(props) {
+    super(props)
+
+    ...
+
+    this.dropCancelled = this.dropCancelled.bind(this)
+
+    ...
+
+    this.state = {
+
+      // treeData object for tree #1
+      treeDataOne: [
+        {
+          {title: 'node one', subtitle: 'tree one'}
+        }
+      ],
+      // treeData object for tree #2
+      treeDataTwo: [
+        {
+          {title: 'node one', subtitle: 'tree two'}
+        }
+      ]
+    }
+  }
+
+  ...
+
+    dropCancelled () {
+    // cancel drop event handler for all RST trees if no valid dropTargets, for
+    // clean 'reset' of treeData object on an invalid drop. This is nothing more 
+    // than the typical onChange prop you'd normally give a single RST tree, 
+    // but is designed for all RST trees that can interact, meaning
+    // multiple trees with the same dndType prop passed to them
+    this.setState(state => ({
+      treeDataOne: state.treeDataOne.concat(),
+      treeDataTwo: state.treeDataTwo.concat(),
+    }))
+  }
+
+  ...
+
+  render() {
+    return (
+      <div>
+
+        <SortableTree
+          treeData={this.state.treeDataOne}
+          dndType={'SAME_DND_TYPE'}
+          dropCancelled={this.dropCancelled}
+          props={...props}
+        />
+        <SortableTree
+          treeData={this.state.treeDataTwo}
+          dndType={'SAME_DND_TYPE'}
+          dropCancelled={this.dropCancelled}
+          props={...props}
+        />
+      </div>
+    )
+  }
+}
+
+
+
+```
+
+The multi-tree drag and drop feature expects `SortableTree` to be imported via `SortableTreeWithoutDndContext`, as well as trees that are to interact should all also have the same `dndType` prop passed to them.
 
 ## Browser Compatibility
 
