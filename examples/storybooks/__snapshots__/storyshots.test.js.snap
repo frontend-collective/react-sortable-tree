@@ -564,6 +564,19 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                       }
                     }
                   >
+                    <div>
+                      <button
+                        aria-label="Expand"
+                        className="expandButton"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "left": -22,
+                          }
+                        }
+                        type="button"
+                      />
+                    </div>
                     <div
                       className="rowWrapper"
                     >
