@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SortableTree from '../../src';
 
-
 class App extends Component {
   constructor(props) {
     super(props);

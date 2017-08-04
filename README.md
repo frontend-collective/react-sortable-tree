@@ -63,6 +63,7 @@ slideRegionSize           | number         | `100`               |          | Si
 scaffoldBlockPxWidth      | number         | `44`                |          | The width of the blocks containing the lines representing the structure of the tree.
 isVirtualized             | bool           | `true`              |          | Set to false to disable virtualization. __NOTE__: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
 nodeContentRenderer       | any            | NodeRendererDefault |          | Override the default component for rendering nodes (but keep the scaffolding generator) This is an advanced option for complete customization of the appearance. It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
+placeholderRenderer       | any     | PlaceholderRendererDefault |          | Override the default placeholder component which is displayed when the tree is empty. This is an advanced option, and in most cases should probably be solved with custom CSS instead.
 
 ## Data Helper Functions
 

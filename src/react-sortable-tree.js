@@ -15,6 +15,8 @@ import withScrolling, {
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
 import NodeRendererDefault from './node-renderer-default';
+import TreePlaceholder from './tree-placeholder';
+import PlaceholderRendererDefault from './placeholder-renderer-default';
 import {
   walk,
   getFlatDataFromTree,
@@ -34,6 +36,7 @@ import {
   dndWrapRoot,
   dndWrapSource,
   dndWrapTarget,
+  dndWrapPlaceholder,
 } from './utils/drag-and-drop-utils';
 import styles from './react-sortable-tree.scss';
 
@@ -56,6 +59,10 @@ class ReactSortableTree extends Component {
     treeIdCounter += 1;
     this.dndType = dndType || this.treeId;
     this.nodeContentRenderer = dndWrapSource(nodeContentRenderer, this.dndType);
+    this.treePlaceholderRenderer = dndWrapPlaceholder(
+      TreePlaceholder,
+      this.dndType
+    );
     this.treeNodeRenderer = dndWrapTarget(TreeNode, this.dndType);
 
     // Prepare scroll-on-drag options for this list
@@ -492,7 +499,15 @@ class ReactSortableTree extends Component {
 
     let containerStyle = style;
     let list;
-    if (isVirtualized) {
+    if (rows.length < 1) {
+      const Placeholder = this.treePlaceholderRenderer;
+      const PlaceholderContent = this.props.placeholderRenderer;
+      list = (
+        <Placeholder treeId={this.treeId} drop={this.drop}>
+          <PlaceholderContent />
+        </Placeholder>
+      );
+    } else if (isVirtualized) {
       containerStyle = { height: '100%', ...containerStyle };
 
       const ScrollZoneVirtualList = this.scrollZoneVirtualList;
@@ -625,6 +640,12 @@ ReactSortableTree.propTypes = {
   // It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
   nodeContentRenderer: PropTypes.func,
 
+  // Override the default component for rendering an empty tree
+  // This is an advanced option for complete customization of the appearance.
+  // It is best to copy the component in `placeholder-renderer-default.js` to use as a base,
+  // and customize as needed.
+  placeholderRenderer: PropTypes.func,
+
   // Determine the unique key used to identify each node and
   // generate the `path` array passed in callbacks.
   // By default, returns the index in the tree (omitting hidden nodes).
@@ -661,6 +682,7 @@ ReactSortableTree.defaultProps = {
   isVirtualized: true,
   maxDepth: null,
   nodeContentRenderer: NodeRendererDefault,
+  placeholderRenderer: PlaceholderRendererDefault,
   onMoveNode: null,
   onVisibilityToggle: null,
   reactVirtualizedListProps: {},

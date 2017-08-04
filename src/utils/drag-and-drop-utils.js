@@ -174,6 +174,24 @@ const nodeDropTarget = {
   canDrop,
 };
 
+const placeholderDropTarget = {
+  drop(dropTargetProps, monitor) {
+    const { node, path, treeIndex } = monitor.getItem();
+    const result = {
+      node,
+      path,
+      treeIndex,
+      treeId: dropTargetProps.treeId,
+      minimumTreeIndex: 0,
+      depth: 0,
+    };
+
+    dropTargetProps.drop(result);
+
+    return result;
+  },
+};
+
 function nodeDragSourcePropInjection(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
@@ -193,12 +211,26 @@ function nodeDropTargetPropInjection(connect, monitor) {
   };
 }
 
+function placeholderPropInjection(connect, monitor) {
+  const dragged = monitor.getItem();
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop(),
+    draggedNode: dragged ? dragged.node : null,
+  };
+}
+
 export function dndWrapSource(el, type) {
   return dragSource(type, nodeDragSource, nodeDragSourcePropInjection)(el);
 }
 
 export function dndWrapTarget(el, type) {
   return dropTarget(type, nodeDropTarget, nodeDropTargetPropInjection)(el);
+}
+
+export function dndWrapPlaceholder(el, type) {
+  return dropTarget(type, placeholderDropTarget, placeholderPropInjection)(el);
 }
 
 export function dndWrapRoot(el) {
