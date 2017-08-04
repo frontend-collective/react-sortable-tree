@@ -17,18 +17,16 @@ class TreeNode extends Component {
       draggedNode,
       canDrop,
       treeIndex,
-      /* eslint-disable no-unused-vars */
-      customCanDrop: _customCanDrop, // Delete from otherProps
-      dragHover: _dragHover, // Delete from otherProps
-      getNodeKey: _getNodeKey, // Delete from otherProps
-      getPrevRow: _getPrevRow, // Delete from otherProps
-      maxDepth: _maxDepth, // Delete from otherProps
-      node: _node, // Delete from otherProps
-      path: _path, // Delete from otherProps
-      treeData: _treeData, // Delete from otherProps
-      treeId: _treeId, // Delete from otherProps
-      drop: _drop, // Delete from otherProps
-      /* eslint-enable no-unused-vars */
+      customCanDrop, // Delete from otherProps
+      dragHover, // Delete from otherProps
+      getNodeKey, // Delete from otherProps
+      getPrevRow, // Delete from otherProps
+      maxDepth, // Delete from otherProps
+      node, // Delete from otherProps
+      path, // Delete from otherProps
+      treeData, // Delete from otherProps
+      treeId, // Delete from otherProps
+      drop, // Delete from otherProps
       ...otherProps
     } = this.props;
 
