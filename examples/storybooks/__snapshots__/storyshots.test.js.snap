@@ -6,7 +6,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
     <div
       style={
         Object {
-          "height": 250,
+          "height": 300,
         }
       }
     >
@@ -112,7 +112,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                             <span
                               className="rowTitle"
                             >
-                              node1
+                              Mama Rabbit
                             </span>
                           </div>
                           <div
@@ -182,7 +182,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                             <span
                               className="rowTitle"
                             >
-                              node2
+                              Papa Rabbit
                             </span>
                           </div>
                           <div
@@ -199,22 +199,19 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
         </div>
       </div>
     </div>
-    <div>
-      <div
-        style={
-          Object {
-            "background": "blue",
-            "border": "solid black 1px",
-            "color": "white",
-            "display": "inline-block",
-            "padding": "3px 5px",
-          }
+    <div
+      style={
+        Object {
+          "background": "blue",
+          "color": "white",
+          "display": "inline-block",
+          "padding": "3px 5px",
         }
-      >
-        External node
-      </div>
+      }
+    >
+      Baby Rabbit
     </div>
-    ↑ drag this
+    ← drag this
   </div>
   <br />
   <a

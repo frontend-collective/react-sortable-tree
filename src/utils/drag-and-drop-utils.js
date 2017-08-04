@@ -4,8 +4,6 @@ import {
   DropTarget as dropTarget,
 } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import React from 'react';
-import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { getDepth } from './tree-data-utils';
 import { memoizedInsertNode } from './memoized-tree-data-utils';
@@ -35,23 +33,8 @@ const nodeDragSource = {
   },
 };
 
-const externalSource = {
-  beginDrag(props) {
-    return {
-      node: {
-        ...props.node,
-      },
-      path: [],
-      treeId: null,
-      parentNode: null,
-      treeIndex: -1, // Use -1 to indicate external node
-    };
-  },
-};
-
 function getTargetDepth(dropTargetProps, monitor, component) {
   let dropTargetDepth = 0;
-  const draggedItem = monitor.getItem();
 
   const rowAbove = dropTargetProps.getPrevRow();
   if (rowAbove) {
@@ -84,9 +67,10 @@ function getTargetDepth(dropTargetProps, monitor, component) {
     );
   }
 
+  const dragSourcePath = monitor.getItem().path || [];
   let targetDepth = Math.min(
     dropTargetDepth,
-    Math.max(0, draggedItem.path.length + blocksOffset - 1)
+    Math.max(0, dragSourcePath.length + blocksOffset - 1)
   );
 
   // If a maxDepth is defined, constrain the target depth
@@ -190,13 +174,6 @@ const nodeDropTarget = {
   canDrop,
 };
 
-function externalSourcePropInjection(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging(),
-  };
-}
-
 function nodeDragSourcePropInjection(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
@@ -214,31 +191,6 @@ function nodeDropTargetPropInjection(connect, monitor) {
     canDrop: monitor.canDrop(),
     draggedNode: dragged ? dragged.node : null,
   };
-}
-
-export function dndWrapExternalSource(UserComponent, type) {
-  class DndWrapExternalSource extends React.Component {
-    render() {
-      return this.props.connectDragSource(
-        <div>
-          <UserComponent {...this.props} />
-        </div>,
-        { dropEffect: 'copy' }
-      );
-    }
-  }
-
-  DndWrapExternalSource.propTypes = {
-    connectDragSource: PropTypes.func.isRequired,
-    /* eslint-disable react/no-unused-prop-types */
-    // The following are used within the react-dnd lifecycle hooks
-    node: PropTypes.shape({}).isRequired,
-    /* eslint-enable react/no-unused-prop-types */
-  };
-
-  return dragSource(type, externalSource, externalSourcePropInjection)(
-    DndWrapExternalSource
-  );
 }
 
 export function dndWrapSource(el, type) {

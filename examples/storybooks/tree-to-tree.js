@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-// import { DragDropContext } from 'react-dnd';
-// import HTML5Backend from 'react-dnd-html5-backend';
 import SortableTree from '../../src';
-// SortableTreeWithoutDndContext as SortableTree,
-// insertNode,
-// dndWrapExternalSource,
 
-const externalNodeType = 'yourNodeType';
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +16,9 @@ class App extends Component {
   }
 
   render() {
+    // Both trees need to share this same node type in their
+    // `dndType` prop
+    const externalNodeType = 'yourNodeType';
     return (
       <div>
         <div

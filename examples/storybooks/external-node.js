@@ -1,19 +1,31 @@
 import React, { Component } from 'react';
-import { DragDropContext } from 'react-dnd';
+import { DragDropContext, DragSource } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import {
-  SortableTreeWithoutDndContext as SortableTree,
-  dndWrapExternalSource,
-} from '../../src';
+import { SortableTreeWithoutDndContext as SortableTree } from '../../src';
 
+// -------------------------
+// Create an drag source component that can be dragged into the tree
+// https://react-dnd.github.io/react-dnd/docs-drag-source.html
+// -------------------------
+// This type must be assigned to the tree via the `dndType` prop as well
 const externalNodeType = 'yourNodeType';
-
-// this will wrap your external node component as a valid react-dnd DragSource
-const YourExternalNodeComponent = dndWrapExternalSource(
-  ({ node }) =>
+const externalNodeSpec = {
+  // This needs to return an object with a property `node` in it.
+  // Object rest spread is recommended to avoid side effects of
+  // referencing the same object in different trees.
+  beginDrag: componentProps => ({ node: { ...componentProps.node } }),
+};
+const externalNodeCollect = (connect /* , monitor */) => ({
+  connectDragSource: connect.dragSource(),
+  // Add props via react-dnd APIs to enable more visual
+  // customization of your component
+  // isDragging: monitor.isDragging(),
+  // didDrop: monitor.didDrop(),
+});
+const externalNodeBaseComponent = ({ connectDragSource, node }) =>
+  connectDragSource(
     <div
       style={{
-        border: 'solid black 1px',
         display: 'inline-block',
         padding: '3px 5px',
         background: 'blue',
@@ -22,22 +34,27 @@ const YourExternalNodeComponent = dndWrapExternalSource(
     >
       {node.title}
     </div>,
-  externalNodeType
-);
+    { dropEffect: 'copy' }
+  );
+const YourExternalNodeComponent = DragSource(
+  externalNodeType,
+  externalNodeSpec,
+  externalNodeCollect
+)(externalNodeBaseComponent);
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      treeData: [{ title: 'node1' }, { title: 'node2' }],
+      treeData: [{ title: 'Mama Rabbit' }, { title: 'Papa Rabbit' }],
     };
   }
 
   render() {
     return (
       <div>
-        <div style={{ height: 250 }}>
+        <div style={{ height: 300 }}>
           <SortableTree
             treeData={this.state.treeData}
             onChange={treeData => this.setState({ treeData })}
@@ -45,12 +62,12 @@ class App extends Component {
           />
         </div>
         <YourExternalNodeComponent
-          node={{ title: 'External node' }}
+          node={{ title: 'Baby Rabbit' }}
           addNewItem={() => {}}
           // Update the tree appearance post-drag
           dropCancelled={() => {}}
         />
-        ↑ drag this
+        ← drag this
       </div>
     );
   }
