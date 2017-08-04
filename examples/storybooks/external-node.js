@@ -3,7 +3,6 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import {
   SortableTreeWithoutDndContext as SortableTree,
-  insertNode,
   dndWrapExternalSource,
 } from '../../src';
 
@@ -47,22 +46,9 @@ class App extends Component {
         </div>
         <YourExternalNodeComponent
           node={{ title: 'External node' }}
-          addNewItem={newItem => {
-            const { treeData } = insertNode({
-              treeData: this.state.treeData,
-              newNode: newItem.node,
-              depth: newItem.depth,
-              minimumTreeIndex: newItem.minimumTreeIndex,
-              expandParent: true,
-              getNodeKey: ({ treeIndex }) => treeIndex,
-            });
-            this.setState({ treeData });
-          }}
+          addNewItem={() => {}}
           // Update the tree appearance post-drag
-          dropCancelled={() =>
-            this.setState(state => ({
-              treeData: state.treeData.concat(),
-            }))}
+          dropCancelled={() => {}}
         />
         ↑ drag this
       </div>

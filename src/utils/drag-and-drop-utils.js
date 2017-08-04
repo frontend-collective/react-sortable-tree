@@ -19,6 +19,7 @@ const nodeDragSource = {
       parentNode: props.parentNode,
       path: props.path,
       treeIndex: props.treeIndex,
+      treeId: props.treeId,
     };
   },
 
@@ -41,18 +42,10 @@ const externalSource = {
         ...props.node,
       },
       path: [],
-      type: 'rst__NewItem',
+      treeId: null,
       parentNode: null,
       treeIndex: -1, // Use -1 to indicate external node
     };
-  },
-
-  endDrag(props, monitor) {
-    if (!monitor.didDrop()) {
-      props.dropCancelled();
-    } else {
-      props.addNewItem(monitor.getDropResult());
-    }
   },
 };
 
@@ -70,8 +63,8 @@ function getTargetDepth(dropTargetProps, monitor, component) {
   }
 
   let blocksOffset;
-  if (monitor.getItem().type === 'rst__NewItem') {
-    // Add new node from external source
+  // When adding node from external source
+  if (monitor.getItem().treeId !== dropTargetProps.treeId) {
     if (component) {
       const relativePosition = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
       const leftShift =
@@ -113,7 +106,7 @@ function getTargetDepth(dropTargetProps, monitor, component) {
   return targetDepth;
 }
 
-function canDrop(dropTargetProps, monitor, component) {
+function canDrop(dropTargetProps, monitor) {
   if (!monitor.isOver()) {
     return false;
   }
@@ -121,7 +114,7 @@ function canDrop(dropTargetProps, monitor, component) {
   const rowAbove = dropTargetProps.getPrevRow();
   const abovePath = rowAbove ? rowAbove.path : [];
   const aboveNode = rowAbove ? rowAbove.node : {};
-  const targetDepth = getTargetDepth(dropTargetProps, monitor, component);
+  const targetDepth = getTargetDepth(dropTargetProps, monitor, null);
 
   // Cannot drop if we're adding to the children of the row above and
   //  the row above is a function
@@ -159,12 +152,18 @@ function canDrop(dropTargetProps, monitor, component) {
 
 const nodeDropTarget = {
   drop(dropTargetProps, monitor, component) {
-    return {
+    const result = {
       node: monitor.getItem().node,
       path: monitor.getItem().path,
+      treeIndex: monitor.getItem().treeIndex,
+      treeId: dropTargetProps.treeId,
       minimumTreeIndex: dropTargetProps.treeIndex,
       depth: getTargetDepth(dropTargetProps, monitor, component),
     };
+
+    dropTargetProps.drop(result);
+
+    return result;
   },
 
   hover(dropTargetProps, monitor, component) {
@@ -229,23 +228,11 @@ export function dndWrapExternalSource(UserComponent, type) {
     }
   }
 
-  // these defaultProps must be passed to the custom external node component as props
-  DndWrapExternalSource.defaultProps = {
-    dropCancelled() {
-      throw new Error('External Nodes must define dropCancelled prop function');
-    },
-    addNewItem() {
-      throw new Error('External Nodes must define addNewItem prop function');
-    },
-  };
-
   DndWrapExternalSource.propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     /* eslint-disable react/no-unused-prop-types */
     // The following are used within the react-dnd lifecycle hooks
     node: PropTypes.shape({}).isRequired,
-    dropCancelled: PropTypes.func.isRequired,
-    addNewItem: PropTypes.func.isRequired,
     /* eslint-enable react/no-unused-prop-types */
   };
 

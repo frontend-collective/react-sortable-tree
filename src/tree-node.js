@@ -26,6 +26,8 @@ class TreeNode extends Component {
       node: _node, // Delete from otherProps
       path: _path, // Delete from otherProps
       treeData: _treeData, // Delete from otherProps
+      treeId: _treeId, // Delete from otherProps
+      drop: _drop, // Delete from otherProps
       /* eslint-enable no-unused-vars */
       ...otherProps
     } = this.props;
@@ -177,8 +179,10 @@ TreeNode.propTypes = {
   dragHover: PropTypes.func.isRequired, // used in drag-and-drop-utils
   getNodeKey: PropTypes.func.isRequired, // used in drag-and-drop-utils
   getPrevRow: PropTypes.func.isRequired, // used in drag-and-drop-utils
+  drop: PropTypes.func.isRequired, // used in drag-and-drop-utils
   maxDepth: PropTypes.number, // used in drag-and-drop-utils
   treeData: PropTypes.arrayOf(PropTypes.object), // used in drag-and-drop-utils
+  treeId: PropTypes.string.isRequired, // used in drag-and-drop-utils
 };
 
 export default TreeNode;

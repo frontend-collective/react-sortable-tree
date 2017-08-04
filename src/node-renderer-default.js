@@ -41,6 +41,7 @@ class NodeRendererDefault extends Component {
       parentNode: _parentNode, // Needed for drag-and-drop utils
       endDrag: _endDrag, // Needed for drag-and-drop utils
       startDrag: _startDrag, // Needed for drag-and-drop utils
+      treeId: _treeId, // Needed for drag-and-drop utils
       /* eslint-enable no-unused-vars */
       ...otherProps
     } = this.props;
@@ -217,6 +218,7 @@ NodeRendererDefault.propTypes = {
   parentNode: PropTypes.shape({}), // Needed for drag-and-drop utils
   startDrag: PropTypes.func.isRequired, // Needed for drag-and-drop utils
   endDrag: PropTypes.func.isRequired, // Needed for drag-and-drop utils
+  treeId: PropTypes.string.isRequired, // Needed for drag-and-drop utils
   isDragging: PropTypes.bool.isRequired,
   didDrop: PropTypes.bool.isRequired,
   draggedNode: PropTypes.shape({}),

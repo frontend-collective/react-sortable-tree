@@ -472,6 +472,426 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
 </div>
 `;
 
+exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
+<div>
+  <div>
+    <div
+      style={
+        Object {
+          "border": "solid black 1px",
+          "float": "left",
+          "height": 350,
+          "width": 350,
+        }
+      }
+    >
+      <div
+        className="tree"
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+      >
+        <div>
+          <div
+            aria-label="grid"
+            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            id={undefined}
+            onScroll={[Function]}
+            role="grid"
+            style={
+              Object {
+                "WebkitOverflowScrolling": "touch",
+                "boxSizing": "border-box",
+                "direction": "ltr",
+                "height": 99999,
+                "overflowX": "hidden",
+                "overflowY": "hidden",
+                "position": "relative",
+                "width": 200,
+                "willChange": "transform",
+              }
+            }
+            tabIndex={0}
+          >
+            <div
+              className="ReactVirtualized__Grid__innerScrollContainer"
+              style={
+                Object {
+                  "height": 124,
+                  "maxHeight": 124,
+                  "maxWidth": 200,
+                  "overflow": "hidden",
+                  "pointerEvents": "",
+                  "position": "relative",
+                  "width": "auto",
+                }
+              }
+            >
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 0,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle"
+                            >
+                              node1
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 62,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle"
+                            >
+                              node2
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "border": "solid black 1px",
+          "float": "left",
+          "height": 350,
+          "width": 350,
+        }
+      }
+    >
+      <div
+        className="tree"
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+      >
+        <div>
+          <div
+            aria-label="grid"
+            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            id={undefined}
+            onScroll={[Function]}
+            role="grid"
+            style={
+              Object {
+                "WebkitOverflowScrolling": "touch",
+                "boxSizing": "border-box",
+                "direction": "ltr",
+                "height": 99999,
+                "overflowX": "hidden",
+                "overflowY": "hidden",
+                "position": "relative",
+                "width": 200,
+                "willChange": "transform",
+              }
+            }
+            tabIndex={0}
+          >
+            <div
+              className="ReactVirtualized__Grid__innerScrollContainer"
+              style={
+                Object {
+                  "height": 124,
+                  "maxHeight": 124,
+                  "maxWidth": 200,
+                  "overflow": "hidden",
+                  "pointerEvents": "",
+                  "position": "relative",
+                  "width": "auto",
+                }
+              }
+            >
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 0,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle"
+                            >
+                              node3
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 62,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle"
+                            >
+                              node4
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "clear": "both",
+        }
+      }
+    />
+  </div>
+  <br />
+  <a
+    href="https://github.com/fritz-c/react-sortable-tree/tree/master/examples/storybooks/tree-to-tree.js"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    View source
+  </a>
+</div>
+`;
+
 exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
 <div>
   <div>
