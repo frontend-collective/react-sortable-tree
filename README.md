@@ -197,10 +197,14 @@ After cloning the repository and running `npm install` inside, you can use the f
 # It uses react-hot-loader so changes are reflected on save.
 npm start
 
-# This script will start a webpack dev server for the external nodes demo.
-npm run external-nodes-demo
+# Start the storybook, which has several different examples to play with.
+# Also hot-reloaded.
+npm run storybook
 
-# Lints the code with eslint and my custom rules.
+# Runs the library tests
+npm test
+
+# Lints the code with eslint
 npm run lint
 
 # Lints and builds the code, placing the result in the dist directory.
