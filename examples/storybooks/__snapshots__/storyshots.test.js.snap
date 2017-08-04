@@ -215,11 +215,12 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
   </div>
   <br />
   <a
-    href="https://github.com/fritz-c/react-sortable-tree/tree/master/examples/storybooks/external-node.js"
+    className="sourceLink"
+    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/external-node.js"
     rel="noopener noreferrer"
     target="_top"
   >
-    View source
+    VIEW SOURCE →
   </a>
 </div>
 `;
@@ -460,11 +461,12 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
   </div>
   <br />
   <a
-    href="https://github.com/fritz-c/react-sortable-tree/tree/master/examples/storybooks/touch-support.js"
+    className="sourceLink"
+    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/touch-support.js"
     rel="noopener noreferrer"
     target="_top"
   >
-    View source
+    VIEW SOURCE →
   </a>
 </div>
 `;
@@ -893,11 +895,12 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
   </div>
   <br />
   <a
-    href="https://github.com/fritz-c/react-sortable-tree/tree/master/examples/storybooks/tree-to-tree.js"
+    className="sourceLink"
+    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/tree-to-tree.js"
     rel="noopener noreferrer"
     target="_top"
   >
-    View source
+    VIEW SOURCE →
   </a>
 </div>
 `;
@@ -1147,11 +1150,12 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
   </div>
   <br />
   <a
-    href="https://github.com/fritz-c/react-sortable-tree/tree/master/examples/storybooks/add-remove.js"
+    className="sourceLink"
+    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/add-remove.js"
     rel="noopener noreferrer"
     target="_top"
   >
-    View source
+    VIEW SOURCE →
   </a>
 </div>
 `;
@@ -1385,11 +1389,12 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
   </div>
   <br />
   <a
-    href="https://github.com/fritz-c/react-sortable-tree/tree/master/examples/storybooks/barebones.js"
+    className="sourceLink"
+    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/barebones.js"
     rel="noopener noreferrer"
     target="_top"
   >
-    View source
+    VIEW SOURCE →
   </a>
 </div>
 `;
