@@ -8,6 +8,7 @@ import AddRemoveExample from './add-remove';
 import ExternalNodeExample from './external-node';
 import TouchSupportExample from './touch-support';
 import TreeToTreeExample from './tree-to-tree';
+import styles from './generic.scss';
 
 const wrapWithSource = (node, src) =>
   <div>
@@ -15,11 +16,12 @@ const wrapWithSource = (node, src) =>
 
     <br />
     <a
-      href={`https://github.com/fritz-c/react-sortable-tree/tree/master/examples/storybooks/${src}`}
+      href={`https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/${src}`}
       target="_top"
       rel="noopener noreferrer"
+      className={styles.sourceLink}
     >
-      View source
+      VIEW SOURCE →
     </a>
   </div>;
 
