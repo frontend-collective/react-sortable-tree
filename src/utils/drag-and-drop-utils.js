@@ -52,9 +52,8 @@ function getTargetDepth(dropTargetProps, monitor, component) {
       const relativePosition = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
       const leftShift =
         monitor.getSourceClientOffset().x - relativePosition.left;
-      blocksOffset = Math.round(
-        leftShift / dropTargetProps.scaffoldBlockPxWidth
-      );
+      blocksOffset =
+        Math.round(leftShift / dropTargetProps.scaffoldBlockPxWidth) - 1;
     } else {
       blocksOffset = dropTargetProps.path.length;
     }
