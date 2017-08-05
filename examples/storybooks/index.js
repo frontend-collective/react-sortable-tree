@@ -5,6 +5,7 @@ import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
 import BarebonesExample from './barebones';
 import AddRemoveExample from './add-remove';
+import ModifyNodesExample from './modify-nodes';
 import ExternalNodeExample from './external-node';
 import TouchSupportExample from './touch-support';
 import TreeToTreeExample from './tree-to-tree';
@@ -31,6 +32,9 @@ storiesOf('Basics', module)
   )
   .add('Add and remove nodes programmatically', () =>
     wrapWithSource(<AddRemoveExample />, 'add-remove.js')
+  )
+  .add('Modify nodes', () =>
+    wrapWithSource(<ModifyNodesExample />, 'modify-nodes.js')
   );
 
 storiesOf('Advanced', module)

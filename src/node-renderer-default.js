@@ -27,6 +27,8 @@ class NodeRendererDefault extends Component {
       canDrop,
       canDrag,
       node,
+      title,
+      subtitle,
       draggedNode,
       path,
       treeIndex,
@@ -45,6 +47,8 @@ class NodeRendererDefault extends Component {
       /* eslint-enable no-unused-vars */
       ...otherProps
     } = this.props;
+    const nodeTitle = title || node.title;
+    const nodeSubtitle = subtitle || node.subtitle;
 
     let handle;
     if (canDrag) {
@@ -143,24 +147,24 @@ class NodeRendererDefault extends Component {
                       (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
                     }
                   >
-                    {typeof node.title === 'function'
-                      ? node.title({
+                    {typeof nodeTitle === 'function'
+                      ? nodeTitle({
                           node,
                           path,
                           treeIndex,
                         })
-                      : node.title}
+                      : nodeTitle}
                   </span>
 
-                  {node.subtitle &&
+                  {nodeSubtitle &&
                     <span className={styles.rowSubtitle}>
-                      {typeof node.subtitle === 'function'
-                        ? node.subtitle({
+                      {typeof nodeSubtitle === 'function'
+                        ? nodeSubtitle({
                             node,
                             path,
                             treeIndex,
                           })
-                        : node.subtitle}
+                        : nodeSubtitle}
                     </span>}
                 </div>
 
@@ -194,10 +198,14 @@ NodeRendererDefault.defaultProps = {
   parentNode: null,
   draggedNode: null,
   canDrop: false,
+  title: null,
+  subtitle: null,
 };
 
 NodeRendererDefault.propTypes = {
   node: PropTypes.shape({}).isRequired,
+  title: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+  subtitle: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
   path: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,

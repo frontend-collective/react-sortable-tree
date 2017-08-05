@@ -1398,3 +1398,338 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
   </a>
 </div>
 `;
+
+exports[`Storyshots Basics Modify nodes 1`] = `
+<div>
+  <div>
+    <div
+      style={
+        Object {
+          "height": 300,
+        }
+      }
+    >
+      <div
+        className="tree"
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+      >
+        <div>
+          <div
+            aria-label="grid"
+            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            id={undefined}
+            onScroll={[Function]}
+            role="grid"
+            style={
+              Object {
+                "WebkitOverflowScrolling": "touch",
+                "boxSizing": "border-box",
+                "direction": "ltr",
+                "height": 99999,
+                "overflowX": "hidden",
+                "overflowY": "hidden",
+                "position": "relative",
+                "width": 200,
+                "willChange": "transform",
+              }
+            }
+            tabIndex={0}
+          >
+            <div
+              className="ReactVirtualized__Grid__innerScrollContainer"
+              style={
+                Object {
+                  "height": 186,
+                  "maxHeight": 186,
+                  "maxWidth": 200,
+                  "overflow": "hidden",
+                  "pointerEvents": "",
+                  "position": "relative",
+                  "width": "auto",
+                }
+              }
+            >
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 0,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle"
+                            >
+                              <input
+                                onChange={[Function]}
+                                style={
+                                  Object {
+                                    "fontSize": "1.1rem",
+                                  }
+                                }
+                                value="IT Manager"
+                              />
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 62,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div>
+                      <button
+                        aria-label="Collapse"
+                        className="collapseButton"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "left": -22,
+                          }
+                        }
+                        type="button"
+                      />
+                      <div
+                        className="lineChildren"
+                        style={
+                          Object {
+                            "width": 44,
+                          }
+                        }
+                      />
+                    </div>
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle"
+                            >
+                              <input
+                                onChange={[Function]}
+                                style={
+                                  Object {
+                                    "fontSize": "1.1rem",
+                                  }
+                                }
+                                value="Regional Manager"
+                              />
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 124,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="lineBlock "
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="nodeContent"
+                  style={
+                    Object {
+                      "left": 88,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rowWrapper"
+                    >
+                      <div
+                        className="row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="moveHandle"
+                        />
+                        <div
+                          className="rowContents"
+                        >
+                          <div
+                            className="rowLabel"
+                          >
+                            <span
+                              className="rowTitle"
+                            >
+                              <input
+                                onChange={[Function]}
+                                style={
+                                  Object {
+                                    "fontSize": "1.1rem",
+                                  }
+                                }
+                                value="Branch Manager"
+                              />
+                            </span>
+                          </div>
+                          <div
+                            className="rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <a
+    className="sourceLink"
+    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/modify-nodes.js"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW SOURCE →
+  </a>
+</div>
+`;
