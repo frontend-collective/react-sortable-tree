@@ -1,6 +1,6 @@
 {
   "name": "react-sortable-tree",
-  "version": "0.1.21",
+  "version": "1.0.0",
   "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production TARGET=umd webpack --bail",
