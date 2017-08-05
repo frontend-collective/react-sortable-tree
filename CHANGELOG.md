@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.0.0...v1.1.0) (2017-08-05)
+
+
+### Features
+
+* **node-renderer:** Make title and subtitle insertable via props ([fff72c6](https://github.com/fritz-c/react-sortable-tree/commit/fff72c6))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/fritz-c/react-sortable-tree/compare/v0.1.21...v1.0.0) (2017-08-05)
 
