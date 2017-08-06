@@ -6,6 +6,7 @@ import { storiesOf } from '@storybook/react';
 import BarebonesExample from './barebones';
 import AddRemoveExample from './add-remove';
 import ModifyNodesExample from './modify-nodes';
+import SearchExample from './search';
 import ExternalNodeExample from './external-node';
 import TouchSupportExample from './touch-support';
 import TreeToTreeExample from './tree-to-tree';
@@ -35,7 +36,8 @@ storiesOf('Basics', module)
   )
   .add('Modify nodes', () =>
     wrapWithSource(<ModifyNodesExample />, 'modify-nodes.js')
-  );
+  )
+  .add('Search', () => wrapWithSource(<SearchExample />, 'search.js'));
 
 storiesOf('Advanced', module)
   .add('Drag from external source', () =>
