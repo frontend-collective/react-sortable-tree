@@ -46,14 +46,20 @@ function getTargetDepth(dropTargetProps, monitor, component) {
   }
 
   let blocksOffset;
+  let dragSourceInitialDepth = (monitor.getItem().path || []).length;
+
   // When adding node from external source
   if (monitor.getItem().treeId !== dropTargetProps.treeId) {
+    // Ignore the tree depth of the source, if it had any to begin with
+    dragSourceInitialDepth = 0;
+
     if (component) {
       const relativePosition = findDOMNode(component).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
       const leftShift =
         monitor.getSourceClientOffset().x - relativePosition.left;
-      blocksOffset =
-        Math.round(leftShift / dropTargetProps.scaffoldBlockPxWidth) - 1;
+      blocksOffset = Math.round(
+        leftShift / dropTargetProps.scaffoldBlockPxWidth
+      );
     } else {
       blocksOffset = dropTargetProps.path.length;
     }
@@ -64,10 +70,9 @@ function getTargetDepth(dropTargetProps, monitor, component) {
     );
   }
 
-  const dragSourcePath = monitor.getItem().path || [];
   let targetDepth = Math.min(
     dropTargetDepth,
-    Math.max(0, dragSourcePath.length + blocksOffset - 1)
+    Math.max(0, dragSourceInitialDepth + blocksOffset - 1)
   );
 
   // If a maxDepth is defined, constrain the target depth
