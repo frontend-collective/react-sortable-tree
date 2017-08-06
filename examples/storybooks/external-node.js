@@ -61,12 +61,7 @@ class App extends Component {
             dndType={externalNodeType}
           />
         </div>
-        <YourExternalNodeComponent
-          node={{ title: 'Baby Rabbit' }}
-          addNewItem={() => {}}
-          // Update the tree appearance post-drag
-          dropCancelled={() => {}}
-        />
+        <YourExternalNodeComponent node={{ title: 'Baby Rabbit' }} />
         ← drag this
       </div>
     );
