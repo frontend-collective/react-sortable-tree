@@ -3,11 +3,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
-import BarebonesExample from './barebones';
 import AddRemoveExample from './add-remove';
+import BarebonesExample from './barebones';
+import DragOutToRemoveExample from './drag-out-to-remove';
+import ExternalNodeExample from './external-node';
 import ModifyNodesExample from './modify-nodes';
 import SearchExample from './search';
-import ExternalNodeExample from './external-node';
 import TouchSupportExample from './touch-support';
 import TreeToTreeExample from './tree-to-tree';
 import styles from './generic.scss';
@@ -48,4 +49,7 @@ storiesOf('Advanced', module)
   )
   .add('Tree-to-tree dragging', () =>
     wrapWithSource(<TreeToTreeExample />, 'tree-to-tree.js')
+  )
+  .add('Drag out to remove', () =>
+    wrapWithSource(<DragOutToRemoveExample />, 'drag-out-to-remove.js')
   );
