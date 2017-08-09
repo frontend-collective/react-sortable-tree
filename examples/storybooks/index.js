@@ -5,6 +5,7 @@ import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
 import AddRemoveExample from './add-remove';
 import BarebonesExample from './barebones';
+import CanDropExample from './can-drop';
 import DragOutToRemoveExample from './drag-out-to-remove';
 import ExternalNodeExample from './external-node';
 import ModifyNodesExample from './modify-nodes';
@@ -38,6 +39,7 @@ storiesOf('Basics', module)
   .add('Modify nodes', () =>
     wrapWithSource(<ModifyNodesExample />, 'modify-nodes.js')
   )
+  .add('Prevent drop', () => wrapWithSource(<CanDropExample />, 'can-drop.js'))
   .add('Search', () => wrapWithSource(<SearchExample />, 'search.js'));
 
 storiesOf('Advanced', module)
