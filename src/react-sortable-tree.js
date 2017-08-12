@@ -163,13 +163,11 @@ class ReactSortableTree extends Component {
 
     this.props.onChange(treeData);
 
-    if (this.props.onVisibilityToggle) {
-      this.props.onVisibilityToggle({
-        treeData,
-        node: targetNode,
-        expanded: !targetNode.expanded,
-      });
-    }
+    this.props.onVisibilityToggle({
+      treeData,
+      node: targetNode,
+      expanded: !targetNode.expanded,
+    });
   }
 
   moveNode({
@@ -190,18 +188,16 @@ class ReactSortableTree extends Component {
 
     this.props.onChange(treeData);
 
-    if (this.props.onMoveNode) {
-      this.props.onMoveNode({
-        treeData,
-        node,
-        treeIndex,
-        path,
-        nextPath: path,
-        nextTreeIndex: treeIndex,
-        prevPath,
-        prevTreeIndex,
-      });
-    }
+    this.props.onMoveNode({
+      treeData,
+      node,
+      treeIndex,
+      path,
+      nextPath: path,
+      nextTreeIndex: treeIndex,
+      prevPath,
+      prevTreeIndex,
+    });
   }
 
   search(
@@ -334,7 +330,6 @@ class ReactSortableTree extends Component {
       const treeData = this.state.draggingTreeData || this.props.treeData;
       this.props.onChange(treeData);
 
-      if (this.props.onMoveNode) {
         this.props.onMoveNode({
           treeData,
           node,
@@ -682,9 +677,9 @@ ReactSortableTree.defaultProps = {
   isVirtualized: true,
   maxDepth: null,
   nodeContentRenderer: NodeRendererDefault,
+  onMoveNode: () => {},
+  onVisibilityToggle: () => {},
   placeholderRenderer: PlaceholderRendererDefault,
-  onMoveNode: null,
-  onVisibilityToggle: null,
   reactVirtualizedListProps: {},
   rowHeight: 62,
   scaffoldBlockPxWidth: 44,
