@@ -11,6 +11,7 @@ class App extends Component {
         { title: 'node2' },
       ],
       treeData2: [{ title: 'node3' }, { title: 'node4' }],
+      shouldCopyOnOutsideDrop: false,
     };
   }
 
@@ -18,6 +19,7 @@ class App extends Component {
     // Both trees need to share this same node type in their
     // `dndType` prop
     const externalNodeType = 'yourNodeType';
+    const { shouldCopyOnOutsideDrop } = this.state;
     return (
       <div>
         <div
@@ -32,6 +34,7 @@ class App extends Component {
             treeData={this.state.treeData1}
             onChange={treeData1 => this.setState({ treeData1 })}
             dndType={externalNodeType}
+            shouldCopyOnOutsideDrop={shouldCopyOnOutsideDrop}
           />
         </div>
 
@@ -47,10 +50,26 @@ class App extends Component {
             treeData={this.state.treeData2}
             onChange={treeData2 => this.setState({ treeData2 })}
             dndType={externalNodeType}
+            shouldCopyOnOutsideDrop={shouldCopyOnOutsideDrop}
           />
         </div>
 
         <div style={{ clear: 'both' }} />
+
+        <div>
+          <label htmlFor="should-copy" style={{ fontSize: '0.8rem' }}>
+            Enable node copy via <b>shouldCopyOnOutsideDrop</b>:
+            <input
+              type="checkbox"
+              id="should-copy"
+              value={shouldCopyOnOutsideDrop}
+              onChange={event =>
+                this.setState({
+                  shouldCopyOnOutsideDrop: event.target.checked,
+                })}
+            />
+          </label>
+        </div>
       </div>
     );
   }
