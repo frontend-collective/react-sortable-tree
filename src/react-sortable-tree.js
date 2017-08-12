@@ -311,8 +311,7 @@ class ReactSortableTree extends Component {
   }
 
   endDrag(dropResult) {
-    // Drop was cancelled
-    if (!dropResult) {
+    const resetTree = () =>
       this.setState({
         draggingTreeData: null,
         swapFrom: null,
@@ -320,23 +319,47 @@ class ReactSortableTree extends Component {
         swapDepth: null,
         rows: this.getRows(this.props.treeData),
       });
+
+    // Drop was cancelled
+    if (!dropResult) {
+      resetTree();
     } else if (dropResult.treeId !== this.treeId) {
       // The node was dropped in an external drop target or tree
-      const { node, path: prevPath, treeIndex: prevTreeIndex } = dropResult;
-      const treeData = this.state.draggingTreeData || this.props.treeData;
-      this.props.onChange(treeData);
-
-        this.props.onMoveNode({
-          treeData,
+      const { node, path, treeIndex } = dropResult;
+      let shouldCopy = this.props.shouldCopyOnOutsideDrop;
+      if (typeof shouldCopy === 'function') {
+        shouldCopy = shouldCopy({
           node,
-          treeIndex: null,
-          path: null,
-          nextPath: null,
-          nextTreeIndex: null,
-          prevPath,
-          prevTreeIndex,
+          prevTreeIndex: treeIndex,
+          prevPath: path,
         });
       }
+
+      let treeData = this.state.draggingTreeData || this.props.treeData;
+
+      // If copying is enabled, a drop outside leaves behind a copy in the
+      //  source tree
+      if (shouldCopy) {
+        treeData = changeNodeAtPath({
+          treeData: this.props.treeData, // use treeData unaltered by the drag operation
+          path,
+          newNode: ({ node: copyNode }) => ({ ...copyNode }), // create a shallow copy of the node
+          getNodeKey: this.props.getNodeKey,
+        });
+      }
+
+      this.props.onChange(treeData);
+
+      this.props.onMoveNode({
+        treeData,
+        node,
+        treeIndex: null,
+        path: null,
+        nextPath: null,
+        nextTreeIndex: null,
+        prevPath: path,
+        prevTreeIndex: treeIndex,
+      });
     }
   }
 
@@ -644,6 +667,13 @@ ReactSortableTree.propTypes = {
   // Determine whether a node can be dropped based on its path and parents'.
   canDrop: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
 
+  // When true, or a callback returning true, dropping nodes to react-dnd
+  // drop targets outside of this tree will not remove them from this tree
+  shouldCopyOnOutsideDrop: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
+  ]),
+
   // Called after children nodes collapsed or expanded.
   onVisibilityToggle: PropTypes.func,
 
@@ -671,6 +701,7 @@ ReactSortableTree.defaultProps = {
   searchFocusOffset: null,
   searchMethod: null,
   searchQuery: null,
+  shouldCopyOnOutsideDrop: false,
   slideRegionSize: 100,
   style: {},
 };
