@@ -1353,6 +1353,28 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
         }
       }
     />
+    <div>
+      <label
+        htmlFor="should-copy"
+        style={
+          Object {
+            "fontSize": "0.8rem",
+          }
+        }
+      >
+        Enable node copy via 
+        <b>
+          shouldCopyOnOutsideDrop
+        </b>
+        :
+        <input
+          id="should-copy"
+          onChange={[Function]}
+          type="checkbox"
+          value={false}
+        />
+      </label>
+    </div>
   </div>
   <br />
   <a
