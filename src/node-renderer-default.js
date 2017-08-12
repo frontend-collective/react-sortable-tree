@@ -38,13 +38,8 @@ class NodeRendererDefault extends Component {
       className,
       style,
       didDrop,
-      /* eslint-disable no-unused-vars */
-      isOver: _isOver, // Not needed, but preserved for other renderers
-      parentNode: _parentNode, // Needed for drag-and-drop utils
-      endDrag: _endDrag, // Needed for drag-and-drop utils
-      startDrag: _startDrag, // Needed for drag-and-drop utils
-      treeId: _treeId, // Needed for drag-and-drop utils
-      /* eslint-enable no-unused-vars */
+      isOver, // Not needed, but preserved for other renderers
+      parentNode, // Needed for dndManager
       ...otherProps
     } = this.props;
     const nodeTitle = title || node.title;
@@ -223,10 +218,7 @@ NodeRendererDefault.propTypes = {
   // Drag source
   connectDragPreview: PropTypes.func.isRequired,
   connectDragSource: PropTypes.func.isRequired,
-  parentNode: PropTypes.shape({}), // Needed for drag-and-drop utils
-  startDrag: PropTypes.func.isRequired, // Needed for drag-and-drop utils
-  endDrag: PropTypes.func.isRequired, // Needed for drag-and-drop utils
-  treeId: PropTypes.string.isRequired, // Needed for drag-and-drop utils
+  parentNode: PropTypes.shape({}), // Needed for dndManager
   isDragging: PropTypes.bool.isRequired,
   didDrop: PropTypes.bool.isRequired,
   draggedNode: PropTypes.shape({}),
