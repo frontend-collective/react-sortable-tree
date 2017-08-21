@@ -11,8 +11,6 @@ const initialData = [
   { id: '4', name: 'N4', parent: 3 },
 ];
 
-const getNodeKey = ({ node }) => node.id;
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -20,9 +18,9 @@ export default class App extends Component {
     this.state = {
       treeData: getTreeFromFlatData({
         flatData: initialData.map(node => ({ ...node, title: node.name })),
-        getKey: node => node.id,
-        getParentKey: node => node.parent,
-        rootKey: null,
+        getKey: node => node.id, // resolve a node's key
+        getParentKey: node => node.parent, // resolve a node's parent's key
+        rootKey: null, // The value of the parent key when there is no parent (i.e., at root level)
       }),
     };
   }
@@ -30,11 +28,14 @@ export default class App extends Component {
   render() {
     const flatData = getFlatDataFromTree({
       treeData: this.state.treeData,
-      getNodeKey,
-      ignoreCollapsed: false,
+      getNodeKey: ({ node }) => node.id, // This ensures your "id" properties are exported in the path
+      ignoreCollapsed: false, // Makes sure you traverse every node in the tree, not just the visible ones
     }).map(({ node, path }) => ({
       id: node.id,
       name: node.name,
+
+      // The last entry in the path is this node's key
+      // The second to last entry (accessed here) is the parent node's key
       parent: path.length > 1 ? path[path.length - 2] : null,
     }));
 
@@ -45,7 +46,6 @@ export default class App extends Component {
           <SortableTree
             treeData={this.state.treeData}
             onChange={treeData => this.setState({ treeData })}
-            getNodeKey={getNodeKey}
           />
         </div>
         <hr />
