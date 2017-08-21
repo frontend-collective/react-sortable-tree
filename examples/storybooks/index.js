@@ -11,6 +11,7 @@ import ExternalNodeExample from './external-node';
 import ModifyNodesExample from './modify-nodes';
 import SearchExample from './search';
 import TouchSupportExample from './touch-support';
+import TreeDataIOExample from './tree-data-io';
 import TreeToTreeExample from './tree-to-tree';
 import styles from './generic.scss';
 
@@ -32,6 +33,9 @@ const wrapWithSource = (node, src) =>
 storiesOf('Basics', module)
   .add('Minimal implementation', () =>
     wrapWithSource(<BarebonesExample />, 'barebones.js')
+  )
+  .add('treeData import/export', () =>
+    wrapWithSource(<TreeDataIOExample />, 'tree-data-io.js')
   )
   .add('Add and remove nodes programmatically', () =>
     wrapWithSource(<AddRemoveExample />, 'add-remove.js')
