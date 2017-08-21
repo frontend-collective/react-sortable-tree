@@ -35,7 +35,7 @@ export default class App extends Component {
     }).map(({ node, path }) => ({
       id: node.id,
       name: node.name,
-      parent: path.length > 1 ? path[path.length - 1] : null,
+      parent: path.length > 1 ? path[path.length - 2] : null,
     }));
 
     return (
