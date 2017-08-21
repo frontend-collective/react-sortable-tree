@@ -49,7 +49,7 @@ export default class App extends Component {
           />
         </div>
         <hr />
-        ↓This data is generated from the modified tree data↓
+        ↓This flat data is generated from the modified tree data↓
         <ul>
           {flatData.map(({ id, name, parent }) =>
             <li key={id}>
