@@ -83,7 +83,7 @@ class NodeRendererDefault extends Component {
       <div style={{ height: '100%' }} {...otherProps}>
         {toggleChildrenVisibility &&
           node.children &&
-          node.children.length > 0 &&
+          (node.children.length > 0 || typeof node.children === 'function') &&
           <div>
             <button
               type="button"
