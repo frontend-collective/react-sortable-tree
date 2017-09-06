@@ -15,7 +15,7 @@ import TreeDataIOExample from './tree-data-io';
 import TreeToTreeExample from './tree-to-tree';
 import styles from './generic.scss';
 
-const wrapWithSource = (node, src) =>
+const wrapWithSource = (node, src) => (
   <div>
     {node}
 
@@ -28,7 +28,8 @@ const wrapWithSource = (node, src) =>
     >
       VIEW SOURCE →
     </a>
-  </div>;
+  </div>
+);
 
 storiesOf('Basics', module)
   .add('Minimal implementation', () =>

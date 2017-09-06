@@ -51,11 +51,11 @@ export default class App extends Component {
         <hr />
         ↓This flat data is generated from the modified tree data↓
         <ul>
-          {flatData.map(({ id, name, parent }) =>
+          {flatData.map(({ id, name, parent }) => (
             <li key={id}>
               id: {id}, name: {name}, parent: {parent || 'null'}
             </li>
-          )}
+          ))}
         </ul>
       </div>
     );

@@ -82,8 +82,8 @@ class NodeRendererDefault extends Component {
     return (
       <div style={{ height: '100%' }} {...otherProps}>
         {toggleChildrenVisibility &&
-          node.children &&
-          (node.children.length > 0 || typeof node.children === 'function') &&
+        node.children &&
+        (node.children.length > 0 || typeof node.children === 'function') && (
           <div>
             <button
               type="button"
@@ -101,12 +101,14 @@ class NodeRendererDefault extends Component {
             />
 
             {node.expanded &&
-              !isDragging &&
+            !isDragging && (
               <div
                 style={{ width: scaffoldBlockPxWidth }}
                 className={styles.lineChildren}
-              />}
-          </div>}
+              />
+            )}
+          </div>
+        )}
 
         <div className={styles.rowWrapper}>
           {/* Set the row preview to be used during drag and drop */}
@@ -142,36 +144,41 @@ class NodeRendererDefault extends Component {
                       (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
                     }
                   >
-                    {typeof nodeTitle === 'function'
-                      ? nodeTitle({
+                    {typeof nodeTitle === 'function' ? (
+                      nodeTitle({
+                        node,
+                        path,
+                        treeIndex,
+                      })
+                    ) : (
+                      nodeTitle
+                    )}
+                  </span>
+
+                  {nodeSubtitle && (
+                    <span className={styles.rowSubtitle}>
+                      {typeof nodeSubtitle === 'function' ? (
+                        nodeSubtitle({
                           node,
                           path,
                           treeIndex,
                         })
-                      : nodeTitle}
-                  </span>
-
-                  {nodeSubtitle &&
-                    <span className={styles.rowSubtitle}>
-                      {typeof nodeSubtitle === 'function'
-                        ? nodeSubtitle({
-                            node,
-                            path,
-                            treeIndex,
-                          })
-                        : nodeSubtitle}
-                    </span>}
+                      ) : (
+                        nodeSubtitle
+                      )}
+                    </span>
+                  )}
                 </div>
 
                 <div className={styles.rowToolbar}>
-                  {buttons.map((btn, index) =>
+                  {buttons.map((btn, index) => (
                     <div
                       key={index} // eslint-disable-line react/no-array-index-key
                       className={styles.toolbarButton}
                     >
                       {btn}
                     </div>
-                  )}
+                  ))}
                 </div>
               </div>
             </div>

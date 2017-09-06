@@ -516,7 +516,7 @@ class ReactSortableTree extends Component {
       // Render list with react-virtualized
       list = (
         <AutoSizer>
-          {({ height, width }) =>
+          {({ height, width }) => (
             <ScrollZoneVirtualList
               {...scrollToInfo}
               verticalStrength={this.vStrength}
@@ -544,7 +544,8 @@ class ReactSortableTree extends Component {
                   matchKeys
                 )}
               {...this.props.reactVirtualizedListProps}
-            />}
+            />
+          )}
         </AutoSizer>
       );
     } else {
