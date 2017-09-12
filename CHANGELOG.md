@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/fritz-c/react-sortable-tree/compare/v1.2.1...v1.2.2) (2017-09-12)
+
+
+### Bug Fixes
+
+* Specify version of react-dnd-html5-backend to avoid invalid package installs ([a09b611](https://github.com/fritz-c/react-sortable-tree/commit/a09b611))
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/fritz-c/react-sortable-tree/compare/v1.2.0...v1.2.1) (2017-09-06)
 
