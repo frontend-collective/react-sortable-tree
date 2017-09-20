@@ -6,11 +6,6 @@ All notable changes to this project will be documented in this file. See [standa
 # [1.3.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.2.2...v1.3.0) (2017-09-20)
 
 
-### Bug Fixes
-
-* add row variables to the callback at the top level ([a906f21](https://github.com/fritz-c/react-sortable-tree/commit/a906f21))
-
-
 ### Features
 
 * Provide more row parameters in rowHeight callback ([1b88b18](https://github.com/fritz-c/react-sortable-tree/commit/1b88b18))
