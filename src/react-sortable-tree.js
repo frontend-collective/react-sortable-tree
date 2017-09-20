@@ -558,7 +558,7 @@ class ReactSortableTree extends Component {
             height:
               typeof rowHeight !== 'function'
                 ? rowHeight
-                : rowHeight({ index, row }),
+                : rowHeight({ ...row, index }),
           },
           () => rows[index - 1] || null,
           matchKeys
