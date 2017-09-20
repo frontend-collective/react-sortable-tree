@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.2.2...v1.3.0) (2017-09-20)
+
+
+### Bug Fixes
+
+* add row variables to the callback at the top level ([a906f21](https://github.com/fritz-c/react-sortable-tree/commit/a906f21))
+
+
+### Features
+
+* Provide more row parameters in rowHeight callback ([1b88b18](https://github.com/fritz-c/react-sortable-tree/commit/1b88b18))
+
+
+
 <a name="1.2.2"></a>
 ## [1.2.2](https://github.com/fritz-c/react-sortable-tree/compare/v1.2.1...v1.2.2) (2017-09-12)
 
