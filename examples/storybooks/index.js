@@ -8,6 +8,7 @@ import BarebonesExample from './barebones';
 import CanDropExample from './can-drop';
 import DragOutToRemoveExample from './drag-out-to-remove';
 import ExternalNodeExample from './external-node';
+import GenerateNodePropsExample from './generate-node-props';
 import ModifyNodesExample from './modify-nodes';
 import SearchExample from './search';
 import TouchSupportExample from './touch-support';
@@ -56,6 +57,9 @@ storiesOf('Advanced', module)
   )
   .add('Tree-to-tree dragging', () =>
     wrapWithSource(<TreeToTreeExample />, 'tree-to-tree.js')
+  )
+  .add('Playing with generateNodeProps', () =>
+    wrapWithSource(<GenerateNodePropsExample />, 'generate-node-props.js')
   )
   .add('Drag out to remove', () =>
     wrapWithSource(<DragOutToRemoveExample />, 'drag-out-to-remove.js')
