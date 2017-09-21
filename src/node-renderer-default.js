@@ -82,33 +82,33 @@ class NodeRendererDefault extends Component {
     return (
       <div style={{ height: '100%' }} {...otherProps}>
         {toggleChildrenVisibility &&
-        node.children &&
-        (node.children.length > 0 || typeof node.children === 'function') && (
-          <div>
-            <button
-              type="button"
-              aria-label={node.expanded ? 'Collapse' : 'Expand'}
-              className={
-                node.expanded ? styles.collapseButton : styles.expandButton
-              }
-              style={{ left: -0.5 * scaffoldBlockPxWidth }}
-              onClick={() =>
-                toggleChildrenVisibility({
-                  node,
-                  path,
-                  treeIndex,
-                })}
-            />
-
-            {node.expanded &&
-            !isDragging && (
-              <div
-                style={{ width: scaffoldBlockPxWidth }}
-                className={styles.lineChildren}
+          node.children &&
+          (node.children.length > 0 || typeof node.children === 'function') && (
+            <div>
+              <button
+                type="button"
+                aria-label={node.expanded ? 'Collapse' : 'Expand'}
+                className={
+                  node.expanded ? styles.collapseButton : styles.expandButton
+                }
+                style={{ left: -0.5 * scaffoldBlockPxWidth }}
+                onClick={() =>
+                  toggleChildrenVisibility({
+                    node,
+                    path,
+                    treeIndex,
+                  })}
               />
-            )}
-          </div>
-        )}
+
+              {node.expanded &&
+                !isDragging && (
+                  <div
+                    style={{ width: scaffoldBlockPxWidth }}
+                    className={styles.lineChildren}
+                  />
+                )}
+            </div>
+          )}
 
         <div className={styles.rowWrapper}>
           {/* Set the row preview to be used during drag and drop */}
@@ -144,28 +144,24 @@ class NodeRendererDefault extends Component {
                       (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
                     }
                   >
-                    {typeof nodeTitle === 'function' ? (
-                      nodeTitle({
-                        node,
-                        path,
-                        treeIndex,
-                      })
-                    ) : (
-                      nodeTitle
-                    )}
-                  </span>
-
-                  {nodeSubtitle && (
-                    <span className={styles.rowSubtitle}>
-                      {typeof nodeSubtitle === 'function' ? (
-                        nodeSubtitle({
+                    {typeof nodeTitle === 'function'
+                      ? nodeTitle({
                           node,
                           path,
                           treeIndex,
                         })
-                      ) : (
-                        nodeSubtitle
-                      )}
+                      : nodeTitle}
+                  </span>
+
+                  {nodeSubtitle && (
+                    <span className={styles.rowSubtitle}>
+                      {typeof nodeSubtitle === 'function'
+                        ? nodeSubtitle({
+                            node,
+                            path,
+                            treeIndex,
+                          })
+                        : nodeSubtitle}
                     </span>
                   )}
                 </div>
