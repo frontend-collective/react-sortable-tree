@@ -30,13 +30,16 @@ function getReactElementText(parent) {
 // Search for a query string inside a node property
 function stringSearch(key, searchQuery, node, path, treeIndex) {
   if (typeof node[key] === 'function') {
+    // Search within text after calling its function to generate the text
     return (
       String(node[key]({ node, path, treeIndex })).indexOf(searchQuery) > -1
     );
   } else if (typeof node[key] === 'object') {
+    // Search within text inside react elements
     return getReactElementText(node[key]).indexOf(searchQuery) > -1;
   }
 
+  // Search within string
   return node[key] && String(node[key]).indexOf(searchQuery) > -1;
 }
 

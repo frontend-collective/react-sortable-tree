@@ -17,16 +17,9 @@ class TreeNode extends Component {
       draggedNode,
       canDrop,
       treeIndex,
-      /* eslint-disable no-unused-vars */
-      customCanDrop: _customCanDrop, // Delete from otherProps
-      dragHover: _dragHover, // Delete from otherProps
-      getNodeKey: _getNodeKey, // Delete from otherProps
-      getPrevRow: _getPrevRow, // Delete from otherProps
-      maxDepth: _maxDepth, // Delete from otherProps
-      node: _node, // Delete from otherProps
-      path: _path, // Delete from otherProps
-      treeData: _treeData, // Delete from otherProps
-      /* eslint-enable no-unused-vars */
+      getPrevRow, // Delete from otherProps
+      node, // Delete from otherProps
+      path, // Delete from otherProps
       ...otherProps
     } = this.props;
 
@@ -147,17 +140,10 @@ TreeNode.defaultProps = {
   swapLength: null,
   canDrop: false,
   draggedNode: null,
-  customCanDrop: null,
-  maxDepth: null,
-  treeData: null,
 };
 
 TreeNode.propTypes = {
   treeIndex: PropTypes.number.isRequired,
-  node: PropTypes.shape({}).isRequired,
-  path: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ).isRequired,
   swapFrom: PropTypes.number,
   swapDepth: PropTypes.number,
   swapLength: PropTypes.number,
@@ -173,12 +159,12 @@ TreeNode.propTypes = {
   canDrop: PropTypes.bool,
   draggedNode: PropTypes.shape({}),
 
-  customCanDrop: PropTypes.func, // used in drag-and-drop-utils
-  dragHover: PropTypes.func.isRequired, // used in drag-and-drop-utils
-  getNodeKey: PropTypes.func.isRequired, // used in drag-and-drop-utils
-  getPrevRow: PropTypes.func.isRequired, // used in drag-and-drop-utils
-  maxDepth: PropTypes.number, // used in drag-and-drop-utils
-  treeData: PropTypes.arrayOf(PropTypes.object), // used in drag-and-drop-utils
+  // used in dndManager
+  getPrevRow: PropTypes.func.isRequired,
+  node: PropTypes.shape({}).isRequired,
+  path: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
 };
 
 export default TreeNode;

@@ -27,6 +27,8 @@ class NodeRendererDefault extends Component {
       canDrop,
       canDrag,
       node,
+      title,
+      subtitle,
       draggedNode,
       path,
       treeIndex,
@@ -36,14 +38,12 @@ class NodeRendererDefault extends Component {
       className,
       style,
       didDrop,
-      /* eslint-disable no-unused-vars */
-      isOver: _isOver, // Not needed, but preserved for other renderers
-      parentNode: _parentNode, // Needed for drag-and-drop utils
-      endDrag: _endDrag, // Needed for drag-and-drop utils
-      startDrag: _startDrag, // Needed for drag-and-drop utils
-      /* eslint-enable no-unused-vars */
+      isOver, // Not needed, but preserved for other renderers
+      parentNode, // Needed for dndManager
       ...otherProps
     } = this.props;
+    const nodeTitle = title || node.title;
+    const nodeSubtitle = subtitle || node.subtitle;
 
     let handle;
     if (canDrag) {
@@ -83,30 +83,32 @@ class NodeRendererDefault extends Component {
       <div style={{ height: '100%' }} {...otherProps}>
         {toggleChildrenVisibility &&
           node.children &&
-          node.children.length > 0 &&
-          <div>
-            <button
-              type="button"
-              aria-label={node.expanded ? 'Collapse' : 'Expand'}
-              className={
-                node.expanded ? styles.collapseButton : styles.expandButton
-              }
-              style={{ left: -0.5 * scaffoldBlockPxWidth }}
-              onClick={() =>
-                toggleChildrenVisibility({
-                  node,
-                  path,
-                  treeIndex,
-                })}
-            />
+          (node.children.length > 0 || typeof node.children === 'function') && (
+            <div>
+              <button
+                type="button"
+                aria-label={node.expanded ? 'Collapse' : 'Expand'}
+                className={
+                  node.expanded ? styles.collapseButton : styles.expandButton
+                }
+                style={{ left: -0.5 * scaffoldBlockPxWidth }}
+                onClick={() =>
+                  toggleChildrenVisibility({
+                    node,
+                    path,
+                    treeIndex,
+                  })}
+              />
 
-            {node.expanded &&
-              !isDragging &&
-              <div
-                style={{ width: scaffoldBlockPxWidth }}
-                className={styles.lineChildren}
-              />}
-          </div>}
+              {node.expanded &&
+                !isDragging && (
+                  <div
+                    style={{ width: scaffoldBlockPxWidth }}
+                    className={styles.lineChildren}
+                  />
+                )}
+            </div>
+          )}
 
         <div className={styles.rowWrapper}>
           {/* Set the row preview to be used during drag and drop */}
@@ -142,36 +144,37 @@ class NodeRendererDefault extends Component {
                       (node.subtitle ? ` ${styles.rowTitleWithSubtitle}` : '')
                     }
                   >
-                    {typeof node.title === 'function'
-                      ? node.title({
+                    {typeof nodeTitle === 'function'
+                      ? nodeTitle({
                           node,
                           path,
                           treeIndex,
                         })
-                      : node.title}
+                      : nodeTitle}
                   </span>
 
-                  {node.subtitle &&
+                  {nodeSubtitle && (
                     <span className={styles.rowSubtitle}>
-                      {typeof node.subtitle === 'function'
-                        ? node.subtitle({
+                      {typeof nodeSubtitle === 'function'
+                        ? nodeSubtitle({
                             node,
                             path,
                             treeIndex,
                           })
-                        : node.subtitle}
-                    </span>}
+                        : nodeSubtitle}
+                    </span>
+                  )}
                 </div>
 
                 <div className={styles.rowToolbar}>
-                  {buttons.map((btn, index) =>
+                  {buttons.map((btn, index) => (
                     <div
                       key={index} // eslint-disable-line react/no-array-index-key
                       className={styles.toolbarButton}
                     >
                       {btn}
                     </div>
-                  )}
+                  ))}
                 </div>
               </div>
             </div>
@@ -193,10 +196,14 @@ NodeRendererDefault.defaultProps = {
   parentNode: null,
   draggedNode: null,
   canDrop: false,
+  title: null,
+  subtitle: null,
 };
 
 NodeRendererDefault.propTypes = {
   node: PropTypes.shape({}).isRequired,
+  title: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+  subtitle: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
   path: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,
@@ -214,9 +221,7 @@ NodeRendererDefault.propTypes = {
   // Drag source
   connectDragPreview: PropTypes.func.isRequired,
   connectDragSource: PropTypes.func.isRequired,
-  parentNode: PropTypes.shape({}), // Needed for drag-and-drop utils
-  startDrag: PropTypes.func.isRequired, // Needed for drag-and-drop utils
-  endDrag: PropTypes.func.isRequired, // Needed for drag-and-drop utils
+  parentNode: PropTypes.shape({}), // Needed for dndManager
   isDragging: PropTypes.bool.isRequired,
   didDrop: PropTypes.bool.isRequired,
   draggedNode: PropTypes.shape({}),

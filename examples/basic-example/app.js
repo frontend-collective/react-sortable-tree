@@ -216,9 +216,7 @@ class App extends Component {
     return (
       <div>
         <section className={styles['page-header']}>
-          <h1 className={styles['project-name']}>
-            {projectName}
-          </h1>
+          <h1 className={styles['project-name']}>{projectName}</h1>
 
           <h2 className={styles['project-tagline']}>
             Drag-and-drop sortable representation of hierarchical data
