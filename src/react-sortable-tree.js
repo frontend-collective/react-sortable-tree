@@ -163,6 +163,7 @@ class ReactSortableTree extends Component {
       treeData,
       node: targetNode,
       expanded: !targetNode.expanded,
+      path,
     });
   }
 
