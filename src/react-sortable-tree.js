@@ -602,7 +602,7 @@ ReactSortableTree.propTypes = {
   rowHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
 
   // Size in px of the region near the edges that initiates scrolling on dragover
-  slideRegionSize: PropTypes.number.isRequired, // eslint-disable-line react/no-unused-prop-types
+  slideRegionSize: PropTypes.number,
 
   // Custom properties to hand to the react-virtualized list
   // https://github.com/bvaughn/react-virtualized/blob/master/docs/List.md#prop-types
@@ -612,13 +612,13 @@ ReactSortableTree.propTypes = {
   scaffoldBlockPxWidth: PropTypes.number,
 
   // Maximum depth nodes can be inserted at. Defaults to infinite.
-  maxDepth: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
+  maxDepth: PropTypes.number,
 
   // The method used to search nodes.
   // Defaults to a function that uses the `searchQuery` string to search for nodes with
   // matching `title` or `subtitle` values.
   // NOTE: Changing `searchMethod` will not update the search, but changing the `searchQuery` will.
-  searchMethod: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+  searchMethod: PropTypes.func,
 
   // Used by the `searchMethod` to highlight and scroll to matched nodes.
   // Should be a string for the default `searchMethod`, but can be anything when using a custom search.
@@ -628,7 +628,7 @@ ReactSortableTree.propTypes = {
   searchFocusOffset: PropTypes.number,
 
   // Get the nodes that match the search criteria. Used for counting total matches, etc.
-  searchFinishCallback: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+  searchFinishCallback: PropTypes.func,
 
   // Generate an object with additional props to be passed to the node renderer.
   // Use this for adding buttons via the `buttons` key,
@@ -667,7 +667,7 @@ ReactSortableTree.propTypes = {
   canDrag: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 
   // Determine whether a node can be dropped based on its path and parents'.
-  canDrop: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+  canDrop: PropTypes.func,
 
   // When true, or a callback returning true, dropping nodes to react-dnd
   // drop targets outside of this tree will not remove them from this tree
