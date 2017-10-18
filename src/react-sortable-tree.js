@@ -150,21 +150,22 @@ class ReactSortableTree extends Component {
   }
 
   toggleChildrenVisibility({ node: targetNode, path }) {
-    const treeData = changeNodeAtPath({
-      treeData: this.props.treeData,
-      path,
-      newNode: ({ node }) => ({ ...node, expanded: !node.expanded }),
-      getNodeKey: this.props.getNodeKey,
-    });
+    if (this.props.onVisibilityToggle) {
+      this.props.onVisibilityToggle({
+        node: targetNode,
+        expanded: !targetNode.expanded,
+        path,
+      });
+    } else {
+      const treeData = changeNodeAtPath({
+        treeData: this.props.treeData,
+        path,
+        newNode: ({ node }) => ({ ...node, expanded: !node.expanded }),
+        getNodeKey: this.props.getNodeKey,
+      });
 
-    this.props.onChange(treeData);
-
-    this.props.onVisibilityToggle({
-      treeData,
-      node: targetNode,
-      expanded: !targetNode.expanded,
-      path,
-    });
+      this.props.onChange(treeData);
+    }
   }
 
   moveNode({
