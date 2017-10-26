@@ -37,6 +37,40 @@ import styles from './react-sortable-tree.scss';
 
 let treeIdCounter = 1;
 
+const mergeTheme = props => {
+  const merged = {
+    ...props,
+    style: { ...props.theme.style, ...props.style },
+    innerStyle: { ...props.theme.innerStyle, ...props.innerStyle },
+    reactVirtualizedListProps: {
+      ...props.theme.reactVirtualizedListProps,
+      ...props.reactVirtualizedListProps,
+    },
+  };
+
+  const overridableDefaults = {
+    nodeContentRenderer: NodeRendererDefault,
+    placeholderRenderer: PlaceholderRendererDefault,
+    rowHeight: 62,
+    scaffoldBlockPxWidth: 44,
+    slideRegionSize: 100,
+    treeNodeRenderer: TreeNode,
+  };
+  Object.keys(overridableDefaults).forEach(propKey => {
+    // If prop has been specified, do not change it
+    // If prop is specified in theme, use the theme setting
+    // If all else fails, fall back to the default
+    if (props[propKey] === null) {
+      merged[propKey] =
+        typeof props.theme[propKey] !== 'undefined'
+          ? props.theme[propKey]
+          : overridableDefaults[propKey];
+    }
+  });
+
+  return merged;
+};
+
 class ReactSortableTree extends Component {
   constructor(props) {
     super(props);
@@ -44,10 +78,11 @@ class ReactSortableTree extends Component {
     const {
       dndType,
       nodeContentRenderer,
+      treeNodeRenderer,
       isVirtualized,
       slideRegionSize,
       treeData,
-    } = props;
+    } = mergeTheme(props);
 
     this.dndManager = new DndManager(this);
 
@@ -59,7 +94,7 @@ class ReactSortableTree extends Component {
     this.treePlaceholderRenderer = this.dndManager.wrapPlaceholder(
       TreePlaceholder
     );
-    this.treeNodeRenderer = this.dndManager.wrapTarget(TreeNode);
+    this.treeNodeRenderer = this.dndManager.wrapTarget(treeNodeRenderer);
 
     // Prepare scroll-on-drag options for this list
     if (isVirtualized) {
@@ -424,7 +459,7 @@ class ReactSortableTree extends Component {
       generateNodeProps,
       scaffoldBlockPxWidth,
       searchFocusOffset,
-    } = this.props;
+    } = mergeTheme(this.props);
     const TreeNodeRenderer = this.treeNodeRenderer;
     const NodeContentRenderer = this.nodeContentRenderer;
     const nodeKey = path[path.length - 1];
@@ -485,7 +520,9 @@ class ReactSortableTree extends Component {
       innerStyle,
       rowHeight,
       isVirtualized,
-    } = this.props;
+      placeholderRenderer,
+      reactVirtualizedListProps,
+    } = mergeTheme(this.props);
     const { rows, searchMatches, searchFocusTreeIndex } = this.state;
 
     // Get indices for rows that match the search conditions
@@ -504,7 +541,7 @@ class ReactSortableTree extends Component {
     let list;
     if (rows.length < 1) {
       const Placeholder = this.treePlaceholderRenderer;
-      const PlaceholderContent = this.props.placeholderRenderer;
+      const PlaceholderContent = placeholderRenderer;
       list = (
         <Placeholder treeId={this.treeId} drop={this.drop}>
           <PlaceholderContent />
@@ -544,7 +581,7 @@ class ReactSortableTree extends Component {
                   () => rows[index - 1] || null,
                   matchKeys
                 )}
-              {...this.props.reactVirtualizedListProps}
+              {...reactVirtualizedListProps}
             />
           )}
         </AutoSizer>
@@ -639,6 +676,8 @@ ReactSortableTree.propTypes = {
   // NOTE: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
   isVirtualized: PropTypes.bool,
 
+  treeNodeRenderer: PropTypes.func,
+
   // Override the default component for rendering nodes (but keep the scaffolding generator)
   // This is an advanced option for complete customization of the appearance.
   // It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
@@ -649,6 +688,18 @@ ReactSortableTree.propTypes = {
   // It is best to copy the component in `placeholder-renderer-default.js` to use as a base,
   // and customize as needed.
   placeholderRenderer: PropTypes.func,
+
+  theme: PropTypes.shape({
+    style: PropTypes.shape({}),
+    innerStyle: PropTypes.shape({}),
+    reactVirtualizedListProps: PropTypes.shape({}),
+    scaffoldBlockPxWidth: PropTypes.number,
+    slideRegionSize: PropTypes.number,
+    rowHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    treeNodeRenderer: PropTypes.func,
+    nodeContentRenderer: PropTypes.func,
+    placeholderRenderer: PropTypes.func,
+  }),
 
   // Determine the unique key used to identify each node and
   // generate the `path` array passed in callbacks.
@@ -692,20 +743,22 @@ ReactSortableTree.defaultProps = {
   innerStyle: {},
   isVirtualized: true,
   maxDepth: null,
-  nodeContentRenderer: NodeRendererDefault,
+  treeNodeRenderer: null,
+  nodeContentRenderer: null,
   onMoveNode: () => {},
   onVisibilityToggle: () => {},
-  placeholderRenderer: PlaceholderRendererDefault,
+  placeholderRenderer: null,
   reactVirtualizedListProps: {},
-  rowHeight: 62,
-  scaffoldBlockPxWidth: 44,
+  rowHeight: null,
+  scaffoldBlockPxWidth: null,
   searchFinishCallback: null,
   searchFocusOffset: null,
   searchMethod: null,
   searchQuery: null,
   shouldCopyOnOutsideDrop: false,
-  slideRegionSize: 100,
+  slideRegionSize: null,
   style: {},
+  theme: {},
 };
 
 ReactSortableTree.contextTypes = {
