@@ -101,8 +101,8 @@ class TreeNode extends Component {
 
         scaffold.push(
           <div
-            // simple trick for passing react/no-array-index-key eslint rule
-            key={`highlight_${1 + i}`}
+            // eslint-disable-next-line react/no-array-index-key
+            key={i}
             style={{
               width: scaffoldBlockPxWidth,
               left: scaffoldBlockPxWidth * i,
