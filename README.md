@@ -61,12 +61,13 @@ canDrag                   | func or bool   | Return false from callback to preve
 canDrop                   | func           | Return false to prevent node from dropping in the given location. <div>`({ node: object, prevPath: number[] or string[], prevParent: object, prevTreeIndex: number, nextPath: number[] or string[], nextParent: object, nextTreeIndex: number }): bool`</div>
 shouldCopyOnOutsideDrop   | func or bool   | Return true, or a callback returning true, and dropping nodes to react-dnd drop targets outside of the tree will not remove them from the tree. Defaults to `false`. <div>`({ node: object, prevPath: number[] or string[], prevTreeIndex: number, }): bool`</div>
 reactVirtualizedListProps | object         | Custom properties to hand to the [react-virtualized list](https://github.com/bvaughn/react-virtualized/blob/master/docs/List.md#prop-types)
+theme                     | object         | Set an all-in-one packaged appearance for the tree. See the [Themes](#themes) section for more information.
 rowHeight                 | number or func | Used by react-virtualized. Defaults to `62`. Either a fixed row height (number) or a function that returns the height of a row given its index: `({ index: number }): number`
 slideRegionSize           | number         | Size in px of the region near the edges that initiates scrolling on dragover.Defaults to `100`.
 scaffoldBlockPxWidth      | number         | The width of the blocks containing the lines representing the structure of the tree.Defaults to `44`.
 isVirtualized             | bool           | Set to false to disable virtualization. Defaults to `true`. __NOTE__: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
-nodeContentRenderer       | any            | Override the default component ([`NodeRendererDefault`](https://github.com/fritz-c/react-sortable-tree/blob/master/src/node-renderer-default.js)) for rendering nodes (but keep the scaffolding generator). This is a last resort for customization - most custom styling should be able to be solved with `generateNodeProps` or CSS rules. If you must use it, is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
-placeholderRenderer       | any            | Override the default placeholder component ([`PlaceholderRendererDefault`](https://github.com/fritz-c/react-sortable-tree/blob/master/src/placeholder-renderer-default.js)) which is displayed when the tree is empty. This is an advanced option, and in most cases should probably be solved with custom CSS instead.
+nodeContentRenderer       | any            | Override the default component ([`NodeRendererDefault`](https://github.com/fritz-c/react-sortable-tree/blob/master/src/node-renderer-default.js)) for rendering nodes (but keep the scaffolding generator). This is a last resort for customization - most custom styling should be able to be solved with `generateNodeProps`, a `theme` or CSS rules. If you must use it, is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
+placeholderRenderer       | any            | Override the default placeholder component ([`PlaceholderRendererDefault`](https://github.com/fritz-c/react-sortable-tree/blob/master/src/placeholder-renderer-default.js)) which is displayed when the tree is empty. This is an advanced option, and in most cases should probably be solved with a `theme` or custom CSS instead.
 
 ## Data Helper Functions
 
@@ -86,6 +87,16 @@ Notable among the available functions:
 
 Documentation for each method is only available in the code at this time. You can also refer to the tests for simple usage examples.
 If your hobbies happen to include writing documentation, by all means submit a pull request. It would really help out.
+
+## Themes
+
+Using the `theme` prop along with an imported theme module, you can easily override the default appearance with another standard one.
+
+### Featured themes
+
+* File Explorer [Github](https://github.com/fritz-c/react-sortable-tree-theme-file-explorer) [NPM](https://www.npmjs.com/package/react-sortable-tree-theme-file-explorer)
+
+*Help Wanted* As the themes feature has just been enabled, there are very few (only _one_ at the time of this writing) theme modules available. If you've customized the appearance of your tree to be especially cool or easy to use, I would be happy to feature it in this readme with a link to the Github repo and NPM page if you convert it to a theme. You can use my [file explorer theme repo](https://github.com/fritz-c/react-sortable-tree-theme-file-explorer) as a template to plug in your own stuff.
 
 ## Browser Compatibility
 
