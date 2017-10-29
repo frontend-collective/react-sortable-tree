@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.4.0...v1.5.0) (2017-10-29)
+
+
+### Bug Fixes
+
+* Fix oblong collapse/expand button appearance on mobile safari ([62dfdec](https://github.com/fritz-c/react-sortable-tree/commit/62dfdec))
+
+
+### Features
+
+* enable the use of themes for simplified appearance customization ([d07c6a7](https://github.com/fritz-c/react-sortable-tree/commit/d07c6a7))
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.3.1...v1.4.0) (2017-10-13)
 
