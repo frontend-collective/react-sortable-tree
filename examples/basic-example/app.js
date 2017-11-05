@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SortableTree, { toggleExpandedForAll } from '../../src/index';
+import { SortableTreeWithoutDndContext as SortableTree, toggleExpandedForAll } from '../../src/index';
 import styles from './stylesheets/app.scss';
 import '../shared/favicon/apple-touch-icon.png';
 import '../shared/favicon/favicon-16x16.png';
