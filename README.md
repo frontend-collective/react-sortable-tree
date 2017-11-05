@@ -109,8 +109,7 @@ Using the `theme` prop along with an imported theme module, you can easily overr
 | Chrome | Yes |
 | Firefox | Yes |
 | Safari | Yes |
-| IE >= 10 | Yes |
-| IE 9 | Displays the tree, but drag-and-drop is hit-and-miss |
+| IE 11 | Yes |
 
 ## Troubleshooting
 
