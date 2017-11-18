@@ -36,7 +36,7 @@ export default class Tree extends Component {
 ```
 Find more examples in the [Storybook](https://fritz-c.github.io/react-sortable-tree/storybook/)
 
-Play with the code on an [example on WebpackBin](https://www.webpackbin.com/bins/-KudqEIsooxEdVHV4G8c)
+Play with the code on an [example on CodeSandbox](https://codesandbox.io/s/wkxvy3z15w)
 
 ## Options
 
