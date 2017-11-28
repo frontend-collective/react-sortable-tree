@@ -104,9 +104,9 @@ export default class DndManager {
       const draggedNode = monitor.getItem().node;
       const draggedChildDepth = getDepth(draggedNode);
 
-      targetDepth = Math.min(
-        targetDepth,
-        this.maxDepth - draggedChildDepth - 1
+      targetDepth = Math.max(
+        0,
+        Math.min(targetDepth, this.maxDepth - draggedChildDepth - 1)
       );
     }
 
