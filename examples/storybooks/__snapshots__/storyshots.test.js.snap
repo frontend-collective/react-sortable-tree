@@ -3310,6 +3310,483 @@ exports[`Storyshots Basics Search 1`] = `
 </div>
 `;
 
+exports[`Storyshots Basics Themes 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "height": 300,
+      }
+    }
+  >
+    <div
+      className="tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+          id={undefined}
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 125,
+                "maxHeight": 125,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rstcustom__node"
+              style={
+                Object {
+                  "height": 25,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <button
+                  aria-label="Collapse"
+                  className="rstcustom__collapseButton"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "left": 7.500000000000001,
+                    }
+                  }
+                  type="button"
+                />
+                <div
+                  className="rstcustom__rowWrapper"
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <div
+                      className="rstcustom__lineBlock"
+                      style={
+                        Object {
+                          "width": 25,
+                        }
+                      }
+                    />
+                    <div
+                      className="rstcustom__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rstcustom__rowContents"
+                      >
+                        <div
+                          className="rstcustom__rowToolbar"
+                        />
+                        <div
+                          className="rstcustom__rowLabel"
+                        >
+                          <span
+                            className={undefined}
+                          >
+                            The file explorer theme
+                          </span>
+                        </div>
+                        <div
+                          className="rstcustom__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rstcustom__node"
+              style={
+                Object {
+                  "height": 25,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 25,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <button
+                  aria-label="Collapse"
+                  className="rstcustom__collapseButton"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "left": 32.5,
+                    }
+                  }
+                  type="button"
+                />
+                <div
+                  className="rstcustom__rowWrapper"
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <div
+                      className="rstcustom__lineBlock"
+                      style={
+                        Object {
+                          "width": 25,
+                        }
+                      }
+                    />
+                    <div
+                      className="rstcustom__lineBlock"
+                      style={
+                        Object {
+                          "width": 25,
+                        }
+                      }
+                    />
+                    <div
+                      className="rstcustom__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rstcustom__rowContents"
+                      >
+                        <div
+                          className="rstcustom__rowToolbar"
+                        />
+                        <div
+                          className="rstcustom__rowLabel"
+                        >
+                          <span
+                            className={undefined}
+                          >
+                            Imported from react-sortable-tree-theme-file-explorer
+                          </span>
+                        </div>
+                        <div
+                          className="rstcustom__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rstcustom__node"
+              style={
+                Object {
+                  "height": 25,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 50,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rstcustom__rowWrapper"
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <div
+                      className="rstcustom__lineBlock"
+                      style={
+                        Object {
+                          "width": 25,
+                        }
+                      }
+                    />
+                    <div
+                      className="rstcustom__lineBlock"
+                      style={
+                        Object {
+                          "width": 25,
+                        }
+                      }
+                    />
+                    <div
+                      className="rstcustom__lineBlock"
+                      style={
+                        Object {
+                          "width": 25,
+                        }
+                      }
+                    />
+                    <div
+                      className="rstcustom__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rstcustom__rowContents"
+                      >
+                        <div
+                          className="rstcustom__rowToolbar"
+                        />
+                        <div
+                          className="rstcustom__rowLabel"
+                        >
+                          <span
+                            className={undefined}
+                          >
+                            <div>
+                              Find it on
+                               
+                              <a
+                                href="https://www.npmjs.com/package/react-sortable-tree-theme-file-explorer"
+                              >
+                                npm
+                              </a>
+                            </div>
+                          </span>
+                        </div>
+                        <div
+                          className="rstcustom__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rstcustom__node"
+              style={
+                Object {
+                  "height": 25,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 75,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rstcustom__rowWrapper"
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <div
+                      className="rstcustom__lineBlock"
+                      style={
+                        Object {
+                          "width": 25,
+                        }
+                      }
+                    />
+                    <div
+                      className="rstcustom__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rstcustom__rowContents"
+                      >
+                        <div
+                          className="rstcustom__rowToolbar"
+                        />
+                        <div
+                          className="rstcustom__rowLabel"
+                        >
+                          <span
+                            className={undefined}
+                          >
+                            More compact than the default
+                          </span>
+                        </div>
+                        <div
+                          className="rstcustom__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rstcustom__node"
+              style={
+                Object {
+                  "height": 25,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 100,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rstcustom__rowWrapper"
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <div
+                      className="rstcustom__lineBlock"
+                      style={
+                        Object {
+                          "width": 25,
+                        }
+                      }
+                    />
+                    <div
+                      className="rstcustom__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rstcustom__rowContents"
+                      >
+                        <div
+                          className="rstcustom__rowToolbar"
+                        />
+                        <div
+                          className="rstcustom__rowLabel"
+                        >
+                          <span
+                            className={undefined}
+                          >
+                            <div>
+                              Simply set it to the 
+                              <code>
+                                theme
+                              </code>
+                               prop and you’re done!
+                            </div>
+                          </span>
+                        </div>
+                        <div
+                          className="rstcustom__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <a
+    className="sourceLink"
+    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/themes.js"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW SOURCE →
+  </a>
+</div>
+`;
+
 exports[`Storyshots Basics treeData import/export 1`] = `
 <div>
   <div>

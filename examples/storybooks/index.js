@@ -11,6 +11,7 @@ import ExternalNodeExample from './external-node';
 import GenerateNodePropsExample from './generate-node-props';
 import ModifyNodesExample from './modify-nodes';
 import SearchExample from './search';
+import ThemesExample from './themes';
 import TouchSupportExample from './touch-support';
 import TreeDataIOExample from './tree-data-io';
 import TreeToTreeExample from './tree-to-tree';
@@ -46,7 +47,8 @@ storiesOf('Basics', module)
     wrapWithSource(<ModifyNodesExample />, 'modify-nodes.js')
   )
   .add('Prevent drop', () => wrapWithSource(<CanDropExample />, 'can-drop.js'))
-  .add('Search', () => wrapWithSource(<SearchExample />, 'search.js'));
+  .add('Search', () => wrapWithSource(<SearchExample />, 'search.js'))
+  .add('Themes', () => wrapWithSource(<ThemesExample />, 'themes.js'))
 
 storiesOf('Advanced', module)
   .add('Drag from external source', () =>
