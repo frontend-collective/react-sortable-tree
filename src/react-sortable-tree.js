@@ -480,6 +480,7 @@ class ReactSortableTree extends Component {
       scaffoldBlockPxWidth,
       node,
       path,
+      treeId: this.treeId,
     };
 
     return (

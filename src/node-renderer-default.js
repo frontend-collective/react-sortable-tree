@@ -38,6 +38,7 @@ class NodeRendererDefault extends Component {
       className,
       style,
       didDrop,
+      treeId,
       isOver, // Not needed, but preserved for other renderers
       parentNode, // Needed for dndManager
       ...otherProps
@@ -209,6 +210,7 @@ NodeRendererDefault.propTypes = {
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,
   treeIndex: PropTypes.number.isRequired,
+  treeId: PropTypes.string.isRequired,
   isSearchMatch: PropTypes.bool,
   isSearchFocus: PropTypes.bool,
   canDrag: PropTypes.bool,

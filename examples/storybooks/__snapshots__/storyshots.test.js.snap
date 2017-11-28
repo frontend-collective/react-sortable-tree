@@ -3376,6 +3376,7 @@ exports[`Storyshots Basics Themes 1`] = `
                   "width": "100%",
                 }
               }
+              treeId="rst__7"
             >
               <div
                 style={
@@ -3383,6 +3384,7 @@ exports[`Storyshots Basics Themes 1`] = `
                     "height": "100%",
                   }
                 }
+                treeId="rst__7"
               >
                 <button
                   aria-label="Collapse"
@@ -3456,6 +3458,7 @@ exports[`Storyshots Basics Themes 1`] = `
                   "width": "100%",
                 }
               }
+              treeId="rst__7"
             >
               <div
                 style={
@@ -3463,6 +3466,7 @@ exports[`Storyshots Basics Themes 1`] = `
                     "height": "100%",
                   }
                 }
+                treeId="rst__7"
               >
                 <button
                   aria-label="Collapse"
@@ -3544,6 +3548,7 @@ exports[`Storyshots Basics Themes 1`] = `
                   "width": "100%",
                 }
               }
+              treeId="rst__7"
             >
               <div
                 style={
@@ -3551,6 +3556,7 @@ exports[`Storyshots Basics Themes 1`] = `
                     "height": "100%",
                   }
                 }
+                treeId="rst__7"
               >
                 <div
                   className="rstcustom__rowWrapper"
@@ -3637,6 +3643,7 @@ exports[`Storyshots Basics Themes 1`] = `
                   "width": "100%",
                 }
               }
+              treeId="rst__7"
             >
               <div
                 style={
@@ -3644,6 +3651,7 @@ exports[`Storyshots Basics Themes 1`] = `
                     "height": "100%",
                   }
                 }
+                treeId="rst__7"
               >
                 <div
                   className="rstcustom__rowWrapper"
@@ -3706,6 +3714,7 @@ exports[`Storyshots Basics Themes 1`] = `
                   "width": "100%",
                 }
               }
+              treeId="rst__7"
             >
               <div
                 style={
@@ -3713,6 +3722,7 @@ exports[`Storyshots Basics Themes 1`] = `
                     "height": "100%",
                   }
                 }
+                treeId="rst__7"
               >
                 <div
                   className="rstcustom__rowWrapper"

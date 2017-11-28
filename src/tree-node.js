@@ -17,6 +17,7 @@ class TreeNode extends Component {
       draggedNode,
       canDrop,
       treeIndex,
+      treeId, // Delete from otherProps
       getPrevRow, // Delete from otherProps
       node, // Delete from otherProps
       path, // Delete from otherProps
@@ -150,6 +151,7 @@ TreeNode.defaultProps = {
 
 TreeNode.propTypes = {
   treeIndex: PropTypes.number.isRequired,
+  treeId: PropTypes.string.isRequired,
   swapFrom: PropTypes.number,
   swapDepth: PropTypes.number,
   swapLength: PropTypes.number,
