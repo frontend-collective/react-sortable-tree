@@ -38,7 +38,9 @@ class TreeNode extends Component {
           // |  +--+
           // |  |  |
           // +--+--+
-          lineClass = `${styles.lineHalfHorizontalRight} ${styles.lineHalfVerticalBottom}`;
+          lineClass = `${styles.lineHalfHorizontalRight} ${
+            styles.lineHalfVerticalBottom
+          }`;
         } else if (i === scaffoldBlockCount - 1) {
           // Last scaffold block in the row, right before the row content
           // +--+--+
@@ -46,7 +48,9 @@ class TreeNode extends Component {
           // |  +--+
           // |  |  |
           // +--+--+
-          lineClass = `${styles.lineHalfHorizontalRight} ${styles.lineFullVertical}`;
+          lineClass = `${styles.lineHalfHorizontalRight} ${
+            styles.lineFullVertical
+          }`;
         } else {
           // Simply connecting the line extending down to the next sibling on this level
           // +--+--+
@@ -71,7 +75,9 @@ class TreeNode extends Component {
         // |  +--+
         // |     |
         // +-----+
-        lineClass = `${styles.lineHalfVerticalTop} ${styles.lineHalfHorizontalRight}`;
+        lineClass = `${styles.lineHalfVerticalTop} ${
+          styles.lineHalfHorizontalRight
+        }`;
       }
 
       scaffold.push(

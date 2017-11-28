@@ -49,9 +49,9 @@ export default class App extends Component {
                       ? `1px 1px 1px ${playerColor.toLowerCase()}`
                       : 'none',
                 },
-                title: `${playerColor} ${path.length === 1
-                  ? 'Captain'
-                  : node.position}`,
+                title: `${playerColor} ${
+                  path.length === 1 ? 'Captain' : node.position
+                }`,
                 onClick: () => {
                   this.setState(state => ({
                     treeData: changeNodeAtPath({

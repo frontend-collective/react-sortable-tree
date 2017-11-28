@@ -66,7 +66,8 @@ class App extends Component {
               onChange={event =>
                 this.setState({
                   shouldCopyOnOutsideDrop: event.target.checked,
-                })}
+                })
+              }
             />
           </label>
         </div>

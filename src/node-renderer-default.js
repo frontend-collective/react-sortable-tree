@@ -97,7 +97,8 @@ class NodeRendererDefault extends Component {
                     node,
                     path,
                     treeIndex,
-                  })}
+                  })
+                }
               />
 
               {node.expanded &&

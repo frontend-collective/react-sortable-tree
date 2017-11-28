@@ -90,7 +90,8 @@ export default class App extends Component {
             style={{ fontSize: '1rem' }}
             value={searchString}
             onChange={event =>
-              this.setState({ searchString: event.target.value })}
+              this.setState({ searchString: event.target.value })
+            }
           />
 
           <button
@@ -145,7 +146,8 @@ export default class App extends Component {
                 searchFoundCount: matches.length,
                 searchFocusIndex:
                   matches.length > 0 ? searchFocusIndex % matches.length : 0,
-              })}
+              })
+            }
           />
         </div>
       </div>

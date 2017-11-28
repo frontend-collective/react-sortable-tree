@@ -23,7 +23,9 @@ const wrapWithSource = (node, src) => (
 
     <br />
     <a
-      href={`https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/${src}`}
+      href={`https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/${
+        src
+      }`}
       target="_top"
       rel="noopener noreferrer"
       className={styles.sourceLink}
@@ -48,7 +50,7 @@ storiesOf('Basics', module)
   )
   .add('Prevent drop', () => wrapWithSource(<CanDropExample />, 'can-drop.js'))
   .add('Search', () => wrapWithSource(<SearchExample />, 'search.js'))
-  .add('Themes', () => wrapWithSource(<ThemesExample />, 'themes.js'))
+  .add('Themes', () => wrapWithSource(<ThemesExample />, 'themes.js'));
 
 storiesOf('Advanced', module)
   .add('Drag from external source', () =>
