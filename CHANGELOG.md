@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.0...v1.5.1) (2017-11-28)
+
+
+### Bug Fixes
+
+* prevent slowdown caused by invalid targetDepth when using maxDepth ([c21d4de](https://github.com/fritz-c/react-sortable-tree/commit/c21d4de)), closes [#194](https://github.com/fritz-c/react-sortable-tree/issues/194)
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.4.0...v1.5.0) (2017-10-29)
 
