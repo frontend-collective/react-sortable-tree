@@ -15,7 +15,7 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage && ./cc-test-reporter after-build --id=\"d957b5ff2f78e200b7cfa4e294ac1fe52c823c7d7c327628f897271dc72a874e\"",
     "deploy": "npm run build:demo && gh-pages -d build",
-    "storybook": "cross-env TARGET=development start-storybook -p 3001 -h 0.0.0.0",
+    "storybook": "cross-env TARGET=development start-storybook -p ${PORT:-3001} -h 0.0.0.0",
     "build-storybook": "cross-env NODE_ENV=production TARGET=demo build-storybook -o build/storybook"
   },
   "main": "dist/main.js",
