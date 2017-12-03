@@ -94,13 +94,13 @@ Using the `theme` prop along with an imported theme module, you can easily overr
 
 ### Featured themes
 
-|![File Explorer Theme](https://user-images.githubusercontent.com/4413963/32144502-1df1ae08-bcfd-11e7-8f63-8b836dace1a4.png)|
-|:--------:|
-|**File Explorer**|
-|react-sortable-tree-theme-file-explorer|
-|[Github](https://github.com/fritz-c/react-sortable-tree-theme-file-explorer) \| [NPM](https://www.npmjs.com/package/react-sortable-tree-theme-file-explorer)|
+|![File Explorer Theme](https://user-images.githubusercontent.com/4413963/32144502-1df1ae08-bcfd-11e7-8f63-8b836dace1a4.png)|<img alt="Full Node Drag Theme" src="https://user-images.githubusercontent.com/4413963/33521792-61dc2c50-d81f-11e7-8ab1-359661a11ca4.png" width="300">|
+|:--------:|:--------:|
+|**File Explorer**|**Full Node Drag**|
+|react-sortable-tree-theme-file-explorer|react-sortable-tree-theme-full-node-drag|
+|[Github](https://github.com/fritz-c/react-sortable-tree-theme-file-explorer) \| [NPM](https://www.npmjs.com/package/react-sortable-tree-theme-file-explorer)|[Github](https://github.com/fritz-c/react-sortable-tree-theme-full-node-drag) \| [NPM](https://www.npmjs.com/package/react-sortable-tree-full-node-drag)|
 
-**Help Wanted** - As the themes feature has just been enabled, there are very few (only _one_ at the time of this writing) theme modules available. If you've customized the appearance of your tree to be especially cool or easy to use, I would be happy to feature it in this readme with a link to the Github repo and NPM page if you convert it to a theme. You can use my [file explorer theme repo](https://github.com/fritz-c/react-sortable-tree-theme-file-explorer) as a template to plug in your own stuff.
+**Help Wanted** - As the themes feature has just been enabled, there are very few (only _two_ at the time of this writing) theme modules available. If you've customized the appearance of your tree to be especially cool or easy to use, I would be happy to feature it in this readme with a link to the Github repo and NPM page if you convert it to a theme. You can use my [file explorer theme repo](https://github.com/fritz-c/react-sortable-tree-theme-file-explorer) as a template to plug in your own stuff.
 
 ## Browser Compatibility
 
