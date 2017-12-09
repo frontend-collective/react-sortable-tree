@@ -13,14 +13,16 @@ import TreePlaceholder from './tree-placeholder';
 import PlaceholderRendererDefault from './placeholder-renderer-default';
 import {
   walk,
-  getFlatDataFromTree,
   changeNodeAtPath,
-  removeNodeAtPath,
+  removeNode,
   insertNode,
-  getDescendantCount,
   find,
 } from './utils/tree-data-utils';
-import { memoizedInsertNode } from './utils/memoized-tree-data-utils';
+import {
+  memoizedInsertNode,
+  memoizedGetFlatDataFromTree,
+  memoizedGetDescendantCount,
+} from './utils/memoized-tree-data-utils';
 import { slideRows } from './utils/generic-utils';
 import {
   defaultGetNodeKey,
@@ -75,7 +77,6 @@ class ReactSortableTree extends Component {
       treeNodeRenderer,
       isVirtualized,
       slideRegionSize,
-      treeData,
     } = mergeTheme(props);
 
     this.dndManager = new DndManager(this);
@@ -99,10 +100,9 @@ class ReactSortableTree extends Component {
 
     this.state = {
       draggingTreeData: null,
-      swapFrom: null,
-      swapLength: null,
-      swapDepth: null,
-      rows: this.getRows(treeData),
+      draggedNode: null,
+      draggedMinimumTreeIndex: null,
+      draggedDepth: null,
       searchMatches: [],
       searchFocusTreeIndex: null,
     };
@@ -141,13 +141,12 @@ class ReactSortableTree extends Component {
         this.search(nextProps, false, false);
       }
 
-      // Calculate the rows to be shown from the new tree data
+      // Reset the drag state
       this.setState({
         draggingTreeData: null,
-        swapFrom: null,
-        swapLength: null,
-        swapDepth: null,
-        rows: this.getRows(nextProps.treeData),
+        draggedNode: null,
+        draggedMinimumTreeIndex: null,
+        draggedDepth: null,
       });
     } else if (!isEqual(this.props.searchQuery, nextProps.searchQuery)) {
       this.search(nextProps);
@@ -161,7 +160,7 @@ class ReactSortableTree extends Component {
   }
 
   getRows(treeData) {
-    return getFlatDataFromTree({
+    return memoizedGetFlatDataFromTree({
       ignoreCollapsed: true,
       getNodeKey: this.props.getNodeKey,
       treeData,
@@ -295,18 +294,31 @@ class ReactSortableTree extends Component {
   }
 
   startDrag({ path }) {
-    const draggingTreeData = removeNodeAtPath({
-      treeData: this.props.treeData,
-      path,
-      getNodeKey: this.props.getNodeKey,
-    });
+    this.setState(() => {
+      const {
+        treeData: draggingTreeData,
+        node: draggedNode,
+        treeIndex: draggedMinimumTreeIndex,
+      } = removeNode({
+        treeData: this.props.treeData,
+        path,
+        getNodeKey: this.props.getNodeKey,
+      });
 
-    this.setState({
-      draggingTreeData,
+      return {
+        draggingTreeData,
+        draggedNode,
+        draggedDepth: path.length - 1,
+        draggedMinimumTreeIndex,
+      };
     });
   }
 
-  dragHover({ node: draggedNode, depth, minimumTreeIndex }) {
+  dragHover({
+    node: draggedNode,
+    depth: draggedDepth,
+    minimumTreeIndex: draggedMinimumTreeIndex,
+  }) {
     // Fall back to the tree data if something is being dragged in from
     //  an external element
     const draggingTreeData = this.state.draggingTreeData || this.props.treeData;
@@ -314,8 +326,8 @@ class ReactSortableTree extends Component {
     const addedResult = memoizedInsertNode({
       treeData: draggingTreeData,
       newNode: draggedNode,
-      depth,
-      minimumTreeIndex,
+      depth: draggedDepth,
+      minimumTreeIndex: draggedMinimumTreeIndex,
       expandParent: true,
       getNodeKey: this.props.getNodeKey,
     });
@@ -323,14 +335,10 @@ class ReactSortableTree extends Component {
     const rows = this.getRows(addedResult.treeData);
     const expandedParentPath = rows[addedResult.treeIndex].path;
 
-    const swapFrom = addedResult.treeIndex;
-    const swapTo = minimumTreeIndex;
-    const swapLength = 1 + getDescendantCount({ node: draggedNode });
     this.setState({
-      rows: slideRows(rows, swapFrom, swapTo, swapLength),
-      swapFrom,
-      swapLength,
-      swapDepth: depth,
+      draggedNode,
+      draggedDepth,
+      draggedMinimumTreeIndex,
       draggingTreeData: changeNodeAtPath({
         treeData: draggingTreeData,
         path: expandedParentPath.slice(0, -1),
@@ -344,10 +352,9 @@ class ReactSortableTree extends Component {
     const resetTree = () =>
       this.setState({
         draggingTreeData: null,
-        swapFrom: null,
-        swapLength: null,
-        swapDepth: null,
-        rows: this.getRows(this.props.treeData),
+        draggedNode: null,
+        draggedMinimumTreeIndex: null,
+        draggedDepth: null,
       });
 
     // Drop was cancelled
@@ -443,10 +450,7 @@ class ReactSortableTree extends Component {
 
   renderRow(
     { node, parentNode, path, lowerSiblingCounts, treeIndex },
-    listIndex,
-    style,
-    getPrevRow,
-    matchKeys
+    { listIndex, style, getPrevRow, matchKeys, swapFrom, swapDepth, swapLength }
   ) {
     const {
       canDrag,
@@ -490,9 +494,9 @@ class ReactSortableTree extends Component {
         listIndex={listIndex}
         getPrevRow={getPrevRow}
         lowerSiblingCounts={lowerSiblingCounts}
-        swapFrom={this.state.swapFrom}
-        swapLength={this.state.swapLength}
-        swapDepth={this.state.swapDepth}
+        swapFrom={swapFrom}
+        swapLength={swapLength}
+        swapDepth={swapDepth}
         {...sharedProps}
       >
         <NodeContentRenderer
@@ -517,8 +521,43 @@ class ReactSortableTree extends Component {
       isVirtualized,
       placeholderRenderer,
       reactVirtualizedListProps,
+      getNodeKey,
     } = mergeTheme(this.props);
-    const { rows, searchMatches, searchFocusTreeIndex } = this.state;
+    const {
+      searchMatches,
+      searchFocusTreeIndex,
+      draggedNode,
+      draggedDepth,
+      draggedMinimumTreeIndex,
+    } = this.state;
+
+    const treeData = this.state.draggingTreeData || this.props.treeData;
+
+    let rows;
+    let swapFrom = null;
+    let swapLength = null;
+    if (draggedNode && draggedMinimumTreeIndex !== null) {
+      const addedResult = memoizedInsertNode({
+        treeData,
+        newNode: draggedNode,
+        depth: draggedDepth,
+        minimumTreeIndex: draggedMinimumTreeIndex,
+        expandParent: true,
+        getNodeKey,
+      });
+
+      const swapTo = draggedMinimumTreeIndex;
+      swapFrom = addedResult.treeIndex;
+      swapLength = 1 + memoizedGetDescendantCount({ node: draggedNode });
+      rows = slideRows(
+        this.getRows(addedResult.treeData),
+        swapFrom,
+        swapTo,
+        swapLength
+      );
+    } else {
+      rows = this.getRows(treeData);
+    }
 
     // Get indices for rows that match the search conditions
     const matchKeys = {};
@@ -569,13 +608,15 @@ class ReactSortableTree extends Component {
               }
               rowHeight={rowHeight}
               rowRenderer={({ index, style: rowStyle }) =>
-                this.renderRow(
-                  rows[index],
-                  index,
-                  rowStyle,
-                  () => rows[index - 1] || null,
-                  matchKeys
-                )
+                this.renderRow(rows[index], {
+                  listIndex: index,
+                  style: rowStyle,
+                  getPrevRow: () => rows[index - 1] || null,
+                  matchKeys,
+                  swapFrom,
+                  swapDepth: draggedDepth,
+                  swapLength,
+                })
               }
               {...reactVirtualizedListProps}
             />
@@ -585,18 +626,20 @@ class ReactSortableTree extends Component {
     } else {
       // Render list without react-virtualized
       list = rows.map((row, index) =>
-        this.renderRow(
-          row,
-          index,
-          {
+        this.renderRow(row, {
+          listIndex: index,
+          style: {
             height:
               typeof rowHeight !== 'function'
                 ? rowHeight
-                : rowHeight({ ...row, index }),
+                : rowHeight({ index }),
           },
-          () => rows[index - 1] || null,
-          matchKeys
-        )
+          getPrevRow: () => rows[index - 1] || null,
+          matchKeys,
+          swapFrom,
+          swapDepth: draggedDepth,
+          swapLength,
+        })
       );
     }
 
