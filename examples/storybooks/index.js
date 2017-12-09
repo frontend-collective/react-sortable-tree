@@ -23,9 +23,7 @@ const wrapWithSource = (node, src) => (
 
     <br />
     <a
-      href={`https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/${
-        src
-      }`}
+      href={`https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/${src}`}
       target="_top"
       rel="noopener noreferrer"
       className={styles.sourceLink}
