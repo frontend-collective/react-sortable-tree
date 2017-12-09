@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.3"></a>
+## [1.5.3](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.2...v1.5.3) (2017-12-09)
+
+
+### Bug Fixes
+
+* dragging past the bottom of the tree no longer slows down rendering ([3ce35f3](https://github.com/fritz-c/react-sortable-tree/commit/3ce35f3))
+
+
+
 <a name="1.5.2"></a>
 ## [1.5.2](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.1...v1.5.2) (2017-11-28)
 
