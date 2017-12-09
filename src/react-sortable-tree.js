@@ -319,6 +319,14 @@ class ReactSortableTree extends Component {
     depth: draggedDepth,
     minimumTreeIndex: draggedMinimumTreeIndex,
   }) {
+    // Ignore this hover if it is at the same position as the last hover
+    if (
+      this.state.draggedDepth === draggedDepth &&
+      this.state.draggedMinimumTreeIndex === draggedMinimumTreeIndex
+    ) {
+      return;
+    }
+
     // Fall back to the tree data if something is being dragged in from
     //  an external element
     const draggingTreeData = this.state.draggingTreeData || this.props.treeData;
