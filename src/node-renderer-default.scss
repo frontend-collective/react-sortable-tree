@@ -24,7 +24,7 @@ $row-padding: 10px;
   box-shadow: none !important;
   outline: none !important;
 
-  * {
+  & > * {
     opacity: 0 !important;
   }
 
