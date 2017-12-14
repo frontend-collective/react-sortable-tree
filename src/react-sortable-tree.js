@@ -433,17 +433,17 @@ class ReactSortableTree extends Component {
             treeIndex,
 
             // Provide a helper to append the new data when it is received
-            done: childrenArray =>
+            done: childrenArray => 
               this.props.onChange(
                 changeNodeAtPath({
                   treeData: this.props.treeData,
                   path,
-                  newNode: ({ node: oldNode }) =>
+                  newNode: ({ node: oldNode }) => 
                     // Only replace the old node if it's the one we set off to find children
                     //  for in the first place
-                    oldNode === node
+                    oldNode.treeIndex === node.treeIndex
                       ? {
-                          ...oldNode,
+                          ...node,
                           children: childrenArray,
                         }
                       : oldNode,

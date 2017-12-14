@@ -142,12 +142,29 @@ class App extends Component {
             },
           ],
         },
+        {
+          title: 'Children as function',
+          children: (...args) => this.loadChildren(...args),
+        }
       ],
     };
 
     this.updateTreeData = this.updateTreeData.bind(this);
     this.expandAll = this.expandAll.bind(this);
     this.collapseAll = this.collapseAll.bind(this);
+  }
+
+  loadChildren({ done }) {
+    const data = [];
+
+    for(let j=0; j<6; j++) {
+      data.push({
+        title: `File-${j+1}`,
+        subtitle: `SubFile-${j+1}`,
+      });
+    }
+    
+    done(data);
   }
 
   updateTreeData(treeData) {
