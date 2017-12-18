@@ -188,6 +188,11 @@ class App extends Component {
     this.expand(false);
   }
 
+  canDrop(props) {
+    return (props.prevParent !== props.nextParent)
+      && !(props.prevPath.length === props.nextPath.length && props.prevPath[0] === props.nextPath[0]);
+  }
+
   render() {
     const projectName = 'React Sortable Tree';
     const authorName = 'Chris Fritz';
@@ -307,9 +312,7 @@ class App extends Component {
               searchQuery={searchString}
               searchFocusOffset={searchFocusIndex}
               canDrag={({ node }) => !node.noDragging}
-              canDrop={({ nextParent }) =>
-                !nextParent || !nextParent.noChildren
-              }
+              canDrop={this.canDrop}
               searchFinishCallback={matches =>
                 this.setState({
                   searchFoundCount: matches.length,
