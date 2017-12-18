@@ -142,12 +142,29 @@ class App extends Component {
             },
           ],
         },
+        {
+          title: 'Children as function',
+          children: (...args) => this.loadChildren(...args),
+        }
       ],
     };
 
     this.updateTreeData = this.updateTreeData.bind(this);
     this.expandAll = this.expandAll.bind(this);
     this.collapseAll = this.collapseAll.bind(this);
+  }
+
+  loadChildren({ done }) {
+    const data = [];
+
+    for(let j=0; j<6; j++) {
+      data.push({
+        title: `File-${j+1}`,
+        subtitle: `SubFile-${j+1}`,
+      });
+    }
+    
+    done(data);
   }
 
   updateTreeData(treeData) {
@@ -169,6 +186,11 @@ class App extends Component {
 
   collapseAll() {
     this.expand(false);
+  }
+
+  canDrop(props) {
+    return (props.prevParent !== props.nextParent)
+      && !(props.prevPath.length === props.nextPath.length && props.prevPath[0] === props.nextPath[0]);
   }
 
   render() {
@@ -290,9 +312,7 @@ class App extends Component {
               searchQuery={searchString}
               searchFocusOffset={searchFocusIndex}
               canDrag={({ node }) => !node.noDragging}
-              canDrop={({ nextParent }) =>
-                !nextParent || !nextParent.noChildren
-              }
+              canDrop={this.canDrop}
               searchFinishCallback={matches =>
                 this.setState({
                   searchFoundCount: matches.length,

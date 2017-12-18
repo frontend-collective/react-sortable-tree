@@ -710,7 +710,7 @@ function addNodeAtDepthAndIndex({
     (isLastChild && !(node.children && node.children.length))
   ) {
     if (typeof node.children === 'function') {
-      throw new Error('Cannot add to children defined by a function');
+      // throw new Error('Cannot add to children defined by a function');
     } else {
       const extraNodeProps = expandParent ? { expanded: true } : {};
       const nextNode = {
@@ -890,6 +890,7 @@ export function insertNode({
       treeIndex: 0,
       path: [getNodeKey({ node: newNode, treeIndex: 0 })],
       parentNode: null,
+      parentTreeIndex: null,
     };
   }
 
@@ -908,19 +909,21 @@ export function insertNode({
   });
 
   if (!('insertedTreeIndex' in insertResult)) {
-    throw new Error('No suitable position found to insert.');
+    // throw new Error('No suitable position found to insert.');
   }
-
-  const treeIndex = insertResult.insertedTreeIndex;
-  return {
-    treeData: insertResult.node.children,
-    treeIndex,
-    path: [
-      ...insertResult.parentPath,
-      getNodeKey({ node: newNode, treeIndex }),
-    ],
-    parentNode: insertResult.parentNode,
-  };
+  else {
+    const treeIndex = insertResult.insertedTreeIndex;
+    return {
+      treeData: insertResult.node.children,
+      treeIndex,
+      path: [
+        ...insertResult.parentPath,
+        getNodeKey({ node: newNode, treeIndex }),
+      ],
+      parentNode: insertResult.parentNode,
+      parentPath: insertResult.parentPath,
+    };
+  }
 }
 
 /**
