@@ -106,13 +106,17 @@ export default class DndManager {
       return false;
     }
 
-    return this.customCanDrop({
-      node: dropTargetProps.node,
-      draggedNode: monitor.getItem().node,
-      prevPath: monitor.getItem().path,
-      prevParent: monitor.getItem().parentNode,
-      prevTreeIndex: monitor.getItem().treeIndex, // Equals -1 when dragged from external tree
-    });
+    if (typeof this.customCanDrop === 'function') {
+      return this.customCanDrop({
+        node: dropTargetProps.node,
+        draggedNode: monitor.getItem().node,
+        prevPath: monitor.getItem().path,
+        prevParent: monitor.getItem().parentNode,
+        prevTreeIndex: monitor.getItem().treeIndex, // Equals -1 when dragged from external tree
+      });
+    }
+
+    return true;
   }
 
   wrapSource(el) {
