@@ -12,13 +12,3 @@ export function slideRows(rows, fromIndex, toIndex, count = 1) {
     ...rowsWithoutMoved.slice(toIndex),
   ];
 }
-
-export function pathIncludes(path, parentPath) {
-  if(!parentPath || parentPath == []) {
-    return true;
-  }
-  else {
-    const parentIndex = parentPath[parentPath.length - 1];
-    return path.includes(parentIndex);
-  }
-}

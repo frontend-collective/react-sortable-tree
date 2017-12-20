@@ -188,11 +188,6 @@ class App extends Component {
     this.expand(false);
   }
 
-  canDrop(props) {
-    return (props.prevParent !== props.nextParent)
-      && !(props.prevPath.length === props.nextPath.length && props.prevPath[0] === props.nextPath[0]);
-  }
-
   render() {
     const projectName = 'React Sortable Tree';
     const authorName = 'Chris Fritz';
@@ -298,21 +293,21 @@ class App extends Component {
             <SortableTree
               treeData={treeData}
               onChange={this.updateTreeData}
-              onMoveNode={({ node, treeIndex, path }) =>
+              onMoveNode={({ node, prevTreeIndex, prevPath }) =>
                 global.console.debug(
-                  'node:',
+                  'Move node:',
                   node,
                   'treeIndex:',
-                  treeIndex,
+                  prevTreeIndex,
                   'path:',
-                  path
+                  prevPath
                 )
               }
               maxDepth={maxDepth}
               searchQuery={searchString}
               searchFocusOffset={searchFocusIndex}
               canDrag={({ node }) => !node.noDragging}
-              canDrop={this.canDrop}
+              canDrop={({ node }) => !node.noChildren}
               searchFinishCallback={matches =>
                 this.setState({
                   searchFoundCount: matches.length,
