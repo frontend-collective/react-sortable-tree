@@ -818,7 +818,7 @@ function addNodeAtDepthAndIndex(_ref21) {
   // If the current position is the only possible place to add, add it
   if (currentIndex >= minimumTreeIndex - 1 || isLastChild && !(node.children && node.children.length)) {
     if (typeof node.children === 'function') {
-      throw new Error('Cannot add to children defined by a function');
+      // throw new Error('Cannot add to children defined by a function');
     } else {
       var extraNodeProps = expandParent ? { expanded: true } : {};
       var _nextNode = _extends({}, node, extraNodeProps, {
@@ -1000,16 +1000,17 @@ function insertNode(_ref22) {
   });
 
   if (!('insertedTreeIndex' in insertResult)) {
-    throw new Error('No suitable position found to insert.');
+    // throw new Error('No suitable position found to insert.');
+  } else {
+    var treeIndex = insertResult.insertedTreeIndex;
+    return {
+      treeData: insertResult.node.children,
+      treeIndex: treeIndex,
+      path: [].concat(_toConsumableArray(insertResult.parentPath), [getNodeKey({ node: newNode, treeIndex: treeIndex })]),
+      parentNode: insertResult.parentNode,
+      parentPath: insertResult.parentPath
+    };
   }
-
-  var treeIndex = insertResult.insertedTreeIndex;
-  return {
-    treeData: insertResult.node.children,
-    treeIndex: treeIndex,
-    path: [].concat(_toConsumableArray(insertResult.parentPath), [getNodeKey({ node: newNode, treeIndex: treeIndex })]),
-    parentNode: insertResult.parentNode
-  };
 }
 
 /**
@@ -2166,30 +2167,41 @@ var ReactSortableTree = function (_Component) {
           depth = _ref3.depth,
           minimumTreeIndex = _ref3.minimumTreeIndex;
 
-      var _insertNode = (0, _treeDataUtils.insertNode)({
-        treeData: this.state.draggingTreeData,
+      var _removeNode = (0, _treeDataUtils.removeNode)({
+        treeData: this.props.treeData,
+        path: prevPath,
+        getNodeKey: this.props.getNodeKey
+      }),
+          draggingTreeData = _removeNode.treeData;
+
+      var insertedNode = (0, _treeDataUtils.insertNode)({
+        treeData: draggingTreeData,
         newNode: node,
         depth: depth,
         minimumTreeIndex: minimumTreeIndex,
         expandParent: true,
         getNodeKey: this.props.getNodeKey
-      }),
-          treeData = _insertNode.treeData,
-          treeIndex = _insertNode.treeIndex,
-          path = _insertNode.path;
-
-      this.props.onChange(treeData);
-
-      this.props.onMoveNode({
-        treeData: treeData,
-        node: node,
-        treeIndex: treeIndex,
-        path: path,
-        nextPath: path,
-        nextTreeIndex: treeIndex,
-        prevPath: prevPath,
-        prevTreeIndex: prevTreeIndex
       });
+
+      if (insertedNode) {
+        var treeData = insertedNode.treeData,
+            treeIndex = insertedNode.treeIndex,
+            path = insertedNode.path;
+
+
+        this.props.onChange(treeData);
+
+        this.props.onMoveNode({
+          treeData: treeData,
+          node: node,
+          treeIndex: treeIndex,
+          path: path,
+          nextPath: path,
+          nextTreeIndex: treeIndex,
+          prevPath: prevPath,
+          prevTreeIndex: prevTreeIndex
+        });
+      }
     }
   }, {
     key: 'search',
@@ -2256,27 +2268,25 @@ var ReactSortableTree = function (_Component) {
   }, {
     key: 'startDrag',
     value: function startDrag(_ref4) {
-      var _this2 = this;
-
       var path = _ref4.path;
 
-      this.setState(function () {
-        var _removeNode = (0, _treeDataUtils.removeNode)({
-          treeData: _this2.props.treeData,
-          path: path,
-          getNodeKey: _this2.props.getNodeKey
-        }),
-            draggingTreeData = _removeNode.treeData,
-            draggedNode = _removeNode.node,
-            draggedMinimumTreeIndex = _removeNode.treeIndex;
+      var nodeAtPath = (0, _treeDataUtils.getNodeAtPath)({
+        treeData: this.props.treeData,
+        path: path,
+        getNodeKey: this.props.getNodeKey
+      });
 
-        return {
-          draggingTreeData: draggingTreeData,
+      if (nodeAtPath) {
+        var draggedNode = nodeAtPath.node,
+            draggedMinimumTreeIndex = nodeAtPath.treeIndex;
+
+
+        this.setState({
           draggedNode: draggedNode,
           draggedDepth: path.length - 1,
           draggedMinimumTreeIndex: draggedMinimumTreeIndex
-        };
-      });
+        });
+      }
     }
   }, {
     key: 'dragHover',
@@ -2303,31 +2313,33 @@ var ReactSortableTree = function (_Component) {
         getNodeKey: this.props.getNodeKey
       });
 
-      var rows = this.getRows(addedResult.treeData);
-      var expandedParentPath = rows[addedResult.treeIndex].path;
+      if (addedResult) {
+        var rows = this.getRows(addedResult.treeData);
+        var expandedParentPath = rows[addedResult.treeIndex].path;
 
-      this.setState({
-        draggedNode: draggedNode,
-        draggedDepth: draggedDepth,
-        draggedMinimumTreeIndex: draggedMinimumTreeIndex,
-        draggingTreeData: (0, _treeDataUtils.changeNodeAtPath)({
-          treeData: draggingTreeData,
-          path: expandedParentPath.slice(0, -1),
-          newNode: function newNode(_ref6) {
-            var node = _ref6.node;
-            return _extends({}, node, { expanded: true });
-          },
-          getNodeKey: this.props.getNodeKey
-        })
-      });
+        this.setState({
+          draggedNode: draggedNode,
+          draggedDepth: draggedDepth,
+          draggedMinimumTreeIndex: draggedMinimumTreeIndex,
+          draggingTreeData: (0, _treeDataUtils.changeNodeAtPath)({
+            treeData: draggingTreeData,
+            path: expandedParentPath.slice(0, -1),
+            newNode: function newNode(_ref6) {
+              var node = _ref6.node;
+              return _extends({}, node, { expanded: true });
+            },
+            getNodeKey: this.props.getNodeKey
+          })
+        });
+      }
     }
   }, {
     key: 'endDrag',
     value: function endDrag(dropResult) {
-      var _this3 = this;
+      var _this2 = this;
 
       var resetTree = function resetTree() {
-        return _this3.setState({
+        return _this2.setState({
           draggingTreeData: null,
           draggedNode: null,
           draggedMinimumTreeIndex: null,
@@ -2394,7 +2406,7 @@ var ReactSortableTree = function (_Component) {
   }, {
     key: 'loadLazyChildren',
     value: function loadLazyChildren() {
-      var _this4 = this;
+      var _this3 = this;
 
       var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
 
@@ -2419,8 +2431,8 @@ var ReactSortableTree = function (_Component) {
 
               // Provide a helper to append the new data when it is received
               done: function done(childrenArray) {
-                return _this4.props.onChange((0, _treeDataUtils.changeNodeAtPath)({
-                  treeData: _this4.props.treeData,
+                return _this3.props.onChange((0, _treeDataUtils.changeNodeAtPath)({
+                  treeData: _this3.props.treeData,
                   path: path,
                   newNode: function newNode(_ref9) {
                     var oldNode = _ref9.node;
@@ -2432,7 +2444,7 @@ var ReactSortableTree = function (_Component) {
                       }) : oldNode
                     );
                   },
-                  getNodeKey: _this4.props.getNodeKey
+                  getNodeKey: _this3.props.getNodeKey
                 }));
               }
             });
@@ -2511,7 +2523,7 @@ var ReactSortableTree = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this5 = this;
+      var _this4 = this;
 
       var _mergeTheme3 = mergeTheme(this.props),
           style = _mergeTheme3.style,
@@ -2531,11 +2543,12 @@ var ReactSortableTree = function (_Component) {
           draggedMinimumTreeIndex = _state.draggedMinimumTreeIndex;
 
 
-      var treeData = this.state.draggingTreeData || this.props.treeData;
+      var treeData = this.props.treeData;
 
-      var rows = void 0;
+      var rows = this.getRows(treeData);
       var swapFrom = null;
       var swapLength = null;
+      var expandedParentPath = null;
       if (draggedNode && draggedMinimumTreeIndex !== null) {
         var addedResult = (0, _memoizedTreeDataUtils.memoizedInsertNode)({
           treeData: treeData,
@@ -2549,9 +2562,6 @@ var ReactSortableTree = function (_Component) {
         var swapTo = draggedMinimumTreeIndex;
         swapFrom = addedResult.treeIndex;
         swapLength = 1 + (0, _memoizedTreeDataUtils.memoizedGetDescendantCount)({ node: draggedNode });
-        rows = (0, _genericUtils.slideRows)(this.getRows(addedResult.treeData), swapFrom, swapTo, swapLength);
-      } else {
-        rows = this.getRows(treeData);
       }
 
       // Get indices for rows that match the search conditions
@@ -2587,8 +2597,8 @@ var ReactSortableTree = function (_Component) {
             var height = _ref13.height,
                 width = _ref13.width;
             return _react2.default.createElement(ScrollZoneVirtualList, _extends({}, scrollToInfo, {
-              verticalStrength: _this5.vStrength,
-              horizontalStrength: _this5.hStrength,
+              verticalStrength: _this4.vStrength,
+              horizontalStrength: _this4.hStrength,
               speed: 30,
               scrollToAlignment: 'start',
               className: _reactSortableTree2.default.virtualScrollOverride,
@@ -2596,7 +2606,7 @@ var ReactSortableTree = function (_Component) {
               onScroll: function onScroll(_ref14) {
                 var scrollTop = _ref14.scrollTop;
 
-                _this5.scrollTop = scrollTop;
+                _this4.scrollTop = scrollTop;
               },
               height: height,
               style: innerStyle,
@@ -2606,7 +2616,7 @@ var ReactSortableTree = function (_Component) {
               rowRenderer: function rowRenderer(_ref15) {
                 var index = _ref15.index,
                     rowStyle = _ref15.style;
-                return _this5.renderRow(rows[index], {
+                return _this4.renderRow(rows[index], {
                   listIndex: index,
                   style: rowStyle,
                   getPrevRow: function getPrevRow() {
@@ -2615,7 +2625,8 @@ var ReactSortableTree = function (_Component) {
                   matchKeys: matchKeys,
                   swapFrom: swapFrom,
                   swapDepth: draggedDepth,
-                  swapLength: swapLength
+                  swapLength: swapLength,
+                  expandedParentPath: expandedParentPath
                 });
               }
             }, reactVirtualizedListProps));
@@ -2624,7 +2635,7 @@ var ReactSortableTree = function (_Component) {
       } else {
         // Render list without react-virtualized
         list = rows.map(function (row, index) {
-          return _this5.renderRow(row, {
+          return _this4.renderRow(row, {
             listIndex: index,
             style: {
               height: typeof rowHeight !== 'function' ? rowHeight : rowHeight({ index: index })
@@ -3137,10 +3148,11 @@ var TreeNode = function (_Component) {
         }
       });
 
+      var isDropping = isOver && canDrop;
+
       return connectDropTarget(_react2.default.createElement(
         'div',
         _extends({}, otherProps, { className: _treeNode2.default.node }),
-        scaffold,
         _react2.default.createElement(
           'div',
           {
@@ -3154,7 +3166,12 @@ var TreeNode = function (_Component) {
               draggedNode: draggedNode
             });
           })
-        )
+        ),
+        isDropping ? _react2.default.createElement(
+          'div',
+          { className: _treeNode2.default.dragover },
+          _react2.default.createElement('div', null)
+        ) : null
       ));
     }
   }]);
@@ -3236,10 +3253,11 @@ exports = module.exports = __webpack_require__(3)(undefined);
 
 
 // module
-exports.push([module.i, ".rst__node {\n  min-width: 100%;\n  white-space: nowrap;\n  position: relative;\n  text-align: left; }\n\n.rst__nodeContent {\n  position: absolute;\n  top: 0;\n  bottom: 0; }\n\n/* ==========================================================================\n   Scaffold\n\n    Line-overlaid blocks used for showing the tree structure\n   ========================================================================== */\n.rst__lineBlock, .rst__absoluteLineBlock {\n  height: 100%;\n  position: relative;\n  display: inline-block; }\n\n.rst__absoluteLineBlock {\n  position: absolute;\n  top: 0; }\n\n.rst__lineHalfHorizontalRight::before, .rst__lineFullVertical::after, .rst__lineHalfVerticalTop::after, .rst__lineHalfVerticalBottom::after {\n  position: absolute;\n  content: '';\n  background-color: black; }\n\n/**\n * +-----+\n * |     |\n * |  +--+\n * |     |\n * +-----+\n */\n.rst__lineHalfHorizontalRight::before {\n  height: 1px;\n  top: 50%;\n  right: 0;\n  width: 50%; }\n\n/**\n * +--+--+\n * |  |  |\n * |  |  |\n * |  |  |\n * +--+--+\n */\n.rst__lineFullVertical::after, .rst__lineHalfVerticalTop::after, .rst__lineHalfVerticalBottom::after {\n  width: 1px;\n  left: 50%;\n  top: 0;\n  height: 100%; }\n\n/**\n * +-----+\n * |  |  |\n * |  +  |\n * |     |\n * +-----+\n */\n.rst__lineHalfVerticalTop::after, .rst__lineHalfVerticalBottom::after {\n  top: 0;\n  height: 50%; }\n\n/**\n * +-----+\n * |     |\n * |  +  |\n * |  |  |\n * +-----+\n */\n.rst__lineHalfVerticalBottom::after {\n  top: auto;\n  bottom: 0; }\n\n/* Highlight line for pointing to dragged row destination\n   ========================================================================== */\n/**\n * +--+--+\n * |  |  |\n * |  |  |\n * |  |  |\n * +--+--+\n */\n.rst__highlightLineVertical {\n  z-index: 3; }\n  .rst__highlightLineVertical::before {\n    position: absolute;\n    content: '';\n    background-color: #36c2f6;\n    width: 8px;\n    margin-left: -4px;\n    left: 50%;\n    top: 0;\n    height: 100%; }\n\n@-webkit-keyframes rst__arrow-pulse {\n  0% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0);\n    opacity: 0; }\n  30% {\n    -webkit-transform: translate(0, 300%);\n            transform: translate(0, 300%);\n    opacity: 1; }\n  70% {\n    -webkit-transform: translate(0, 700%);\n            transform: translate(0, 700%);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate(0, 1000%);\n            transform: translate(0, 1000%);\n    opacity: 0; } }\n\n@keyframes rst__arrow-pulse {\n  0% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0);\n    opacity: 0; }\n  30% {\n    -webkit-transform: translate(0, 300%);\n            transform: translate(0, 300%);\n    opacity: 1; }\n  70% {\n    -webkit-transform: translate(0, 700%);\n            transform: translate(0, 700%);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate(0, 1000%);\n            transform: translate(0, 1000%);\n    opacity: 0; } }\n  .rst__highlightLineVertical::after {\n    content: '';\n    position: absolute;\n    height: 0;\n    margin-left: -4px;\n    left: 50%;\n    top: 0;\n    border-left: 4px solid transparent;\n    border-right: 4px solid transparent;\n    border-top: 4px solid white;\n    -webkit-animation: rst__arrow-pulse 1s infinite linear both;\n            animation: rst__arrow-pulse 1s infinite linear both; }\n\n/**\n * +-----+\n * |     |\n * |  +--+\n * |  |  |\n * +--+--+\n */\n.rst__highlightTopLeftCorner::before {\n  z-index: 3;\n  content: '';\n  position: absolute;\n  border-top: solid 8px #36c2f6;\n  border-left: solid 8px #36c2f6;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  height: calc(50% + 4px);\n  top: 50%;\n  margin-top: -4px;\n  right: 0;\n  width: calc(50% + 4px); }\n\n/**\n * +--+--+\n * |  |  |\n * |  |  |\n * |  +->|\n * +-----+\n */\n.rst__highlightBottomLeftCorner {\n  z-index: 3; }\n  .rst__highlightBottomLeftCorner::before {\n    content: '';\n    position: absolute;\n    border-bottom: solid 8px #36c2f6;\n    border-left: solid 8px #36c2f6;\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n    height: calc(100% + 4px);\n    top: 0;\n    right: 12px;\n    width: calc(50% - 8px); }\n  .rst__highlightBottomLeftCorner::after {\n    content: '';\n    position: absolute;\n    height: 0;\n    right: 0;\n    top: 100%;\n    margin-top: -12px;\n    border-top: 12px solid transparent;\n    border-bottom: 12px solid transparent;\n    border-left: 12px solid #36c2f6; }\n", ""]);
+exports.push([module.i, ".rst__dragover {\n  position: relative;\n  width: 100%;\n  height: 100%; }\n  .rst__dragover > div {\n    position: absolute;\n    background: black;\n    opacity: 0.5;\n    width: 100%;\n    height: 100%; }\n\n.rst__node {\n  min-width: 100%;\n  white-space: nowrap;\n  position: relative;\n  text-align: left; }\n\n.rst__nodeContent {\n  position: absolute;\n  top: 0;\n  bottom: 0; }\n\n/* ==========================================================================\n   Scaffold\n\n    Line-overlaid blocks used for showing the tree structure\n   ========================================================================== */\n.rst__lineBlock, .rst__absoluteLineBlock {\n  height: 100%;\n  position: relative;\n  display: inline-block; }\n\n.rst__absoluteLineBlock {\n  position: absolute;\n  top: 0; }\n\n.rst__lineHalfHorizontalRight::before, .rst__lineFullVertical::after, .rst__lineHalfVerticalTop::after, .rst__lineHalfVerticalBottom::after {\n  position: absolute;\n  content: '';\n  background-color: black; }\n\n/**\n * +-----+\n * |     |\n * |  +--+\n * |     |\n * +-----+\n */\n.rst__lineHalfHorizontalRight::before {\n  height: 1px;\n  top: 50%;\n  right: 0;\n  width: 50%; }\n\n/**\n * +--+--+\n * |  |  |\n * |  |  |\n * |  |  |\n * +--+--+\n */\n.rst__lineFullVertical::after, .rst__lineHalfVerticalTop::after, .rst__lineHalfVerticalBottom::after {\n  width: 1px;\n  left: 50%;\n  top: 0;\n  height: 100%; }\n\n/**\n * +-----+\n * |  |  |\n * |  +  |\n * |     |\n * +-----+\n */\n.rst__lineHalfVerticalTop::after, .rst__lineHalfVerticalBottom::after {\n  top: 0;\n  height: 50%; }\n\n/**\n * +-----+\n * |     |\n * |  +  |\n * |  |  |\n * +-----+\n */\n.rst__lineHalfVerticalBottom::after {\n  top: auto;\n  bottom: 0; }\n\n/* Highlight line for pointing to dragged row destination\n   ========================================================================== */\n/**\n * +--+--+\n * |  |  |\n * |  |  |\n * |  |  |\n * +--+--+\n */\n.rst__highlightLineVertical {\n  z-index: 3; }\n  .rst__highlightLineVertical::before {\n    position: absolute;\n    content: '';\n    background-color: #36c2f6;\n    width: 8px;\n    margin-left: -4px;\n    left: 50%;\n    top: 0;\n    height: 100%; }\n\n@-webkit-keyframes rst__arrow-pulse {\n  0% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0);\n    opacity: 0; }\n  30% {\n    -webkit-transform: translate(0, 300%);\n            transform: translate(0, 300%);\n    opacity: 1; }\n  70% {\n    -webkit-transform: translate(0, 700%);\n            transform: translate(0, 700%);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate(0, 1000%);\n            transform: translate(0, 1000%);\n    opacity: 0; } }\n\n@keyframes rst__arrow-pulse {\n  0% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0);\n    opacity: 0; }\n  30% {\n    -webkit-transform: translate(0, 300%);\n            transform: translate(0, 300%);\n    opacity: 1; }\n  70% {\n    -webkit-transform: translate(0, 700%);\n            transform: translate(0, 700%);\n    opacity: 1; }\n  100% {\n    -webkit-transform: translate(0, 1000%);\n            transform: translate(0, 1000%);\n    opacity: 0; } }\n  .rst__highlightLineVertical::after {\n    content: '';\n    position: absolute;\n    height: 0;\n    margin-left: -4px;\n    left: 50%;\n    top: 0;\n    border-left: 4px solid transparent;\n    border-right: 4px solid transparent;\n    border-top: 4px solid white;\n    -webkit-animation: rst__arrow-pulse 1s infinite linear both;\n            animation: rst__arrow-pulse 1s infinite linear both; }\n\n/**\n * +-----+\n * |     |\n * |  +--+\n * |  |  |\n * +--+--+\n */\n.rst__highlightTopLeftCorner::before {\n  z-index: 3;\n  content: '';\n  position: absolute;\n  border-top: solid 8px #36c2f6;\n  border-left: solid 8px #36c2f6;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  height: calc(50% + 4px);\n  top: 50%;\n  margin-top: -4px;\n  right: 0;\n  width: calc(50% + 4px); }\n\n/**\n * +--+--+\n * |  |  |\n * |  |  |\n * |  +->|\n * +-----+\n */\n.rst__highlightBottomLeftCorner {\n  z-index: 3; }\n  .rst__highlightBottomLeftCorner::before {\n    content: '';\n    position: absolute;\n    border-bottom: solid 8px #36c2f6;\n    border-left: solid 8px #36c2f6;\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n    height: calc(100% + 4px);\n    top: 0;\n    right: 12px;\n    width: calc(50% - 8px); }\n  .rst__highlightBottomLeftCorner::after {\n    content: '';\n    position: absolute;\n    height: 0;\n    right: 0;\n    top: 100%;\n    margin-top: -12px;\n    border-top: 12px solid transparent;\n    border-bottom: 12px solid transparent;\n    border-left: 12px solid #36c2f6; }\n", ""]);
 
 // exports
 exports.locals = {
+	"dragover": "rst__dragover",
 	"node": "rst__node",
 	"nodeContent": "rst__nodeContent",
 	"lineBlock": "rst__lineBlock",
@@ -3580,7 +3598,7 @@ exports = module.exports = __webpack_require__(3)(undefined);
 
 
 // module
-exports.push([module.i, ".rst__rowWrapper {\n  padding: 10px 10px 10px 0;\n  height: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box; }\n\n.rst__row {\n  height: 100%;\n  white-space: nowrap;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; }\n  .rst__row > * {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box; }\n\n/**\n * The outline of where the element will go if dropped, displayed while dragging\n */\n.rst__rowLandingPad, .rst__rowCancelPad {\n  border: none !important;\n  -webkit-box-shadow: none !important;\n          box-shadow: none !important;\n  outline: none !important; }\n  .rst__rowLandingPad > *, .rst__rowCancelPad > * {\n    opacity: 0 !important; }\n  .rst__rowLandingPad::before, .rst__rowCancelPad::before {\n    background-color: lightblue;\n    border: 3px dashed white;\n    content: '';\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    z-index: -1; }\n\n/**\n * Alternate appearance of the landing pad when the dragged location is invalid\n */\n.rst__rowCancelPad::before {\n  background-color: #e6a8ad; }\n\n/**\n * Nodes matching the search conditions are highlighted\n */\n.rst__rowSearchMatch {\n  outline: solid 3px #0080ff; }\n\n/**\n * The node that matches the search conditions and is currently focused\n */\n.rst__rowSearchFocus {\n  outline: solid 3px #fc6421; }\n\n.rst__rowContents, .rst__rowLabel, .rst__rowToolbar, .rst__moveHandle, .rst__loadingHandle, .rst__toolbarButton, .rst__rowLabel_NoFlex, .rst__rowToolbar_NoFlex {\n  display: inline-block;\n  vertical-align: middle; }\n\n.rst__rowContents {\n  position: relative;\n  height: 100%;\n  border: solid #bbb 1px;\n  border-left: none;\n  -webkit-box-shadow: 0 2px 2px -2px;\n          box-shadow: 0 2px 2px -2px;\n  padding: 0 5px 0 10px;\n  border-radius: 2px;\n  min-width: 230px;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 0 auto;\n          flex: 1 0 auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  background-color: white; }\n\n.rst__rowContentsDragDisabled {\n  border-left: solid #bbb 1px; }\n\n.rst__rowLabel {\n  -webkit-box-flex: 0;\n      -ms-flex: 0 1 auto;\n          flex: 0 1 auto;\n  padding-right: 20px; }\n\n.rst__rowToolbar {\n  -webkit-box-flex: 0;\n      -ms-flex: 0 1 auto;\n          flex: 0 1 auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; }\n\n.rst__moveHandle, .rst__loadingHandle {\n  height: 100%;\n  width: 44px;\n  background: #d9d9d9 url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiI+PGcgc3Ryb2tlPSIjRkZGIiBzdHJva2Utd2lkdGg9IjIuOSIgPjxwYXRoIGQ9Ik0xNCAxNS43aDE0LjQiLz48cGF0aCBkPSJNMTQgMjEuNGgxNC40Ii8+PHBhdGggZD0iTTE0IDI3LjFoMTQuNCIvPjwvZz4KPC9zdmc+\") no-repeat center;\n  border: solid #aaa 1px;\n  -webkit-box-shadow: 0 2px 2px -2px;\n          box-shadow: 0 2px 2px -2px;\n  cursor: move;\n  border-radius: 1px;\n  z-index: 1; }\n\n.rst__loadingHandle {\n  cursor: default;\n  background: #d9d9d9; }\n\n@-webkit-keyframes rst__pointFade {\n  0%,\n  19.999%,\n  100% {\n    opacity: 0; }\n  20% {\n    opacity: 1; } }\n\n@keyframes rst__pointFade {\n  0%,\n  19.999%,\n  100% {\n    opacity: 0; }\n  20% {\n    opacity: 1; } }\n\n.rst__loadingCircle {\n  width: 80%;\n  height: 80%;\n  margin: 10%;\n  position: relative; }\n\n.rst__loadingCirclePoint {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0; }\n  .rst__loadingCirclePoint:before {\n    content: '';\n    display: block;\n    margin: 0 auto;\n    width: 11%;\n    height: 30%;\n    background-color: #fff;\n    border-radius: 30%;\n    -webkit-animation: rst__pointFade 800ms infinite ease-in-out both;\n            animation: rst__pointFade 800ms infinite ease-in-out both; }\n  .rst__loadingCirclePoint:nth-of-type(1) {\n    -webkit-transform: rotate(0deg);\n        -ms-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  .rst__loadingCirclePoint:nth-of-type(7) {\n    -webkit-transform: rotate(180deg);\n        -ms-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  .rst__loadingCirclePoint:nth-of-type(1):before, .rst__loadingCirclePoint:nth-of-type(7):before {\n    -webkit-animation-delay: -800ms;\n            animation-delay: -800ms; }\n  .rst__loadingCirclePoint:nth-of-type(2) {\n    -webkit-transform: rotate(30deg);\n        -ms-transform: rotate(30deg);\n            transform: rotate(30deg); }\n  .rst__loadingCirclePoint:nth-of-type(8) {\n    -webkit-transform: rotate(210deg);\n        -ms-transform: rotate(210deg);\n            transform: rotate(210deg); }\n  .rst__loadingCirclePoint:nth-of-type(2):before, .rst__loadingCirclePoint:nth-of-type(8):before {\n    -webkit-animation-delay: -666.66667ms;\n            animation-delay: -666.66667ms; }\n  .rst__loadingCirclePoint:nth-of-type(3) {\n    -webkit-transform: rotate(60deg);\n        -ms-transform: rotate(60deg);\n            transform: rotate(60deg); }\n  .rst__loadingCirclePoint:nth-of-type(9) {\n    -webkit-transform: rotate(240deg);\n        -ms-transform: rotate(240deg);\n            transform: rotate(240deg); }\n  .rst__loadingCirclePoint:nth-of-type(3):before, .rst__loadingCirclePoint:nth-of-type(9):before {\n    -webkit-animation-delay: -533.33333ms;\n            animation-delay: -533.33333ms; }\n  .rst__loadingCirclePoint:nth-of-type(4) {\n    -webkit-transform: rotate(90deg);\n        -ms-transform: rotate(90deg);\n            transform: rotate(90deg); }\n  .rst__loadingCirclePoint:nth-of-type(10) {\n    -webkit-transform: rotate(270deg);\n        -ms-transform: rotate(270deg);\n            transform: rotate(270deg); }\n  .rst__loadingCirclePoint:nth-of-type(4):before, .rst__loadingCirclePoint:nth-of-type(10):before {\n    -webkit-animation-delay: -400ms;\n            animation-delay: -400ms; }\n  .rst__loadingCirclePoint:nth-of-type(5) {\n    -webkit-transform: rotate(120deg);\n        -ms-transform: rotate(120deg);\n            transform: rotate(120deg); }\n  .rst__loadingCirclePoint:nth-of-type(11) {\n    -webkit-transform: rotate(300deg);\n        -ms-transform: rotate(300deg);\n            transform: rotate(300deg); }\n  .rst__loadingCirclePoint:nth-of-type(5):before, .rst__loadingCirclePoint:nth-of-type(11):before {\n    -webkit-animation-delay: -266.66667ms;\n            animation-delay: -266.66667ms; }\n  .rst__loadingCirclePoint:nth-of-type(6) {\n    -webkit-transform: rotate(150deg);\n        -ms-transform: rotate(150deg);\n            transform: rotate(150deg); }\n  .rst__loadingCirclePoint:nth-of-type(12) {\n    -webkit-transform: rotate(330deg);\n        -ms-transform: rotate(330deg);\n            transform: rotate(330deg); }\n  .rst__loadingCirclePoint:nth-of-type(6):before, .rst__loadingCirclePoint:nth-of-type(12):before {\n    -webkit-animation-delay: -133.33333ms;\n            animation-delay: -133.33333ms; }\n  .rst__loadingCirclePoint:nth-of-type(7) {\n    -webkit-transform: rotate(180deg);\n        -ms-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  .rst__loadingCirclePoint:nth-of-type(13) {\n    -webkit-transform: rotate(360deg);\n        -ms-transform: rotate(360deg);\n            transform: rotate(360deg); }\n  .rst__loadingCirclePoint:nth-of-type(7):before, .rst__loadingCirclePoint:nth-of-type(13):before {\n    -webkit-animation-delay: 0ms;\n            animation-delay: 0ms; }\n\n.rst__rowTitle {\n  font-weight: bold; }\n\n.rst__rowTitleWithSubtitle {\n  font-size: 85%;\n  display: block;\n  height: 0.8rem; }\n\n.rst__rowSubtitle {\n  font-size: 70%;\n  line-height: 1; }\n\n.rst__collapseButton,\n.rst__expandButton {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border: none;\n  position: absolute;\n  border-radius: 100%;\n  -webkit-box-shadow: 0 0 0 1px #000;\n          box-shadow: 0 0 0 1px #000;\n  width: 16px;\n  height: 16px;\n  padding: 0;\n  top: 50%;\n  -webkit-transform: translate(-50%, -50%);\n      -ms-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n  cursor: pointer; }\n  .rst__collapseButton:focus,\n  .rst__expandButton:focus {\n    outline: none;\n    -webkit-box-shadow: 0 0 0 1px #000, 0 0 1px 3px #83bef9;\n            box-shadow: 0 0 0 1px #000, 0 0 1px 3px #83bef9; }\n  .rst__collapseButton:hover:not(:active),\n  .rst__expandButton:hover:not(:active) {\n    background-size: 24px;\n    height: 20px;\n    width: 20px; }\n\n.rst__collapseButton {\n  background: #fff url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCI+PGNpcmNsZSBjeD0iOSIgY3k9IjkiIHI9IjgiIGZpbGw9IiNGRkYiLz48ZyBzdHJva2U9IiM5ODk4OTgiIHN0cm9rZS13aWR0aD0iMS45IiA+PHBhdGggZD0iTTQuNSA5aDkiLz48L2c+Cjwvc3ZnPg==\") no-repeat center; }\n\n.rst__expandButton {\n  background: #fff url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCI+PGNpcmNsZSBjeD0iOSIgY3k9IjkiIHI9IjgiIGZpbGw9IiNGRkYiLz48ZyBzdHJva2U9IiM5ODk4OTgiIHN0cm9rZS13aWR0aD0iMS45IiA+PHBhdGggZD0iTTQuNSA5aDkiLz48cGF0aCBkPSJNOSA0LjV2OSIvPjwvZz4KPC9zdmc+\") no-repeat center; }\n\n/**\n  * Classes for IE9 and below\n  */\n.rst__row_NoFlex::before, .rst__rowContents_NoFlex::before {\n  content: '';\n  display: inline-block;\n  vertical-align: middle;\n  height: 100%; }\n\n.rst__rowContents_NoFlex {\n  display: inline-block; }\n  .rst__rowContents_NoFlex::after {\n    content: '';\n    display: inline-block;\n    width: 100%; }\n\n.rst__rowLabel_NoFlex {\n  width: 50%; }\n\n.rst__rowToolbar_NoFlex {\n  text-align: right;\n  width: 50%; }\n\n/**\n * Line for under a node with children\n */\n.rst__lineChildren {\n  height: 100%;\n  display: inline-block;\n  position: absolute; }\n  .rst__lineChildren::after {\n    content: '';\n    position: absolute;\n    background-color: black;\n    width: 1px;\n    left: 50%;\n    bottom: 0;\n    height: 10px; }\n", ""]);
+exports.push([module.i, ".rst__rowWrapper {\n  padding: 10px 10px 10px 0;\n  height: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box; }\n\n.rst__row {\n  height: 100%;\n  white-space: nowrap;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; }\n  .rst__row > * {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box; }\n\n/**\n * The outline of where the element will go if dropped, displayed while dragging\n */\n.rst__rowLandingPad, .rst__rowCancelPad {\n  border: none !important;\n  -webkit-box-shadow: none !important;\n          box-shadow: none !important;\n  outline: none !important; }\n  .rst__rowLandingPad > *, .rst__rowCancelPad > * {\n    opacity: 0.9 !important; }\n  .rst__rowLandingPad::before, .rst__rowCancelPad::before {\n    background-color: lightblue;\n    border: 3px dashed white;\n    content: '';\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    z-index: -1; }\n\n/**\n * Alternate appearance of the landing pad when the dragged location is invalid\n */\n.rst__rowCancelPad::before {\n  background-color: #e6a8ad; }\n\n/**\n * Nodes matching the search conditions are highlighted\n */\n.rst__rowSearchMatch {\n  outline: solid 3px #0080ff; }\n\n/**\n * The node that matches the search conditions and is currently focused\n */\n.rst__rowSearchFocus {\n  outline: solid 3px #fc6421; }\n\n.rst__rowContents, .rst__rowLabel, .rst__rowToolbar, .rst__moveHandle, .rst__loadingHandle, .rst__toolbarButton, .rst__rowLabel_NoFlex, .rst__rowToolbar_NoFlex {\n  display: inline-block;\n  vertical-align: middle; }\n\n.rst__rowContents {\n  position: relative;\n  height: 100%;\n  border: solid #bbb 1px;\n  border-left: none;\n  -webkit-box-shadow: 0 2px 2px -2px;\n          box-shadow: 0 2px 2px -2px;\n  padding: 0 5px 0 10px;\n  border-radius: 2px;\n  min-width: 230px;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 0 auto;\n          flex: 1 0 auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  background-color: white; }\n\n.rst__rowContentsDragDisabled {\n  border-left: solid #bbb 1px; }\n\n.rst__rowLabel {\n  -webkit-box-flex: 0;\n      -ms-flex: 0 1 auto;\n          flex: 0 1 auto;\n  padding-right: 20px; }\n\n.rst__rowToolbar {\n  -webkit-box-flex: 0;\n      -ms-flex: 0 1 auto;\n          flex: 0 1 auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; }\n\n.rst__moveHandle, .rst__loadingHandle {\n  height: 100%;\n  width: 44px;\n  background: #d9d9d9 url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiI+PGcgc3Ryb2tlPSIjRkZGIiBzdHJva2Utd2lkdGg9IjIuOSIgPjxwYXRoIGQ9Ik0xNCAxNS43aDE0LjQiLz48cGF0aCBkPSJNMTQgMjEuNGgxNC40Ii8+PHBhdGggZD0iTTE0IDI3LjFoMTQuNCIvPjwvZz4KPC9zdmc+\") no-repeat center;\n  border: solid #aaa 1px;\n  -webkit-box-shadow: 0 2px 2px -2px;\n          box-shadow: 0 2px 2px -2px;\n  cursor: move;\n  border-radius: 1px;\n  z-index: 1; }\n\n.rst__loadingHandle {\n  cursor: default;\n  background: #d9d9d9; }\n\n@-webkit-keyframes rst__pointFade {\n  0%,\n  19.999%,\n  100% {\n    opacity: 0; }\n  20% {\n    opacity: 1; } }\n\n@keyframes rst__pointFade {\n  0%,\n  19.999%,\n  100% {\n    opacity: 0; }\n  20% {\n    opacity: 1; } }\n\n.rst__loadingCircle {\n  width: 80%;\n  height: 80%;\n  margin: 10%;\n  position: relative; }\n\n.rst__loadingCirclePoint {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0; }\n  .rst__loadingCirclePoint:before {\n    content: '';\n    display: block;\n    margin: 0 auto;\n    width: 11%;\n    height: 30%;\n    background-color: #fff;\n    border-radius: 30%;\n    -webkit-animation: rst__pointFade 800ms infinite ease-in-out both;\n            animation: rst__pointFade 800ms infinite ease-in-out both; }\n  .rst__loadingCirclePoint:nth-of-type(1) {\n    -webkit-transform: rotate(0deg);\n        -ms-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  .rst__loadingCirclePoint:nth-of-type(7) {\n    -webkit-transform: rotate(180deg);\n        -ms-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  .rst__loadingCirclePoint:nth-of-type(1):before, .rst__loadingCirclePoint:nth-of-type(7):before {\n    -webkit-animation-delay: -800ms;\n            animation-delay: -800ms; }\n  .rst__loadingCirclePoint:nth-of-type(2) {\n    -webkit-transform: rotate(30deg);\n        -ms-transform: rotate(30deg);\n            transform: rotate(30deg); }\n  .rst__loadingCirclePoint:nth-of-type(8) {\n    -webkit-transform: rotate(210deg);\n        -ms-transform: rotate(210deg);\n            transform: rotate(210deg); }\n  .rst__loadingCirclePoint:nth-of-type(2):before, .rst__loadingCirclePoint:nth-of-type(8):before {\n    -webkit-animation-delay: -666.66667ms;\n            animation-delay: -666.66667ms; }\n  .rst__loadingCirclePoint:nth-of-type(3) {\n    -webkit-transform: rotate(60deg);\n        -ms-transform: rotate(60deg);\n            transform: rotate(60deg); }\n  .rst__loadingCirclePoint:nth-of-type(9) {\n    -webkit-transform: rotate(240deg);\n        -ms-transform: rotate(240deg);\n            transform: rotate(240deg); }\n  .rst__loadingCirclePoint:nth-of-type(3):before, .rst__loadingCirclePoint:nth-of-type(9):before {\n    -webkit-animation-delay: -533.33333ms;\n            animation-delay: -533.33333ms; }\n  .rst__loadingCirclePoint:nth-of-type(4) {\n    -webkit-transform: rotate(90deg);\n        -ms-transform: rotate(90deg);\n            transform: rotate(90deg); }\n  .rst__loadingCirclePoint:nth-of-type(10) {\n    -webkit-transform: rotate(270deg);\n        -ms-transform: rotate(270deg);\n            transform: rotate(270deg); }\n  .rst__loadingCirclePoint:nth-of-type(4):before, .rst__loadingCirclePoint:nth-of-type(10):before {\n    -webkit-animation-delay: -400ms;\n            animation-delay: -400ms; }\n  .rst__loadingCirclePoint:nth-of-type(5) {\n    -webkit-transform: rotate(120deg);\n        -ms-transform: rotate(120deg);\n            transform: rotate(120deg); }\n  .rst__loadingCirclePoint:nth-of-type(11) {\n    -webkit-transform: rotate(300deg);\n        -ms-transform: rotate(300deg);\n            transform: rotate(300deg); }\n  .rst__loadingCirclePoint:nth-of-type(5):before, .rst__loadingCirclePoint:nth-of-type(11):before {\n    -webkit-animation-delay: -266.66667ms;\n            animation-delay: -266.66667ms; }\n  .rst__loadingCirclePoint:nth-of-type(6) {\n    -webkit-transform: rotate(150deg);\n        -ms-transform: rotate(150deg);\n            transform: rotate(150deg); }\n  .rst__loadingCirclePoint:nth-of-type(12) {\n    -webkit-transform: rotate(330deg);\n        -ms-transform: rotate(330deg);\n            transform: rotate(330deg); }\n  .rst__loadingCirclePoint:nth-of-type(6):before, .rst__loadingCirclePoint:nth-of-type(12):before {\n    -webkit-animation-delay: -133.33333ms;\n            animation-delay: -133.33333ms; }\n  .rst__loadingCirclePoint:nth-of-type(7) {\n    -webkit-transform: rotate(180deg);\n        -ms-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  .rst__loadingCirclePoint:nth-of-type(13) {\n    -webkit-transform: rotate(360deg);\n        -ms-transform: rotate(360deg);\n            transform: rotate(360deg); }\n  .rst__loadingCirclePoint:nth-of-type(7):before, .rst__loadingCirclePoint:nth-of-type(13):before {\n    -webkit-animation-delay: 0ms;\n            animation-delay: 0ms; }\n\n.rst__rowTitle {\n  font-weight: bold; }\n\n.rst__rowTitleWithSubtitle {\n  font-size: 85%;\n  display: block;\n  height: 0.8rem; }\n\n.rst__rowSubtitle {\n  font-size: 70%;\n  line-height: 1; }\n\n.rst__collapseButton,\n.rst__expandButton {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border: none;\n  position: absolute;\n  border-radius: 100%;\n  -webkit-box-shadow: 0 0 0 1px #000;\n          box-shadow: 0 0 0 1px #000;\n  width: 16px;\n  height: 16px;\n  padding: 0;\n  top: 50%;\n  -webkit-transform: translate(-50%, -50%);\n      -ms-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n  cursor: pointer; }\n  .rst__collapseButton:focus,\n  .rst__expandButton:focus {\n    outline: none;\n    -webkit-box-shadow: 0 0 0 1px #000, 0 0 1px 3px #83bef9;\n            box-shadow: 0 0 0 1px #000, 0 0 1px 3px #83bef9; }\n  .rst__collapseButton:hover:not(:active),\n  .rst__expandButton:hover:not(:active) {\n    background-size: 24px;\n    height: 20px;\n    width: 20px; }\n\n.rst__collapseButton {\n  background: #fff url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCI+PGNpcmNsZSBjeD0iOSIgY3k9IjkiIHI9IjgiIGZpbGw9IiNGRkYiLz48ZyBzdHJva2U9IiM5ODk4OTgiIHN0cm9rZS13aWR0aD0iMS45IiA+PHBhdGggZD0iTTQuNSA5aDkiLz48L2c+Cjwvc3ZnPg==\") no-repeat center; }\n\n.rst__expandButton {\n  background: #fff url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCI+PGNpcmNsZSBjeD0iOSIgY3k9IjkiIHI9IjgiIGZpbGw9IiNGRkYiLz48ZyBzdHJva2U9IiM5ODk4OTgiIHN0cm9rZS13aWR0aD0iMS45IiA+PHBhdGggZD0iTTQuNSA5aDkiLz48cGF0aCBkPSJNOSA0LjV2OSIvPjwvZz4KPC9zdmc+\") no-repeat center; }\n\n/**\n  * Classes for IE9 and below\n  */\n.rst__row_NoFlex::before, .rst__rowContents_NoFlex::before {\n  content: '';\n  display: inline-block;\n  vertical-align: middle;\n  height: 100%; }\n\n.rst__rowContents_NoFlex {\n  display: inline-block; }\n  .rst__rowContents_NoFlex::after {\n    content: '';\n    display: inline-block;\n    width: 100%; }\n\n.rst__rowLabel_NoFlex {\n  width: 50%; }\n\n.rst__rowToolbar_NoFlex {\n  text-align: right;\n  width: 50%; }\n\n/**\n * Line for under a node with children\n */\n.rst__lineChildren {\n  height: 100%;\n  display: inline-block;\n  position: absolute; }\n  .rst__lineChildren::after {\n    content: '';\n    position: absolute;\n    background-color: black;\n    width: 1px;\n    left: 50%;\n    bottom: 0;\n    height: 10px; }\n", ""]);
 
 // exports
 exports.locals = {
@@ -3801,6 +3819,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.slideRows = slideRows;
+exports.pathIncludes = pathIncludes;
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -3812,6 +3831,15 @@ function slideRows(rows, fromIndex, toIndex) {
   var rowsWithoutMoved = [].concat(_toConsumableArray(rows.slice(0, fromIndex)), _toConsumableArray(rows.slice(fromIndex + count)));
 
   return [].concat(_toConsumableArray(rowsWithoutMoved.slice(0, toIndex)), _toConsumableArray(rows.slice(fromIndex, fromIndex + count)), _toConsumableArray(rowsWithoutMoved.slice(toIndex)));
+}
+
+function pathIncludes(path, parentPath) {
+  if (!parentPath || parentPath == []) {
+    return true;
+  } else {
+    var parentIndex = parentPath[parentPath.length - 1];
+    return path.includes(parentIndex);
+  }
 }
 
 /***/ }),
@@ -4011,12 +4039,12 @@ var DndManager = function () {
             return;
           }
 
-          _this2.dragHover({
-            node: draggedNode,
-            path: monitor.getItem().path,
-            minimumTreeIndex: dropTargetProps.listIndex,
-            depth: targetDepth
-          });
+          // this.dragHover({
+          //   node: draggedNode,
+          //   path: monitor.getItem().path,
+          //   minimumTreeIndex: dropTargetProps.listIndex,
+          //   depth: targetDepth,
+          // });
         },
 
         canDrop: this.canDrop.bind(this)
