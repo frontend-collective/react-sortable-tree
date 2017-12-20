@@ -21,10 +21,10 @@ class TreeNode extends Component {
       getPrevRow, // Delete from otherProps
       node, // Delete from otherProps
       path, // Delete from otherProps
-      isDraggingParent,
+      isParentDragOver,
       ...otherProps
     } = this.props;
-    console.log('isDraggingParent', isDraggingParent);
+
     // Construct the scaffold representing the structure of the tree
     const scaffoldBlockCount = lowerSiblingCounts.length;
     const scaffold = [];
@@ -129,16 +129,16 @@ class TreeNode extends Component {
           className={styles.nodeContent}
           style={{ left: scaffoldBlockPxWidth * scaffoldBlockCount }}
         >
-          {Children.map(children, child => {
-              
-              return cloneElement(child, {
-                isOver,
-                canDrop,
-                draggedNode,
-              })
-            }
+          {Children.map(children, child => 
+            cloneElement(child, {
+              isOver,
+              canDrop,
+              draggedNode,
+            })
           )}
         </div>
+
+        {isParentDragOver ? <div className={styles.dragover}><div></div></div> : null}
       </div>
     );
   }

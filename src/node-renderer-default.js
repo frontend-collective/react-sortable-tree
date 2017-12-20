@@ -41,7 +41,6 @@ class NodeRendererDefault extends Component {
       treeId,
       isOver, // Not needed, but preserved for other renderers
       parentNode, // Needed for dndManager,
-      isDraggingParent,
       ...otherProps
     } = this.props;
     const nodeTitle = title || node.title;

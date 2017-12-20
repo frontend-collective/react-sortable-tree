@@ -890,7 +890,6 @@ export function insertNode({
       treeIndex: 0,
       path: [getNodeKey({ node: newNode, treeIndex: 0 })],
       parentNode: null,
-      parentTreeIndex: null,
     };
   }
 
