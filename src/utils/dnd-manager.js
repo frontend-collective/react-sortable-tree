@@ -233,12 +233,12 @@ export default class DndManager {
           return;
         }
 
-        this.dragHover({
-          node: draggedNode,
-          path: monitor.getItem().path,
-          minimumTreeIndex: dropTargetProps.listIndex,
-          depth: targetDepth,
-        });
+        // this.dragHover({
+        //   node: draggedNode,
+        //   path: monitor.getItem().path,
+        //   minimumTreeIndex: dropTargetProps.listIndex,
+        //   depth: targetDepth,
+        // });
       },
 
       canDrop: this.canDrop.bind(this),

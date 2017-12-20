@@ -21,7 +21,6 @@ class TreeNode extends Component {
       getPrevRow, // Delete from otherProps
       node, // Delete from otherProps
       path, // Delete from otherProps
-      isParentDragOver,
       ...otherProps
     } = this.props;
 
@@ -121,6 +120,8 @@ class TreeNode extends Component {
       }
     });
 
+    const isDropping = isOver && canDrop;
+
     return connectDropTarget(
       <div {...otherProps} className={styles.node}>
         {/*scaffold*/}
@@ -138,7 +139,7 @@ class TreeNode extends Component {
           )}
         </div>
 
-        {isParentDragOver ? <div className={styles.dragover}><div></div></div> : null}
+        {isDropping ? <div className={styles.dragover}><div></div></div> : null}
       </div>
     );
   }

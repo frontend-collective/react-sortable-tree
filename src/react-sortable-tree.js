@@ -320,7 +320,6 @@ class ReactSortableTree extends Component {
       } = nodeAtPath;
 
       this.setState({
-        draggingTreeData: this.props.treeData,
         draggedNode,
         draggedDepth: path.length - 1,
         draggedMinimumTreeIndex,
@@ -355,7 +354,7 @@ class ReactSortableTree extends Component {
     });
 
     if(addedResult) {
-      const rows = this.getRows(this.props.treeData);
+      const rows = this.getRows(addedResult.treeData);
       const expandedParentPath = rows[addedResult.treeIndex].path;
       
       this.setState({
@@ -474,7 +473,7 @@ class ReactSortableTree extends Component {
 
   renderRow(
     { node, parentNode, path, lowerSiblingCounts, treeIndex },
-    { listIndex, style, getPrevRow, matchKeys, swapFrom, swapDepth, swapLength, expandedParentPath }
+    { listIndex, style, getPrevRow, matchKeys, swapFrom, swapDepth, swapLength }
   ) {
     const {
       canDrag,
@@ -502,8 +501,6 @@ class ReactSortableTree extends Component {
       : generateNodeProps(callbackParams);
     const rowCanDrag =
       typeof canDrag !== 'function' ? canDrag : canDrag(callbackParams);
-    const isParentDragOver =
-      swapFrom ? pathIncludes(path, expandedParentPath) : false;
       
     const sharedProps = {
       treeIndex,
@@ -523,7 +520,6 @@ class ReactSortableTree extends Component {
         swapFrom={swapFrom}
         swapLength={swapLength}
         swapDepth={swapDepth}
-        isParentDragOver={isParentDragOver}
         {...sharedProps}
       >
         <NodeContentRenderer
@@ -560,7 +556,7 @@ class ReactSortableTree extends Component {
 
     const treeData = this.props.treeData;
 
-    let rows = this.getRows(this.props.treeData);
+    let rows = this.getRows(treeData);
     let swapFrom = null;
     let swapLength = null;
     let expandedParentPath = null;
@@ -574,8 +570,6 @@ class ReactSortableTree extends Component {
         getNodeKey,
       });
 
-      expandedParentPath = rows[addedResult.treeIndex].path;
-      
       const swapTo = draggedMinimumTreeIndex;
       swapFrom = addedResult.treeIndex;
       swapLength = 1 + memoizedGetDescendantCount({ node: draggedNode });
