@@ -305,6 +305,8 @@ class ReactSortableTree extends Component {
         getNodeKey: this.props.getNodeKey,
       });
 
+      this.props.onDragStart();
+
       return {
         draggingTreeData,
         draggedNode,
@@ -758,6 +760,9 @@ ReactSortableTree.propTypes = {
   // own component's data to see the changes reflected.
   onChange: PropTypes.func.isRequired,
 
+  // Called when the dragging is started.
+  onDragStart: PropTypes.func,
+
   // Called after node move operation.
   onMoveNode: PropTypes.func,
 
@@ -792,6 +797,7 @@ ReactSortableTree.defaultProps = {
   maxDepth: null,
   treeNodeRenderer: null,
   nodeContentRenderer: null,
+  onDragStart: () => {},
   onMoveNode: () => {},
   onVisibilityToggle: () => {},
   placeholderRenderer: null,

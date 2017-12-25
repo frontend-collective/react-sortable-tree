@@ -7,6 +7,10 @@
 ### [Demo](https://fritz-c.github.io/react-sortable-tree/)
 [![demo](https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif)](https://fritz-c.github.io/react-sortable-tree/)
 
+### What does this fork do?
+
+- Fire a callback when the dragging started.
+
 ## Usage
 
 ```jsx
@@ -44,6 +48,7 @@ Prop                      | Type           | <div style="width: 400px;">Descript
 :-------------------------|:--------------:|:----------------------------------------
 treeData<br/>_(required)_ | object[]       | Tree data with the following keys: <div>`title` is the primary label for the node.</div><div>`subtitle` is a secondary label for the node.</div><div>`expanded` shows children of the node if true, or hides them if false. Defaults to false.</div><div>`children` is an array of child nodes belonging to the node.</div><div>__Example__: `[{title: 'main', subtitle: 'sub'}, { title: 'value2', expanded: true, children: [{ title: 'value3') }] }]`
 onChange<br/>_(required)_ | func           | Called whenever tree data changed. Just like with React input elements, you have to update your own component's data to see the changes reflected.<div>`( treeData: object[] ): void`</div>
+onDragStart | func           | Called when the dragging is started. <div>`(): void`</div>
 getNodeKey<br/>_(recommended)_ | func      | Specify the unique key used to identify each node and generate the `path` array passed in callbacks. It uses [`defaultGetNodeKey`](https://github.com/fritz-c/react-sortable-tree/blob/master/src/utils/default-handlers.js) by default, which returns the index in the tree (omitting hidden nodes).<div>`({ node: object, treeIndex: number }): string or number`</div>
 generateNodeProps         | func           | Generate an object with additional props to be passed to the node renderer. Use this for adding buttons via the `buttons` key, or additional `style` / `className` settings.<div>`({ node: object, path: number[] or string[], treeIndex: number, lowerSiblingCounts: number[], isSearchMatch: bool, isSearchFocus: bool }): object`</div>
 onMoveNode                | func           | Called after node move operation. <div>`({ treeData: object[], node: object, prevPath: number[] or string[], prevTreeIndex: number, nextPath: number[] or string[], nextTreeIndex: number }): void`</div>
@@ -144,7 +149,7 @@ npm test
 npm run lint
 
 # Lints and builds the code, placing the result in the dist directory.
-# This build is necessary to reflect changes if you're 
+# This build is necessary to reflect changes if you're
 #  `npm link`-ed to this repository from another local project.
 npm run build
 ```
