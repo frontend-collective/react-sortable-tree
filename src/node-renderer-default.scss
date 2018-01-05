@@ -24,7 +24,7 @@ $row-padding: 10px;
   box-shadow: none !important;
   outline: none !important;
 
-  * {
+  & > * {
     opacity: 0 !important;
   }
 
@@ -212,6 +212,7 @@ $row-padding: 10px;
   box-shadow: 0 0 0 1px #000;
   width: 16px;
   height: 16px;
+  padding: 0;
   top: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;

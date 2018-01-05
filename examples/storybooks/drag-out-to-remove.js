@@ -1,4 +1,6 @@
+/* eslint-disable react/no-multi-comp */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { DragDropContext, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { SortableTreeWithoutDndContext as SortableTree } from '../../src';
@@ -22,18 +24,28 @@ const trashAreaCollect = (connect, monitor) => ({
 
 // The component will sit around the tree component and catch
 // nodes dragged out
-const trashAreaBaseComponent = ({ connectDropTarget, children, isOver }) =>
-  connectDropTarget(
-    <div
-      style={{
-        height: '100vh',
-        padding: 50,
-        background: isOver ? 'pink' : 'transparent',
-      }}
-    >
-      {children}
-    </div>
-  );
+class trashAreaBaseComponent extends Component {
+  render() {
+    const { connectDropTarget, children, isOver } = this.props;
+
+    return connectDropTarget(
+      <div
+        style={{
+          height: '100vh',
+          padding: 50,
+          background: isOver ? 'pink' : 'transparent',
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+}
+trashAreaBaseComponent.propTypes = {
+  connectDropTarget: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  isOver: PropTypes.bool.isRequired,
+};
 const TrashAreaComponent = DropTarget(
   trashAreaType,
   trashAreaSpec,

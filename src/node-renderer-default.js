@@ -38,13 +38,9 @@ class NodeRendererDefault extends Component {
       className,
       style,
       didDrop,
-      /* eslint-disable no-unused-vars */
-      isOver: _isOver, // Not needed, but preserved for other renderers
-      parentNode: _parentNode, // Needed for drag-and-drop utils
-      endDrag: _endDrag, // Needed for drag-and-drop utils
-      startDrag: _startDrag, // Needed for drag-and-drop utils
-      treeId: _treeId, // Needed for drag-and-drop utils
-      /* eslint-enable no-unused-vars */
+      treeId,
+      isOver, // Not needed, but preserved for other renderers
+      parentNode, // Needed for dndManager
       ...otherProps
     } = this.props;
     const nodeTitle = title || node.title;
@@ -88,30 +84,33 @@ class NodeRendererDefault extends Component {
       <div style={{ height: '100%' }} {...otherProps}>
         {toggleChildrenVisibility &&
           node.children &&
-          node.children.length > 0 &&
-          <div>
-            <button
-              type="button"
-              aria-label={node.expanded ? 'Collapse' : 'Expand'}
-              className={
-                node.expanded ? styles.collapseButton : styles.expandButton
-              }
-              style={{ left: -0.5 * scaffoldBlockPxWidth }}
-              onClick={() =>
-                toggleChildrenVisibility({
-                  node,
-                  path,
-                  treeIndex,
-                })}
-            />
+          (node.children.length > 0 || typeof node.children === 'function') && (
+            <div>
+              <button
+                type="button"
+                aria-label={node.expanded ? 'Collapse' : 'Expand'}
+                className={
+                  node.expanded ? styles.collapseButton : styles.expandButton
+                }
+                style={{ left: -0.5 * scaffoldBlockPxWidth }}
+                onClick={() =>
+                  toggleChildrenVisibility({
+                    node,
+                    path,
+                    treeIndex,
+                  })
+                }
+              />
 
-            {node.expanded &&
-              !isDragging &&
-              <div
-                style={{ width: scaffoldBlockPxWidth }}
-                className={styles.lineChildren}
-              />}
-          </div>}
+              {node.expanded &&
+                !isDragging && (
+                  <div
+                    style={{ width: scaffoldBlockPxWidth }}
+                    className={styles.lineChildren}
+                  />
+                )}
+            </div>
+          )}
 
         <div className={styles.rowWrapper}>
           {/* Set the row preview to be used during drag and drop */}
@@ -156,7 +155,7 @@ class NodeRendererDefault extends Component {
                       : nodeTitle}
                   </span>
 
-                  {nodeSubtitle &&
+                  {nodeSubtitle && (
                     <span className={styles.rowSubtitle}>
                       {typeof nodeSubtitle === 'function'
                         ? nodeSubtitle({
@@ -165,18 +164,19 @@ class NodeRendererDefault extends Component {
                             treeIndex,
                           })
                         : nodeSubtitle}
-                    </span>}
+                    </span>
+                  )}
                 </div>
 
                 <div className={styles.rowToolbar}>
-                  {buttons.map((btn, index) =>
+                  {buttons.map((btn, index) => (
                     <div
                       key={index} // eslint-disable-line react/no-array-index-key
                       className={styles.toolbarButton}
                     >
                       {btn}
                     </div>
-                  )}
+                  ))}
                 </div>
               </div>
             </div>
@@ -210,6 +210,7 @@ NodeRendererDefault.propTypes = {
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,
   treeIndex: PropTypes.number.isRequired,
+  treeId: PropTypes.string.isRequired,
   isSearchMatch: PropTypes.bool,
   isSearchFocus: PropTypes.bool,
   canDrag: PropTypes.bool,
@@ -223,10 +224,7 @@ NodeRendererDefault.propTypes = {
   // Drag source
   connectDragPreview: PropTypes.func.isRequired,
   connectDragSource: PropTypes.func.isRequired,
-  parentNode: PropTypes.shape({}), // Needed for drag-and-drop utils
-  startDrag: PropTypes.func.isRequired, // Needed for drag-and-drop utils
-  endDrag: PropTypes.func.isRequired, // Needed for drag-and-drop utils
-  treeId: PropTypes.string.isRequired, // Needed for drag-and-drop utils
+  parentNode: PropTypes.shape({}), // Needed for dndManager
   isDragging: PropTypes.bool.isRequired,
   didDrop: PropTypes.bool.isRequired,
   draggedNode: PropTypes.shape({}),

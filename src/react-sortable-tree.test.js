@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
@@ -151,7 +151,7 @@ describe('<SortableTree />', () => {
     );
 
     expect(
-      wrapper.find(`.${sortableTreeStyles.virtualScrollOverride}`)
+      wrapper.find(`.${sortableTreeStyles.virtualScrollOverride}`).first()
     ).toHaveStyle('borderWidth', 42);
   });
 
@@ -249,11 +249,14 @@ describe('<SortableTree />', () => {
   });
 
   it('should render with a custom `nodeContentRenderer`', () => {
-    const FakeNode = ({ node }) =>
-      <div>
-        {node.title}
-      </div>;
-    FakeNode.propTypes = { node: PropTypes.shape({}).isRequired };
+    class FakeNode extends Component {
+      render() {
+        return <div>{this.props.node.title}</div>;
+      }
+    }
+    FakeNode.propTypes = {
+      node: PropTypes.shape({ title: PropTypes.string }).isRequired,
+    };
 
     const wrapper = mount(
       <SortableTree

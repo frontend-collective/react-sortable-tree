@@ -12,6 +12,7 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
   <div>
     <div
       aria-label="grid"
+      aria-readonly={true}
       className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
       id={undefined}
       onScroll={[Function]}
@@ -33,6 +34,7 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
     >
       <div
         className="ReactVirtualized__Grid__innerScrollContainer"
+        role="rowgroup"
         style={
           Object {
             "height": 62,

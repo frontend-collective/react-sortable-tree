@@ -17,16 +17,10 @@ class TreeNode extends Component {
       draggedNode,
       canDrop,
       treeIndex,
-      customCanDrop, // Delete from otherProps
-      dragHover, // Delete from otherProps
-      getNodeKey, // Delete from otherProps
+      treeId, // Delete from otherProps
       getPrevRow, // Delete from otherProps
-      maxDepth, // Delete from otherProps
       node, // Delete from otherProps
       path, // Delete from otherProps
-      treeData, // Delete from otherProps
-      treeId, // Delete from otherProps
-      drop, // Delete from otherProps
       ...otherProps
     } = this.props;
 
@@ -45,7 +39,9 @@ class TreeNode extends Component {
           // |  +--+
           // |  |  |
           // +--+--+
-          lineClass = `${styles.lineHalfHorizontalRight} ${styles.lineHalfVerticalBottom}`;
+          lineClass = `${styles.lineHalfHorizontalRight} ${
+            styles.lineHalfVerticalBottom
+          }`;
         } else if (i === scaffoldBlockCount - 1) {
           // Last scaffold block in the row, right before the row content
           // +--+--+
@@ -53,7 +49,9 @@ class TreeNode extends Component {
           // |  +--+
           // |  |  |
           // +--+--+
-          lineClass = `${styles.lineHalfHorizontalRight} ${styles.lineFullVertical}`;
+          lineClass = `${styles.lineHalfHorizontalRight} ${
+            styles.lineFullVertical
+          }`;
         } else {
           // Simply connecting the line extending down to the next sibling on this level
           // +--+--+
@@ -78,7 +76,9 @@ class TreeNode extends Component {
         // |  +--+
         // |     |
         // +-----+
-        lineClass = `${styles.lineHalfVerticalTop} ${styles.lineHalfHorizontalRight}`;
+        lineClass = `${styles.lineHalfVerticalTop} ${
+          styles.lineHalfHorizontalRight
+        }`;
       }
 
       scaffold.push(
@@ -108,8 +108,8 @@ class TreeNode extends Component {
 
         scaffold.push(
           <div
-            // simple trick for passing react/no-array-index-key eslint rule
-            key={`highlight_${1 + i}`}
+            // eslint-disable-next-line react/no-array-index-key
+            key={i}
             style={{
               width: scaffoldBlockPxWidth,
               left: scaffoldBlockPxWidth * i,
@@ -147,17 +147,11 @@ TreeNode.defaultProps = {
   swapLength: null,
   canDrop: false,
   draggedNode: null,
-  customCanDrop: null,
-  maxDepth: null,
-  treeData: null,
 };
 
 TreeNode.propTypes = {
   treeIndex: PropTypes.number.isRequired,
-  node: PropTypes.shape({}).isRequired,
-  path: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ).isRequired,
+  treeId: PropTypes.string.isRequired,
   swapFrom: PropTypes.number,
   swapDepth: PropTypes.number,
   swapLength: PropTypes.number,
@@ -173,14 +167,12 @@ TreeNode.propTypes = {
   canDrop: PropTypes.bool,
   draggedNode: PropTypes.shape({}),
 
-  customCanDrop: PropTypes.func, // used in drag-and-drop-utils
-  dragHover: PropTypes.func.isRequired, // used in drag-and-drop-utils
-  getNodeKey: PropTypes.func.isRequired, // used in drag-and-drop-utils
-  getPrevRow: PropTypes.func.isRequired, // used in drag-and-drop-utils
-  drop: PropTypes.func.isRequired, // used in drag-and-drop-utils
-  maxDepth: PropTypes.number, // used in drag-and-drop-utils
-  treeData: PropTypes.arrayOf(PropTypes.object), // used in drag-and-drop-utils
-  treeId: PropTypes.string.isRequired, // used in drag-and-drop-utils
+  // used in dndManager
+  getPrevRow: PropTypes.func.isRequired,
+  node: PropTypes.shape({}).isRequired,
+  path: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
 };
 
 export default TreeNode;

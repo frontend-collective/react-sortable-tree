@@ -2,6 +2,111 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.3"></a>
+## [1.5.3](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.2...v1.5.3) (2017-12-09)
+
+
+### Bug Fixes
+
+* dragging past the bottom of the tree no longer slows down rendering ([3ce35f3](https://github.com/fritz-c/react-sortable-tree/commit/3ce35f3))
+
+
+
+<a name="1.5.2"></a>
+## [1.5.2](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.1...v1.5.2) (2017-11-28)
+
+
+### Bug Fixes
+
+* correct positioning of full-width draggable rows ([00396d1](https://github.com/fritz-c/react-sortable-tree/commit/00396d1))
+
+
+
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.0...v1.5.1) (2017-11-28)
+
+
+### Bug Fixes
+
+* prevent slowdown caused by invalid targetDepth when using maxDepth ([c21d4de](https://github.com/fritz-c/react-sortable-tree/commit/c21d4de)), closes [#194](https://github.com/fritz-c/react-sortable-tree/issues/194)
+
+
+
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.4.0...v1.5.0) (2017-10-29)
+
+
+### Bug Fixes
+
+* Fix oblong collapse/expand button appearance on mobile safari ([62dfdec](https://github.com/fritz-c/react-sortable-tree/commit/62dfdec))
+
+
+### Features
+
+* enable the use of themes for simplified appearance customization ([d07c6a7](https://github.com/fritz-c/react-sortable-tree/commit/d07c6a7))
+
+
+
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.3.1...v1.4.0) (2017-10-13)
+
+
+### Features
+
+* Add path argument to onVisibilityToggle callback ([25cd134](https://github.com/fritz-c/react-sortable-tree/commit/25cd134))
+
+
+
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/fritz-c/react-sortable-tree/compare/v1.3.0...v1.3.1) (2017-10-03)
+
+
+### Bug Fixes
+
+* Allow react[@16](https://github.com/16) ([9a31a03](https://github.com/fritz-c/react-sortable-tree/commit/9a31a03))
+
+
+
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.2.2...v1.3.0) (2017-09-20)
+
+
+### Features
+
+* Provide more row parameters in rowHeight callback ([1b88b18](https://github.com/fritz-c/react-sortable-tree/commit/1b88b18))
+
+
+
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/fritz-c/react-sortable-tree/compare/v1.2.1...v1.2.2) (2017-09-12)
+
+
+### Bug Fixes
+
+* Specify version of react-dnd-html5-backend to avoid invalid package installs ([a09b611](https://github.com/fritz-c/react-sortable-tree/commit/a09b611))
+
+
+
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/fritz-c/react-sortable-tree/compare/v1.2.0...v1.2.1) (2017-09-06)
+
+
+### Bug Fixes
+
+* Allow children function in default renderer ([6f1dcac](https://github.com/fritz-c/react-sortable-tree/commit/6f1dcac))
+
+
+
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.1.1...v1.2.0) (2017-08-12)
+
+
+### Features
+
+* Add `shouldCopyOnOutsideDrop` prop to enable copying of nodes that leave the tree ([d6a9be9](https://github.com/fritz-c/react-sortable-tree/commit/d6a9be9))
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/fritz-c/react-sortable-tree/compare/v1.1.0...v1.1.1) (2017-08-06)
 

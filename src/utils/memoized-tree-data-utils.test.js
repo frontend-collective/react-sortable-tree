@@ -12,10 +12,14 @@ describe('insertNode', () => {
       getNodeKey: ({ treeIndex }) => treeIndex,
     };
 
-    expect(insertNode(params) === insertNode(params)).toEqual(false);
-    expect(memoizedInsertNode(params) === memoizedInsertNode(params)).toEqual(
-      true
-    );
+    let firstCall = insertNode(params);
+    let secondCall = insertNode(params);
+    expect(firstCall === secondCall).toEqual(false);
+
+    firstCall = memoizedInsertNode(params);
+    secondCall = memoizedInsertNode(params);
+    expect(firstCall === secondCall).toEqual(true);
+
     expect(
       memoizedInsertNode(params) ===
         memoizedInsertNode({ ...params, treeData: [{}] })

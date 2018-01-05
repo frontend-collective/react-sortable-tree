@@ -1,4 +1,6 @@
+/* eslint-disable react/no-multi-comp */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { DragDropContext, DragSource } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { SortableTreeWithoutDndContext as SortableTree } from '../../src';
@@ -22,20 +24,29 @@ const externalNodeCollect = (connect /* , monitor */) => ({
   // isDragging: monitor.isDragging(),
   // didDrop: monitor.didDrop(),
 });
-const externalNodeBaseComponent = ({ connectDragSource, node }) =>
-  connectDragSource(
-    <div
-      style={{
-        display: 'inline-block',
-        padding: '3px 5px',
-        background: 'blue',
-        color: 'white',
-      }}
-    >
-      {node.title}
-    </div>,
-    { dropEffect: 'copy' }
-  );
+class externalNodeBaseComponent extends Component {
+  render() {
+    const { connectDragSource, node } = this.props;
+
+    return connectDragSource(
+      <div
+        style={{
+          display: 'inline-block',
+          padding: '3px 5px',
+          background: 'blue',
+          color: 'white',
+        }}
+      >
+        {node.title}
+      </div>,
+      { dropEffect: 'copy' }
+    );
+  }
+}
+externalNodeBaseComponent.propTypes = {
+  node: PropTypes.shape({ title: PropTypes.string }).isRequired,
+  connectDragSource: PropTypes.func.isRequired,
+};
 const YourExternalNodeComponent = DragSource(
   externalNodeType,
   externalNodeSpec,

@@ -82,12 +82,13 @@ export default class App extends Component {
                         expandParent: true,
                         getNodeKey,
                         newNode: {
-                          title: `${getRandomName()} ${node.title.split(
-                            ' '
-                          )[0]}sson`,
+                          title: `${getRandomName()} ${
+                            node.title.split(' ')[0]
+                          }sson`,
                         },
                       }).treeData,
-                    }))}
+                    }))
+                  }
                 >
                   Add Child
                 </button>,
@@ -99,7 +100,8 @@ export default class App extends Component {
                         path,
                         getNodeKey,
                       }),
-                    }))}
+                    }))
+                  }
                 >
                   Remove
                 </button>,
@@ -114,7 +116,8 @@ export default class App extends Component {
               treeData: state.treeData.concat({
                 title: `${getRandomName()} ${getRandomName()}sson`,
               }),
-            }))}
+            }))
+          }
         >
           Add more
         </button>

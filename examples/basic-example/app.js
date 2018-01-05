@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import SortableTree, { toggleExpandedForAll } from '../../src/index';
+import {
+  SortableTreeWithoutDndContext as SortableTree,
+  toggleExpandedForAll,
+} from '../../src/index';
 import styles from './stylesheets/app.scss';
 import '../shared/favicon/apple-touch-icon.png';
 import '../shared/favicon/favicon-16x16.png';
@@ -216,9 +219,7 @@ class App extends Component {
     return (
       <div>
         <section className={styles['page-header']}>
-          <h1 className={styles['project-name']}>
-            {projectName}
-          </h1>
+          <h1 className={styles['project-name']}>{projectName}</h1>
 
           <h2 className={styles['project-tagline']}>
             Drag-and-drop sortable representation of hierarchical data
@@ -243,7 +244,8 @@ class App extends Component {
                 type="text"
                 value={searchString}
                 onChange={event =>
-                  this.setState({ searchString: event.target.value })}
+                  this.setState({ searchString: event.target.value })
+                }
               />
             </label>
 
@@ -282,19 +284,22 @@ class App extends Component {
                   treeIndex,
                   'path:',
                   path
-                )}
+                )
+              }
               maxDepth={maxDepth}
               searchQuery={searchString}
               searchFocusOffset={searchFocusIndex}
               canDrag={({ node }) => !node.noDragging}
               canDrop={({ nextParent }) =>
-                !nextParent || !nextParent.noChildren}
+                !nextParent || !nextParent.noChildren
+              }
               searchFinishCallback={matches =>
                 this.setState({
                   searchFoundCount: matches.length,
                   searchFocusIndex:
                     matches.length > 0 ? searchFocusIndex % matches.length : 0,
-                })}
+                })
+              }
               isVirtualized={isVirtualized}
               generateNodeProps={rowInfo => ({
                 buttons: [

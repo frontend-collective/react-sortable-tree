@@ -518,6 +518,48 @@ export function removeNodeAtPath({
 }
 
 /**
+ * Removes the node at the specified path and returns the resulting treeData.
+ *
+ * @param {!Object[]} treeData
+ * @param {number[]|string[]} path - Array of keys leading up to node to be deleted
+ * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
+ * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
+ *
+ * @return {Object} result
+ * @return {Object[]} result.treeData - The tree data with the node removed
+ * @return {Object} result.node - The node that was removed
+ * @return {number} result.treeIndex - The previous treeIndex of the removed node
+ */
+export function removeNode({
+  treeData,
+  path,
+  getNodeKey,
+  ignoreCollapsed = true,
+}) {
+  let removedNode = null;
+  let removedTreeIndex = null;
+  const nextTreeData = changeNodeAtPath({
+    treeData,
+    path,
+    getNodeKey,
+    ignoreCollapsed,
+    newNode: ({ node, treeIndex }) => {
+      // Store the target node and delete it from the tree
+      removedNode = node;
+      removedTreeIndex = treeIndex;
+
+      return null;
+    },
+  });
+
+  return {
+    treeData: nextTreeData,
+    node: removedNode,
+    treeIndex: removedTreeIndex,
+  };
+}
+
+/**
  * Gets the node at the specified path
  *
  * @param {!Object[]} treeData
@@ -788,9 +830,11 @@ function addNodeAtDepthAndIndex({
       });
 
       if ('insertedTreeIndex' in mapResult) {
-        insertedTreeIndex = mapResult.insertedTreeIndex;
-        pathFragment = mapResult.parentPath;
-        parentNode = mapResult.parentNode;
+        ({
+          insertedTreeIndex,
+          parentNode,
+          parentPath: pathFragment,
+        } = mapResult);
       }
 
       childIndex = mapResult.nextIndex;
