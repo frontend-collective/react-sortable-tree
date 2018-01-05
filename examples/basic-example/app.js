@@ -58,6 +58,10 @@ class App extends Component {
           ],
         },
         {
+          title: 'Children as function',
+          children: (...args) => this.loadChildren(...args),
+        },
+        {
           title: 'Button(s) can be added to the node',
           subtitle:
             'Node info is passed when generating so you can use it in your onClick handler',
@@ -143,9 +147,10 @@ class App extends Component {
           ],
         },
         {
-          title: 'Children as function',
-          children: (...args) => this.loadChildren(...args),
-        }
+          title: 'Children will be added dynamically',
+          subtitle: 'If you specify children with a function',
+          children: params => this.generateNewChildren(params),
+        },
       ],
     };
 
@@ -154,10 +159,23 @@ class App extends Component {
     this.collapseAll = this.collapseAll.bind(this);
   }
 
+  generateNewChildren(params) {
+    setTimeout(() => {
+      const childNodes = Array(5)
+        .fill()
+        .map(() => ({
+          title: 'Dynamic child node',
+          subtitle: `parent path: ${params.path.join('->')}`,
+          children: x => this.generateNewChildren(x),
+        }));
+      params.done(childNodes);
+    }, 1000);
+  }
+
   loadChildren({ done }) {
     const data = [];
 
-    for(let j=0; j<6; j++) {
+    for(let j=0; j<60; j++) {
       data.push({
         title: `File-${j+1}`,
         subtitle: `SubFile-${j+1}`,
