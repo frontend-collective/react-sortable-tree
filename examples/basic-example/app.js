@@ -180,10 +180,10 @@ class App extends Component {
     setTimeout(() => {
       const childNodes = Array(5)
         .fill()
-        .map((e, i) => ({
+        .map(() => ({
           title: 'Dynamic child node',
-          subtitle: 'parent path: ' + params.path.join('->'),
-          children: params => this.generateNewChildren(params),
+          subtitle: `parent path: ${params.path.join('->')}`,
+          children: x => this.generateNewChildren(x),
         }));
       params.done(childNodes);
     }, 1000);
