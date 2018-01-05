@@ -146,21 +146,24 @@ function getNodeDataAtTreeIndexOrNextIndex(_ref) {
   var childIndex = currentIndex + 1;
   var childCount = node.children.length;
   for (var i = 0; i < childCount; i += 1) {
-    var result = getNodeDataAtTreeIndexOrNextIndex({
-      ignoreCollapsed: ignoreCollapsed,
-      getNodeKey: getNodeKey,
-      targetIndex: targetIndex,
-      node: node.children[i],
-      currentIndex: childIndex,
-      lowerSiblingCounts: [].concat(_toConsumableArray(lowerSiblingCounts), [childCount - i - 1]),
-      path: selfPath
-    });
+    var childNode = node.children[i];
+    if (childNode) {
+      var result = getNodeDataAtTreeIndexOrNextIndex({
+        ignoreCollapsed: ignoreCollapsed,
+        getNodeKey: getNodeKey,
+        targetIndex: targetIndex,
+        node: node.children[i],
+        currentIndex: childIndex,
+        lowerSiblingCounts: [].concat(_toConsumableArray(lowerSiblingCounts), [childCount - i - 1]),
+        path: selfPath
+      });
 
-    if (result.node) {
-      return result;
+      if (result.node) {
+        return result;
+      }
+
+      childIndex = result.nextIndex;
     }
-
-    childIndex = result.nextIndex;
   }
 
   // If the target node is not found, return the farthest traversed index
@@ -244,20 +247,23 @@ function walkDescendants(_ref3) {
   var childCount = node.children.length;
   if (typeof node.children !== 'function') {
     for (var i = 0; i < childCount; i += 1) {
-      childIndex = walkDescendants({
-        callback: callback,
-        getNodeKey: getNodeKey,
-        ignoreCollapsed: ignoreCollapsed,
-        node: node.children[i],
-        parentNode: isPseudoRoot ? null : node,
-        currentIndex: childIndex + 1,
-        lowerSiblingCounts: [].concat(_toConsumableArray(lowerSiblingCounts), [childCount - i - 1]),
-        path: selfPath
-      });
+      var childNode = node.children[i];
+      if (childNode) {
+        childIndex = walkDescendants({
+          callback: callback,
+          getNodeKey: getNodeKey,
+          ignoreCollapsed: ignoreCollapsed,
+          node: node.children[i],
+          parentNode: isPseudoRoot ? null : node,
+          currentIndex: childIndex + 1,
+          lowerSiblingCounts: [].concat(_toConsumableArray(lowerSiblingCounts), [childCount - i - 1]),
+          path: selfPath
+        });
 
-      // Cut walk short if the callback returned false
-      if (childIndex === false) {
-        return false;
+        // Cut walk short if the callback returned false
+        if (childIndex === false) {
+          return false;
+        }
       }
     }
   }
@@ -819,20 +825,20 @@ function addNodeAtDepthAndIndex(_ref21) {
   if (currentIndex >= minimumTreeIndex - 1 || isLastChild && !(node.children && node.children.length)) {
     if (typeof node.children === 'function') {
       // throw new Error('Cannot add to children defined by a function');
-    } else {
-      var extraNodeProps = expandParent ? { expanded: true } : {};
-      var _nextNode = _extends({}, node, extraNodeProps, {
-        children: node.children ? [newNode].concat(_toConsumableArray(node.children)) : [newNode]
-      });
-
-      return {
-        node: _nextNode,
-        nextIndex: currentIndex + 2,
-        insertedTreeIndex: currentIndex + 1,
-        parentPath: selfPath(_nextNode),
-        parentNode: isPseudoRoot ? null : _nextNode
-      };
+      return undefined;
     }
+    var extraNodeProps = expandParent ? { expanded: true } : {};
+    var _nextNode = _extends({}, node, extraNodeProps, {
+      children: node.children ? [newNode].concat(_toConsumableArray(node.children)) : [newNode]
+    });
+
+    return {
+      node: _nextNode,
+      nextIndex: currentIndex + 2,
+      insertedTreeIndex: currentIndex + 1,
+      parentPath: selfPath(_nextNode),
+      parentNode: isPseudoRoot ? null : _nextNode
+    };
   }
 
   // If this is the target depth for the insertion,
@@ -920,6 +926,10 @@ function addNodeAtDepthAndIndex(_ref21) {
         path: [] // Cannot determine the parent path until the children have been processed
       });
 
+      if (!mapResult) {
+        return undefined;
+      }
+
       if ('insertedTreeIndex' in mapResult) {
         insertedTreeIndex = mapResult.insertedTreeIndex;
         parentNode = mapResult.parentNode;
@@ -1001,16 +1011,17 @@ function insertNode(_ref22) {
 
   if (!('insertedTreeIndex' in insertResult)) {
     // throw new Error('No suitable position found to insert.');
-  } else {
-    var treeIndex = insertResult.insertedTreeIndex;
-    return {
-      treeData: insertResult.node.children,
-      treeIndex: treeIndex,
-      path: [].concat(_toConsumableArray(insertResult.parentPath), [getNodeKey({ node: newNode, treeIndex: treeIndex })]),
-      parentNode: insertResult.parentNode,
-      parentPath: insertResult.parentPath
-    };
+    return undefined;
   }
+
+  var treeIndex = insertResult.insertedTreeIndex;
+  return {
+    treeData: insertResult.node.children,
+    treeIndex: treeIndex,
+    path: [].concat(_toConsumableArray(insertResult.parentPath), [getNodeKey({ node: newNode, treeIndex: treeIndex })]),
+    parentNode: insertResult.parentNode,
+    parentPath: insertResult.parentPath
+  };
 }
 
 /**
