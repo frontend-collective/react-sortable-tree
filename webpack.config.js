@@ -45,7 +45,7 @@ const config = {
   },
   devtool: 'source-map',
   plugins: [
-    new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
+    new webpack.EnvironmentPlugin({ NODE_ENV: 'production' }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     // Use uglify for dead code removal
     new webpack.optimize.UglifyJsPlugin({
