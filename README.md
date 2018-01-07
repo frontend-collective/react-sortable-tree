@@ -113,6 +113,12 @@ Using the `theme` prop along with an imported theme module, you can easily overr
 
 ## Troubleshooting
 
+### If it throws "TypeError: fn is not a function" errors in production
+
+This issue may be related to an ongoing incompatibility between UglifyJS and Webpack's behavior. See an explanation at [create-react-app#2376](https://github.com/facebookincubator/create-react-app/issues/2376).
+
+The simplest way to mitigate this issue is by adding `comparisons: false` to your Uglify config as seen here: https://github.com/facebookincubator/create-react-app/pull/2379/files
+
 ### If it doesn't work with other components that use react-dnd
 
 react-dnd only allows for one DragDropContext at a time (see: https://github.com/gaearon/react-dnd/issues/186). To get around this, you can import the context-less tree component via `SortableTreeWithoutDndContext`.
