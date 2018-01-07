@@ -47,6 +47,7 @@ const config = {
   plugins: [
     new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    // Use uglify for dead code removal
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
