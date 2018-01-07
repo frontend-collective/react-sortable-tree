@@ -89,7 +89,7 @@ switch (target) {
     ];
     break;
   case 'development':
-    config.devtool = 'eval';
+    config.devtool = 'eval-source-map';
     config.module.rules.push({
       test: /\.(jpe?g|png|gif|ico|svg)$/,
       use: [fileLoader],
