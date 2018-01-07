@@ -45,7 +45,16 @@ const config = {
   },
   devtool: 'source-map',
   plugins: [
-    new webpack.EnvironmentPlugin({ NODE_ENV: 'production' }),
+    new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+      mangle: false,
+      beautify: true,
+      comments: true,
+    }),
   ],
   module: {
     rules: [
@@ -79,7 +88,7 @@ switch (target) {
     ];
     break;
   case 'development':
-    config.devtool = 'eval-source-map';
+    config.devtool = 'eval';
     config.module.rules.push({
       test: /\.(jpe?g|png|gif|ico|svg)$/,
       use: [fileLoader],
