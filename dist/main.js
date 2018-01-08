@@ -592,10 +592,8 @@ function changeNodeAtPath(_ref12) {
   });
 
   if (result === RESULT_MISS) {
-    // throw new Error('No node found at the given path.');
-    console.log('treeData', treeData);
-    console.log('path', path);
-    return undefined;
+    console.error('No node found at the given path.');
+    return treeData;
   }
 
   return result.children;
