@@ -492,7 +492,10 @@ export function changeNodeAtPath({
   });
 
   if (result === RESULT_MISS) {
-    throw new Error('No node found at the given path.');
+    // throw new Error('No node found at the given path.');
+    console.log('treeData', treeData);
+    console.log('path', path);
+    return undefined;
   }
 
   return result.children;
