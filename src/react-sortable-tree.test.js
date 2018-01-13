@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { List } from 'react-virtualized';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import TouchBackend from 'react-dnd-touch-backend';
 import SortableTree, {
   SortableTreeWithoutDndContext,
 } from './react-sortable-tree';
@@ -318,5 +321,21 @@ describe('<SortableTree />', () => {
     // only triggers the opening of a single path.
     // Therefore it's 2 instead of 3.
     expect(tree.state.searchFocusTreeIndex).toEqual(2);
+  });
+
+  it('loads using SortableTreeWithoutDndContext', () => {
+    const HTML5Wrapped = DragDropContext(HTML5Backend)(
+      SortableTreeWithoutDndContext
+    );
+    const TouchWrapped = DragDropContext(TouchBackend)(
+      SortableTreeWithoutDndContext
+    );
+
+    expect(
+      mount(<HTML5Wrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
+    ).toBeDefined();
+    expect(
+      mount(<TouchWrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
+    ).toBeDefined();
   });
 });
