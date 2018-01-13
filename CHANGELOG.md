@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file. See [standa
 <a name="1.5.4"></a>
 ## [1.5.4](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.3...v1.5.4) (2018-01-07)
 
+### Bug Fixes
+
+* UglifyJS enabled to remove dead code, which had been causing issues with some builds. If the presence of UglifyJS causes issues in your production builds, please refer to https://github.com/fritz-c/react-sortable-tree#if-it-throws-typeerror-fn-is-not-a-function-errors-in-production
+
 
 
 <a name="1.5.3"></a>
