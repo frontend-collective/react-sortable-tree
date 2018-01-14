@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { List } from 'react-virtualized';
-import SortableTree from './react-sortable-tree';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import TouchBackend from 'react-dnd-touch-backend';
+import SortableTree, {
+  SortableTreeWithoutDndContext,
+} from './react-sortable-tree';
 import sortableTreeStyles from './react-sortable-tree.scss';
 import TreeNode from './tree-node';
 import treeNodeStyles from './tree-node.scss';
@@ -267,5 +272,70 @@ describe('<SortableTree />', () => {
     );
 
     expect(wrapper.find(FakeNode).length).toEqual(1);
+  });
+
+  it('search should call searchFinishCallback', () => {
+    const searchFinishCallback = jest.fn();
+    mount(
+      <SortableTree
+        treeData={[{ title: 'a', children: [{ title: 'b' }] }]}
+        searchQuery="b"
+        searchFocusOffset={0}
+        searchFinishCallback={searchFinishCallback}
+        onChange={() => {}}
+      />
+    );
+
+    expect(searchFinishCallback).toHaveBeenCalledWith([
+      // Node should be found expanded
+      { node: { title: 'b' }, path: [0, 1], treeIndex: 1 },
+    ]);
+  });
+
+  it('search should expand all matches and seek out the focus offset', () => {
+    const wrapper = mount(
+      <SortableTree
+        treeData={[
+          { title: 'a', children: [{ title: 'b' }] },
+          { title: 'a', children: [{ title: 'be' }] },
+        ]}
+        searchQuery="b"
+        onChange={() => {}}
+      />
+    );
+
+    const tree = wrapper.find(SortableTreeWithoutDndContext).instance();
+    expect(tree.state.searchMatches).toEqual([
+      { node: { title: 'b' }, path: [0, 1], treeIndex: 1 },
+      { node: { title: 'be' }, path: [2, 3], treeIndex: 3 },
+    ]);
+    expect(tree.state.searchFocusTreeIndex).toEqual(null);
+
+    wrapper.setProps({ searchFocusOffset: 0 });
+    expect(tree.state.searchFocusTreeIndex).toEqual(1);
+
+    wrapper.setProps({ searchFocusOffset: 1 });
+    // As the empty `onChange` we use here doesn't actually change
+    // the tree, the expansion of all nodes doesn't get preserved
+    // after the first mount, and this change in searchFocusOffset
+    // only triggers the opening of a single path.
+    // Therefore it's 2 instead of 3.
+    expect(tree.state.searchFocusTreeIndex).toEqual(2);
+  });
+
+  it('loads using SortableTreeWithoutDndContext', () => {
+    const HTML5Wrapped = DragDropContext(HTML5Backend)(
+      SortableTreeWithoutDndContext
+    );
+    const TouchWrapped = DragDropContext(TouchBackend)(
+      SortableTreeWithoutDndContext
+    );
+
+    expect(
+      mount(<HTML5Wrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
+    ).toBeDefined();
+    expect(
+      mount(<TouchWrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
+    ).toBeDefined();
   });
 });

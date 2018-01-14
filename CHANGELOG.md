@@ -2,8 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.5"></a>
+## [1.5.5](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.4...v1.5.5) (2018-01-13)
+
+
+### Bug Fixes
+
+* expand tree for searches on initial mount. fixes [#223](https://github.com/fritz-c/react-sortable-tree/issues/223) ([64a984a](https://github.com/fritz-c/react-sortable-tree/commit/64a984a))
+
+
+
 <a name="1.5.4"></a>
 ## [1.5.4](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.3...v1.5.4) (2018-01-07)
+
+### Bug Fixes
+
+* UglifyJS enabled to remove dead code, which had been causing issues with some builds. If the presence of UglifyJS causes issues in your production builds, please refer to https://github.com/fritz-c/react-sortable-tree#if-it-throws-typeerror-fn-is-not-a-function-errors-in-production
 
 
 

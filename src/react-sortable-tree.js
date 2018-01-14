@@ -116,10 +116,9 @@ class ReactSortableTree extends Component {
     this.handleDndMonitorChange = this.handleDndMonitorChange.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadLazyChildren();
-    this.search(this.props, false, false);
-    this.ignoreOneTreeUpdate = false;
+    this.search(this.props);
 
     // Hook into react-dnd state changes to detect when the drag ends
     // TODO: This is very brittle, so it needs to be replaced if react-dnd
@@ -130,14 +129,17 @@ class ReactSortableTree extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ searchFocusTreeIndex: null });
     if (this.props.treeData !== nextProps.treeData) {
       // Ignore updates caused by search, in order to avoid infinite looping
       if (this.ignoreOneTreeUpdate) {
         this.ignoreOneTreeUpdate = false;
       } else {
-        this.loadLazyChildren(nextProps);
+        // Reset the focused index if the tree has changed
+        this.setState({ searchFocusTreeIndex: null });
+
         // Load any children defined by a function
+        this.loadLazyChildren(nextProps);
+
         this.search(nextProps, false, false);
       }
 
@@ -353,6 +355,9 @@ class ReactSortableTree extends Component {
         newNode: ({ node }) => ({ ...node, expanded: true }),
         getNodeKey: this.props.getNodeKey,
       }),
+      // reset the scroll focus so it doesn't jump back
+      // to a search result while dragging
+      searchFocusTreeIndex: null,
     });
   }
 
