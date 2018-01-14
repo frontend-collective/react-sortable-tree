@@ -593,6 +593,15 @@ class ReactSortableTree extends Component {
       containerStyle = { height: '100%', ...containerStyle };
 
       const ScrollZoneVirtualList = this.scrollZoneVirtualList;
+
+      const modifiedRowHeight = ({ index }) =>
+        rowHeight({
+          index,
+          treeIndex: index,
+          node: rows[index].node,
+          path: rows[index].path,
+        });
+
       // Render list with react-virtualized
       list = (
         <AutoSizer>
@@ -614,7 +623,7 @@ class ReactSortableTree extends Component {
               estimatedRowSize={
                 typeof rowHeight !== 'function' ? rowHeight : undefined
               }
-              rowHeight={rowHeight}
+              rowHeight={modifiedRowHeight}
               rowRenderer={({ index, style: rowStyle }) =>
                 this.renderRow(rows[index], {
                   listIndex: index,
@@ -640,7 +649,12 @@ class ReactSortableTree extends Component {
             height:
               typeof rowHeight !== 'function'
                 ? rowHeight
-                : rowHeight({ index }),
+                : rowHeight({
+                    index,
+                    treeIndex: index,
+                    node: row.node,
+                    path: row.path,
+                  }),
           },
           getPrevRow: () => rows[index - 1] || null,
           matchKeys,
