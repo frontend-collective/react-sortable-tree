@@ -163,7 +163,7 @@ describe('<SortableTree />', () => {
   it('should change height according to rowHeight prop', () => {
     const wrapper = mount(
       <SortableTree
-        treeData={[{ title: 'a' }, { title: 'b' }]}
+        treeData={[{ title: 'a' }, { title: 'b', extraHeight: 2 }]}
         onChange={() => {}}
         rowHeight={12}
       />
@@ -173,9 +173,9 @@ describe('<SortableTree />', () => {
     expect(wrapper.find(TreeNode).first()).toHaveStyle('height', 12);
 
     // Works with function callback
-    wrapper.setProps({ rowHeight: ({ index }) => 42 + index });
+    wrapper.setProps({ rowHeight: ({ node }) => 42 + (node.extraHeight || 0) });
     expect(wrapper.find(TreeNode).first()).toHaveStyle('height', 42);
-    expect(wrapper.find(TreeNode).last()).toHaveStyle('height', 43);
+    expect(wrapper.find(TreeNode).last()).toHaveStyle('height', 44);
   });
 
   it('should toggle virtualization according to isVirtualized prop', () => {

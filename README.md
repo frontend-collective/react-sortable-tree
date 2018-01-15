@@ -62,7 +62,7 @@ reactVirtualizedListProps | object         | Custom properties to hand to the [r
 style                     | object         | Style applied to the container wrapping the tree (style defaults to {height: '100%'})
 innerStyle                | object         | Style applied to the inner, scrollable container (for padding, etc.)
 className                 | string         | Class name for the container wrapping the tree
-rowHeight                 | number or func | Used by react-virtualized. Defaults to `62`. Either a fixed row height (number) or a function that returns the height of a row given its index: `({ index: number }): number`
+rowHeight                 | number or func | Used by react-virtualized. Defaults to `62`. Either a fixed row height (number) or a function that returns the height of a row given its index: `({ treeIndex: number, node: object, path: number[] or string[] }): number`
 slideRegionSize           | number         | Size in px of the region near the edges that initiates scrolling on dragover.Defaults to `100`.
 scaffoldBlockPxWidth      | number         | The width of the blocks containing the lines representing the structure of the tree.Defaults to `44`.
 isVirtualized             | bool           | Set to false to disable virtualization. Defaults to `true`. __NOTE__: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.

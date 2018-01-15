@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.5...v1.6.0) (2018-01-14)
+
+
+### Features
+
+* add more parameters to rowHeight. Fixes [#199](https://github.com/fritz-c/react-sortable-tree/issues/199) ([8ff0ff2](https://github.com/fritz-c/react-sortable-tree/commit/8ff0ff2))
+
+
+
 <a name="1.5.5"></a>
 ## [1.5.5](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.4...v1.5.5) (2018-01-13)
 
