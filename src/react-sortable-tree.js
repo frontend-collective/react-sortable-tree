@@ -105,6 +105,7 @@ class ReactSortableTree extends Component {
       draggedDepth: null,
       searchMatches: [],
       searchFocusTreeIndex: null,
+      dragging: false,
     };
 
     this.toggleChildrenVisibility = this.toggleChildrenVisibility.bind(this);
@@ -149,11 +150,26 @@ class ReactSortableTree extends Component {
         draggedNode: null,
         draggedMinimumTreeIndex: null,
         draggedDepth: null,
+        dragging: false,
       });
     } else if (!isEqual(this.props.searchQuery, nextProps.searchQuery)) {
       this.search(nextProps);
     } else if (this.props.searchFocusOffset !== nextProps.searchFocusOffset) {
       this.search(nextProps, true, true, true);
+    }
+  }
+
+  // listen to dragging
+  componentDidUpdate(prevProps, prevState) {
+    // if it is not the same then call the onDragStateChanged
+    if (this.state.dragging !== prevState.dragging) {
+      if (this.props.onDragStateChanged) {
+        this.props.onDragStateChanged({
+          dragging: this.state.dragging,
+          dropped: !this.state.dragging,
+          // canDrop: false,
+        });
+      }
     }
   }
 
@@ -312,6 +328,7 @@ class ReactSortableTree extends Component {
         draggedNode,
         draggedDepth: path.length - 1,
         draggedMinimumTreeIndex,
+        dragging: true,
       };
     });
   }
@@ -358,6 +375,7 @@ class ReactSortableTree extends Component {
       // reset the scroll focus so it doesn't jump back
       // to a search result while dragging
       searchFocusTreeIndex: null,
+      dragging: true,
     });
   }
 
@@ -368,6 +386,7 @@ class ReactSortableTree extends Component {
         draggedNode: null,
         draggedMinimumTreeIndex: null,
         draggedDepth: null,
+        dragging: false,
       });
 
     // Drop was cancelled
@@ -798,6 +817,9 @@ ReactSortableTree.propTypes = {
   onVisibilityToggle: PropTypes.func,
 
   dndType: PropTypes.string,
+
+  // Called to track between dropped and dragging
+  onDragStateChanged: PropTypes.func,
 };
 
 ReactSortableTree.defaultProps = {
@@ -826,6 +848,7 @@ ReactSortableTree.defaultProps = {
   slideRegionSize: null,
   style: {},
   theme: {},
+  onDragStateChanged: () => {},
 };
 
 ReactSortableTree.contextTypes = {
