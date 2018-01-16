@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * add onDragStateChanged callback ([2caa9d1](https://github.com/fritz-c/react-sortable-tree/commit/2caa9d1))
+  
+  onDragStateChanged is called when dragging begins and ends, so you can easily track the current state of dragging.<br />
+  Thanks to [@wuweiweiwu](https://github.com/wuweiweiwu) for the contribution!
 
 
 
@@ -19,6 +22,8 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * add more parameters to rowHeight. Fixes [#199](https://github.com/fritz-c/react-sortable-tree/issues/199) ([8ff0ff2](https://github.com/fritz-c/react-sortable-tree/commit/8ff0ff2))
+  
+  Thanks to [@wuweiweiwu](https://github.com/wuweiweiwu) for the contribution!
 
 
 
