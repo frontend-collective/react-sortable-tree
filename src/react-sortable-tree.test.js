@@ -338,4 +338,51 @@ describe('<SortableTree />', () => {
       mount(<TouchWrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
     ).toBeDefined();
   });
+
+  it('loads using SortableTreeWithoutDndContext', () => {
+    const TestWrapped = DragDropContext(HTML5Backend)(
+      SortableTreeWithoutDndContext
+    );
+
+    const onDragStateChanged = jest.fn();
+    const treeData = [{ title: 'a' }, { title: 'b' }];
+    const wrapper = mount(
+      <TestWrapped
+        treeData={treeData}
+        onDragStateChanged={onDragStateChanged}
+        onChange={() => {}}
+      />
+    );
+
+    // Obtain a reference to the backend
+    const backend = wrapper
+      .instance()
+      .getManager()
+      .getBackend();
+
+    // Retrieve our DnD-wrapped node component type
+    const wrappedNodeType = wrapper
+      .find(SortableTreeWithoutDndContext)
+      .instance().nodeContentRenderer;
+
+    // And get the first such component
+    const nodeInstance = wrapper
+      .find(wrappedNodeType)
+      .first()
+      .instance();
+
+    backend.simulateBeginDrag([nodeInstance.getHandlerId()]);
+
+    expect(onDragStateChanged).toHaveBeenCalledWith({
+      isDragging: true,
+      draggedNode: treeData[0],
+    });
+
+    backend.simulateEndDrag([nodeInstance.getHandlerId()]);
+
+    expect(onDragStateChanged).toHaveBeenCalledWith({
+      isDragging: false,
+      draggedNode: null,
+    });
+  });
 });
