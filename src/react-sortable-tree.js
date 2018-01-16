@@ -165,9 +165,8 @@ class ReactSortableTree extends Component {
     if (this.state.dragging !== prevState.dragging) {
       if (this.props.onDragStateChanged) {
         this.props.onDragStateChanged({
-          dragging: this.state.dragging,
-          dropped: !this.state.dragging,
-          // canDrop: false,
+          isDragging: this.state.dragging,
+          draggedNode: this.state.draggedNode,
         });
       }
     }
