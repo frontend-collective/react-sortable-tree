@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.6.0...v1.7.0) (2018-01-16)
+
+
+### Features
+
+* add onDragStateChanged callback ([2caa9d1](https://github.com/fritz-c/react-sortable-tree/commit/2caa9d1))
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.5...v1.6.0) (2018-01-14)
 
