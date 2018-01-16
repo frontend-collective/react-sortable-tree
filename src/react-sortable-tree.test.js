@@ -384,5 +384,6 @@ describe('<SortableTree />', () => {
       isDragging: false,
       draggedNode: null,
     });
+    expect(onDragStateChanged).toHaveBeenCalledTimes(2);
   });
 });
