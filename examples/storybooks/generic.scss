@@ -22,6 +22,9 @@
   right: 30px;
   background: rgb(12, 194, 68);
   padding: 130px 100px 5px 100px;
+  border: none;
+  cursor: pointer;
+  outline: inherit !important;
   &:hover:not(:active) {
     background: rgb(152, 244, 159);
   }

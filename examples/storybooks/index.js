@@ -18,103 +18,22 @@ import TreeDataIOExample from './tree-data-io';
 import TreeToTreeExample from './tree-to-tree';
 import styles from './generic.scss';
 
-// parameters
-import { getParameters } from 'codesandbox/lib/api/define';
-
-const GIT_URL =
-  'https://api.github.com/repos/fritz-c/react-sortable-tree/contents/';
-
-const SANDBOX_URL = 'https://codesandbox.io/api/v1/sandboxes/define';
-
-// full url for github api call
-const getURL = file => `${GIT_URL}/examples/storybooks/${file}`;
-
-// strip ../../src from the src
-const strip = code => code.replace('../../src', 'react-sortable-tree');
-
-const handleClick = file => event => {
-  event.preventDefault();
-  const url = getURL(file);
-  fetch(url)
-    .then(response => response.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => {
-      const stripped = strip(atob(response.content));
-      const payload = getPayload(stripped);
-      sendSandboxRequest(payload);
-    });
-};
-
-const sendSandboxRequest = parameters => {
-  document.getElementById('codesandbox-parameters').value = parameters;
-  document.getElementById('codesandbox-form').submit();
-};
-
-const getPayload = example => {
-  const index = `
-import React from 'react';
-import { render } from 'react-dom';
-import App from './example';
-
-render(<App />, document.getElementById('root'));
-`;
-
-  const html = `<div id="root"></div>`;
-  return getParameters({
-    files: {
-      'package.json': {
-        content: {
-          dependencies: {
-            react: 'latest',
-            'react-dom': 'latest',
-            'prop-types': 'latest',
-            'react-dnd': 'latest',
-            'react-dnd-html5-backend': 'latest',
-            'react-sortable-tree-theme-file-explorer': 'latest',
-            'react-dnd-touch-backend': 'latest',
-            'react-sortable-tree': 'latest',
-          },
-        },
-      },
-      'index.js': {
-        content: index,
-      },
-      'example.js': {
-        content: example,
-      },
-      'index.html': {
-        content: html,
-      },
-    },
-  });
-};
+import { handleClick, SANDBOX_URL } from './sandbox-utils';
 
 const wrapWithSource = (node, src) => (
   <div>
     {node}
 
     <br />
-    <form
-      id="codesandbox-form"
-      action="https://codesandbox.io/api/v1/sandboxes/define"
-      method="POST"
-    >
-      <input
-        id="codesandbox-parameters"
-        type="hidden"
-        name="parameters"
-        value=""
-      />
+    <form id="codesandbox-form" action={SANDBOX_URL} method="POST">
+      <input id="codesandbox-parameters" type="hidden" name="parameters" />
     </form>
-    <a
-      href="#"
-      target="_top"
-      rel="noopener noreferrer"
+    <button
       className={styles.sandboxLink}
       onClick={handleClick(src)}
     >
       VIEW SANDBOX →
-    </a>
+    </button>
     <a
       href={`https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/${src}`}
       target="_top"
