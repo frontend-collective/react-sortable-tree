@@ -217,6 +217,14 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
   </div>
   <br />
   <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/lyk94v2x7m"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
+  <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/external-node.js"
     rel="noopener noreferrer"
@@ -680,6 +688,14 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
   </div>
   <br />
   <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/k371z4v98r"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
+  <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/drag-out-to-remove.js"
     rel="noopener noreferrer"
@@ -986,6 +1002,14 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
   </div>
   <br />
   <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/pmkrxm8yp7"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
+  <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/generate-node-props.js"
     rel="noopener noreferrer"
@@ -1233,6 +1257,14 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
     </div>
   </div>
   <br />
+  <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/k5w17opmkr"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/touch-support.js"
@@ -1694,6 +1726,14 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
   </div>
   <br />
   <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/k97nvzmj2r"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
+  <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/tree-to-tree.js"
     rel="noopener noreferrer"
@@ -1950,6 +1990,14 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
     </button>
   </div>
   <br />
+  <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/jvqo7683j5"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/add-remove.js"
@@ -2265,6 +2313,14 @@ exports[`Storyshots Basics Callbacks 1`] = `
   </div>
   <br />
   <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/6w61xz92zn"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
+  <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/callbacks.js"
     rel="noopener noreferrer"
@@ -2505,6 +2561,14 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
     </div>
   </div>
   <br />
+  <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/181o18oz3j"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/barebones.js"
@@ -2842,6 +2906,14 @@ exports[`Storyshots Basics Modify nodes 1`] = `
     </div>
   </div>
   <br />
+  <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/00mkvmo3yv"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/modify-nodes.js"
@@ -3413,6 +3485,14 @@ exports[`Storyshots Basics Prevent drop 1`] = `
   </div>
   <br />
   <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/ko13xwv1ko"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
+  <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/can-drop.js"
     rel="noopener noreferrer"
@@ -3613,6 +3693,14 @@ exports[`Storyshots Basics Search 1`] = `
     </div>
   </div>
   <br />
+  <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/j7op92ojpv"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/search.js"
@@ -4091,6 +4179,14 @@ exports[`Storyshots Basics Themes 1`] = `
   </div>
   <br />
   <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/9zozn02w5r"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
+  <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/themes.js"
     rel="noopener noreferrer"
@@ -4354,6 +4450,14 @@ exports[`Storyshots Basics treeData import/export 1`] = `
     </ul>
   </div>
   <br />
+  <a
+    className="sandboxLink"
+    href="https://codesandbox.io/s/m48xkm0w98"
+    rel="noopener noreferrer"
+    target="_top"
+  >
+    VIEW ON SANDBOX →
+  </a>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/tree-data-io.js"
