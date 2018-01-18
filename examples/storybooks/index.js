@@ -24,6 +24,8 @@ import { getParameters } from 'codesandbox/lib/api/define';
 const GIT_URL =
   'https://api.github.com/repos/fritz-c/react-sortable-tree/contents/';
 
+const SANDBOX_URL = 'https://codesandbox.io/api/v1/sandboxes/define';
+
 // full url for github api call
 const getURL = file => `${GIT_URL}/examples/storybooks/${file}`;
 
@@ -39,8 +41,13 @@ const handleClick = file => event => {
     .then(response => {
       const stripped = strip(atob(response.content));
       const payload = getPayload(stripped);
-      console.log(payload);
+      sendSandboxRequest(payload);
     });
+};
+
+const sendSandboxRequest = parameters => {
+  document.getElementById('codesandbox-parameters').value = parameters;
+  document.getElementById('codesandbox-form').submit();
 };
 
 const getPayload = example => {
@@ -65,6 +72,7 @@ render(<App />, document.getElementById('root'));
             'react-dnd-html5-backend': 'latest',
             'react-sortable-tree-theme-file-explorer': 'latest',
             'react-dnd-touch-backend': 'latest',
+            'react-sortable-tree': 'latest',
           },
         },
       },
@@ -86,6 +94,18 @@ const wrapWithSource = (node, src) => (
     {node}
 
     <br />
+    <form
+      id="codesandbox-form"
+      action="https://codesandbox.io/api/v1/sandboxes/define"
+      method="POST"
+    >
+      <input
+        id="codesandbox-parameters"
+        type="hidden"
+        name="parameters"
+        value=""
+      />
+    </form>
     <a
       href="#"
       target="_top"
