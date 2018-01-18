@@ -18,14 +18,16 @@ import TreeDataIOExample from './tree-data-io';
 import TreeToTreeExample from './tree-to-tree';
 import styles from './generic.scss';
 
-const BASE_URL =
+// parameters
+import { getParameters } from 'codesandbox/lib/api/define';
+
+const GIT_URL =
   'https://api.github.com/repos/fritz-c/react-sortable-tree/contents/';
 
 // full url for github api call
-const getURL = file => `${BASE_URL}/examples/storybooks/${file}`;
+const getURL = file => `${GIT_URL}/examples/storybooks/${file}`;
 
 // strip ../../src from the src
-
 const strip = code => code.replace('../../src', 'react-sortable-tree');
 
 const handleClick = file => event => {
@@ -34,7 +36,49 @@ const handleClick = file => event => {
   fetch(url)
     .then(response => response.json())
     .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', strip(atob(response.content))));
+    .then(response => {
+      const stripped = strip(atob(response.content));
+      const payload = getPayload(stripped);
+      console.log(payload);
+    });
+};
+
+const getPayload = example => {
+  const index = `
+import React from 'react';
+import { render } from 'react-dom';
+import App from './example';
+
+render(<App />, document.getElementById('root'));
+`;
+
+  const html = `<div id="root"></div>`;
+  return getParameters({
+    files: {
+      'package.json': {
+        content: {
+          dependencies: {
+            react: 'latest',
+            'react-dom': 'latest',
+            'prop-types': 'latest',
+            'react-dnd': 'latest',
+            'react-dnd-html5-backend': 'latest',
+            'react-sortable-tree-theme-file-explorer': 'latest',
+            'react-dnd-touch-backend': 'latest',
+          },
+        },
+      },
+      'index.js': {
+        content: index,
+      },
+      'example.js': {
+        content: example,
+      },
+      'index.html': {
+        content: html,
+      },
+    },
+  });
 };
 
 const wrapWithSource = (node, src) => (
