@@ -6,7 +6,7 @@ const GIT_URL =
 export const SANDBOX_URL = 'https://codesandbox.io/api/v1/sandboxes/define';
 
 // full url for github api call
-const getURL = file => `${GIT_URL}/examples/storybooks/${file}`;
+const getURL = filename => `${GIT_URL}/examples/storybooks/${filename}`;
 
 // strip ../../src from the src
 const strip = code => code.replace('../../src', 'react-sortable-tree');
@@ -22,6 +22,7 @@ render(<App />, document.getElementById('root'));
 const html = `<div id="root"></div>`;
 
 // using codesandbox util
+// returns the payload to send to the define endpoint
 const getPayload = example =>
   getParameters({
     files: {
