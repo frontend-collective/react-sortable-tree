@@ -216,6 +216,23 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
     ← drag this
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/external-node.js"
@@ -679,6 +696,23 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
     </div>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/drag-out-to-remove.js"
@@ -985,6 +1019,23 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
     </div>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/generate-node-props.js"
@@ -1233,6 +1284,23 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
     </div>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/touch-support.js"
@@ -1693,6 +1761,23 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
     </div>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/tree-to-tree.js"
@@ -1950,6 +2035,23 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
     </button>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/add-remove.js"
@@ -2264,6 +2366,23 @@ exports[`Storyshots Basics Callbacks 1`] = `
     </div>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/callbacks.js"
@@ -2505,6 +2624,23 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
     </div>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/barebones.js"
@@ -2842,6 +2978,23 @@ exports[`Storyshots Basics Modify nodes 1`] = `
     </div>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/modify-nodes.js"
@@ -3412,6 +3565,23 @@ exports[`Storyshots Basics Prevent drop 1`] = `
     </div>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/can-drop.js"
@@ -3613,6 +3783,23 @@ exports[`Storyshots Basics Search 1`] = `
     </div>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/search.js"
@@ -4090,6 +4277,23 @@ exports[`Storyshots Basics Themes 1`] = `
     </div>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/themes.js"
@@ -4354,6 +4558,23 @@ exports[`Storyshots Basics treeData import/export 1`] = `
     </ul>
   </div>
   <br />
+  <form
+    action="https://codesandbox.io/api/v1/sandboxes/define"
+    id="codesandbox-form"
+    method="POST"
+  >
+    <input
+      id="codesandbox-parameters"
+      name="parameters"
+      type="hidden"
+    />
+  </form>
+  <button
+    className="sandboxLink"
+    onClick={[Function]}
+  >
+    VIEW SANDBOX →
+  </button>
   <a
     className="sourceLink"
     href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/tree-data-io.js"
