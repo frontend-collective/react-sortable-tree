@@ -18,11 +18,39 @@ import TreeDataIOExample from './tree-data-io';
 import TreeToTreeExample from './tree-to-tree';
 import styles from './generic.scss';
 
+const BASE_URL =
+  'https://api.github.com/repos/fritz-c/react-sortable-tree/contents/';
+
+// full url for github api call
+const getURL = file => `${BASE_URL}/examples/storybooks/${file}`;
+
+// strip ../../src from the src
+
+const strip = code => code.replace('../../src', 'react-sortable-tree');
+
+const handleClick = file => event => {
+  event.preventDefault();
+  const url = getURL(file);
+  fetch(url)
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', strip(atob(response.content))));
+};
+
 const wrapWithSource = (node, src) => (
   <div>
     {node}
 
     <br />
+    <a
+      href="#"
+      target="_top"
+      rel="noopener noreferrer"
+      className={styles.sandboxLink}
+      onClick={handleClick(src)}
+    >
+      VIEW SANDBOX →
+    </a>
     <a
       href={`https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/${src}`}
       target="_top"
