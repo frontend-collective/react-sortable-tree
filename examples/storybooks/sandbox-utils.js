@@ -15,15 +15,7 @@ const strip = code => code.replace('../../src', 'react-sortable-tree');
 // modify code so we can just have one file in the sandbox. index.js
 const modify = code => {
   const addToTop = `import { render } from 'react-dom';\n`;
-  let addToBottom = `\nrender(<App />, document.getElementById('root'));`;
-  const newBottom = addToBottom.replace('App', 'NewApp');
-
-  // in some files the App component is wrapped with DragDropContext so we have to replace it
-  if (code.includes(`DragDropContext(HTML5Backend)(App)`)) {
-    addToBottom = `\nconst NewApp = DragDropContext(HTML5Backend)(App);${newBottom}`;
-  } else if (code.includes(`DragDropContext(isTouchDevice`)) {
-    addToBottom = `\nconst NewApp = DragDropContext(isTouchDevice ? TouchBackend : HTML5Backend)(App);${newBottom}`;
-  }
+  const addToBottom = `\nrender(<App />, document.getElementById('root'));`;
   return addToTop + code + addToBottom;
 };
 
