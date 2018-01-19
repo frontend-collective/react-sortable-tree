@@ -228,10 +228,10 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -708,10 +708,10 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -1031,10 +1031,10 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -1296,10 +1296,10 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -1773,10 +1773,10 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -2047,10 +2047,10 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -2378,10 +2378,10 @@ exports[`Storyshots Basics Callbacks 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -2636,10 +2636,10 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -2990,10 +2990,10 @@ exports[`Storyshots Basics Modify nodes 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -3577,10 +3577,10 @@ exports[`Storyshots Basics Prevent drop 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -3795,10 +3795,10 @@ exports[`Storyshots Basics Search 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -4289,10 +4289,10 @@ exports[`Storyshots Basics Themes 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
@@ -4570,10 +4570,10 @@ exports[`Storyshots Basics treeData import/export 1`] = `
     />
   </form>
   <button
-    className="sandboxLink"
+    className="sandboxButton"
     onClick={[Function]}
   >
-    VIEW SANDBOX →
+    PLAY WITH THIS CODE →
   </button>
   <a
     className="sourceLink"
