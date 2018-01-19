@@ -9,7 +9,7 @@ import { SortableTreeWithoutDndContext as SortableTree } from '../../src';
 // https://stackoverflow.com/a/4819886/1601953
 const isTouchDevice = !!('ontouchstart' in window || navigator.maxTouchPoints);
 
-class App extends Component {
+class UnwrappedApp extends Component {
   constructor(props) {
     super(props);
 
@@ -38,6 +38,7 @@ class App extends Component {
   }
 }
 
-export default DragDropContext(isTouchDevice ? TouchBackend : HTML5Backend)(
-  App
+const App = DragDropContext(isTouchDevice ? TouchBackend : HTML5Backend)(
+  UnwrappedApp
 );
+export default App;

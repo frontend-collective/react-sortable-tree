@@ -53,7 +53,7 @@ const YourExternalNodeComponent = DragSource(
   externalNodeCollect
 )(externalNodeBaseComponent);
 
-class App extends Component {
+class UnwrappedApp extends Component {
   constructor(props) {
     super(props);
 
@@ -79,4 +79,5 @@ class App extends Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(App);
+const App = DragDropContext(HTML5Backend)(UnwrappedApp);
+export default App;
