@@ -1,5 +1,5 @@
 .sourceLink,
-.sandboxLink {
+.sandboxButton {
   position: fixed;
   top: 0;
   right: 0;
@@ -17,15 +17,15 @@
   }
 }
 
-.sandboxLink {
+.sandboxButton {
   top: 30px;
   right: 30px;
   background: rgb(12, 194, 68);
   padding: 130px 100px 5px 100px;
   border: none;
   cursor: pointer;
-  outline: inherit !important;
+  outline: none;
   &:hover:not(:active) {
-    background: rgb(152, 244, 159);
+    background: rgb(128, 242, 137);
   }
 }

@@ -1,7 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { getParameters } from 'codesandbox/lib/api/define';
 
 const GIT_URL =
-  'https://api.github.com/repos/fritz-c/react-sortable-tree/contents/';
+  'https://api.github.com/repos/fritz-c/react-sortable-tree/contents';
 
 export const SANDBOX_URL = 'https://codesandbox.io/api/v1/sandboxes/define';
 
@@ -11,19 +12,37 @@ const getURL = filename => `${GIT_URL}/examples/storybooks/${filename}`;
 // strip ../../src from the src
 const strip = code => code.replace('../../src', 'react-sortable-tree');
 
-const index = `
-import React from 'react';
-import { render } from 'react-dom';
-import App from './example';
+// modify code so we can just have one file in the sandbox. index.js
+const modify = code => {
+  const addToTop = `import { render } from 'react-dom';\n`;
+  let addToBottom = `\nrender(<App />, document.getElementById('root'));`;
+  const newBottom = addToBottom.replace('App', 'NewApp');
 
-render(<App />, document.getElementById('root'));
-`;
+  // in some files the App component is wrapped with DragDropContext so we have to replace it
+  if (code.includes(`DragDropContext(HTML5Backend)(App)`)) {
+    addToBottom = `\nconst NewApp = DragDropContext(HTML5Backend)(App);${newBottom}`;
+  } else if (code.includes(`DragDropContext(isTouchDevice`)) {
+    addToBottom = `\nconst NewApp = DragDropContext(isTouchDevice ? TouchBackend : HTML5Backend)(App);${newBottom}`;
+  }
+  return addToTop + code + addToBottom;
+};
+
+// parse. Possible the atob throws an exception
+const parse = base64 => {
+  let parsed;
+  try {
+    parsed = atob(base64);
+  } catch (error) {
+    console.error('Failed to parse base64 from GitHub', error); // eslint-disable-line no-console
+  }
+  return parsed;
+};
 
 const html = `<div id="root"></div>`;
 
 // using codesandbox util
 // returns the payload to send to the define endpoint
-const getPayload = example =>
+const getPayload = code =>
   getParameters({
     files: {
       'package.json': {
@@ -41,10 +60,7 @@ const getPayload = example =>
         },
       },
       'index.js': {
-        content: index,
-      },
-      'example.js': {
-        content: example,
+        content: code,
       },
       'index.html': {
         content: html,
@@ -67,8 +83,11 @@ export const handleClick = file => event => {
     .then(response => response.json())
     .catch(error => console.error('Error getting blob from GitHub:', error)) // eslint-disable-line no-console
     .then(response => {
-      const stripped = strip(atob(response.content));
-      const payload = getPayload(stripped);
+      const parsed = parse(response.content);
+      if (!parsed) {
+        return;
+      }
+      const payload = getPayload(modify(strip(parsed)));
       sendSandboxRequest(payload);
     });
 };

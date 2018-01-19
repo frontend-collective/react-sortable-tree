@@ -28,11 +28,8 @@ const wrapWithSource = (node, src) => (
     <form id="codesandbox-form" action={SANDBOX_URL} method="POST">
       <input id="codesandbox-parameters" type="hidden" name="parameters" />
     </form>
-    <button
-      className={styles.sandboxLink}
-      onClick={handleClick(src)}
-    >
-      VIEW SANDBOX →
+    <button className={styles.sandboxButton} onClick={handleClick(src)}>
+      PLAY WITH THIS CODE →
     </button>
     <a
       href={`https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/${src}`}
