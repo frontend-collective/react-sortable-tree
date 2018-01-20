@@ -81,7 +81,7 @@ Notable among the available functions:
 - __`getTreeFromFlatData`__: Convert flat data (like that from a database) into nested tree data
 - __`getFlatDataFromTree`__: Convert tree data back to flat data
 - __`addNodeUnderParent`__: Add a node under the parent node at the given path
-- __`removeNodeAtPath`__: Remove the node at the given path
+- __`removeNode`__: For a given path, get the node at that path and the treeData with that node removed.
 - __`changeNodeAtPath`__: Modify the node object at the given path
 - __`map`__: Perform a change on every node in the tree
 - __`walk`__: Visit every node in the tree in order
