@@ -219,7 +219,7 @@ class ReactSortableTree extends Component {
     depth,
     minimumTreeIndex,
   }) {
-    const { treeData, treeIndex, path } = insertNode({
+    const { treeData, treeIndex, path, parentNode } = insertNode({
       treeData: this.state.draggingTreeData,
       newNode: node,
       depth,
@@ -239,6 +239,7 @@ class ReactSortableTree extends Component {
       nextTreeIndex: treeIndex,
       prevPath,
       prevTreeIndex,
+      parentNode,
     });
   }
 
