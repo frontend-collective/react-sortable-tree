@@ -142,6 +142,11 @@ class App extends Component {
             },
           ],
         },
+        {
+          title: 'Children will be added dynamically',
+          subtitle: 'If you specify children with a function',
+          children: params => this.generateNewChildren(params),
+        },
       ],
     };
 
@@ -169,6 +174,19 @@ class App extends Component {
 
   collapseAll() {
     this.expand(false);
+  }
+
+  generateNewChildren(params) {
+    setTimeout(() => {
+      const childNodes = Array(5)
+        .fill()
+        .map(() => ({
+          title: 'Dynamic child node',
+          subtitle: `parent path: ${params.path.join('->')}`,
+          children: x => this.generateNewChildren(x),
+        }));
+      params.done(childNodes);
+    }, 1000);
   }
 
   render() {

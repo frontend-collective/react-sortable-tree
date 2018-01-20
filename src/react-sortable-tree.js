@@ -219,7 +219,7 @@ class ReactSortableTree extends Component {
     depth,
     minimumTreeIndex,
   }) {
-    const { treeData, treeIndex, path } = insertNode({
+    const insertedNode = insertNode({
       treeData: this.state.draggingTreeData,
       newNode: node,
       depth,
@@ -227,7 +227,11 @@ class ReactSortableTree extends Component {
       expandParent: true,
       getNodeKey: this.props.getNodeKey,
     });
+    if (!insertedNode) {
+      return;
+    }
 
+    const { treeData, treeIndex, path } = insertedNode;
     this.props.onChange(treeData);
 
     this.props.onMoveNode({
@@ -357,6 +361,9 @@ class ReactSortableTree extends Component {
       expandParent: true,
       getNodeKey: this.props.getNodeKey,
     });
+    if (!addedResult) {
+      return;
+    }
 
     const rows = this.getRows(addedResult.treeData);
     const expandedParentPath = rows[addedResult.treeIndex].path;
@@ -576,16 +583,19 @@ class ReactSortableTree extends Component {
         expandParent: true,
         getNodeKey,
       });
-
-      const swapTo = draggedMinimumTreeIndex;
-      swapFrom = addedResult.treeIndex;
-      swapLength = 1 + memoizedGetDescendantCount({ node: draggedNode });
-      rows = slideRows(
-        this.getRows(addedResult.treeData),
-        swapFrom,
-        swapTo,
-        swapLength
-      );
+      if (addedResult) {
+        const swapTo = draggedMinimumTreeIndex;
+        swapFrom = addedResult.treeIndex;
+        swapLength = 1 + memoizedGetDescendantCount({ node: draggedNode });
+        rows = slideRows(
+          this.getRows(addedResult.treeData),
+          swapFrom,
+          swapTo,
+          swapLength
+        );
+      } else {
+        rows = this.getRows(treeData);
+      }
     } else {
       rows = this.getRows(treeData);
     }

@@ -142,6 +142,9 @@ export default class DndManager {
         minimumTreeIndex: dropTargetProps.listIndex,
         expandParent: true,
       });
+      if (!addedResult) {
+        return false;
+      }
 
       return this.customCanDrop({
         node,
