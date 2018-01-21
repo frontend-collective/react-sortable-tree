@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.7.0...v1.8.0) (2018-01-21)
+
+
+### Features
+
+* Parent node in onMoveNode callback ([537c6a4](https://github.com/fritz-c/react-sortable-tree/commit/537c6a4))
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.6.0...v1.7.0) (2018-01-16)
 
