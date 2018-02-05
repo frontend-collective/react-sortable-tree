@@ -1,12 +1,12 @@
 $row-padding: 10px;
 
-.rowWrapper {
+.rst__rowWrapper {
   padding: $row-padding $row-padding $row-padding 0;
   height: 100%;
   box-sizing: border-box;
 }
 
-.row {
+.rst__row {
   height: 100%;
   white-space: nowrap;
   display: flex;
@@ -19,7 +19,7 @@ $row-padding: 10px;
 /**
  * The outline of where the element will go if dropped, displayed while dragging
  */
-.rowLandingPad {
+.rst__rowLandingPad {
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
@@ -44,8 +44,8 @@ $row-padding: 10px;
 /**
  * Alternate appearance of the landing pad when the dragged location is invalid
  */
-.rowCancelPad {
-  @extend .rowLandingPad;
+.rst__rowCancelPad {
+  @extend .rst__rowLandingPad;
 
   &::before {
     background-color: #e6a8ad;
@@ -55,14 +55,14 @@ $row-padding: 10px;
 /**
  * Nodes matching the search conditions are highlighted
  */
-.rowSearchMatch {
+.rst__rowSearchMatch {
   outline: solid 3px #0080ff;
 }
 
 /**
  * The node that matches the search conditions and is currently focused
  */
-.rowSearchFocus {
+.rst__rowSearchFocus {
   outline: solid 3px #fc6421;
 }
 
@@ -71,7 +71,7 @@ $row-padding: 10px;
   vertical-align: middle;
 }
 
-.rowContents {
+.rst__rowContents {
   @extend %rowItem;
   position: relative;
   height: 100%;
@@ -88,23 +88,23 @@ $row-padding: 10px;
   background-color: white;
 }
 
-.rowContentsDragDisabled {
+.rst__rowContentsDragDisabled {
   border-left: solid #bbb 1px;
 }
 
-.rowLabel {
+.rst__rowLabel {
   @extend %rowItem;
   flex: 0 1 auto;
   padding-right: 20px;
 }
 
-.rowToolbar {
+.rst__rowToolbar {
   @extend %rowItem;
   flex: 0 1 auto;
   display: flex;
 }
 
-.moveHandle {
+.rst__moveHandle {
   @extend %rowItem;
 
   height: 100%;
@@ -119,8 +119,8 @@ $row-padding: 10px;
   z-index: 1;
 }
 
-.loadingHandle {
-  @extend .moveHandle;
+.rst__loadingHandle {
+  @extend .rst__moveHandle;
 
   cursor: default;
   background: #d9d9d9;
@@ -137,14 +137,14 @@ $row-padding: 10px;
   }
 }
 
-.loadingCircle {
+.rst__loadingCircle {
   width: 80%;
   height: 80%;
   margin: 10%;
   position: relative;
 }
 
-.loadingCirclePoint {
+.rst__loadingCirclePoint {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -184,27 +184,27 @@ $row-padding: 10px;
   }
 }
 
-.toolbarButton {
+.rst__toolbarButton {
   @extend %rowItem;
 }
 
-.rowTitle {
+.rst__rowTitle {
   font-weight: bold;
 }
 
-.rowTitleWithSubtitle {
+.rst__rowTitleWithSubtitle {
   font-size: 85%;
   display: block;
   height: 0.8rem;
 }
 
-.rowSubtitle {
+.rst__rowSubtitle {
   font-size: 70%;
   line-height: 1;
 }
 
-.collapseButton,
-.expandButton {
+.rst__collapseButton,
+.rst__expandButton {
   appearance: none;
   border: none;
   position: absolute;
@@ -229,60 +229,22 @@ $row-padding: 10px;
   }
 }
 
-.collapseButton {
+.rst__collapseButton {
   background: #fff
     url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCI+PGNpcmNsZSBjeD0iOSIgY3k9IjkiIHI9IjgiIGZpbGw9IiNGRkYiLz48ZyBzdHJva2U9IiM5ODk4OTgiIHN0cm9rZS13aWR0aD0iMS45IiA+PHBhdGggZD0iTTQuNSA5aDkiLz48L2c+Cjwvc3ZnPg==')
     no-repeat center;
 }
 
-.expandButton {
+.rst__expandButton {
   background: #fff
     url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCI+PGNpcmNsZSBjeD0iOSIgY3k9IjkiIHI9IjgiIGZpbGw9IiNGRkYiLz48ZyBzdHJva2U9IiM5ODk4OTgiIHN0cm9rZS13aWR0aD0iMS45IiA+PHBhdGggZD0iTTQuNSA5aDkiLz48cGF0aCBkPSJNOSA0LjV2OSIvPjwvZz4KPC9zdmc+')
     no-repeat center;
 }
 
 /**
-  * Classes for IE9 and below
-  */
-%fixVertAlign {
-  &::before {
-    content: '';
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-  }
-}
-
-.row_NoFlex {
-  @extend %fixVertAlign;
-}
-
-.rowContents_NoFlex {
-  @extend %fixVertAlign;
-
-  display: inline-block;
-  &::after {
-    content: '';
-    display: inline-block;
-    width: 100%;
-  }
-}
-
-.rowLabel_NoFlex {
-  @extend %rowItem;
-  width: 50%;
-}
-
-.rowToolbar_NoFlex {
-  @extend %rowItem;
-  text-align: right;
-  width: 50%;
-}
-
-/**
  * Line for under a node with children
  */
-.lineChildren {
+.rst__lineChildren {
   height: 100%;
   display: inline-block;
   position: absolute;

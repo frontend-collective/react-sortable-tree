@@ -1,11 +1,11 @@
-.node {
+.rst__node {
   min-width: 100%;
   white-space: nowrap;
   position: relative;
   text-align: left;
 }
 
-.nodeContent {
+.rst__nodeContent {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -16,14 +16,14 @@
 
     Line-overlaid blocks used for showing the tree structure
    ========================================================================== */
-.lineBlock {
+.rst__lineBlock {
   height: 100%;
   position: relative;
   display: inline-block;
 }
 
-.absoluteLineBlock {
-  @extend .lineBlock;
+.rst__absoluteLineBlock {
+  @extend .rst__lineBlock;
   position: absolute;
   top: 0;
 }
@@ -41,7 +41,7 @@
  * |     |
  * +-----+
  */
-.lineHalfHorizontalRight {
+.rst__lineHalfHorizontalRight {
   &::before {
     @extend %blackLineBase;
     height: 1px;
@@ -58,7 +58,7 @@
  * |  |  |
  * +--+--+
  */
-.lineFullVertical {
+.rst__lineFullVertical {
   &::after {
     @extend %blackLineBase;
     width: 1px;
@@ -75,8 +75,8 @@
  * |     |
  * +-----+
  */
-.lineHalfVerticalTop {
-  @extend .lineFullVertical;
+.rst__lineHalfVerticalTop {
+  @extend .rst__lineFullVertical;
 
   &::after {
     top: 0;
@@ -91,8 +91,8 @@
  * |  |  |
  * +-----+
  */
-.lineHalfVerticalBottom {
-  @extend .lineHalfVerticalTop;
+.rst__lineHalfVerticalBottom {
+  @extend .rst__lineHalfVerticalTop;
 
   &::after {
     top: auto;
@@ -112,7 +112,7 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
  * |  |  |
  * +--+--+
  */
-.highlightLineVertical {
+.rst__highlightLineVertical {
   z-index: 3;
 
   &::before {
@@ -167,7 +167,7 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
  * |  |  |
  * +--+--+
  */
-.highlightTopLeftCorner {
+.rst__highlightTopLeftCorner {
   &::before {
     z-index: 3;
     content: '';
@@ -190,7 +190,7 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
  * |  +->|
  * +-----+
  */
-.highlightBottomLeftCorner {
+.rst__highlightBottomLeftCorner {
   $arrow-size: 12px;
   z-index: 3;
 

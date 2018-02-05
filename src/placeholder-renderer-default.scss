@@ -1,4 +1,4 @@
-.placeholder {
+.rst__placeholder {
   position: relative;
   height: 68px;
   max-width: 300px;
@@ -24,7 +24,7 @@
 /**
  * The outline of where the element will go if dropped, displayed while dragging
  */
-.placeholderLandingPad {
+.rst__placeholderLandingPad {
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
@@ -42,8 +42,8 @@
 /**
  * Alternate appearance of the landing pad when the dragged location is invalid
  */
-.placeholderCancelPad {
-  @extend .placeholderLandingPad;
+.rst__placeholderCancelPad {
+  @extend .rst__placeholderLandingPad;
 
   &::before {
     background-color: #e6a8ad;

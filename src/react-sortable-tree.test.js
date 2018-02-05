@@ -114,14 +114,14 @@ describe('<SortableTree />', () => {
 
     // Expand node and check for the existence of the revealed child
     wrapper
-      .find(`.${defaultNodeRendererStyles.expandButton}`)
+      .find(`.${defaultNodeRendererStyles.rst__expandButton}`)
       .first()
       .simulate('click');
     expect(wrapper.find(TreeNode).length).toEqual(2);
 
     // Collapse node and make sure the child has been hidden
     wrapper
-      .find(`.${defaultNodeRendererStyles.collapseButton}`)
+      .find(`.${defaultNodeRendererStyles.rst__collapseButton}`)
       .first()
       .simulate('click');
     expect(wrapper.find(TreeNode).length).toEqual(1);
@@ -137,11 +137,11 @@ describe('<SortableTree />', () => {
       />
     );
 
-    expect(wrapper.find(`.${sortableTreeStyles.tree}`)).toHaveStyle(
+    expect(wrapper.find(`.${sortableTreeStyles.rst__tree}`)).toHaveStyle(
       'borderWidth',
       42
     );
-    expect(wrapper.find(`.${sortableTreeStyles.tree}`)).toHaveClassName(
+    expect(wrapper.find(`.${sortableTreeStyles.rst__tree}`)).toHaveClassName(
       'extra-classy'
     );
   });
@@ -156,7 +156,7 @@ describe('<SortableTree />', () => {
     );
 
     expect(
-      wrapper.find(`.${sortableTreeStyles.virtualScrollOverride}`).first()
+      wrapper.find(`.${sortableTreeStyles.rst__virtualScrollOverride}`).first()
     ).toHaveStyle('borderWidth', 42);
   });
 
@@ -209,7 +209,7 @@ describe('<SortableTree />', () => {
       />
     );
 
-    expect(wrapper.find(`.${treeNodeStyles.lineBlock}`)).toHaveStyle(
+    expect(wrapper.find(`.${treeNodeStyles.rst__lineBlock}`)).toHaveStyle(
       'width',
       12
     );
@@ -242,12 +242,12 @@ describe('<SortableTree />', () => {
     );
 
     wrapper
-      .find(`.${defaultNodeRendererStyles.expandButton}`)
+      .find(`.${defaultNodeRendererStyles.rst__expandButton}`)
       .first()
       .simulate('click');
     expect(out).toEqual('expanded');
     wrapper
-      .find(`.${defaultNodeRendererStyles.collapseButton}`)
+      .find(`.${defaultNodeRendererStyles.rst__collapseButton}`)
       .first()
       .simulate('click');
     expect(out).toEqual('collapsed');

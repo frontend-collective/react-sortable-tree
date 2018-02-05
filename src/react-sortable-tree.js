@@ -29,7 +29,8 @@ import {
   defaultSearchMethod,
 } from './utils/default-handlers';
 import DndManager from './utils/dnd-manager';
-import styles from './react-sortable-tree.scss';
+import classnames from './utils/classnames';
+import './react-sortable-tree.scss';
 
 let treeIdCounter = 1;
 
@@ -632,7 +633,7 @@ class ReactSortableTree extends Component {
               horizontalStrength={this.hStrength}
               speed={30}
               scrollToAlignment="start"
-              className={styles.virtualScrollOverride}
+              className="rst__virtualScrollOverride"
               width={width}
               onScroll={({ scrollTop }) => {
                 this.scrollTop = scrollTop;
@@ -697,7 +698,7 @@ class ReactSortableTree extends Component {
 
     return (
       <div
-        className={styles.tree + (className ? ` ${className}` : '')}
+        className={classnames('rst__tree', className)}
         style={containerStyle}
       >
         {list}

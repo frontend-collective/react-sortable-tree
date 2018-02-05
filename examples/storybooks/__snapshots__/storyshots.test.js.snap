@@ -11,7 +11,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
       }
     >
       <div
-        className="tree"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -22,7 +22,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
           <div
             aria-label="grid"
             aria-readonly={true}
-            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
             id={undefined}
             onScroll={[Function]}
             role="grid"
@@ -57,7 +57,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
               }
             >
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -69,7 +69,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -77,7 +77,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -92,10 +92,10 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -103,22 +103,22 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               Mama Rabbit
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -127,7 +127,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -139,7 +139,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -147,7 +147,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -162,10 +162,10 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -173,22 +173,22 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               Papa Rabbit
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -264,7 +264,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
         }
       >
         <div
-          className="tree"
+          className="rst__tree"
           style={
             Object {
               "height": "100%",
@@ -275,7 +275,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
             <div
               aria-label="grid"
               aria-readonly={true}
-              className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+              className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
               id={undefined}
               onScroll={[Function]}
               role="grid"
@@ -310,7 +310,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                 }
               >
                 <div
-                  className="node"
+                  className="rst__node"
                   style={
                     Object {
                       "height": 62,
@@ -322,7 +322,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   }
                 >
                   <div
-                    className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                    className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                     style={
                       Object {
                         "width": 44,
@@ -330,7 +330,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   />
                   <div
-                    className="nodeContent"
+                    className="rst__nodeContent"
                     style={
                       Object {
                         "left": 44,
@@ -345,10 +345,10 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                       }
                     >
                       <div
-                        className="rowWrapper"
+                        className="rst__rowWrapper"
                       >
                         <div
-                          className="row"
+                          className="rst__row"
                           style={
                             Object {
                               "opacity": 1,
@@ -356,22 +356,22 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                           }
                         >
                           <div
-                            className="moveHandle"
+                            className="rst__moveHandle"
                           />
                           <div
-                            className="rowContents"
+                            className="rst__rowContents"
                           >
                             <div
-                              className="rowLabel"
+                              className="rst__rowLabel"
                             >
                               <span
-                                className="rowTitle"
+                                className="rst__rowTitle"
                               >
                                 1
                               </span>
                             </div>
                             <div
-                              className="rowToolbar"
+                              className="rst__rowToolbar"
                             />
                           </div>
                         </div>
@@ -380,7 +380,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   </div>
                 </div>
                 <div
-                  className="node"
+                  className="rst__node"
                   style={
                     Object {
                       "height": 62,
@@ -392,7 +392,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   }
                 >
                   <div
-                    className="lineBlock lineHalfHorizontalRight lineFullVertical"
+                    className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
                     style={
                       Object {
                         "width": 44,
@@ -400,7 +400,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   />
                   <div
-                    className="nodeContent"
+                    className="rst__nodeContent"
                     style={
                       Object {
                         "left": 44,
@@ -415,10 +415,10 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                       }
                     >
                       <div
-                        className="rowWrapper"
+                        className="rst__rowWrapper"
                       >
                         <div
-                          className="row"
+                          className="rst__row"
                           style={
                             Object {
                               "opacity": 1,
@@ -426,22 +426,22 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                           }
                         >
                           <div
-                            className="moveHandle"
+                            className="rst__moveHandle"
                           />
                           <div
-                            className="rowContents"
+                            className="rst__rowContents"
                           >
                             <div
-                              className="rowLabel"
+                              className="rst__rowLabel"
                             >
                               <span
-                                className="rowTitle"
+                                className="rst__rowTitle"
                               >
                                 2
                               </span>
                             </div>
                             <div
-                              className="rowToolbar"
+                              className="rst__rowToolbar"
                             />
                           </div>
                         </div>
@@ -450,7 +450,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   </div>
                 </div>
                 <div
-                  className="node"
+                  className="rst__node"
                   style={
                     Object {
                       "height": 62,
@@ -462,7 +462,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   }
                 >
                   <div
-                    className="lineBlock lineHalfHorizontalRight lineFullVertical"
+                    className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
                     style={
                       Object {
                         "width": 44,
@@ -470,7 +470,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   />
                   <div
-                    className="nodeContent"
+                    className="rst__nodeContent"
                     style={
                       Object {
                         "left": 44,
@@ -485,10 +485,10 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                       }
                     >
                       <div
-                        className="rowWrapper"
+                        className="rst__rowWrapper"
                       >
                         <div
-                          className="row"
+                          className="rst__row"
                           style={
                             Object {
                               "opacity": 1,
@@ -496,22 +496,22 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                           }
                         >
                           <div
-                            className="moveHandle"
+                            className="rst__moveHandle"
                           />
                           <div
-                            className="rowContents"
+                            className="rst__rowContents"
                           >
                             <div
-                              className="rowLabel"
+                              className="rst__rowLabel"
                             >
                               <span
-                                className="rowTitle"
+                                className="rst__rowTitle"
                               >
                                 3
                               </span>
                             </div>
                             <div
-                              className="rowToolbar"
+                              className="rst__rowToolbar"
                             />
                           </div>
                         </div>
@@ -520,7 +520,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   </div>
                 </div>
                 <div
-                  className="node"
+                  className="rst__node"
                   style={
                     Object {
                       "height": 62,
@@ -532,7 +532,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   }
                 >
                   <div
-                    className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                    className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                     style={
                       Object {
                         "width": 44,
@@ -540,7 +540,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   />
                   <div
-                    className="nodeContent"
+                    className="rst__nodeContent"
                     style={
                       Object {
                         "left": 44,
@@ -557,7 +557,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                       <div>
                         <button
                           aria-label="Collapse"
-                          className="collapseButton"
+                          className="rst__collapseButton"
                           onClick={[Function]}
                           style={
                             Object {
@@ -567,7 +567,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                           type="button"
                         />
                         <div
-                          className="lineChildren"
+                          className="rst__lineChildren"
                           style={
                             Object {
                               "width": 44,
@@ -576,10 +576,10 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                         />
                       </div>
                       <div
-                        className="rowWrapper"
+                        className="rst__rowWrapper"
                       >
                         <div
-                          className="row"
+                          className="rst__row"
                           style={
                             Object {
                               "opacity": 1,
@@ -587,22 +587,22 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                           }
                         >
                           <div
-                            className="moveHandle"
+                            className="rst__moveHandle"
                           />
                           <div
-                            className="rowContents"
+                            className="rst__rowContents"
                           >
                             <div
-                              className="rowLabel"
+                              className="rst__rowLabel"
                             >
                               <span
-                                className="rowTitle"
+                                className="rst__rowTitle"
                               >
                                 4
                               </span>
                             </div>
                             <div
-                              className="rowToolbar"
+                              className="rst__rowToolbar"
                             />
                           </div>
                         </div>
@@ -611,7 +611,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   </div>
                 </div>
                 <div
-                  className="node"
+                  className="rst__node"
                   style={
                     Object {
                       "height": 62,
@@ -623,7 +623,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   }
                 >
                   <div
-                    className="lineBlock "
+                    className="rst__lineBlock "
                     style={
                       Object {
                         "width": 44,
@@ -631,7 +631,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   />
                   <div
-                    className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                    className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                     style={
                       Object {
                         "width": 44,
@@ -639,7 +639,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   />
                   <div
-                    className="nodeContent"
+                    className="rst__nodeContent"
                     style={
                       Object {
                         "left": 88,
@@ -654,10 +654,10 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                       }
                     >
                       <div
-                        className="rowWrapper"
+                        className="rst__rowWrapper"
                       >
                         <div
-                          className="row"
+                          className="rst__row"
                           style={
                             Object {
                               "opacity": 1,
@@ -665,22 +665,22 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                           }
                         >
                           <div
-                            className="moveHandle"
+                            className="rst__moveHandle"
                           />
                           <div
-                            className="rowContents"
+                            className="rst__rowContents"
                           >
                             <div
-                              className="rowLabel"
+                              className="rst__rowLabel"
                             >
                               <span
-                                className="rowTitle"
+                                className="rst__rowTitle"
                               >
                                 5
                               </span>
                             </div>
                             <div
-                              className="rowToolbar"
+                              className="rst__rowToolbar"
                             />
                           </div>
                         </div>
@@ -735,7 +735,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
       }
     >
       <div
-        className="tree"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -746,7 +746,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
           <div
             aria-label="grid"
             aria-readonly={true}
-            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
             id={undefined}
             onScroll={[Function]}
             role="grid"
@@ -781,7 +781,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
               }
             >
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -793,7 +793,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -801,7 +801,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -817,10 +817,10 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "boxShadow": "0 0 0 4px red",
@@ -830,22 +830,22 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               Red Captain
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -854,7 +854,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -866,7 +866,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight lineFullVertical"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
                   style={
                     Object {
                       "width": 44,
@@ -874,7 +874,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -890,10 +890,10 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "boxShadow": "0 0 0 4px black",
@@ -903,22 +903,22 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               Black Captain
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -927,7 +927,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -939,7 +939,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -947,7 +947,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -965,7 +965,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                     <div>
                       <button
                         aria-label="Expand"
-                        className="expandButton"
+                        className="rst__expandButton"
                         onClick={[Function]}
                         style={
                           Object {
@@ -976,10 +976,10 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                       />
                     </div>
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "boxShadow": "0 0 0 4px green",
@@ -989,22 +989,22 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               Green Captain
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -1063,7 +1063,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
       }
     >
       <div
-        className="tree"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -1074,7 +1074,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
           <div
             aria-label="grid"
             aria-readonly={true}
-            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
             id={undefined}
             onScroll={[Function]}
             role="grid"
@@ -1109,7 +1109,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
               }
             >
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1121,7 +1121,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -1129,7 +1129,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -1146,7 +1146,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                     <div>
                       <button
                         aria-label="Collapse"
-                        className="collapseButton"
+                        className="rst__collapseButton"
                         onClick={[Function]}
                         style={
                           Object {
@@ -1156,7 +1156,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                         type="button"
                       />
                       <div
-                        className="lineChildren"
+                        className="rst__lineChildren"
                         style={
                           Object {
                             "width": 44,
@@ -1165,10 +1165,10 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                       />
                     </div>
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -1176,22 +1176,22 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               Chicken
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -1200,7 +1200,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1212,7 +1212,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                 }
               >
                 <div
-                  className="lineBlock "
+                  className="rst__lineBlock "
                   style={
                     Object {
                       "width": 44,
@@ -1220,7 +1220,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                   }
                 />
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -1228,7 +1228,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 88,
@@ -1243,10 +1243,10 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -1254,22 +1254,22 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               Egg
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -1326,7 +1326,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
       }
     >
       <div
-        className="tree"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -1337,7 +1337,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
           <div
             aria-label="grid"
             aria-readonly={true}
-            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
             id={undefined}
             onScroll={[Function]}
             role="grid"
@@ -1372,7 +1372,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
               }
             >
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1384,7 +1384,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -1392,7 +1392,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -1409,7 +1409,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                     <div>
                       <button
                         aria-label="Expand"
-                        className="expandButton"
+                        className="rst__expandButton"
                         onClick={[Function]}
                         style={
                           Object {
@@ -1420,10 +1420,10 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                       />
                     </div>
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -1431,22 +1431,22 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               node1
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -1455,7 +1455,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1467,7 +1467,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -1475,7 +1475,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -1490,10 +1490,10 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -1501,22 +1501,22 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               node2
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -1540,7 +1540,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
       }
     >
       <div
-        className="tree"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -1551,7 +1551,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
           <div
             aria-label="grid"
             aria-readonly={true}
-            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
             id={undefined}
             onScroll={[Function]}
             role="grid"
@@ -1586,7 +1586,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
               }
             >
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1598,7 +1598,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -1606,7 +1606,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -1621,10 +1621,10 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -1632,22 +1632,22 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               node3
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -1656,7 +1656,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1668,7 +1668,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -1676,7 +1676,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -1691,10 +1691,10 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -1702,22 +1702,22 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               node4
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -1800,7 +1800,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
       }
     >
       <div
-        className="tree"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -1811,7 +1811,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
           <div
             aria-label="grid"
             aria-readonly={true}
-            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
             id={undefined}
             onScroll={[Function]}
             role="grid"
@@ -1846,7 +1846,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
               }
             >
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1858,7 +1858,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -1866,7 +1866,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -1881,10 +1881,10 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -1892,25 +1892,25 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               Peter Olofsson
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           >
                             <div
-                              className="toolbarButton"
+                              className="rst__toolbarButton"
                             >
                               <button
                                 onClick={[Function]}
@@ -1919,7 +1919,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                               </button>
                             </div>
                             <div
-                              className="toolbarButton"
+                              className="rst__toolbarButton"
                             >
                               <button
                                 onClick={[Function]}
@@ -1935,7 +1935,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1947,7 +1947,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -1955,7 +1955,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -1970,10 +1970,10 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -1981,25 +1981,25 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               Karl Johansson
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           >
                             <div
-                              className="toolbarButton"
+                              className="rst__toolbarButton"
                             >
                               <button
                                 onClick={[Function]}
@@ -2008,7 +2008,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                               </button>
                             </div>
                             <div
-                              className="toolbarButton"
+                              className="rst__toolbarButton"
                             >
                               <button
                                 onClick={[Function]}
@@ -2075,7 +2075,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
       }
     >
       <div
-        className="tree"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -2086,7 +2086,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
           <div
             aria-label="grid"
             aria-readonly={true}
-            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
             id={undefined}
             onScroll={[Function]}
             role="grid"
@@ -2121,7 +2121,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
               }
             >
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2133,7 +2133,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -2141,7 +2141,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -2158,7 +2158,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                     <div>
                       <button
                         aria-label="Collapse"
-                        className="collapseButton"
+                        className="rst__collapseButton"
                         onClick={[Function]}
                         style={
                           Object {
@@ -2168,7 +2168,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                         type="button"
                       />
                       <div
-                        className="lineChildren"
+                        className="rst__lineChildren"
                         style={
                           Object {
                             "width": 44,
@@ -2177,10 +2177,10 @@ exports[`Storyshots Basics Callbacks 1`] = `
                       />
                     </div>
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -2188,22 +2188,22 @@ exports[`Storyshots Basics Callbacks 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               A
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -2212,7 +2212,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2224,7 +2224,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineFullVertical"
+                  className="rst__lineBlock rst__lineFullVertical"
                   style={
                     Object {
                       "width": 44,
@@ -2232,7 +2232,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                   }
                 />
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -2240,7 +2240,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 88,
@@ -2255,10 +2255,10 @@ exports[`Storyshots Basics Callbacks 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -2266,22 +2266,22 @@ exports[`Storyshots Basics Callbacks 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               B
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -2290,7 +2290,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2302,7 +2302,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -2310,7 +2310,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -2325,10 +2325,10 @@ exports[`Storyshots Basics Callbacks 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -2336,22 +2336,22 @@ exports[`Storyshots Basics Callbacks 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               C
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -2404,7 +2404,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
     }
   >
     <div
-      className="tree"
+      className="rst__tree"
       style={
         Object {
           "height": "100%",
@@ -2415,7 +2415,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
         <div
           aria-label="grid"
           aria-readonly={true}
-          className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
           id={undefined}
           onScroll={[Function]}
           role="grid"
@@ -2450,7 +2450,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
             }
           >
             <div
-              className="node"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -2462,7 +2462,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
               }
             >
               <div
-                className="lineBlock lineHalfHorizontalRight"
+                className="rst__lineBlock rst__lineHalfHorizontalRight"
                 style={
                   Object {
                     "width": 44,
@@ -2470,7 +2470,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                 }
               />
               <div
-                className="nodeContent"
+                className="rst__nodeContent"
                 style={
                   Object {
                     "left": 44,
@@ -2487,7 +2487,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                   <div>
                     <button
                       aria-label="Collapse"
-                      className="collapseButton"
+                      className="rst__collapseButton"
                       onClick={[Function]}
                       style={
                         Object {
@@ -2497,7 +2497,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                       type="button"
                     />
                     <div
-                      className="lineChildren"
+                      className="rst__lineChildren"
                       style={
                         Object {
                           "width": 44,
@@ -2506,10 +2506,10 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                     />
                   </div>
                   <div
-                    className="rowWrapper"
+                    className="rst__rowWrapper"
                   >
                     <div
-                      className="row"
+                      className="rst__row"
                       style={
                         Object {
                           "opacity": 1,
@@ -2517,22 +2517,22 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                       }
                     >
                       <div
-                        className="moveHandle"
+                        className="rst__moveHandle"
                       />
                       <div
-                        className="rowContents"
+                        className="rst__rowContents"
                       >
                         <div
-                          className="rowLabel"
+                          className="rst__rowLabel"
                         >
                           <span
-                            className="rowTitle"
+                            className="rst__rowTitle"
                           >
                             Chicken
                           </span>
                         </div>
                         <div
-                          className="rowToolbar"
+                          className="rst__rowToolbar"
                         />
                       </div>
                     </div>
@@ -2541,7 +2541,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
               </div>
             </div>
             <div
-              className="node"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -2553,7 +2553,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
               }
             >
               <div
-                className="lineBlock "
+                className="rst__lineBlock "
                 style={
                   Object {
                     "width": 44,
@@ -2561,7 +2561,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                 }
               />
               <div
-                className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                 style={
                   Object {
                     "width": 44,
@@ -2569,7 +2569,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                 }
               />
               <div
-                className="nodeContent"
+                className="rst__nodeContent"
                 style={
                   Object {
                     "left": 88,
@@ -2584,10 +2584,10 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                   }
                 >
                   <div
-                    className="rowWrapper"
+                    className="rst__rowWrapper"
                   >
                     <div
-                      className="row"
+                      className="rst__row"
                       style={
                         Object {
                           "opacity": 1,
@@ -2595,22 +2595,22 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                       }
                     >
                       <div
-                        className="moveHandle"
+                        className="rst__moveHandle"
                       />
                       <div
-                        className="rowContents"
+                        className="rst__rowContents"
                       >
                         <div
-                          className="rowLabel"
+                          className="rst__rowLabel"
                         >
                           <span
-                            className="rowTitle"
+                            className="rst__rowTitle"
                           >
                             Egg
                           </span>
                         </div>
                         <div
-                          className="rowToolbar"
+                          className="rst__rowToolbar"
                         />
                       </div>
                     </div>
@@ -2663,7 +2663,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
       }
     >
       <div
-        className="tree"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -2674,7 +2674,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
           <div
             aria-label="grid"
             aria-readonly={true}
-            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
             id={undefined}
             onScroll={[Function]}
             role="grid"
@@ -2709,7 +2709,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
               }
             >
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2721,7 +2721,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -2729,7 +2729,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -2744,10 +2744,10 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -2755,16 +2755,16 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               <input
                                 onChange={[Function]}
@@ -2778,7 +2778,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -2787,7 +2787,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2799,7 +2799,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -2807,7 +2807,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -2824,7 +2824,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                     <div>
                       <button
                         aria-label="Collapse"
-                        className="collapseButton"
+                        className="rst__collapseButton"
                         onClick={[Function]}
                         style={
                           Object {
@@ -2834,7 +2834,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                         type="button"
                       />
                       <div
-                        className="lineChildren"
+                        className="rst__lineChildren"
                         style={
                           Object {
                             "width": 44,
@@ -2843,10 +2843,10 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                       />
                     </div>
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -2854,16 +2854,16 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               <input
                                 onChange={[Function]}
@@ -2877,7 +2877,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -2886,7 +2886,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2898,7 +2898,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                 }
               >
                 <div
-                  className="lineBlock "
+                  className="rst__lineBlock "
                   style={
                     Object {
                       "width": 44,
@@ -2906,7 +2906,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                   }
                 />
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -2914,7 +2914,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 88,
@@ -2929,10 +2929,10 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -2940,16 +2940,16 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               <input
                                 onChange={[Function]}
@@ -2963,7 +2963,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -3016,7 +3016,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
     }
   >
     <div
-      className="tree"
+      className="rst__tree"
       style={
         Object {
           "height": "100%",
@@ -3027,7 +3027,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
         <div
           aria-label="grid"
           aria-readonly={true}
-          className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
           id={undefined}
           onScroll={[Function]}
           role="grid"
@@ -3062,7 +3062,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
             }
           >
             <div
-              className="node"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3074,7 +3074,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                 style={
                   Object {
                     "width": 44,
@@ -3082,7 +3082,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               />
               <div
-                className="nodeContent"
+                className="rst__nodeContent"
                 style={
                   Object {
                     "left": 44,
@@ -3099,7 +3099,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                   <div>
                     <button
                       aria-label="Collapse"
-                      className="collapseButton"
+                      className="rst__collapseButton"
                       onClick={[Function]}
                       style={
                         Object {
@@ -3109,7 +3109,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                       type="button"
                     />
                     <div
-                      className="lineChildren"
+                      className="rst__lineChildren"
                       style={
                         Object {
                           "width": 44,
@@ -3118,10 +3118,10 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                     />
                   </div>
                   <div
-                    className="rowWrapper"
+                    className="rst__rowWrapper"
                   >
                     <div
-                      className="row"
+                      className="rst__row"
                       style={
                         Object {
                           "opacity": 1,
@@ -3129,27 +3129,27 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                       }
                     >
                       <div
-                        className="moveHandle"
+                        className="rst__moveHandle"
                       />
                       <div
-                        className="rowContents"
+                        className="rst__rowContents"
                       >
                         <div
-                          className="rowLabel"
+                          className="rst__rowLabel"
                         >
                           <span
-                            className="rowTitle rowTitleWithSubtitle"
+                            className="rst__rowTitle rst__rowTitleWithSubtitle"
                           >
                             Wicked witch
                           </span>
                           <span
-                            className="rowSubtitle"
+                            className="rst__rowSubtitle"
                           >
                             Traps people
                           </span>
                         </div>
                         <div
-                          className="rowToolbar"
+                          className="rst__rowToolbar"
                         />
                       </div>
                     </div>
@@ -3158,7 +3158,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               </div>
             </div>
             <div
-              className="node"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3170,7 +3170,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="lineBlock lineFullVertical"
+                className="rst__lineBlock rst__lineFullVertical"
                 style={
                   Object {
                     "width": 44,
@@ -3178,7 +3178,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               />
               <div
-                className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                 style={
                   Object {
                     "width": 44,
@@ -3186,7 +3186,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               />
               <div
-                className="nodeContent"
+                className="rst__nodeContent"
                 style={
                   Object {
                     "left": 88,
@@ -3201,10 +3201,10 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                   }
                 >
                   <div
-                    className="rowWrapper"
+                    className="rst__rowWrapper"
                   >
                     <div
-                      className="row"
+                      className="rst__row"
                       style={
                         Object {
                           "opacity": 1,
@@ -3212,22 +3212,22 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                       }
                     >
                       <div
-                        className="moveHandle"
+                        className="rst__moveHandle"
                       />
                       <div
-                        className="rowContents"
+                        className="rst__rowContents"
                       >
                         <div
-                          className="rowLabel"
+                          className="rst__rowLabel"
                         >
                           <span
-                            className="rowTitle"
+                            className="rst__rowTitle"
                           >
                             Trapped
                           </span>
                         </div>
                         <div
-                          className="rowToolbar"
+                          className="rst__rowToolbar"
                         />
                       </div>
                     </div>
@@ -3236,7 +3236,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               </div>
             </div>
             <div
-              className="node"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3248,7 +3248,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="lineBlock lineHalfHorizontalRight lineFullVertical"
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
                 style={
                   Object {
                     "width": 44,
@@ -3256,7 +3256,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               />
               <div
-                className="nodeContent"
+                className="rst__nodeContent"
                 style={
                   Object {
                     "left": 44,
@@ -3273,7 +3273,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                   <div>
                     <button
                       aria-label="Collapse"
-                      className="collapseButton"
+                      className="rst__collapseButton"
                       onClick={[Function]}
                       style={
                         Object {
@@ -3283,7 +3283,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                       type="button"
                     />
                     <div
-                      className="lineChildren"
+                      className="rst__lineChildren"
                       style={
                         Object {
                           "width": 44,
@@ -3292,10 +3292,10 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                     />
                   </div>
                   <div
-                    className="rowWrapper"
+                    className="rst__rowWrapper"
                   >
                     <div
-                      className="row"
+                      className="rst__row"
                       style={
                         Object {
                           "opacity": 1,
@@ -3303,27 +3303,27 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                       }
                     >
                       <div
-                        className="moveHandle"
+                        className="rst__moveHandle"
                       />
                       <div
-                        className="rowContents"
+                        className="rst__rowContents"
                       >
                         <div
-                          className="rowLabel"
+                          className="rst__rowLabel"
                         >
                           <span
-                            className="rowTitle rowTitleWithSubtitle"
+                            className="rst__rowTitle rst__rowTitleWithSubtitle"
                           >
                             Jeannie
                           </span>
                           <span
-                            className="rowSubtitle"
+                            className="rst__rowSubtitle"
                           >
                             Doesn't allow grandchildren
                           </span>
                         </div>
                         <div
-                          className="rowToolbar"
+                          className="rst__rowToolbar"
                         />
                       </div>
                     </div>
@@ -3332,7 +3332,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               </div>
             </div>
             <div
-              className="node"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3344,7 +3344,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="lineBlock lineFullVertical"
+                className="rst__lineBlock rst__lineFullVertical"
                 style={
                   Object {
                     "width": 44,
@@ -3352,7 +3352,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               />
               <div
-                className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                 style={
                   Object {
                     "width": 44,
@@ -3360,7 +3360,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               />
               <div
-                className="nodeContent"
+                className="rst__nodeContent"
                 style={
                   Object {
                     "left": 88,
@@ -3375,10 +3375,10 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                   }
                 >
                   <div
-                    className="rowWrapper"
+                    className="rst__rowWrapper"
                   >
                     <div
-                      className="row"
+                      className="rst__row"
                       style={
                         Object {
                           "opacity": 1,
@@ -3386,22 +3386,22 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                       }
                     >
                       <div
-                        className="moveHandle"
+                        className="rst__moveHandle"
                       />
                       <div
-                        className="rowContents"
+                        className="rst__rowContents"
                       >
                         <div
-                          className="rowLabel"
+                          className="rst__rowLabel"
                         >
                           <span
-                            className="rowTitle"
+                            className="rst__rowTitle"
                           >
                             Jimmy
                           </span>
                         </div>
                         <div
-                          className="rowToolbar"
+                          className="rst__rowToolbar"
                         />
                       </div>
                     </div>
@@ -3410,7 +3410,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               </div>
             </div>
             <div
-              className="node"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3422,7 +3422,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="lineBlock lineHalfHorizontalRight lineFullVertical"
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
                 style={
                   Object {
                     "width": 44,
@@ -3430,7 +3430,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               />
               <div
-                className="nodeContent"
+                className="rst__nodeContent"
                 style={
                   Object {
                     "left": 44,
@@ -3445,10 +3445,10 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                   }
                 >
                   <div
-                    className="rowWrapper"
+                    className="rst__rowWrapper"
                   >
                     <div
-                      className="row"
+                      className="rst__row"
                       style={
                         Object {
                           "opacity": 1,
@@ -3456,27 +3456,27 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                       }
                     >
                       <div
-                        className="moveHandle"
+                        className="rst__moveHandle"
                       />
                       <div
-                        className="rowContents"
+                        className="rst__rowContents"
                       >
                         <div
-                          className="rowLabel"
+                          className="rst__rowLabel"
                         >
                           <span
-                            className="rowTitle rowTitleWithSubtitle"
+                            className="rst__rowTitle rst__rowTitleWithSubtitle"
                           >
                             Twin #1
                           </span>
                           <span
-                            className="rowSubtitle"
+                            className="rst__rowSubtitle"
                           >
                             Doesn't play with other twin
                           </span>
                         </div>
                         <div
-                          className="rowToolbar"
+                          className="rst__rowToolbar"
                         />
                       </div>
                     </div>
@@ -3485,7 +3485,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               </div>
             </div>
             <div
-              className="node"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3497,7 +3497,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                 style={
                   Object {
                     "width": 44,
@@ -3505,7 +3505,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               />
               <div
-                className="nodeContent"
+                className="rst__nodeContent"
                 style={
                   Object {
                     "left": 44,
@@ -3520,10 +3520,10 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                   }
                 >
                   <div
-                    className="rowWrapper"
+                    className="rst__rowWrapper"
                   >
                     <div
-                      className="row"
+                      className="rst__row"
                       style={
                         Object {
                           "opacity": 1,
@@ -3531,27 +3531,27 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                       }
                     >
                       <div
-                        className="moveHandle"
+                        className="rst__moveHandle"
                       />
                       <div
-                        className="rowContents"
+                        className="rst__rowContents"
                       >
                         <div
-                          className="rowLabel"
+                          className="rst__rowLabel"
                         >
                           <span
-                            className="rowTitle rowTitleWithSubtitle"
+                            className="rst__rowTitle rst__rowTitleWithSubtitle"
                           >
                             Twin #2
                           </span>
                           <span
-                            className="rowSubtitle"
+                            className="rst__rowSubtitle"
                           >
                             Doesn't play with other twin
                           </span>
                         </div>
                         <div
-                          className="rowToolbar"
+                          className="rst__rowToolbar"
                         />
                       </div>
                     </div>
@@ -3648,7 +3648,7 @@ exports[`Storyshots Basics Search 1`] = `
       }
     >
       <div
-        className="tree"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -3659,7 +3659,7 @@ exports[`Storyshots Basics Search 1`] = `
           <div
             aria-label="grid"
             aria-readonly={true}
-            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
             id={undefined}
             onScroll={[Function]}
             role="grid"
@@ -3694,7 +3694,7 @@ exports[`Storyshots Basics Search 1`] = `
               }
             >
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -3706,7 +3706,7 @@ exports[`Storyshots Basics Search 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -3714,7 +3714,7 @@ exports[`Storyshots Basics Search 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -3731,7 +3731,7 @@ exports[`Storyshots Basics Search 1`] = `
                     <div>
                       <button
                         aria-label="Expand"
-                        className="expandButton"
+                        className="rst__expandButton"
                         onClick={[Function]}
                         style={
                           Object {
@@ -3742,10 +3742,10 @@ exports[`Storyshots Basics Search 1`] = `
                       />
                     </div>
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -3753,22 +3753,22 @@ exports[`Storyshots Basics Search 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               Haystack
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -3821,7 +3821,7 @@ exports[`Storyshots Basics Themes 1`] = `
     }
   >
     <div
-      className="tree"
+      className="rst__tree"
       style={
         Object {
           "height": "100%",
@@ -3832,7 +3832,7 @@ exports[`Storyshots Basics Themes 1`] = `
         <div
           aria-label="grid"
           aria-readonly={true}
-          className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
           id={undefined}
           onScroll={[Function]}
           role="grid"
@@ -4317,7 +4317,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
       }
     >
       <div
-        className="tree"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -4328,7 +4328,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
           <div
             aria-label="grid"
             aria-readonly={true}
-            className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
             id={undefined}
             onScroll={[Function]}
             role="grid"
@@ -4363,7 +4363,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
               }
             >
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -4375,7 +4375,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfHorizontalRight lineHalfVerticalBottom"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -4383,7 +4383,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -4398,10 +4398,10 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                     }
                   >
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -4409,22 +4409,22 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               N1
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>
@@ -4433,7 +4433,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                 </div>
               </div>
               <div
-                className="node"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -4445,7 +4445,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                 }
               >
                 <div
-                  className="lineBlock lineHalfVerticalTop lineHalfHorizontalRight"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -4453,7 +4453,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                   }
                 />
                 <div
-                  className="nodeContent"
+                  className="rst__nodeContent"
                   style={
                     Object {
                       "left": 44,
@@ -4470,7 +4470,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                     <div>
                       <button
                         aria-label="Expand"
-                        className="expandButton"
+                        className="rst__expandButton"
                         onClick={[Function]}
                         style={
                           Object {
@@ -4481,10 +4481,10 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                       />
                     </div>
                     <div
-                      className="rowWrapper"
+                      className="rst__rowWrapper"
                     >
                       <div
-                        className="row"
+                        className="rst__row"
                         style={
                           Object {
                             "opacity": 1,
@@ -4492,22 +4492,22 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                         }
                       >
                         <div
-                          className="moveHandle"
+                          className="rst__moveHandle"
                         />
                         <div
-                          className="rowContents"
+                          className="rst__rowContents"
                         >
                           <div
-                            className="rowLabel"
+                            className="rst__rowLabel"
                           >
                             <span
-                              className="rowTitle"
+                              className="rst__rowTitle"
                             >
                               N2
                             </span>
                           </div>
                           <div
-                            className="rowToolbar"
+                            className="rst__rowToolbar"
                           />
                         </div>
                       </div>

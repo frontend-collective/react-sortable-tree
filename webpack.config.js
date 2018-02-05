@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const nodeExternals = require('webpack-node-externals');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const target = process.env.TARGET || 'umd';
 
@@ -25,15 +26,33 @@ const postcssLoader = {
   },
 };
 
-const cssLoader = isLocal => ({
+const cssLoaderExamples = {
   loader: 'css-loader',
   options: {
     modules: true,
     '-autoprefixer': true,
     importLoaders: true,
-    localIdentName: isLocal ? 'rst__[local]' : null,
+    localIdentName: 'rst__[local]',
   },
-});
+};
+
+const cssLoader = {
+  loader: 'css-loader',
+  options: {
+    '-autoprefixer': true,
+    importLoaders: true,
+  },
+};
+
+const defaultCssLoaders = [cssLoader, postcssLoader, 'sass-loader'];
+
+const cssLoaders =
+  target !== 'development'
+    ? ExtractTextPlugin.extract({
+        fallback: styleLoader,
+        use: defaultCssLoaders,
+      })
+    : [styleLoader].concat(defaultCssLoaders);
 
 const config = {
   entry: './src/index',
@@ -56,6 +75,7 @@ const config = {
       beautify: true,
       comments: true,
     }),
+    new ExtractTextPlugin('style.css'),
   ],
   module: {
     rules: [
@@ -65,14 +85,14 @@ const config = {
         exclude: path.join(__dirname, 'node_modules'),
       },
       {
-        test: /\.scss$/,
-        use: [styleLoader, cssLoader(true), postcssLoader, 'sass-loader'],
-        exclude: path.join(__dirname, 'node_modules'),
+        test: /\.s?css$/,
+        use: cssLoaders,
+        exclude: [path.join(__dirname, 'examples')],
       },
       {
-        // Used for importing css from external modules (react-virtualized, etc.)
-        test: /\.css$/,
-        use: [styleLoader, cssLoader(false), postcssLoader],
+        test: /\.s?css$/,
+        use: [styleLoader, cssLoaderExamples, postcssLoader, 'sass-loader'],
+        include: path.join(__dirname, 'examples'),
       },
     ],
   },
