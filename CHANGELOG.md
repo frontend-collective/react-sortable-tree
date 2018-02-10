@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.8.1...v2.0.0) (2018-02-10)
+
+
+### Bug Fixes
+
+* put style.css file in the correct place ([30dedbd](https://github.com/fritz-c/react-sortable-tree/commit/30dedbd))
+
+
+### Chores
+
+* Merge branch 'brendanmoore-feature/remove-style-loader' ([16f7740](https://github.com/fritz-c/react-sortable-tree/commit/16f7740))
+
+
+### BREAKING CHANGES
+
+* from v2.0.0 on, you must import the css for the
+component yourself, using `import 'react-sortable-tree/styles.css';`.
+You only need to do this once in your application.
+
+
+
 <a name="1.8.1"></a>
 ## [1.8.1](https://github.com/fritz-c/react-sortable-tree/compare/v1.8.0...v1.8.1) (2018-01-21)
 
