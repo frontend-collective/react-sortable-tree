@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/fritz-c/react-sortable-tree/compare/v2.0.0...v2.0.1) (2018-02-10)
+
+
+### Bug Fixes
+
+* restore highlight line appearance ([2c95205](https://github.com/fritz-c/react-sortable-tree/commit/2c95205))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.8.1...v2.0.0) (2018-02-10)
 
