@@ -34,7 +34,7 @@ const cssLoader = {
 const defaultCssLoaders = [cssLoader, postcssLoader];
 
 const cssLoaders =
-  target !== 'development'
+  target !== 'development' && target !== 'demo'
     ? ExtractTextPlugin.extract({
         fallback: styleLoader,
         use: defaultCssLoaders,
