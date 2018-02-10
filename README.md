@@ -1,6 +1,6 @@
 # React Sortable Tree
 
-[![NPM](https://nodei.co/npm/react-sortable-tree.png)](https://npmjs.org/package/react-sortable-tree) [![Build Status](https://travis-ci.org/fritz-c/react-image-lightbox.svg?branch=master)](https://travis-ci.org/fritz-c/react-image-lightbox) [![Coverage Status](https://coveralls.io/repos/github/fritz-c/react-sortable-tree/badge.svg?branch=master)](https://coveralls.io/github/fritz-c/react-sortable-tree?branch=master)
+[![NPM](https://nodei.co/npm/react-sortable-tree.png)](https://npmjs.org/package/react-sortable-tree) [![Build Status](https://travis-ci.org/fritz-c/react-sortable-tree.svg?branch=master)](https://travis-ci.org/fritz-c/react-sortable-tree) [![Coverage Status](https://coveralls.io/repos/github/fritz-c/react-sortable-tree/badge.svg?branch=master)](https://coveralls.io/github/fritz-c/react-sortable-tree?branch=master)
 
 [![tree200](https://cloud.githubusercontent.com/assets/4413963/18860410/26f64de8-84b8-11e6-9284-350308eed30a.png)](https://fritz-c.github.io/react-sortable-tree/)
 
