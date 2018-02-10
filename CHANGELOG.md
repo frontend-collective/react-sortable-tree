@@ -11,15 +11,10 @@ All notable changes to this project will be documented in this file. See [standa
 * put style.css file in the correct place ([30dedbd](https://github.com/fritz-c/react-sortable-tree/commit/30dedbd))
 
 
-### Chores
-
-* Merge branch 'brendanmoore-feature/remove-style-loader' ([16f7740](https://github.com/fritz-c/react-sortable-tree/commit/16f7740))
-
-
 ### BREAKING CHANGES
 
 * from v2.0.0 on, you must import the css for the
-component yourself, using `import 'react-sortable-tree/styles.css';`.
+component yourself, using `import 'react-sortable-tree/style.css';`.
 You only need to do this once in your application.
 
 
