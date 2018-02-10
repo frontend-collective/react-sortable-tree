@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-// import { action } from '@storybook/addon-actions';
 import AddRemoveExample from './add-remove';
 import BarebonesExample from './barebones';
 import CallbacksExample from './callbacks';

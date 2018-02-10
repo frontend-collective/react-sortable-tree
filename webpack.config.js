@@ -27,7 +27,6 @@ const postcssLoader = {
 const cssLoader = {
   loader: 'css-loader',
   options: {
-    '-autoprefixer': true,
     importLoaders: true,
   },
 };

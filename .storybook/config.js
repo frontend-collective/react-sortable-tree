@@ -5,6 +5,7 @@ import { setOptions } from '@storybook/addon-options';
 setOptions({
   name: 'React Sortable Tree',
   url: 'https://github.com/fritz-c/react-sortable-tree',
+  showAddonPanel: false,
 });
 
 function loadStories() {

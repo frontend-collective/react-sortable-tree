@@ -70,8 +70,6 @@
     "react-dom": "^15.3.0 || ^16.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.3.9",
-    "@storybook/addon-notes": "^3.3.9",
     "@storybook/addon-options": "^3.3.9",
     "@storybook/addon-storyshots": "^3.3.9",
     "@storybook/react": "^3.3.9",
