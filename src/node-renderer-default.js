@@ -42,18 +42,13 @@ class NodeRendererDefault extends Component {
         handle = (
           <div className="rst__loadingHandle">
             <div className="rst__loadingCircle">
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
-              <div className="rst__loadingCirclePoint" />
+              {[...new Array(12)].map((_, index) => (
+                <div
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
+                  className="rst__loadingCirclePoint"
+                />
+              ))}
             </div>
           </div>
         );
