@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production TARGET=umd webpack --bail",
     "build:demo": "npm run clean:demo && cross-env NODE_ENV=production TARGET=demo webpack --bail && npm run build-storybook",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist style.css style.css.map",
     "clean:demo": "rimraf build",
     "start": "cross-env NODE_ENV=development TARGET=development webpack-dev-server --inline --hot",
     "lint": "eslint src examples",
@@ -20,7 +20,9 @@
   },
   "main": "dist/main.js",
   "files": [
-    "dist"
+    "dist",
+    "style.css",
+    "style.css.map"
   ],
   "repository": {
     "type": "git",

@@ -43,9 +43,9 @@ const cssLoaders =
     : [styleLoader, ...defaultCssLoaders];
 
 const config = {
-  entry: './src/index',
+  entry: { 'dist/main': './src/index' },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: __dirname,
     filename: '[name].js',
     libraryTarget: 'umd',
     library: 'ReactSortableTree',
