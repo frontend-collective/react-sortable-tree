@@ -11,10 +11,9 @@
   text-decoration: none;
   transform: translate(50%, -50%) rotateZ(45deg);
   transition: background 100ms;
-
-  &:hover:not(:active) {
-    background: rgb(102, 135, 244);
-  }
+}
+.sourceLink:hover:not(:active) {
+  background: rgb(102, 135, 244);
 }
 
 .sandboxButton {
@@ -25,7 +24,7 @@
   border: none;
   cursor: pointer;
   outline: none;
-  &:hover:not(:active) {
-    background: rgb(128, 242, 137);
-  }
+}
+.sandboxButton:hover:not(:active) {
+  background: rgb(128, 242, 137);
 }

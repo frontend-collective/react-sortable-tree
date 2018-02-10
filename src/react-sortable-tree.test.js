@@ -9,11 +9,8 @@ import TouchBackend from 'react-dnd-touch-backend';
 import SortableTree, {
   SortableTreeWithoutDndContext,
 } from './react-sortable-tree';
-import sortableTreeStyles from './react-sortable-tree.scss';
 import TreeNode from './tree-node';
-import treeNodeStyles from './tree-node.scss';
 import DefaultNodeRenderer from './node-renderer-default';
-import defaultNodeRendererStyles from './node-renderer-default.scss';
 
 describe('<SortableTree />', () => {
   it('should render tree correctly', () => {
@@ -114,14 +111,14 @@ describe('<SortableTree />', () => {
 
     // Expand node and check for the existence of the revealed child
     wrapper
-      .find(`.${defaultNodeRendererStyles.expandButton}`)
+      .find('.rst__expandButton')
       .first()
       .simulate('click');
     expect(wrapper.find(TreeNode).length).toEqual(2);
 
     // Collapse node and make sure the child has been hidden
     wrapper
-      .find(`.${defaultNodeRendererStyles.collapseButton}`)
+      .find('.rst__collapseButton')
       .first()
       .simulate('click');
     expect(wrapper.find(TreeNode).length).toEqual(1);
@@ -137,13 +134,8 @@ describe('<SortableTree />', () => {
       />
     );
 
-    expect(wrapper.find(`.${sortableTreeStyles.tree}`)).toHaveStyle(
-      'borderWidth',
-      42
-    );
-    expect(wrapper.find(`.${sortableTreeStyles.tree}`)).toHaveClassName(
-      'extra-classy'
-    );
+    expect(wrapper.find('.rst__tree')).toHaveStyle('borderWidth', 42);
+    expect(wrapper.find('.rst__tree')).toHaveClassName('extra-classy');
   });
 
   it('should change style of scroll container with `innerStyle` prop', () => {
@@ -155,9 +147,10 @@ describe('<SortableTree />', () => {
       />
     );
 
-    expect(
-      wrapper.find(`.${sortableTreeStyles.virtualScrollOverride}`).first()
-    ).toHaveStyle('borderWidth', 42);
+    expect(wrapper.find('.rst__virtualScrollOverride').first()).toHaveStyle(
+      'borderWidth',
+      42
+    );
   });
 
   it('should change height according to rowHeight prop', () => {
@@ -209,10 +202,7 @@ describe('<SortableTree />', () => {
       />
     );
 
-    expect(wrapper.find(`.${treeNodeStyles.lineBlock}`)).toHaveStyle(
-      'width',
-      12
-    );
+    expect(wrapper.find('.rst__lineBlock')).toHaveStyle('width', 12);
   });
 
   it('should pass props to the node renderer from `generateNodeProps`', () => {
@@ -242,12 +232,12 @@ describe('<SortableTree />', () => {
     );
 
     wrapper
-      .find(`.${defaultNodeRendererStyles.expandButton}`)
+      .find('.rst__expandButton')
       .first()
       .simulate('click');
     expect(out).toEqual('expanded');
     wrapper
-      .find(`.${defaultNodeRendererStyles.collapseButton}`)
+      .find('.rst__collapseButton')
       .first()
       .simulate('click');
     expect(out).toEqual('collapsed');

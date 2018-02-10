@@ -15,30 +15,30 @@
 
 */
 
-.pl-c /* comment */ {
+.pl-c {
   color: #969896;
 }
 
 .pl-c1      /* constant, markup.raw, meta.diff.header, meta.module-reference, meta.property-name, support, support.constant, support.variable, variable.other.constant */,
-.pl-s .pl-v /* string variable */ {
+.pl-s .pl-v {
   color: #0086b3;
 }
 
 .pl-e  /* entity */,
-.pl-en /* entity.name */ {
+.pl-en {
   color: #795da3;
 }
 
 .pl-s .pl-s1 /* string source */,
-.pl-smi      /* storage.modifier.import, storage.modifier.package, storage.type.java, variable.other, variable.parameter.function */ {
+.pl-smi {
   color: #333;
 }
 
-.pl-ent /* entity.name.tag */ {
+.pl-ent {
   color: #63a35c;
 }
 
-.pl-k /* keyword, storage, storage.type */ {
+.pl-k {
   color: #a71d5d;
 }
 
@@ -48,69 +48,68 @@
 .pl-sr               /* string.regexp */,
 .pl-sr .pl-cce       /* string.regexp constant.character.escape */,
 .pl-sr .pl-sra       /* string.regexp string.regexp.arbitrary-repitition */,
-.pl-sr .pl-sre       /* string.regexp source.ruby.embedded */ {
+.pl-sr .pl-sre {
   color: #183691;
 }
 
-.pl-v /* variable */ {
+.pl-v {
   color: #ed6a43;
 }
 
-.pl-id /* invalid.deprecated */ {
+.pl-id {
   color: #b52a1d;
 }
 
-.pl-ii /* invalid.illegal */ {
+.pl-ii {
   background-color: #b52a1d;
   color: #f8f8f8;
 }
 
-.pl-sr .pl-cce /* string.regexp constant.character.escape */ {
+.pl-sr .pl-cce {
   color: #63a35c;
   font-weight: bold;
 }
 
-.pl-ml /* markup.list */ {
+.pl-ml {
   color: #693a17;
 }
 
 .pl-mh        /* markup.heading */,
 .pl-mh .pl-en /* markup.heading entity.name */,
-.pl-ms        /* meta.separator */ {
+.pl-ms {
   color: #1d3e81;
   font-weight: bold;
 }
 
-.pl-mq /* markup.quote */ {
+.pl-mq {
   color: #008080;
 }
 
-.pl-mi /* markup.italic */ {
+.pl-mi {
   color: #333;
   font-style: italic;
 }
 
-.pl-mb /* markup.bold */ {
+.pl-mb {
   color: #333;
   font-weight: bold;
 }
 
-.pl-md /* markup.deleted, meta.diff.header.from-file */ {
+.pl-md {
   background-color: #ffecec;
   color: #bd2c00;
 }
 
-.pl-mi1 /* markup.inserted, meta.diff.header.to-file */ {
+.pl-mi1 {
   background-color: #eaffea;
   color: #55a532;
 }
 
-.pl-mdr /* meta.diff.range */ {
+.pl-mdr {
   color: #795da3;
   font-weight: bold;
 }
 
-.pl-mo /* meta.output */ {
+.pl-mo {
   color: #1d3e81;
 }
-

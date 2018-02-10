@@ -1,14 +1,4 @@
 {
-  "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["last 2 versions", "ie >= 9"]
-      }
-    }],
-    "react"
-  ],
-  "plugins": [
-    "transform-object-rest-spread",
-    "react-hot-loader/babel"
-  ]
+  "presets": ["env", "react"],
+  "plugins": ["transform-object-rest-spread", "react-hot-loader/babel"]
 }

@@ -10,11 +10,16 @@ export const SANDBOX_URL = 'https://codesandbox.io/api/v1/sandboxes/define';
 const getURL = filename => `${GIT_URL}/examples/storybooks/${filename}`;
 
 // strip ../../src from the src
-const strip = code => code.replace('../../src', 'react-sortable-tree');
+const strip = code =>
+  code.replace('../../src', 'react-sortable-tree').replace(
+    `// In your own app, you would need to use import styles once in the app
+// import 'react-sortable-tree/styles.css';`,
+    ''
+  );
 
 // modify code so we can just have one file in the sandbox. index.js
 const modify = code => {
-  const addToTop = `import { render } from 'react-dom';\n`;
+  const addToTop = `import { render } from 'react-dom';\nimport 'react-sortable-tree/style.css';\n`;
   const addToBottom = `\nrender(<App />, document.getElementById('root'));`;
   return addToTop + code + addToBottom;
 };

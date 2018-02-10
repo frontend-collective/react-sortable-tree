@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const nodeExternals = require('webpack-node-externals');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const target = process.env.TARGET || 'umd';
 
@@ -19,26 +20,31 @@ const fileLoader = {
 const postcssLoader = {
   loader: 'postcss-loader',
   options: {
-    plugins: () => [
-      autoprefixer({ browsers: ['IE >= 9', 'last 2 versions', '> 1%'] }),
-    ],
+    plugins: () => [autoprefixer()],
   },
 };
 
-const cssLoader = isLocal => ({
+const cssLoader = {
   loader: 'css-loader',
   options: {
-    modules: true,
-    '-autoprefixer': true,
     importLoaders: true,
-    localIdentName: isLocal ? 'rst__[local]' : null,
   },
-});
+};
+
+const defaultCssLoaders = [cssLoader, postcssLoader];
+
+const cssLoaders =
+  target !== 'development'
+    ? ExtractTextPlugin.extract({
+        fallback: styleLoader,
+        use: defaultCssLoaders,
+      })
+    : [styleLoader, ...defaultCssLoaders];
 
 const config = {
-  entry: './src/index',
+  entry: { 'dist/main': './src/index' },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: __dirname,
     filename: '[name].js',
     libraryTarget: 'umd',
     library: 'ReactSortableTree',
@@ -56,6 +62,7 @@ const config = {
       beautify: true,
       comments: true,
     }),
+    new ExtractTextPlugin('style.css'),
   ],
   module: {
     rules: [
@@ -65,14 +72,14 @@ const config = {
         exclude: path.join(__dirname, 'node_modules'),
       },
       {
-        test: /\.scss$/,
-        use: [styleLoader, cssLoader(true), postcssLoader, 'sass-loader'],
-        exclude: path.join(__dirname, 'node_modules'),
+        test: /\.css$/,
+        use: cssLoaders,
+        exclude: [path.join(__dirname, 'examples')],
       },
       {
-        // Used for importing css from external modules (react-virtualized, etc.)
         test: /\.css$/,
-        use: [styleLoader, cssLoader(false), postcssLoader],
+        use: [styleLoader, ...defaultCssLoaders],
+        include: path.join(__dirname, 'examples'),
       },
     ],
   },
