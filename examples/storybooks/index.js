@@ -16,7 +16,7 @@ import ThemesExample from './themes';
 import TouchSupportExample from './touch-support';
 import TreeDataIOExample from './tree-data-io';
 import TreeToTreeExample from './tree-to-tree';
-import styles from './generic.scss';
+import './generic.css';
 
 import { handleClick, SANDBOX_URL } from './sandbox-utils';
 
@@ -28,14 +28,14 @@ const wrapWithSource = (node, src) => (
     <form id="codesandbox-form" action={SANDBOX_URL} method="POST">
       <input id="codesandbox-parameters" type="hidden" name="parameters" />
     </form>
-    <button className={styles.sandboxButton} onClick={handleClick(src)}>
+    <button className="sandboxButton" onClick={handleClick(src)}>
       PLAY WITH THIS CODE →
     </button>
     <a
       href={`https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/${src}`}
       target="_top"
       rel="noopener noreferrer"
-      className={styles.sourceLink}
+      className="sourceLink"
     >
       VIEW SOURCE →
     </a>

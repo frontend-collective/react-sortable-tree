@@ -1,6 +1,3 @@
-@import './vendor/stylesheet';
-@import './vendor/github-light';
-
 .page-header {
   padding: 1rem 6rem;
 }
@@ -17,10 +14,12 @@ body {
 /**
  * Uncomment to simulate bootstrap environment
  */
-// html {
-//     box-sizing: border-box;
-// }
+/*
+html {
+    box-sizing: border-box;
+}
 
-// *, *::before, *::after {
-//     box-sizing: inherit;
-// }
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+*/

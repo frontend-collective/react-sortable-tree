@@ -20,19 +20,7 @@ const fileLoader = {
 const postcssLoader = {
   loader: 'postcss-loader',
   options: {
-    plugins: () => [
-      autoprefixer({ browsers: ['IE >= 9', 'last 2 versions', '> 1%'] }),
-    ],
-  },
-};
-
-const cssLoaderExamples = {
-  loader: 'css-loader',
-  options: {
-    modules: true,
-    '-autoprefixer': true,
-    importLoaders: true,
-    localIdentName: 'rst__[local]',
+    plugins: () => [autoprefixer()],
   },
 };
 
@@ -44,7 +32,7 @@ const cssLoader = {
   },
 };
 
-const defaultCssLoaders = [cssLoader, postcssLoader, 'sass-loader'];
+const defaultCssLoaders = [cssLoader, postcssLoader];
 
 const cssLoaders =
   target !== 'development'
@@ -52,7 +40,7 @@ const cssLoaders =
         fallback: styleLoader,
         use: defaultCssLoaders,
       })
-    : [styleLoader].concat(defaultCssLoaders);
+    : [styleLoader, ...defaultCssLoaders];
 
 const config = {
   entry: './src/index',
@@ -85,13 +73,13 @@ const config = {
         exclude: path.join(__dirname, 'node_modules'),
       },
       {
-        test: /\.s?css$/,
+        test: /\.css$/,
         use: cssLoaders,
         exclude: [path.join(__dirname, 'examples')],
       },
       {
-        test: /\.s?css$/,
-        use: [styleLoader, cssLoaderExamples, postcssLoader, 'sass-loader'],
+        test: /\.css$/,
+        use: [styleLoader, ...defaultCssLoaders],
         include: path.join(__dirname, 'examples'),
       },
     ],

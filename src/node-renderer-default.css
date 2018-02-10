@@ -1,7 +1,5 @@
-$row-padding: 10px;
-
 .rst__rowWrapper {
-  padding: $row-padding $row-padding $row-padding 0;
+  padding: 10px 10px 10px 0;
   height: 100%;
   box-sizing: border-box;
 }
@@ -10,46 +8,42 @@ $row-padding: 10px;
   height: 100%;
   white-space: nowrap;
   display: flex;
-
-  & > * {
-    box-sizing: border-box;
-  }
+}
+.rst__row > * {
+  box-sizing: border-box;
 }
 
 /**
  * The outline of where the element will go if dropped, displayed while dragging
  */
-.rst__rowLandingPad {
+.rst__rowLandingPad,
+.rst__rowCancelPad {
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
-
-  & > * {
-    opacity: 0 !important;
-  }
-
-  &::before {
-    background-color: lightblue;
-    border: 3px dashed white;
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-  }
+}
+.rst__rowLandingPad > *,
+.rst__rowCancelPad > * {
+  opacity: 0 !important;
+}
+.rst__rowLandingPad::before,
+.rst__rowCancelPad::before {
+  background-color: lightblue;
+  border: 3px dashed white;
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
 }
 
 /**
  * Alternate appearance of the landing pad when the dragged location is invalid
  */
-.rst__rowCancelPad {
-  @extend .rst__rowLandingPad;
-
-  &::before {
-    background-color: #e6a8ad;
-  }
+.rst__rowCancelPad::before {
+  background-color: #e6a8ad;
 }
 
 /**
@@ -66,13 +60,16 @@ $row-padding: 10px;
   outline: solid 3px #fc6421;
 }
 
-%rowItem {
+.rst__rowContents,
+.rst__rowLabel,
+.rst__rowToolbar,
+.rst__moveHandle,
+.rst__toolbarButton {
   display: inline-block;
   vertical-align: middle;
 }
 
 .rst__rowContents {
-  @extend %rowItem;
   position: relative;
   height: 100%;
   border: solid #bbb 1px;
@@ -93,20 +90,17 @@ $row-padding: 10px;
 }
 
 .rst__rowLabel {
-  @extend %rowItem;
   flex: 0 1 auto;
   padding-right: 20px;
 }
 
 .rst__rowToolbar {
-  @extend %rowItem;
   flex: 0 1 auto;
   display: flex;
 }
 
-.rst__moveHandle {
-  @extend %rowItem;
-
+.rst__moveHandle,
+.rst__loadingHandle {
   height: 100%;
   width: 44px;
   background: #d9d9d9
@@ -120,8 +114,6 @@ $row-padding: 10px;
 }
 
 .rst__loadingHandle {
-  @extend .rst__moveHandle;
-
   cursor: default;
   background: #d9d9d9;
 }
@@ -150,42 +142,86 @@ $row-padding: 10px;
   position: absolute;
   left: 0;
   top: 0;
-
-  $point-count: 12;
-  $spin-animation-time: 800ms;
-
-  &:before {
-    content: '';
-    display: block;
-    margin: 0 auto;
-    width: 11%;
-    height: 30%;
-    background-color: #fff;
-    border-radius: 30%;
-    animation: pointFade $spin-animation-time infinite ease-in-out both;
-  }
-
-  @for $i from 1 through (($point-count + 1) / 2) {
-    &:nth-of-type(#{$i}) {
-      transform: rotate(360deg / $point-count * ($i - 1));
-    }
-
-    &:nth-of-type(#{$i + $point-count / 2}) {
-      transform: rotate(180deg + 360deg / $point-count * ($i - 1));
-    }
-
-    &:nth-of-type(#{$i}),
-    &:nth-of-type(#{$i + $point-count / 2}) {
-      &:before {
-        animation-delay: - $spin-animation-time + ($spin-animation-time /
-              $point-count * 2 * ($i - 1));
-      }
-    }
-  }
 }
-
-.rst__toolbarButton {
-  @extend %rowItem;
+.rst__loadingCirclePoint::before {
+  content: '';
+  display: block;
+  margin: 0 auto;
+  width: 11%;
+  height: 30%;
+  background-color: #fff;
+  border-radius: 30%;
+  animation: pointFade 800ms infinite ease-in-out both;
+}
+.rst__loadingCirclePoint:nth-of-type(1) {
+  transform: rotate(0deg);
+}
+.rst__loadingCirclePoint:nth-of-type(7) {
+  transform: rotate(180deg);
+}
+.rst__loadingCirclePoint:nth-of-type(1)::before,
+.rst__loadingCirclePoint:nth-of-type(7)::before {
+  animation-delay: -800ms;
+}
+.rst__loadingCirclePoint:nth-of-type(2) {
+  transform: rotate(30deg);
+}
+.rst__loadingCirclePoint:nth-of-type(8) {
+  transform: rotate(210deg);
+}
+.rst__loadingCirclePoint:nth-of-type(2)::before,
+.rst__loadingCirclePoint:nth-of-type(8)::before {
+  animation-delay: -666ms;
+}
+.rst__loadingCirclePoint:nth-of-type(3) {
+  transform: rotate(60deg);
+}
+.rst__loadingCirclePoint:nth-of-type(9) {
+  transform: rotate(240deg);
+}
+.rst__loadingCirclePoint:nth-of-type(3)::before,
+.rst__loadingCirclePoint:nth-of-type(9)::before {
+  animation-delay: -533ms;
+}
+.rst__loadingCirclePoint:nth-of-type(4) {
+  transform: rotate(90deg);
+}
+.rst__loadingCirclePoint:nth-of-type(10) {
+  transform: rotate(270deg);
+}
+.rst__loadingCirclePoint:nth-of-type(4)::before,
+.rst__loadingCirclePoint:nth-of-type(10)::before {
+  animation-delay: -400ms;
+}
+.rst__loadingCirclePoint:nth-of-type(5) {
+  transform: rotate(120deg);
+}
+.rst__loadingCirclePoint:nth-of-type(11) {
+  transform: rotate(300deg);
+}
+.rst__loadingCirclePoint:nth-of-type(5)::before,
+.rst__loadingCirclePoint:nth-of-type(11)::before {
+  animation-delay: -266ms;
+}
+.rst__loadingCirclePoint:nth-of-type(6) {
+  transform: rotate(150deg);
+}
+.rst__loadingCirclePoint:nth-of-type(12) {
+  transform: rotate(330deg);
+}
+.rst__loadingCirclePoint:nth-of-type(6)::before,
+.rst__loadingCirclePoint:nth-of-type(12)::before {
+  animation-delay: -133ms;
+}
+.rst__loadingCirclePoint:nth-of-type(7) {
+  transform: rotate(180deg);
+}
+.rst__loadingCirclePoint:nth-of-type(13) {
+  transform: rotate(360deg);
+}
+.rst__loadingCirclePoint:nth-of-type(7)::before,
+.rst__loadingCirclePoint:nth-of-type(13)::before {
+  animation-delay: 0ms;
 }
 
 .rst__rowTitle {
@@ -216,17 +252,17 @@ $row-padding: 10px;
   top: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 1px #000, 0 0 1px 3px #83bef9;
-  }
-
-  &:hover:not(:active) {
-    background-size: 24px;
-    height: 20px;
-    width: 20px;
-  }
+}
+.rst__collapseButton:focus,
+.rst__expandButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px #000, 0 0 1px 3px #83bef9;
+}
+.rst__collapseButton:hover:not(:active),
+.rst__expandButton:hover:not(:active) {
+  background-size: 24px;
+  height: 20px;
+  width: 20px;
 }
 
 .rst__collapseButton {
@@ -248,14 +284,13 @@ $row-padding: 10px;
   height: 100%;
   display: inline-block;
   position: absolute;
-
-  &::after {
-    content: '';
-    position: absolute;
-    background-color: black;
-    width: 1px;
-    left: 50%;
-    bottom: 0;
-    height: $row-padding;
-  }
+}
+.rst__lineChildren::after {
+  content: '';
+  position: absolute;
+  background-color: black;
+  width: 1px;
+  left: 50%;
+  bottom: 0;
+  height: 10px;
 }

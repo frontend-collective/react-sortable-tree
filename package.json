@@ -9,7 +9,7 @@
     "clean:demo": "rimraf build",
     "start": "cross-env NODE_ENV=development TARGET=development webpack-dev-server --inline --hot",
     "lint": "eslint src examples",
-    "prettier": "prettier --single-quote --trailing-comma es5 --write \"{src,examples}/**/*.{js,scss}\"",
+    "prettier": "prettier --single-quote --trailing-comma es5 --write \"{src,examples}/**/*.{js,css,md}\"",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
     "test": "jest",
     "test:watch": "jest --watchAll",
@@ -47,10 +47,14 @@
       "node_modules"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|scss|less)$": "identity-obj-proxy"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
     }
   },
+  "browserslist": [
+    "IE 11",
+    "last 2 versions",
+    "> 1%"
+  ],
   "dependencies": {
     "lodash.isequal": "^4.4.0",
     "prop-types": "^15.6.0",
@@ -95,11 +99,9 @@
     "file-loader": "^1.1.6",
     "gh-pages": "^1.1.0",
     "html-webpack-plugin": "^2.30.1",
-    "identity-obj-proxy": "^3.0.0",
     "jest": "^22.0.6",
     "jest-enzyme": "^4.0.2",
     "json-loader": "^0.5.4",
-    "node-sass": "^4.7.2",
     "postcss-loader": "^2.0.10",
     "prettier": "^1.10.2",
     "react": "^16.2.0",
@@ -111,7 +113,6 @@
     "react-sortable-tree-theme-file-explorer": "^1.1.2",
     "react-test-renderer": "^16.2.0",
     "rimraf": "^2.6.2",
-    "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.10.1",

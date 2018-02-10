@@ -30,7 +30,7 @@ import {
 } from './utils/default-handlers';
 import DndManager from './utils/dnd-manager';
 import classnames from './utils/classnames';
-import './react-sortable-tree.scss';
+import './react-sortable-tree.css';
 
 let treeIdCounter = 1;
 

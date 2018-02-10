@@ -16,19 +16,22 @@
 
     Line-overlaid blocks used for showing the tree structure
    ========================================================================== */
-.rst__lineBlock {
+.rst__lineBlock,
+.rst__absoluteLineBlock {
   height: 100%;
   position: relative;
   display: inline-block;
 }
 
 .rst__absoluteLineBlock {
-  @extend .rst__lineBlock;
   position: absolute;
   top: 0;
 }
 
-%blackLineBase {
+.rst__lineHalfHorizontalRight::before,
+.rst__lineFullVertical::after,
+.rst__lineHalfVerticalTop::after,
+.rst__lineHalfVerticalBottom::after {
   position: absolute;
   content: '';
   background-color: black;
@@ -41,14 +44,11 @@
  * |     |
  * +-----+
  */
-.rst__lineHalfHorizontalRight {
-  &::before {
-    @extend %blackLineBase;
-    height: 1px;
-    top: 50%;
-    right: 0;
-    width: 50%;
-  }
+.rst__lineHalfHorizontalRight::before {
+  height: 1px;
+  top: 50%;
+  right: 0;
+  width: 50%;
 }
 
 /**
@@ -58,14 +58,13 @@
  * |  |  |
  * +--+--+
  */
-.rst__lineFullVertical {
-  &::after {
-    @extend %blackLineBase;
-    width: 1px;
-    left: 50%;
-    top: 0;
-    height: 100%;
-  }
+.rst__lineFullVertical::after,
+.rst__lineHalfVerticalTop::after,
+.rst__lineHalfVerticalBottom::after {
+  width: 1px;
+  left: 50%;
+  top: 0;
+  height: 100%;
 }
 
 /**
@@ -75,13 +74,8 @@
  * |     |
  * +-----+
  */
-.rst__lineHalfVerticalTop {
-  @extend .rst__lineFullVertical;
-
-  &::after {
-    top: 0;
-    height: 50%;
-  }
+.rst__lineHalfVerticalTop::after {
+  height: 50%;
 }
 
 /**
@@ -91,20 +85,14 @@
  * |  |  |
  * +-----+
  */
-.rst__lineHalfVerticalBottom {
-  @extend .rst__lineHalfVerticalTop;
-
-  &::after {
-    top: auto;
-    bottom: 0;
-  }
+.rst__lineHalfVerticalBottom::after {
+  top: auto;
+  bottom: 0;
+  height: 50%;
 }
 
 /* Highlight line for pointing to dragged row destination
    ========================================================================== */
-$highlight-color: #36c2f6;
-$highlight-line-size: 8px; // Make it an even number for clean rendering
-
 /**
  * +--+--+
  * |  |  |
@@ -118,30 +106,29 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
   &::before {
     position: absolute;
     content: '';
-    background-color: $highlight-color;
-    width: $highlight-line-size;
-    margin-left: $highlight-line-size / -2;
+    background-color: #36c2f6;
+    width: 8px;
+    margin-left: -4px;
     left: 50%;
     top: 0;
     height: 100%;
   }
 
   @keyframes arrow-pulse {
-    $base-multiplier: 10;
     0% {
       transform: translate(0, 0);
       opacity: 0;
     }
     30% {
-      transform: translate(0, 30% * $base-multiplier);
+      transform: translate(0, 300%);
       opacity: 1;
     }
     70% {
-      transform: translate(0, 70% * $base-multiplier);
+      transform: translate(0, 700%);
       opacity: 1;
     }
     100% {
-      transform: translate(0, 100% * $base-multiplier);
+      transform: translate(0, 1000%);
       opacity: 0;
     }
   }
@@ -150,12 +137,12 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
     content: '';
     position: absolute;
     height: 0;
-    margin-left: -1 * $highlight-line-size / 2;
+    margin-left: -4px;
     left: 50%;
     top: 0;
-    border-left: $highlight-line-size / 2 solid transparent;
-    border-right: $highlight-line-size / 2 solid transparent;
-    border-top: $highlight-line-size / 2 solid white;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid white;
     animation: arrow-pulse 1s infinite linear both;
   }
 }
@@ -172,14 +159,14 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
     z-index: 3;
     content: '';
     position: absolute;
-    border-top: solid $highlight-line-size $highlight-color;
-    border-left: solid $highlight-line-size $highlight-color;
+    border-top: solid 8px #36c2f6;
+    border-left: solid 8px #36c2f6;
     box-sizing: border-box;
-    height: calc(50% + #{$highlight-line-size / 2});
+    height: calc(50% + 4px);
     top: 50%;
-    margin-top: $highlight-line-size / -2;
+    margin-top: -4px;
     right: 0;
-    width: calc(50% + #{$highlight-line-size / 2});
+    width: calc(50% + 4px);
   }
 }
 
@@ -191,19 +178,18 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
  * +-----+
  */
 .rst__highlightBottomLeftCorner {
-  $arrow-size: 12px;
   z-index: 3;
 
   &::before {
     content: '';
     position: absolute;
-    border-bottom: solid $highlight-line-size $highlight-color;
-    border-left: solid $highlight-line-size $highlight-color;
+    border-bottom: solid 8px #36c2f6;
+    border-left: solid 8px #36c2f6;
     box-sizing: border-box;
-    height: calc(100% + #{$highlight-line-size / 2});
+    height: calc(100% + 4px);
     top: 0;
-    right: $arrow-size;
-    width: calc(50% - #{$arrow-size - ($highlight-line-size / 2)});
+    right: 12px;
+    width: calc(50% - 8px);
   }
 
   &::after {
@@ -212,9 +198,9 @@ $highlight-line-size: 8px; // Make it an even number for clean rendering
     height: 0;
     right: 0;
     top: 100%;
-    margin-top: -1 * $arrow-size;
-    border-top: $arrow-size solid transparent;
-    border-bottom: $arrow-size solid transparent;
-    border-left: $arrow-size solid $highlight-color;
+    margin-top: -12px;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid #36c2f6;
   }
 }

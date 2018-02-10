@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from './utils/classnames';
-import './placeholder-renderer-default.scss';
+import './placeholder-renderer-default.css';
 
 const PlaceholderRendererDefault = ({ isOver, canDrop }) => (
   <div
