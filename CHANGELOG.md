@@ -6,11 +6,6 @@ All notable changes to this project will be documented in this file. See [standa
 # [2.0.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.8.1...v2.0.0) (2018-02-10)
 
 
-### Bug Fixes
-
-* put style.css file in the correct place ([30dedbd](https://github.com/fritz-c/react-sortable-tree/commit/30dedbd))
-
-
 ### BREAKING CHANGES
 
 * from v2.0.0 on, you must import the css for the
