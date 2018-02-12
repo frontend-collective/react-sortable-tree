@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file. See [standa
 component yourself, using `import 'react-sortable-tree/style.css';`.
 You only need to do this once in your application.
 
+* Support dropped for IE versions earlier than IE 11
 
 
 <a name="1.8.1"></a>
