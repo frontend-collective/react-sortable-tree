@@ -36,21 +36,24 @@ function getNodeDataAtTreeIndexOrNextIndex({
   let childIndex = currentIndex + 1;
   const childCount = node.children.length;
   for (let i = 0; i < childCount; i += 1) {
-    const result = getNodeDataAtTreeIndexOrNextIndex({
-      ignoreCollapsed,
-      getNodeKey,
-      targetIndex,
-      node: node.children[i],
-      currentIndex: childIndex,
-      lowerSiblingCounts: [...lowerSiblingCounts, childCount - i - 1],
-      path: selfPath,
-    });
+    const childNode = node.children[i];
+    if (childNode) {
+      const result = getNodeDataAtTreeIndexOrNextIndex({
+        ignoreCollapsed,
+        getNodeKey,
+        targetIndex,
+        node: node.children[i],
+        currentIndex: childIndex,
+        lowerSiblingCounts: [...lowerSiblingCounts, childCount - i - 1],
+        path: selfPath,
+      });
 
-    if (result.node) {
-      return result;
+      if (result.node) {
+        return result;
+      }
+
+      childIndex = result.nextIndex;
     }
-
-    childIndex = result.nextIndex;
   }
 
   // If the target node is not found, return the farthest traversed index
@@ -135,20 +138,23 @@ function walkDescendants({
   const childCount = node.children.length;
   if (typeof node.children !== 'function') {
     for (let i = 0; i < childCount; i += 1) {
-      childIndex = walkDescendants({
-        callback,
-        getNodeKey,
-        ignoreCollapsed,
-        node: node.children[i],
-        parentNode: isPseudoRoot ? null : node,
-        currentIndex: childIndex + 1,
-        lowerSiblingCounts: [...lowerSiblingCounts, childCount - i - 1],
-        path: selfPath,
-      });
+      const childNode = node.children[i];
+      if (childNode) {
+        childIndex = walkDescendants({
+          callback,
+          getNodeKey,
+          ignoreCollapsed,
+          node: node.children[i],
+          parentNode: isPseudoRoot ? null : node,
+          currentIndex: childIndex + 1,
+          lowerSiblingCounts: [...lowerSiblingCounts, childCount - i - 1],
+          path: selfPath,
+        });
 
-      // Cut walk short if the callback returned false
-      if (childIndex === false) {
-        return false;
+        // Cut walk short if the callback returned false
+        if (childIndex === false) {
+          return false;
+        }
       }
     }
   }
@@ -486,7 +492,8 @@ export function changeNodeAtPath({
   });
 
   if (result === RESULT_MISS) {
-    throw new Error('No node found at the given path.');
+    console.error('No node found at the given path.');
+    return treeData;
   }
 
   return result.children;
@@ -710,24 +717,24 @@ function addNodeAtDepthAndIndex({
     (isLastChild && !(node.children && node.children.length))
   ) {
     if (typeof node.children === 'function') {
-      throw new Error('Cannot add to children defined by a function');
-    } else {
-      const extraNodeProps = expandParent ? { expanded: true } : {};
-      const nextNode = {
-        ...node,
+      // throw new Error('Cannot add to children defined by a function');
+      return undefined;
+    } 
+    const extraNodeProps = expandParent ? { expanded: true } : {};
+    const nextNode = {
+      ...node,
 
-        ...extraNodeProps,
-        children: node.children ? [newNode, ...node.children] : [newNode],
-      };
+      ...extraNodeProps,
+      children: node.children ? [newNode, ...node.children] : [newNode],
+    };
 
-      return {
-        node: nextNode,
-        nextIndex: currentIndex + 2,
-        insertedTreeIndex: currentIndex + 1,
-        parentPath: selfPath(nextNode),
-        parentNode: isPseudoRoot ? null : nextNode,
-      };
-    }
+    return {
+      node: nextNode,
+      nextIndex: currentIndex + 2,
+      insertedTreeIndex: currentIndex + 1,
+      parentPath: selfPath(nextNode),
+      parentNode: isPseudoRoot ? null : nextNode,
+    };
   }
 
   // If this is the target depth for the insertion,
@@ -829,6 +836,10 @@ function addNodeAtDepthAndIndex({
         path: [], // Cannot determine the parent path until the children have been processed
       });
 
+      if (!mapResult) {
+        return undefined;
+      }
+
       if ('insertedTreeIndex' in mapResult) {
         ({
           insertedTreeIndex,
@@ -908,9 +919,10 @@ export function insertNode({
   });
 
   if (!('insertedTreeIndex' in insertResult)) {
-    throw new Error('No suitable position found to insert.');
+    // throw new Error('No suitable position found to insert.');
+    return undefined;
   }
-
+  
   const treeIndex = insertResult.insertedTreeIndex;
   return {
     treeData: insertResult.node.children,
@@ -920,6 +932,7 @@ export function insertNode({
       getNodeKey({ node: newNode, treeIndex }),
     ],
     parentNode: insertResult.parentNode,
+    parentPath: insertResult.parentPath,
   };
 }
 

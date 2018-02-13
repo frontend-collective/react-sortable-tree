@@ -40,8 +40,7 @@ class TreeNode extends Component {
           // |  +--+
           // |  |  |
           // +--+--+
-          lineClass =
-            'rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom';
+          lineClass = 'rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom';
         } else if (i === scaffoldBlockCount - 1) {
           // Last scaffold block in the row, right before the row content
           // +--+--+
@@ -116,15 +115,17 @@ class TreeNode extends Component {
       }
     });
 
+    const isDropping = isOver && canDrop;
+
     return connectDropTarget(
       <div {...otherProps} className="rst__node">
-        {scaffold}
+        {/*scaffold*/}
 
         <div
           className="rst__nodeContent"
           style={{ left: scaffoldBlockPxWidth * scaffoldBlockCount }}
         >
-          {Children.map(children, child =>
+          {Children.map(children, child => 
             cloneElement(child, {
               isOver,
               canDrop,
@@ -132,6 +133,8 @@ class TreeNode extends Component {
             })
           )}
         </div>
+
+        {isDropping ? <div className="rst__dragover"><div></div></div> : null}
       </div>
     );
   }

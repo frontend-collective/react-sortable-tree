@@ -1,3 +1,17 @@
+.rst__dragover {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.rst__dragover > div {
+  position: absolute;
+  background: black;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+}
+
 .rst__node {
   min-width: 100%;
   white-space: nowrap;

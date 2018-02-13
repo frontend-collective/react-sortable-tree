@@ -60,6 +60,10 @@ class App extends Component {
           ],
         },
         {
+          title: 'Children as function',
+          children: (...args) => this.loadChildren(...args),
+        },
+        {
           title: 'Button(s) can be added to the node',
           subtitle:
             'Node info is passed when generating so you can use it in your onClick handler',
@@ -144,12 +148,43 @@ class App extends Component {
             },
           ],
         },
+        {
+          title: 'Children will be added dynamically',
+          subtitle: 'If you specify children with a function',
+          children: params => this.generateNewChildren(params),
+        },
       ],
     };
 
     this.updateTreeData = this.updateTreeData.bind(this);
     this.expandAll = this.expandAll.bind(this);
     this.collapseAll = this.collapseAll.bind(this);
+  }
+
+  generateNewChildren(params) {
+    setTimeout(() => {
+      const childNodes = Array(5)
+        .fill()
+        .map(() => ({
+          title: 'Dynamic child node',
+          subtitle: `parent path: ${params.path.join('->')}`,
+          children: x => this.generateNewChildren(x),
+        }));
+      params.done(childNodes);
+    }, 1000);
+  }
+
+  loadChildren({ done }) {
+    const data = [];
+
+    for(let j=0; j<60; j++) {
+      data.push({
+        title: `File-${j+1}`,
+        subtitle: `SubFile-${j+1}`,
+      });
+    }
+    
+    done(data);
   }
 
   updateTreeData(treeData) {
@@ -278,23 +313,21 @@ class App extends Component {
             <SortableTree
               treeData={treeData}
               onChange={this.updateTreeData}
-              onMoveNode={({ node, treeIndex, path }) =>
+              onMoveNode={({ node, prevTreeIndex, prevPath }) =>
                 global.console.debug(
-                  'node:',
+                  'Move node:',
                   node,
                   'treeIndex:',
-                  treeIndex,
+                  prevTreeIndex,
                   'path:',
-                  path
+                  prevPath
                 )
               }
               maxDepth={maxDepth}
               searchQuery={searchString}
               searchFocusOffset={searchFocusIndex}
               canDrag={({ node }) => !node.noDragging}
-              canDrop={({ nextParent }) =>
-                !nextParent || !nextParent.noChildren
-              }
+              canDrop={({ node }) => !node.noChildren}
               searchFinishCallback={matches =>
                 this.setState({
                   searchFoundCount: matches.length,
