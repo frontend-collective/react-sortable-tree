@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './placeholder-renderer-default.scss';
+import classnames from './utils/classnames';
+import './placeholder-renderer-default.css';
 
 const PlaceholderRendererDefault = ({ isOver, canDrop }) => (
   <div
-    className={
-      styles.placeholder +
-      (canDrop ? ` ${styles.placeholderLandingPad}` : '') +
-      (canDrop && !isOver ? ` ${styles.placeholderCancelPad}` : '')
-    }
+    className={classnames(
+      'rst__placeholder',
+      canDrop && 'rst__placeholderLandingPad',
+      canDrop && !isOver && 'rst__placeholderCancelPad'
+    )}
   />
 );
 

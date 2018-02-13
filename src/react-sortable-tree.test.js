@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { List } from 'react-virtualized';
-import SortableTree from './react-sortable-tree';
-import sortableTreeStyles from './react-sortable-tree.scss';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import TouchBackend from 'react-dnd-touch-backend';
+import SortableTree, {
+  SortableTreeWithoutDndContext,
+} from './react-sortable-tree';
 import TreeNode from './tree-node';
-import treeNodeStyles from './tree-node.scss';
 import DefaultNodeRenderer from './node-renderer-default';
-import defaultNodeRendererStyles from './node-renderer-default.scss';
 
 describe('<SortableTree />', () => {
   it('should render tree correctly', () => {
@@ -109,14 +111,14 @@ describe('<SortableTree />', () => {
 
     // Expand node and check for the existence of the revealed child
     wrapper
-      .find(`.${defaultNodeRendererStyles.expandButton}`)
+      .find('.rst__expandButton')
       .first()
       .simulate('click');
     expect(wrapper.find(TreeNode).length).toEqual(2);
 
     // Collapse node and make sure the child has been hidden
     wrapper
-      .find(`.${defaultNodeRendererStyles.collapseButton}`)
+      .find('.rst__collapseButton')
       .first()
       .simulate('click');
     expect(wrapper.find(TreeNode).length).toEqual(1);
@@ -132,13 +134,8 @@ describe('<SortableTree />', () => {
       />
     );
 
-    expect(wrapper.find(`.${sortableTreeStyles.tree}`)).toHaveStyle(
-      'borderWidth',
-      42
-    );
-    expect(wrapper.find(`.${sortableTreeStyles.tree}`)).toHaveClassName(
-      'extra-classy'
-    );
+    expect(wrapper.find('.rst__tree')).toHaveStyle('borderWidth', 42);
+    expect(wrapper.find('.rst__tree')).toHaveClassName('extra-classy');
   });
 
   it('should change style of scroll container with `innerStyle` prop', () => {
@@ -150,15 +147,16 @@ describe('<SortableTree />', () => {
       />
     );
 
-    expect(
-      wrapper.find(`.${sortableTreeStyles.virtualScrollOverride}`).first()
-    ).toHaveStyle('borderWidth', 42);
+    expect(wrapper.find('.rst__virtualScrollOverride').first()).toHaveStyle(
+      'borderWidth',
+      42
+    );
   });
 
   it('should change height according to rowHeight prop', () => {
     const wrapper = mount(
       <SortableTree
-        treeData={[{ title: 'a' }, { title: 'b' }]}
+        treeData={[{ title: 'a' }, { title: 'b', extraHeight: 2 }]}
         onChange={() => {}}
         rowHeight={12}
       />
@@ -168,9 +166,9 @@ describe('<SortableTree />', () => {
     expect(wrapper.find(TreeNode).first()).toHaveStyle('height', 12);
 
     // Works with function callback
-    wrapper.setProps({ rowHeight: ({ index }) => 42 + index });
+    wrapper.setProps({ rowHeight: ({ node }) => 42 + (node.extraHeight || 0) });
     expect(wrapper.find(TreeNode).first()).toHaveStyle('height', 42);
-    expect(wrapper.find(TreeNode).last()).toHaveStyle('height', 43);
+    expect(wrapper.find(TreeNode).last()).toHaveStyle('height', 44);
   });
 
   it('should toggle virtualization according to isVirtualized prop', () => {
@@ -204,10 +202,7 @@ describe('<SortableTree />', () => {
       />
     );
 
-    expect(wrapper.find(`.${treeNodeStyles.lineBlock}`)).toHaveStyle(
-      'width',
-      12
-    );
+    expect(wrapper.find('.rst__lineBlock')).toHaveStyle('width', 12);
   });
 
   it('should pass props to the node renderer from `generateNodeProps`', () => {
@@ -237,12 +232,12 @@ describe('<SortableTree />', () => {
     );
 
     wrapper
-      .find(`.${defaultNodeRendererStyles.expandButton}`)
+      .find('.rst__expandButton')
       .first()
       .simulate('click');
     expect(out).toEqual('expanded');
     wrapper
-      .find(`.${defaultNodeRendererStyles.collapseButton}`)
+      .find('.rst__collapseButton')
       .first()
       .simulate('click');
     expect(out).toEqual('collapsed');
@@ -267,5 +262,118 @@ describe('<SortableTree />', () => {
     );
 
     expect(wrapper.find(FakeNode).length).toEqual(1);
+  });
+
+  it('search should call searchFinishCallback', () => {
+    const searchFinishCallback = jest.fn();
+    mount(
+      <SortableTree
+        treeData={[{ title: 'a', children: [{ title: 'b' }] }]}
+        searchQuery="b"
+        searchFocusOffset={0}
+        searchFinishCallback={searchFinishCallback}
+        onChange={() => {}}
+      />
+    );
+
+    expect(searchFinishCallback).toHaveBeenCalledWith([
+      // Node should be found expanded
+      { node: { title: 'b' }, path: [0, 1], treeIndex: 1 },
+    ]);
+  });
+
+  it('search should expand all matches and seek out the focus offset', () => {
+    const wrapper = mount(
+      <SortableTree
+        treeData={[
+          { title: 'a', children: [{ title: 'b' }] },
+          { title: 'a', children: [{ title: 'be' }] },
+        ]}
+        searchQuery="b"
+        onChange={() => {}}
+      />
+    );
+
+    const tree = wrapper.find(SortableTreeWithoutDndContext).instance();
+    expect(tree.state.searchMatches).toEqual([
+      { node: { title: 'b' }, path: [0, 1], treeIndex: 1 },
+      { node: { title: 'be' }, path: [2, 3], treeIndex: 3 },
+    ]);
+    expect(tree.state.searchFocusTreeIndex).toEqual(null);
+
+    wrapper.setProps({ searchFocusOffset: 0 });
+    expect(tree.state.searchFocusTreeIndex).toEqual(1);
+
+    wrapper.setProps({ searchFocusOffset: 1 });
+    // As the empty `onChange` we use here doesn't actually change
+    // the tree, the expansion of all nodes doesn't get preserved
+    // after the first mount, and this change in searchFocusOffset
+    // only triggers the opening of a single path.
+    // Therefore it's 2 instead of 3.
+    expect(tree.state.searchFocusTreeIndex).toEqual(2);
+  });
+
+  it('loads using SortableTreeWithoutDndContext', () => {
+    const HTML5Wrapped = DragDropContext(HTML5Backend)(
+      SortableTreeWithoutDndContext
+    );
+    const TouchWrapped = DragDropContext(TouchBackend)(
+      SortableTreeWithoutDndContext
+    );
+
+    expect(
+      mount(<HTML5Wrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
+    ).toBeDefined();
+    expect(
+      mount(<TouchWrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
+    ).toBeDefined();
+  });
+
+  it('loads using SortableTreeWithoutDndContext', () => {
+    const TestWrapped = DragDropContext(HTML5Backend)(
+      SortableTreeWithoutDndContext
+    );
+
+    const onDragStateChanged = jest.fn();
+    const treeData = [{ title: 'a' }, { title: 'b' }];
+    const wrapper = mount(
+      <TestWrapped
+        treeData={treeData}
+        onDragStateChanged={onDragStateChanged}
+        onChange={() => {}}
+      />
+    );
+
+    // Obtain a reference to the backend
+    const backend = wrapper
+      .instance()
+      .getManager()
+      .getBackend();
+
+    // Retrieve our DnD-wrapped node component type
+    const wrappedNodeType = wrapper
+      .find(SortableTreeWithoutDndContext)
+      .instance().nodeContentRenderer;
+
+    // And get the first such component
+    const nodeInstance = wrapper
+      .find(wrappedNodeType)
+      .first()
+      .instance();
+
+    backend.simulateBeginDrag([nodeInstance.getHandlerId()]);
+
+    expect(onDragStateChanged).toHaveBeenCalledWith({
+      isDragging: true,
+      draggedNode: treeData[0],
+    });
+
+    backend.simulateEndDrag([nodeInstance.getHandlerId()]);
+
+    expect(onDragStateChanged).toHaveBeenCalledWith({
+      isDragging: false,
+      draggedNode: null,
+    });
+    expect(onDragStateChanged).toHaveBeenCalledTimes(2);
   });
 });

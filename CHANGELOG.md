@@ -2,6 +2,93 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/fritz-c/react-sortable-tree/compare/v2.0.0...v2.0.1) (2018-02-10)
+
+
+### Bug Fixes
+
+* restore highlight line appearance ([2c95205](https://github.com/fritz-c/react-sortable-tree/commit/2c95205))
+
+
+
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.8.1...v2.0.0) (2018-02-10)
+
+
+### BREAKING CHANGES
+
+* from v2.0.0 on, you must import the css for the
+component yourself, using `import 'react-sortable-tree/style.css';`.
+You only need to do this once in your application.
+
+* Support dropped for IE versions earlier than IE 11
+
+
+<a name="1.8.1"></a>
+## [1.8.1](https://github.com/fritz-c/react-sortable-tree/compare/v1.8.0...v1.8.1) (2018-01-21)
+
+
+### Bug Fixes
+
+* rename parentNode callback param to nextParentNode ([24bf39d](https://github.com/fritz-c/react-sortable-tree/commit/24bf39d))
+
+
+
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.7.0...v1.8.0) (2018-01-21)
+
+
+### Features
+
+* Parent node in onMoveNode callback ([537c6a4](https://github.com/fritz-c/react-sortable-tree/commit/537c6a4))
+
+
+
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.6.0...v1.7.0) (2018-01-16)
+
+
+### Features
+
+* add onDragStateChanged callback ([2caa9d1](https://github.com/fritz-c/react-sortable-tree/commit/2caa9d1))
+  
+  onDragStateChanged is called when dragging begins and ends, so you can easily track the current state of dragging.<br />
+  Thanks to [@wuweiweiwu](https://github.com/wuweiweiwu) for the contribution!
+
+
+
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.5...v1.6.0) (2018-01-14)
+
+
+### Features
+
+* add more parameters to rowHeight. Fixes [#199](https://github.com/fritz-c/react-sortable-tree/issues/199) ([8ff0ff2](https://github.com/fritz-c/react-sortable-tree/commit/8ff0ff2))
+  
+  Thanks to [@wuweiweiwu](https://github.com/wuweiweiwu) for the contribution!
+
+
+
+<a name="1.5.5"></a>
+## [1.5.5](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.4...v1.5.5) (2018-01-13)
+
+
+### Bug Fixes
+
+* expand tree for searches on initial mount. fixes [#223](https://github.com/fritz-c/react-sortable-tree/issues/223) ([64a984a](https://github.com/fritz-c/react-sortable-tree/commit/64a984a))
+
+
+
+<a name="1.5.4"></a>
+## [1.5.4](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.3...v1.5.4) (2018-01-07)
+
+### Bug Fixes
+
+* UglifyJS enabled to remove dead code, which had been causing issues with some builds. If the presence of UglifyJS causes issues in your production builds, please refer to https://github.com/fritz-c/react-sortable-tree#if-it-throws-typeerror-fn-is-not-a-function-errors-in-production
+
+
+
 <a name="1.5.3"></a>
 ## [1.5.3](https://github.com/fritz-c/react-sortable-tree/compare/v1.5.2...v1.5.3) (2017-12-09)
 
