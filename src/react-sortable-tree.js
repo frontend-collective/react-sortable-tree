@@ -263,7 +263,7 @@ class ReactSortableTree extends Component {
       searchQuery,
       searchMethod,
       searchFocusOffset,
-      expandOnlySearchedNodes,
+      onlyExpandSearchedNodes,
     } = props;
 
     // Skip search if no conditions are specified
@@ -284,10 +284,10 @@ class ReactSortableTree extends Component {
       return;
     }
 
-    // if expandOnlySearchedNodes collapse the tree and search
+    // if onlyExpandSearchedNodes collapse the tree and search
     const { treeData: expandedTreeData, matches: searchMatches } = find({
       getNodeKey: this.props.getNodeKey,
-      treeData: expandOnlySearchedNodes
+      treeData: onlyExpandSearchedNodes
         ? toggleExpandedForAll({ treeData, expanded: false })
         : treeData,
       searchQuery,
@@ -833,7 +833,7 @@ ReactSortableTree.propTypes = {
   onDragStateChanged: PropTypes.func,
 
   // Specify that nodes that do not match search will be collapsed
-  expandOnlySearchedNodes: PropTypes.bool,
+  onlyExpandSearchedNodes: PropTypes.bool,
 };
 
 ReactSortableTree.defaultProps = {
@@ -863,7 +863,7 @@ ReactSortableTree.defaultProps = {
   style: {},
   theme: {},
   onDragStateChanged: () => {},
-  expandOnlySearchedNodes: false,
+  onlyExpandSearchedNodes: false,
 };
 
 ReactSortableTree.contextTypes = {
