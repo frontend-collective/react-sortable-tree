@@ -1,4 +1,4 @@
 {
-  "presets": ["env", "react"],
+  "presets": ["env", "react", "flow"],
   "plugins": ["transform-object-rest-spread", "react-hot-loader/babel"]
 }
