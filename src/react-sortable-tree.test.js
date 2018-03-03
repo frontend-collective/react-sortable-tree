@@ -313,6 +313,80 @@ describe('<SortableTree />', () => {
     expect(tree.state.searchFocusTreeIndex).toEqual(2);
   });
 
+  it('search onlyExpandSearchedNodes should collapse all nodes except matches', () => {
+    const wrapper = mount(
+      <SortableTree
+        treeData={[
+          {
+            title: 'a',
+            children: [{ title: 'b', children: [{ title: 'c' }] }],
+          },
+          {
+            title: 'b',
+            children: [{ title: 'd', children: [{ title: 'be' }] }],
+          },
+          {
+            title: 'c',
+            children: [{ title: 'f', children: [{ title: 'dd' }] }],
+          },
+        ]}
+        onChange={treeData => wrapper.setProps({ treeData })}
+        onlyExpandSearchedNodes
+      />
+    );
+    wrapper.setProps({ searchQuery: 'be' });
+    expect(wrapper.prop('treeData')).toEqual([
+      {
+        title: 'a',
+        children: [
+          {
+            title: 'b',
+            children: [
+              {
+                title: 'c',
+                expanded: false,
+              },
+            ],
+            expanded: false,
+          },
+        ],
+        expanded: false,
+      },
+      {
+        title: 'b',
+        children: [
+          {
+            title: 'd',
+            children: [
+              {
+                title: 'be',
+                expanded: false,
+              },
+            ],
+            expanded: true,
+          },
+        ],
+        expanded: true,
+      },
+      {
+        title: 'c',
+        children: [
+          {
+            title: 'f',
+            children: [
+              {
+                title: 'dd',
+                expanded: false,
+              },
+            ],
+            expanded: false,
+          },
+        ],
+        expanded: false,
+      },
+    ]);
+  });
+
   it('loads using SortableTreeWithoutDndContext', () => {
     const HTML5Wrapped = DragDropContext(HTML5Backend)(
       SortableTreeWithoutDndContext
