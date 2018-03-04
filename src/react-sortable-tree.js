@@ -208,7 +208,7 @@ class ReactSortableTree extends Component {
 
     this.props.onVisibilityToggle({
       treeData,
-      node: targetNode,
+      node: { ...targetNode, expanded: !targetNode.expanded },
       expanded: !targetNode.expanded,
       path,
     });
