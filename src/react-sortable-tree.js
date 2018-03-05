@@ -17,6 +17,7 @@ import {
   removeNode,
   insertNode,
   find,
+  toggleExpandedForAll,
 } from './utils/tree-data-utils';
 import {
   memoizedInsertNode,
@@ -262,6 +263,7 @@ class ReactSortableTree extends Component {
       searchQuery,
       searchMethod,
       searchFocusOffset,
+      onlyExpandSearchedNodes,
     } = props;
 
     // Skip search if no conditions are specified
@@ -282,9 +284,12 @@ class ReactSortableTree extends Component {
       return;
     }
 
+    // if onlyExpandSearchedNodes collapse the tree and search
     const { treeData: expandedTreeData, matches: searchMatches } = find({
       getNodeKey: this.props.getNodeKey,
-      treeData,
+      treeData: onlyExpandSearchedNodes
+        ? toggleExpandedForAll({ treeData, expanded: false })
+        : treeData,
       searchQuery,
       searchMethod: searchMethod || defaultSearchMethod,
       searchFocusOffset,
@@ -826,6 +831,9 @@ ReactSortableTree.propTypes = {
 
   // Called to track between dropped and dragging
   onDragStateChanged: PropTypes.func,
+
+  // Specify that nodes that do not match search will be collapsed
+  onlyExpandSearchedNodes: PropTypes.bool,
 };
 
 ReactSortableTree.defaultProps = {
@@ -855,6 +863,7 @@ ReactSortableTree.defaultProps = {
   style: {},
   theme: {},
   onDragStateChanged: () => {},
+  onlyExpandSearchedNodes: false,
 };
 
 ReactSortableTree.contextTypes = {
