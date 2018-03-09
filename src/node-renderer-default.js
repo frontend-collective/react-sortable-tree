@@ -1,10 +1,61 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import React, { Component, type Node } from 'react';
+import { type ConnectDragPreview, type ConnectDragSource } from 'react-dnd';
+import { type NodeData } from './tree-node';
+import { type Path } from './react-sortable-tree';
 import { isDescendant } from './utils/tree-data-utils';
 import classnames from './utils/classnames';
 import './node-renderer-default.css';
 
-class NodeRendererDefault extends Component {
+type Props = {
+  node: NodeData,
+  title: ?(Node | (({}) => Node)),
+  subtitle: ?(Node | (({}) => Node)),
+  path: Path,
+  treeIndex: number,
+  treeId: string,
+  isSearchMatch: boolean,
+  isSearchFocus: boolean,
+  canDrag: boolean,
+  scaffoldBlockPxWidth: number,
+  toggleChildrenVisibility: ({
+    node: NodeData,
+    path: Path,
+    treeIndex: number,
+  }) => void,
+  buttons: Array<any>,
+  className: string,
+  style: {},
+
+  // Drag and drop API functions
+  // Drag source
+  connectDragPreview: ConnectDragPreview,
+  connectDragSource: ConnectDragSource,
+  parentNode: ?NodeData, // Needed for dndManager
+  isDragging: boolean,
+  didDrop: boolean,
+  draggedNode: ?NodeData,
+  // Drop target
+  isOver: boolean,
+  canDrop: boolean,
+};
+
+class NodeRendererDefault extends Component<Props> {
+  static defaultProps = {
+    isSearchMatch: false,
+    isSearchFocus: false,
+    canDrag: false,
+    toggleChildrenVisibility: null,
+    buttons: [],
+    className: '',
+    style: {},
+    parentNode: null,
+    draggedNode: null,
+    canDrop: false,
+    title: null,
+    subtitle: null,
+  };
+
   render() {
     const {
       scaffoldBlockPxWidth,
@@ -33,7 +84,6 @@ class NodeRendererDefault extends Component {
     } = this.props;
     const nodeTitle = title || node.title;
     const nodeSubtitle = subtitle || node.subtitle;
-
     let handle;
     if (canDrag) {
       if (typeof node.children === 'function' && node.expanded) {
@@ -42,7 +92,7 @@ class NodeRendererDefault extends Component {
         handle = (
           <div className="rst__loadingHandle">
             <div className="rst__loadingCircle">
-              {[...new Array(12)].map((_, index) => (
+              {[...new Array(12)].map((_: number, index: number) => (
                 <div
                   // eslint-disable-next-line react/no-array-index-key
                   key={index}
@@ -150,7 +200,7 @@ class NodeRendererDefault extends Component {
                 </div>
 
                 <div className="rst__rowToolbar">
-                  {buttons.map((btn, index) => (
+                  {buttons.map((btn: any, index: number) => (
                     <div
                       key={index} // eslint-disable-line react/no-array-index-key
                       className="rst__toolbarButton"
@@ -167,51 +217,5 @@ class NodeRendererDefault extends Component {
     );
   }
 }
-
-NodeRendererDefault.defaultProps = {
-  isSearchMatch: false,
-  isSearchFocus: false,
-  canDrag: false,
-  toggleChildrenVisibility: null,
-  buttons: [],
-  className: '',
-  style: {},
-  parentNode: null,
-  draggedNode: null,
-  canDrop: false,
-  title: null,
-  subtitle: null,
-};
-
-NodeRendererDefault.propTypes = {
-  node: PropTypes.shape({}).isRequired,
-  title: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
-  subtitle: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
-  path: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ).isRequired,
-  treeIndex: PropTypes.number.isRequired,
-  treeId: PropTypes.string.isRequired,
-  isSearchMatch: PropTypes.bool,
-  isSearchFocus: PropTypes.bool,
-  canDrag: PropTypes.bool,
-  scaffoldBlockPxWidth: PropTypes.number.isRequired,
-  toggleChildrenVisibility: PropTypes.func,
-  buttons: PropTypes.arrayOf(PropTypes.node),
-  className: PropTypes.string,
-  style: PropTypes.shape({}),
-
-  // Drag and drop API functions
-  // Drag source
-  connectDragPreview: PropTypes.func.isRequired,
-  connectDragSource: PropTypes.func.isRequired,
-  parentNode: PropTypes.shape({}), // Needed for dndManager
-  isDragging: PropTypes.bool.isRequired,
-  didDrop: PropTypes.bool.isRequired,
-  draggedNode: PropTypes.shape({}),
-  // Drop target
-  isOver: PropTypes.bool.isRequired,
-  canDrop: PropTypes.bool,
-};
 
 export default NodeRendererDefault;
