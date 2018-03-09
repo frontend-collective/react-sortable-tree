@@ -1,9 +1,14 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from './utils/classnames';
 import './placeholder-renderer-default.css';
 
-const PlaceholderRendererDefault = ({ isOver, canDrop }) => (
+type Props = {
+  isOver?: boolean,
+  canDrop?: boolean,
+};
+
+const PlaceholderRendererDefault = ({ isOver, canDrop }: Props) => (
   <div
     className={classnames(
       'rst__placeholder',
@@ -16,11 +21,6 @@ const PlaceholderRendererDefault = ({ isOver, canDrop }) => (
 PlaceholderRendererDefault.defaultProps = {
   isOver: false,
   canDrop: false,
-};
-
-PlaceholderRendererDefault.propTypes = {
-  isOver: PropTypes.bool,
-  canDrop: PropTypes.bool,
 };
 
 export default PlaceholderRendererDefault;

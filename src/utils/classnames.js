@@ -1,3 +1,4 @@
+// @flow
 // very simple className utility for creating a classname string...
 // Falsy arguments are ignored:
 //
@@ -8,7 +9,8 @@
 //    active && "class3"
 // ); // returns -> class1 class3";
 //
-export default function classnames(...classes) {
+type classType = ?(string | null | number | boolean);
+export default function classnames(...classes: Array<classType>): string {
   // Use Boolean constructor as a filter callback
   // Allows for loose type truthy/falsey checks
   // Boolean("") === false;

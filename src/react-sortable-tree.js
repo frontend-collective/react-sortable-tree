@@ -7,7 +7,7 @@ import withScrolling, {
   createHorizontalStrength,
 } from 'react-dnd-scrollzone';
 import 'react-virtualized/styles.css';
-import TreeNode from './tree-node';
+import TreeNode, { type NodeData } from './tree-node';
 import NodeRendererDefault from './node-renderer-default';
 import TreePlaceholder from './tree-placeholder';
 import PlaceholderRendererDefault from './placeholder-renderer-default';
@@ -67,6 +67,15 @@ const mergeTheme = props => {
   });
 
   return merged;
+};
+
+export type Path = Array<string> | Array<number>;
+export type Row = {
+  lowerSiblingCounts: Array<number>,
+  node: NodeData,
+  parentNode: ?NodeData,
+  path: Path,
+  treeIndex: 0,
 };
 
 class ReactSortableTree extends Component {

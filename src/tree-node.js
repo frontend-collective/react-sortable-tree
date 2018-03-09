@@ -1,9 +1,55 @@
-import React, { Component, Children, cloneElement } from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import React, {
+  Component,
+  Children,
+  cloneElement,
+  type ElementType,
+} from 'react';
+import { type ConnectDropTarget } from 'react-dnd';
+import { type Path, type Row } from './react-sortable-tree';
 import classnames from './utils/classnames';
 import './tree-node.css';
 
-class TreeNode extends Component {
+export type NodeData = {
+  title?: ElementType | (({}) => ElementType),
+  subtitle?: ElementType | (({}) => ElementType),
+  expanded?: boolean,
+  children?: Array<NodeData>,
+};
+
+export type Props = {
+  treeIndex: number,
+  treeId: string,
+  swapFrom: ?number,
+  swapDepth: ?number,
+  swapLength: ?number,
+  scaffoldBlockPxWidth: number,
+  lowerSiblingCounts: Array<number>,
+
+  listIndex: number,
+  children: ElementType,
+
+  // Drop target
+  connectDropTarget: ConnectDropTarget,
+  isOver: boolean,
+  canDrop: ?boolean,
+  draggedNode: ?NodeData,
+
+  // used in dndManager
+  getPrevRow: () => ?Row,
+  node: NodeData,
+  path: Path,
+};
+
+class TreeNode extends Component<Props> {
+  static defaultProps = {
+    swapFrom: null,
+    swapDepth: null,
+    swapLength: null,
+    canDrop: false,
+    draggedNode: null,
+  };
+
   render() {
     const {
       children,
@@ -28,7 +74,7 @@ class TreeNode extends Component {
     // Construct the scaffold representing the structure of the tree
     const scaffoldBlockCount = lowerSiblingCounts.length;
     const scaffold = [];
-    lowerSiblingCounts.forEach((lowerSiblingCount, i) => {
+    lowerSiblingCounts.forEach((lowerSiblingCount: number, i: number) => {
       let lineClass = '';
       if (lowerSiblingCount > 0) {
         // At this level in the tree, the nodes had sibling nodes further down
@@ -124,7 +170,7 @@ class TreeNode extends Component {
           className="rst__nodeContent"
           style={{ left: scaffoldBlockPxWidth * scaffoldBlockCount }}
         >
-          {Children.map(children, child =>
+          {Children.map(children, (child: any) =>
             cloneElement(child, {
               isOver,
               canDrop,
@@ -136,39 +182,5 @@ class TreeNode extends Component {
     );
   }
 }
-
-TreeNode.defaultProps = {
-  swapFrom: null,
-  swapDepth: null,
-  swapLength: null,
-  canDrop: false,
-  draggedNode: null,
-};
-
-TreeNode.propTypes = {
-  treeIndex: PropTypes.number.isRequired,
-  treeId: PropTypes.string.isRequired,
-  swapFrom: PropTypes.number,
-  swapDepth: PropTypes.number,
-  swapLength: PropTypes.number,
-  scaffoldBlockPxWidth: PropTypes.number.isRequired,
-  lowerSiblingCounts: PropTypes.arrayOf(PropTypes.number).isRequired,
-
-  listIndex: PropTypes.number.isRequired,
-  children: PropTypes.node.isRequired,
-
-  // Drop target
-  connectDropTarget: PropTypes.func.isRequired,
-  isOver: PropTypes.bool.isRequired,
-  canDrop: PropTypes.bool,
-  draggedNode: PropTypes.shape({}),
-
-  // used in dndManager
-  getPrevRow: PropTypes.func.isRequired,
-  node: PropTypes.shape({}).isRequired,
-  path: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ).isRequired,
-};
 
 export default TreeNode;
