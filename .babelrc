@@ -1,4 +1,9 @@
 {
   "presets": ["env", "react", "flow"],
-  "plugins": ["transform-object-rest-spread", "react-hot-loader/babel"]
+  "plugins": [
+    "transform-object-rest-spread",
+    "react-hot-loader/babel",
+    "flow-react-proptypes",
+    "transform-class-properties"
+  ]
 }

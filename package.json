@@ -81,6 +81,8 @@
     "babel-eslint": "^8.2.2",
     "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.3",
+    "babel-plugin-flow-react-proptypes": "^20.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
