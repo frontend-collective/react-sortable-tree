@@ -147,6 +147,24 @@ switch (target) {
     ];
 
     break;
+  case 'production':
+    // Exclude library dependencies from the bundle
+    config.output.filename = '[name].min.js';
+    config.externals = [
+      nodeExternals({
+        // load non-javascript files with extensions, presumably via loaders
+        whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
+      }),
+    ];
+    config.plugins.push(
+      new webpack.EnvironmentPlugin({ NODE_ENV: 'production' }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false,
+        },
+      })
+    );
+    break;
   default:
 }
 
