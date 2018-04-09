@@ -235,6 +235,8 @@ class ReactSortableTree extends Component {
       getNodeKey: this.props.getNodeKey,
     });
 
+    this.scrollZoneVirtualListComponent.wrappedInstance.recomputeRowHeights();
+
     this.props.onChange(treeData);
 
     this.props.onMoveNode({
@@ -634,6 +636,9 @@ class ReactSortableTree extends Component {
           {({ height, width }) => (
             <ScrollZoneVirtualList
               {...scrollToInfo}
+    				  ref={el => {
+                this.scrollZoneVirtualListComponent = el
+              }}
               verticalStrength={this.vStrength}
               horizontalStrength={this.hStrength}
               speed={30}
