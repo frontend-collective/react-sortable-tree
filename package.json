@@ -59,8 +59,8 @@
   "dependencies": {
     "lodash.isequal": "^4.4.0",
     "prop-types": "^15.6.1",
-    "react-dnd": "2.5.4",
-    "react-dnd-html5-backend": "2.5.4",
+    "react-dnd": "2.6.x",
+    "react-dnd-html5-backend": "2.6.x",
     "react-dnd-scrollzone": "^4.0.0",
     "react-virtualized": "^9.18.5"
   },
