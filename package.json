@@ -1,61 +1,57 @@
 {
   "name": "react-sortable-tree",
   "version": "2.1.0",
-  "description": "Drag-and-drop sortable component for nested data and hierarchies",
+  "description":
+    "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
-    "build": "npm run clean && cross-env NODE_ENV=production TARGET=umd webpack --bail",
-    "build:demo": "npm run clean:demo && cross-env NODE_ENV=production TARGET=demo webpack --bail && npm run build-storybook",
-    "clean": "rimraf dist style.css style.css.map",
+    "build": "cross-env NODE_ENV=production TARGET=umd webpack --bail",
+    "build:prod":
+      "cross-env NODE_ENV=production TARGET=production webpack --bail",
+    "build:demo":
+      "npm run clean:demo && cross-env NODE_ENV=production TARGET=demo webpack --bail && npm run build-storybook",
+    "clean": "rimraf dist/main.js style.css style.css.map",
     "clean:demo": "rimraf build",
-    "start": "cross-env NODE_ENV=development TARGET=development webpack-dev-server --inline --hot",
+    "start":
+      "cross-env NODE_ENV=development TARGET=development webpack-dev-server --inline --hot",
     "lint": "eslint src examples",
-    "prettier": "prettier --single-quote --trailing-comma es5 --write \"{src,examples}/**/*.{js,css,md}\"",
+    "prettier":
+      "prettier --single-quote --trailing-comma es5 --write \"{src,examples}/**/*.{js,css,md}\"",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "deploy": "npm run build:demo && gh-pages -d build",
-    "storybook": "cross-env TARGET=development start-storybook -p ${PORT:-3001} -h 0.0.0.0",
-    "build-storybook": "cross-env NODE_ENV=production build-storybook -o build/storybook"
+    "storybook":
+      "cross-env TARGET=development start-storybook -p ${PORT:-3001} -h 0.0.0.0",
+    "build-storybook":
+      "cross-env NODE_ENV=production build-storybook -o build/storybook",
+    "rollup": "rollup -c",
+    "rollup:prod": "cross-env NODE_ENV=production TARGET=production rollup -c",
+    "both-builds":
+      "npm run build && npm run build:prod && npm run rollup && npm run rollup:prod"
   },
   "main": "dist/main.js",
-  "files": [
-    "dist",
-    "style.css",
-    "style.css.map"
-  ],
+  "jsnext": "dist/main-rollup-es.js",
+  "module": "dist/main-rollup-es.js",
+  "files": ["dist", "style.css", "style.css.map"],
   "repository": {
     "type": "git",
     "url": "https://github.com/fritz-c/react-sortable-tree"
   },
   "homepage": "https://fritz-c.github.io/react-sortable-tree",
   "bugs": "https://github.com/fritz-c/react-sortable-tree/issues",
-  "authors": [
-    "Chris Fritz"
-  ],
+  "authors": ["Chris Fritz"],
   "license": "MIT",
   "jest": {
     "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
-    "setupFiles": [
-      "./test-config/shim.js",
-      "./test-config/test-setup.js"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ],
+    "setupFiles": ["./test-config/shim.js", "./test-config/test-setup.js"],
+    "moduleFileExtensions": ["js", "jsx", "json"],
+    "moduleDirectories": ["node_modules"],
     "moduleNameMapper": {
-      "\\.(css|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
+      "\\.(css|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/__mocks__/fileMock.js"
     }
   },
-  "browserslist": [
-    "IE 11",
-    "last 2 versions",
-    "> 1%"
-  ],
+  "browserslist": ["IE 11", "last 2 versions", "> 1%"],
   "dependencies": {
     "lodash.isequal": "^4.4.0",
     "prop-types": "^15.6.1",
@@ -78,6 +74,7 @@
     "babel-eslint": "^8.2.2",
     "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.3",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -112,13 +109,16 @@
     "react-sortable-tree-theme-file-explorer": "^1.1.2",
     "react-test-renderer": "^16.2.0",
     "rimraf": "^2.6.2",
+    "rollup": "^0.56.5",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-node-resolve": "^3.2.0",
+    "rollup-plugin-postcss": "^1.3.3",
+    "rollup-plugin-uglify": "^3.0.0",
     "style-loader": "^0.20.2",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.2",
     "webpack-node-externals": "^1.6.0"
   },
-  "keywords": [
-    "react",
-    "react-component"
-  ]
+  "keywords": ["react", "react-component"]
 }
