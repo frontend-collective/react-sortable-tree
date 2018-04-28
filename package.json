@@ -25,10 +25,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/fritz-c/react-sortable-tree"
+    "url": "https://github.com/frontend-collective/react-sortable-tree"
   },
-  "homepage": "https://fritz-c.github.io/react-sortable-tree",
-  "bugs": "https://github.com/fritz-c/react-sortable-tree/issues",
+  "homepage": "https://frontend-collective.github.io/react-sortable-tree/",
+  "bugs": "https://github.com/frontend-collective/react-sortable-tree/issues",
   "authors": [
     "Chris Fritz"
   ],
