@@ -2,11 +2,11 @@
 
 [![NPM](https://nodei.co/npm/react-sortable-tree.png)](https://npmjs.org/package/react-sortable-tree) [![Build Status](https://travis-ci.org/fritz-c/react-sortable-tree.svg?branch=master)](https://travis-ci.org/fritz-c/react-sortable-tree) [![Coverage Status](https://coveralls.io/repos/github/fritz-c/react-sortable-tree/badge.svg?branch=master)](https://coveralls.io/github/fritz-c/react-sortable-tree?branch=master)
 
-[![tree200](https://cloud.githubusercontent.com/assets/4413963/18860410/26f64de8-84b8-11e6-9284-350308eed30a.png)](https://fritz-c.github.io/react-sortable-tree/)
+[![tree200](https://cloud.githubusercontent.com/assets/4413963/18860410/26f64de8-84b8-11e6-9284-350308eed30a.png)](https://frontend-collective.github.io/react-sortable-tree/)
 
 ### [Demo](https://fritz-c.github.io/react-sortable-tree/)
 
-[![demo](https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif)](https://fritz-c.github.io/react-sortable-tree/)
+[![demo](https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif)](https://frontend-collective.github.io/react-sortable-tree/)
 
 ## Usage
 
@@ -37,7 +37,7 @@ export default class Tree extends Component {
 }
 ```
 
-Find more examples in the [Storybook](https://fritz-c.github.io/react-sortable-tree/storybook/)
+Find more examples in the [Storybook](https://frontend-collective.github.io/react-sortable-tree/storybook/)
 
 Play with the code on an [example on CodeSandbox](https://codesandbox.io/s/wkxvy3z15w)
 
@@ -71,14 +71,14 @@ Play with the code on an [example on CodeSandbox](https://codesandbox.io/s/wkxvy
 | slideRegionSize                |     number     | Size in px of the region near the edges that initiates scrolling on dragover. Defaults to `100`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | scaffoldBlockPxWidth           |     number     | The width of the blocks containing the lines representing the structure of the tree. Defaults to `44`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | isVirtualized                  |      bool      | Set to false to disable virtualization. Defaults to `true`. **NOTE**: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| nodeContentRenderer            |      any       | Override the default component ([`NodeRendererDefault`](https://github.com/fritz-c/react-sortable-tree/blob/master/src/node-renderer-default.js)) for rendering nodes (but keep the scaffolding generator). This is a last resort for customization - most custom styling should be able to be solved with `generateNodeProps`, a `theme` or CSS rules. If you must use it, is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.                                                                                                                                                     |
-| placeholderRenderer            |      any       | Override the default placeholder component ([`PlaceholderRendererDefault`](https://github.com/fritz-c/react-sortable-tree/blob/master/src/placeholder-renderer-default.js)) which is displayed when the tree is empty. This is an advanced option, and in most cases should probably be solved with a `theme` or custom CSS instead.                                                                                                                                                                                                                                                                                                   |
+| nodeContentRenderer            |      any       | Override the default component ([`NodeRendererDefault`](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/node-renderer-default.js)) for rendering nodes (but keep the scaffolding generator). This is a last resort for customization - most custom styling should be able to be solved with `generateNodeProps`, a `theme` or CSS rules. If you must use it, is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.                                                                                                                                                     |
+| placeholderRenderer            |      any       | Override the default placeholder component ([`PlaceholderRendererDefault`](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/placeholder-renderer-default.js)) which is displayed when the tree is empty. This is an advanced option, and in most cases should probably be solved with a `theme` or custom CSS instead.                                                                                                                                                                                                                                                                                                   |
 
 ## Data Helper Functions
 
 Need a hand turning your flat data into nested tree data?
 Want to perform add/remove operations on the tree data without creating your own recursive function?
-Check out the helper functions exported from [`tree-data-utils.js`](https://github.com/fritz-c/react-sortable-tree/blob/master/src/utils/tree-data-utils.js).
+Check out the helper functions exported from [`tree-data-utils.js`](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js).
 
 Notable among the available functions:
 
