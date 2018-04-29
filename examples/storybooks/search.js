@@ -128,7 +128,7 @@ export default class App extends Component {
             // Custom comparison for matching during search.
             // This is optional, and defaults to a case sensitive search of
             // the title and subtitle values.
-            // see `defaultSearchMethod` in https://github.com/fritz-c/react-sortable-tree/blob/master/src/utils/default-handlers.js
+            // see `defaultSearchMethod` in https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/default-handlers.js
             searchMethod={customSearchMethod}
             //
             // The query string used in the search. This is required for searching.

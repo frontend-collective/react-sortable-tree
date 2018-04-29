@@ -2,7 +2,7 @@
 import { getParameters } from 'codesandbox/lib/api/define';
 
 const GIT_URL =
-  'https://api.github.com/repos/fritz-c/react-sortable-tree/contents';
+  'https://api.github.com/repos/frontend-collective/react-sortable-tree/contents';
 
 export const SANDBOX_URL = 'https://codesandbox.io/api/v1/sandboxes/define';
 
