@@ -235,7 +235,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/external-node.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/external-node.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -715,7 +715,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/drag-out-to-remove.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/drag-out-to-remove.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -1038,7 +1038,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/generate-node-props.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/generate-node-props.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -1303,7 +1303,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/touch-support.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/touch-support.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -1780,7 +1780,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/tree-to-tree.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/tree-to-tree.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -2054,7 +2054,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/add-remove.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/add-remove.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -2385,7 +2385,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/callbacks.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/callbacks.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -2643,7 +2643,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/barebones.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/barebones.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -2997,7 +2997,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/modify-nodes.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/modify-nodes.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -3584,7 +3584,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/can-drop.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/can-drop.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -3802,7 +3802,7 @@ exports[`Storyshots Basics Search 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/search.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/search.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -4296,7 +4296,7 @@ exports[`Storyshots Basics Themes 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/themes.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/themes.js"
     rel="noopener noreferrer"
     target="_top"
   >
@@ -4577,7 +4577,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
   </button>
   <a
     className="sourceLink"
-    href="https://github.com/fritz-c/react-sortable-tree/blob/master/examples/storybooks/tree-data-io.js"
+    href="https://github.com/frontend-collective/react-sortable-tree/blob/master/examples/storybooks/tree-data-io.js"
     rel="noopener noreferrer"
     target="_top"
   >
