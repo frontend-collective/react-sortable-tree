@@ -5,16 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <base target="_parent">
-    <script>
-        if (window.parent !== window) {
-            window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = window.parent.__REACT_DEVTOOLS_GLOBAL_HOOK__;
-        }
-    </script>
     <title>Storybook</title>
     
+    <style>
+        :not(.sb-show-main) > .sb-main,
+        :not(.sb-show-nopreview) > .sb-nopreview,
+        :not(.sb-show-errordisplay) > .sb-errordisplay {
+            display: none;
+        }
+
+
+        .sb-wrapper {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            font-family: -apple-system, ".SFNSText-Regular", "San Francisco", Roboto, "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .sb-heading {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            margin: 10px 0;
+        }
+
+
+        .sb-nopreview {
+            display: flex;
+            align-content: center;
+            justify-content: center;
+        }
+
+        .sb-nopreview_main {
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.03);
+        }
+
+        .sb-nopreview_heading {
+            text-align: center;
+        }
+
+
+        .sb-errordisplay {
+            background-color: rgb(187, 49, 49);
+            color: #FFF;
+        }
+
+        .sb-errordisplay_code {
+            font-size: 14px;
+            width: 100vw;
+            overflow: auto;
+        }
+    </style>
 </head>
-<body>
-<div id="root"></div>
-<div id="error-display"></div>
-<script type="text/javascript" src="static/preview.8f95d0486578992732a4.bundle.js"></script></body>
+<body class="sb-show-main">
+    <div id="root" class="sb-main"></div>
+
+    <div class="sb-nopreview sb-wrapper">
+        <div class="sb-nopreview_main">
+            <h1 class="sb-nopreview_heading sb-heading">No Preview</h1>
+            <p>Sorry, but you either have no stories or none are selected somehow.</p>
+            <ul>
+                <li>Please check the storybook config.</li>
+                <li>Try reloading the page.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="sb-errordisplay sb-wrapper">
+        <div id="error-message" class="sb-heading"></div>
+        <pre class="sb-errordisplay_code">
+            <code id="error-stack"></code>
+        </pre>
+    </div>
+<script type="text/javascript" src="static/runtime~preview.e91a365f8ec2aa547fa7.bundle.js"></script><script type="text/javascript" src="static/vendors~preview.d4506ff111702457f9ec.bundle.js"></script><script type="text/javascript" src="static/preview.70013afbe07073cd71aa.bundle.js"></script></body>
 </html>
