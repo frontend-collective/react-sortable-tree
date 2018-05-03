@@ -15,6 +15,7 @@ import ThemesExample from './themes';
 import TouchSupportExample from './touch-support';
 import TreeDataIOExample from './tree-data-io';
 import TreeToTreeExample from './tree-to-tree';
+import ExpandLazyLoadingExample from './expand-lazy-loading';
 import './generic.css';
 
 import { handleClick, SANDBOX_URL } from './sandbox-utils';
@@ -74,4 +75,7 @@ storiesOf('Advanced', module)
   )
   .add('Drag out to remove', () =>
     wrapWithSource(<DragOutToRemoveExample />, 'drag-out-to-remove.js')
+  )
+  .add('Expand with lazy loading of child nodes', () =>
+    wrapWithSource(<ExpandLazyLoadingExample />, 'expand-lazy-loading.js')
   );
