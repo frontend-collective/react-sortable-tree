@@ -177,7 +177,8 @@ class App extends Component {
     const projectName = 'React Sortable Tree';
     const authorName = 'Frontend Collective';
     const authorUrl = 'https://github.com/frontend-collective';
-    const githubUrl = 'https://github.com/frontend-collective/react-sortable-tree';
+    const githubUrl =
+      'https://github.com/frontend-collective/react-sortable-tree';
 
     const {
       treeData,
