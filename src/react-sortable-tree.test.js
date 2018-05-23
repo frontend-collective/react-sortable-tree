@@ -15,7 +15,9 @@ import DefaultNodeRenderer from './node-renderer-default';
 describe('<SortableTree />', () => {
   it('should render tree correctly', () => {
     const tree = renderer
-      .create(<SortableTree treeData={[{}]} onChange={() => {}} />)
+      .create(<SortableTree treeData={[{}]} onChange={() => {}} />, {
+        createNodeMock: () => ({}),
+      })
       .toJSON();
 
     expect(tree).toMatchSnapshot();
