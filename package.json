@@ -62,7 +62,7 @@
     "react-dnd": "2.6.0",
     "react-dnd-html5-backend": "2.6.0",
     "react-dnd-scrollzone": "^4.0.0",
-    "react-virtualized": "^9.19.0"
+    "react-virtualized": "^9.19.1"
   },
   "peerDependencies": {
     "react": "^15.3.0 || ^16.0.0",
