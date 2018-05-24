@@ -63,6 +63,7 @@
     "react-dnd": "2.6.0",
     "react-dnd-html5-backend": "2.6.0",
     "react-dnd-scrollzone": "^4.0.0",
+    "react-lifecycles-compat": "^3.0.4",
     "react-virtualized": "^9.19.1"
   },
   "peerDependencies": {
@@ -104,11 +105,11 @@
     "json-loader": "^0.5.7",
     "postcss-loader": "^2.1.5",
     "prettier": "^1.12.1",
-    "react": "^16.3.2",
+    "react": "^16.2.0",
     "react-addons-shallow-compare": "^15.6.2",
     "react-dnd-test-backend": "2.6.0",
     "react-dnd-touch-backend": "0.4.0",
-    "react-dom": "^16.3.2",
+    "react-dom": "^16.2.0",
     "react-hot-loader": "^4.2.0",
     "react-sortable-tree-theme-file-explorer": "^1.1.2",
     "react-test-renderer": "^16.3.2",
