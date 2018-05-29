@@ -110,7 +110,7 @@ class ReactSortableTree extends Component {
       searchFocusTreeIndex: null,
       dragging: false,
 
-      // props that need to be used in gDSFP will be stored here
+      // props that need to be used in gDSFP or static functions will be stored here
       instanceProps: {
         treeData: [],
         ignoreOneTreeUpdate: false,
@@ -129,7 +129,7 @@ class ReactSortableTree extends Component {
   }
 
   componentDidMount() {
-    ReactSortableTree.loadLazyChildren(this.props);
+    ReactSortableTree.loadLazyChildren(this.props, this.state);
     const stateUpdate = ReactSortableTree.search(
       this.props,
       this.state,
@@ -151,12 +151,15 @@ class ReactSortableTree extends Component {
     const { instanceProps } = prevState;
     const newState = {};
 
+    // make sure we have the most recent version of treeData
+    instanceProps.treeData = nextProps.treeData;
+
     if (!isEqual(instanceProps.treeData, nextProps.treeData)) {
       if (instanceProps.ignoreOneTreeUpdate) {
         instanceProps.ignoreOneTreeUpdate = false;
       } else {
         newState.searchFocusTreeIndex = null;
-        ReactSortableTree.loadLazyChildren(nextProps);
+        ReactSortableTree.loadLazyChildren(nextProps, prevState);
         Object.assign(
           newState,
           ReactSortableTree.search(nextProps, prevState, false, false, false)
@@ -169,8 +172,6 @@ class ReactSortableTree extends Component {
       newState.draggedDepth = null;
       newState.dragging = false;
     } else if (!isEqual(instanceProps.searchQuery, nextProps.searchQuery)) {
-      // search
-      // this.search(nextProps, true, true, false);
       Object.assign(
         newState,
         ReactSortableTree.search(nextProps, prevState, true, true, false)
@@ -178,15 +179,12 @@ class ReactSortableTree extends Component {
     } else if (
       instanceProps.searchFocusOffset !== nextProps.searchFocusOffset
     ) {
-      // search
-      // this.search(nextProps, true, true, true);
       Object.assign(
         newState,
         ReactSortableTree.search(nextProps, prevState, true, true, true)
       );
     }
 
-    instanceProps.treeData = nextProps.treeData;
     instanceProps.searchQuery = nextProps.searchQuery;
     instanceProps.searchFocusOffset = nextProps.searchFocusOffset;
     newState.instanceProps = instanceProps;
@@ -358,7 +356,7 @@ class ReactSortableTree extends Component {
         node: draggedNode,
         treeIndex: draggedMinimumTreeIndex,
       } = removeNode({
-        treeData: this.props.treeData,
+        treeData: instanceProps.treeData,
         path,
         getNodeKey: this.props.getNodeKey,
       });
@@ -483,9 +481,11 @@ class ReactSortableTree extends Component {
 
   // Load any children in the tree that are given by a function
   // calls the onChange callback on the new treeData
-  static loadLazyChildren(props) {
+  static loadLazyChildren(props, state) {
+    const { instanceProps } = state;
+
     walk({
-      treeData: props.treeData,
+      treeData: instanceProps.treeData,
       getNodeKey: props.getNodeKey,
       callback: ({ node, path, lowerSiblingCounts, treeIndex }) => {
         // If the node has children defined by a function, and is either expanded
@@ -506,7 +506,7 @@ class ReactSortableTree extends Component {
             done: childrenArray =>
               props.onChange(
                 changeNodeAtPath({
-                  treeData: props.treeData,
+                  treeData: instanceProps.treeData,
                   path,
                   newNode: ({ node: oldNode }) =>
                     // Only replace the old node if it's the one we set off to find children
