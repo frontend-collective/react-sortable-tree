@@ -18,7 +18,7 @@
     "prettier": "prettier --single-quote --trailing-comma es5 --write \"{src,examples}/**/*.{js,css,md}\"",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
     "release": "standard-version",
-    "test": "jest",
+    "test": "cross-env NODE_ENV=test jest",
     "test:watch": "jest --watchAll",
     "deploy": "npm run build:demo && gh-pages -d build",
     "storybook": "cross-env TARGET=development start-storybook -p ${PORT:-3001} -h 0.0.0.0",

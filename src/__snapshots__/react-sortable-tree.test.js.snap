@@ -14,7 +14,6 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
       aria-label="grid"
       aria-readonly={true}
       className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
-      id={undefined}
       onScroll={[Function]}
       role="grid"
       style={

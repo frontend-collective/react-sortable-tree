@@ -33,3 +33,11 @@ if (env === 'production') {
     presets: ['env', 'react', 'stage-2'],
   };
 }
+
+if (env === 'test') {
+  module.exports = {
+    comments: false,
+    plugins: ['transform-es2015-modules-commonjs'],
+    presets: ['react', 'stage-2'],
+  };
+}
