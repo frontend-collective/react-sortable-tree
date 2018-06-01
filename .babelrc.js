@@ -2,6 +2,7 @@ const env = process.env.NODE_ENV;
 
 if (env === 'commonjs' || env === 'es') {
   module.exports = {
+    ignore: ['*.test.js', 'src/tests.js'],
     plugins: ['transform-runtime'],
     presets: [['env', { modules: false }], 'react', 'stage-2'],
   };

@@ -44,7 +44,7 @@ const cssLoaders =
 
 const config = {
   mode: 'production',
-  entry: { 'dist/main': './src/index' },
+  entry: { 'dist/umd/react-sortable-tree': './src/index' },
   output: {
     path: __dirname,
     filename: '[name].js',
