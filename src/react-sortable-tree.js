@@ -350,13 +350,13 @@ class ReactSortableTree extends Component {
   }
 
   startDrag({ path }) {
-    this.setState(() => {
+    this.setState((prevState) => {
       const {
         treeData: draggingTreeData,
         node: draggedNode,
         treeIndex: draggedMinimumTreeIndex,
       } = removeNode({
-        treeData: instanceProps.treeData,
+        treeData: prevState.instanceProps.treeData,
         path,
         getNodeKey: this.props.getNodeKey,
       });
