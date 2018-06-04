@@ -25,6 +25,9 @@ class TreeNode extends Component {
       ...otherProps
     } = this.props;
 
+    const directionClass = this.props.direction === 'rtl' ? 'rst__rtl' : '';
+
+
     // Construct the scaffold representing the structure of the tree
     const scaffoldBlockCount = lowerSiblingCounts.length;
     const scaffold = [];
@@ -81,7 +84,7 @@ class TreeNode extends Component {
         <div
           key={`pre_${1 + i}`}
           style={{ width: scaffoldBlockPxWidth }}
-          className={`${'rst__lineBlock'} ${lineClass}`}
+          className={`${'rst__lineBlock'} ${lineClass} ${directionClass}`}
         />
       );
 
@@ -102,27 +105,48 @@ class TreeNode extends Component {
           highlightLineClass = 'rst__highlightLineVertical';
         }
 
+
+        let style;
+        if (this.props.direction === 'rtl') {
+          style = {
+            width: scaffoldBlockPxWidth,
+            right: scaffoldBlockPxWidth * i,
+          }
+        } else {
+          //Default ltr
+          style = {
+            width: scaffoldBlockPxWidth,
+            left: scaffoldBlockPxWidth * i,
+          }
+        }
+
+
         scaffold.push(
           <div
             // eslint-disable-next-line react/no-array-index-key
             key={i}
-            style={{
-              width: scaffoldBlockPxWidth,
-              left: scaffoldBlockPxWidth * i,
-            }}
-            className={classnames('rst__absoluteLineBlock', highlightLineClass)}
+            style={style}
+            className={classnames('rst__absoluteLineBlock', highlightLineClass, directionClass)}
           />
         );
       }
     });
 
+    let style;
+    if (this.props.direction === 'rtl') {
+      style = {right: scaffoldBlockPxWidth * scaffoldBlockCount}
+    } else {
+      //Default ltr
+      style = {left: scaffoldBlockPxWidth * scaffoldBlockCount}
+    }
+
     return connectDropTarget(
-      <div {...otherProps} className="rst__node">
+      <div {...otherProps} className={classnames('rst__node', directionClass)}>
         {scaffold}
 
         <div
           className="rst__nodeContent"
-          style={{ left: scaffoldBlockPxWidth * scaffoldBlockCount }}
+          style={style}
         >
           {Children.map(children, child =>
             cloneElement(child, {
