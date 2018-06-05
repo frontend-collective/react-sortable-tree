@@ -2,7 +2,7 @@
 
 exports[`<SortableTree /> should render tree correctly 1`] = `
 <div
-  className="rst__tree"
+  className="rst__tree rst_ltr"
   style={
     Object {
       "height": "100%",
@@ -48,6 +48,7 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
       >
         <div
           className="rst__node"
+          direction={undefined}
           style={
             Object {
               "height": 62,
@@ -59,7 +60,7 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
           }
         >
           <div
-            className="rst__lineBlock rst__lineHalfHorizontalRight"
+            className="rst__lineBlock rst__lineHalfHorizontalRight "
             style={
               Object {
                 "width": 44,
@@ -75,6 +76,7 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
             }
           >
             <div
+              direction={undefined}
               style={
                 Object {
                   "height": "100%",
