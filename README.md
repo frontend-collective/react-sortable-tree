@@ -1,6 +1,8 @@
-# React Sortable Tree
+<div align="center">
+  <img src="https://cloud.githubusercontent.com/assets/4413963/18860410/26f64de8-84b8-11e6-9284-350308eed30a.png"/>
+</div>
 
-[![tree200](https://cloud.githubusercontent.com/assets/4413963/18860410/26f64de8-84b8-11e6-9284-350308eed30a.png)](https://frontend-collective.github.io/react-sortable-tree/)
+# React Sortable Tree
 
 ![NPM version](https://img.shields.io/npm/v/react-sortable-tree.svg?style=flat)
 ![NPM license](https://img.shields.io/npm/l/react-sortable-tree.svg?style=flat)
@@ -9,9 +11,11 @@
 [![Build Status](https://travis-ci.org/frontend-collective/react-sortable-tree.svg?branch=master)](https://travis-ci.org/frontend-collective/react-sortable-tree)
 [![Coverage Status](https://coveralls.io/repos/github/frontend-collective/react-sortable-tree/badge.svg?branch=master)](https://coveralls.io/github/frontend-collective/react-sortable-tree?branch=master)
 
-A React component for Drag-and-drop sortable representation of hierarchical data. Checkout [the demo](https://frontend-collective.github.io/react-sortable-tree/) for some examples. Checkout [the storybook](https://frontend-collective.github.io/react-sortable-tree/storybook/index.html) for advanced usage. Play with the code on an [example on CodeSandbox](https://codesandbox.io/s/wkxvy3z15w).
+> A React component for Drag-and-drop sortable representation of hierarchical data. Checkout [the demo](https://frontend-collective.github.io/react-sortable-tree/) for some examples. Checkout the [storybook](https://frontend-collective.github.io/react-sortable-tree/storybook/index.html) for advanced usage. Play with the code on [CodeSandbox.io](https://codesandbox.io/s/wkxvy3z15w).
 
-[![demo](https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif)](https://frontend-collective.github.io/react-sortable-tree/)
+<div align="center">
+  <img src="https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif"/>
+</div>
 
 ## Getting started
 
@@ -33,6 +37,12 @@ import SortableTree from 'react-sortable-tree';
 
 // Or you can import the tree without the dnd context as a named export. eg
 import { SortableTreeWithoutDndContext as SortableTree } from 'react-sortable-tree';
+
+// Importing from commonjs (default)
+import SortableTree from 'react-sortable-tree/dist/commonjs';
+
+// Importing from es
+import SortableTree from 'react-sortable-tree/dist/es';
 ```
 
 You can also use a global-friendly UMD build:
