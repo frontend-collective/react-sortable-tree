@@ -11,7 +11,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
       }
     >
       <div
-        className="rst__tree rst_ltr"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -56,8 +56,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
               }
             >
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -69,7 +68,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -85,7 +84,6 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -128,8 +126,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -141,7 +138,7 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -157,7 +154,6 @@ exports[`Storyshots Advanced Drag from external source 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -267,7 +263,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
         }
       >
         <div
-          className="rst__tree rst_ltr"
+          className="rst__tree"
           style={
             Object {
               "height": "100%",
@@ -312,8 +308,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                 }
               >
                 <div
-                  className="rst__node rst__ltr"
-                  direction="ltr"
+                  className="rst__node"
                   style={
                     Object {
                       "height": 62,
@@ -325,7 +320,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   }
                 >
                   <div
-                    className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom rst__ltr"
+                    className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                     style={
                       Object {
                         "width": 44,
@@ -341,7 +336,6 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   >
                     <div
-                      direction="ltr"
                       style={
                         Object {
                           "height": "100%",
@@ -384,8 +378,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   </div>
                 </div>
                 <div
-                  className="rst__node rst__ltr"
-                  direction="ltr"
+                  className="rst__node"
                   style={
                     Object {
                       "height": 62,
@@ -397,7 +390,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   }
                 >
                   <div
-                    className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical rst__ltr"
+                    className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
                     style={
                       Object {
                         "width": 44,
@@ -413,7 +406,6 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   >
                     <div
-                      direction="ltr"
                       style={
                         Object {
                           "height": "100%",
@@ -456,8 +448,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   </div>
                 </div>
                 <div
-                  className="rst__node rst__ltr"
-                  direction="ltr"
+                  className="rst__node"
                   style={
                     Object {
                       "height": 62,
@@ -469,7 +460,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   }
                 >
                   <div
-                    className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical rst__ltr"
+                    className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
                     style={
                       Object {
                         "width": 44,
@@ -485,7 +476,6 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   >
                     <div
-                      direction="ltr"
                       style={
                         Object {
                           "height": "100%",
@@ -528,8 +518,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   </div>
                 </div>
                 <div
-                  className="rst__node rst__ltr"
-                  direction="ltr"
+                  className="rst__node"
                   style={
                     Object {
                       "height": 62,
@@ -541,7 +530,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   }
                 >
                   <div
-                    className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                    className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                     style={
                       Object {
                         "width": 44,
@@ -557,7 +546,6 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   >
                     <div
-                      direction="ltr"
                       style={
                         Object {
                           "height": "100%",
@@ -621,8 +609,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   </div>
                 </div>
                 <div
-                  className="rst__node rst__ltr"
-                  direction="ltr"
+                  className="rst__node"
                   style={
                     Object {
                       "height": 62,
@@ -634,7 +621,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                   }
                 >
                   <div
-                    className="rst__lineBlock rst__ltr"
+                    className="rst__lineBlock"
                     style={
                       Object {
                         "width": 44,
@@ -642,7 +629,7 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   />
                   <div
-                    className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                    className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                     style={
                       Object {
                         "width": 44,
@@ -658,7 +645,6 @@ exports[`Storyshots Advanced Drag out to remove 1`] = `
                     }
                   >
                     <div
-                      direction="ltr"
                       style={
                         Object {
                           "height": "100%",
@@ -747,7 +733,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
       }
     >
       <div
-        className="rst__tree rst_ltr"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -792,8 +778,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
               }
             >
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -805,7 +790,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -821,7 +806,6 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     onClick={[Function]}
                     style={
                       Object {
@@ -867,8 +851,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -880,7 +863,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
                   style={
                     Object {
                       "width": 44,
@@ -896,7 +879,6 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     onClick={[Function]}
                     style={
                       Object {
@@ -942,8 +924,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -955,7 +936,7 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -971,7 +952,6 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     onClick={[Function]}
                     style={
                       Object {
@@ -1080,7 +1060,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
       }
     >
       <div
-        className="rst__tree rst_ltr"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -1125,8 +1105,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
               }
             >
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1138,7 +1117,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -1154,7 +1133,6 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -1218,8 +1196,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1231,7 +1208,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__ltr"
+                  className="rst__lineBlock"
                   style={
                     Object {
                       "width": 44,
@@ -1239,7 +1216,7 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                   }
                 />
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -1255,7 +1232,6 @@ exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -1346,7 +1322,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
       }
     >
       <div
-        className="rst__tree rst_ltr"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -1391,8 +1367,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
               }
             >
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1404,7 +1379,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -1420,7 +1395,6 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -1476,8 +1450,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1489,7 +1462,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -1505,7 +1478,6 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -1563,7 +1535,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
       }
     >
       <div
-        className="rst__tree rst_ltr"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -1608,8 +1580,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
               }
             >
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1621,7 +1592,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -1637,7 +1608,6 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -1680,8 +1650,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1693,7 +1662,7 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -1709,7 +1678,6 @@ exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -1826,7 +1794,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
       }
     >
       <div
-        className="rst__tree rst_ltr"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -1871,8 +1839,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
               }
             >
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1884,7 +1851,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -1900,7 +1867,6 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -1962,8 +1928,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -1975,7 +1940,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -1991,7 +1956,6 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -2104,7 +2068,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
       }
     >
       <div
-        className="rst__tree rst_ltr"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -2149,8 +2113,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
               }
             >
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2162,7 +2125,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -2178,7 +2141,6 @@ exports[`Storyshots Basics Callbacks 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -2242,8 +2204,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2255,7 +2216,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineFullVertical rst__ltr"
+                  className="rst__lineBlock rst__lineFullVertical"
                   style={
                     Object {
                       "width": 44,
@@ -2263,7 +2224,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                   }
                 />
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -2279,7 +2240,6 @@ exports[`Storyshots Basics Callbacks 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -2322,8 +2282,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2335,7 +2294,7 @@ exports[`Storyshots Basics Callbacks 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -2351,7 +2310,6 @@ exports[`Storyshots Basics Callbacks 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -2438,7 +2396,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
     }
   >
     <div
-      className="rst__tree rst_ltr"
+      className="rst__tree"
       style={
         Object {
           "height": "100%",
@@ -2483,8 +2441,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
             }
           >
             <div
-              className="rst__node rst__ltr"
-              direction="ltr"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -2496,7 +2453,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
               }
             >
               <div
-                className="rst__lineBlock rst__lineHalfHorizontalRight rst__ltr"
+                className="rst__lineBlock rst__lineHalfHorizontalRight"
                 style={
                   Object {
                     "width": 44,
@@ -2512,7 +2469,6 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                 }
               >
                 <div
-                  direction="ltr"
                   style={
                     Object {
                       "height": "100%",
@@ -2576,8 +2532,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
               </div>
             </div>
             <div
-              className="rst__node rst__ltr"
-              direction="ltr"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -2589,7 +2544,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
               }
             >
               <div
-                className="rst__lineBlock rst__ltr"
+                className="rst__lineBlock"
                 style={
                   Object {
                     "width": 44,
@@ -2597,7 +2552,7 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                 }
               />
               <div
-                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                 style={
                   Object {
                     "width": 44,
@@ -2613,7 +2568,6 @@ exports[`Storyshots Basics Minimal implementation 1`] = `
                 }
               >
                 <div
-                  direction="ltr"
                   style={
                     Object {
                       "height": "100%",
@@ -2700,7 +2654,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
       }
     >
       <div
-        className="rst__tree rst_ltr"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -2745,8 +2699,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
               }
             >
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2758,7 +2711,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -2774,7 +2727,6 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -2825,8 +2777,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2838,7 +2789,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -2854,7 +2805,6 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -2926,8 +2876,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -2939,7 +2888,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__ltr"
+                  className="rst__lineBlock"
                   style={
                     Object {
                       "width": 44,
@@ -2947,7 +2896,7 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                   }
                 />
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -2963,7 +2912,6 @@ exports[`Storyshots Basics Modify nodes 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -3058,7 +3006,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
     }
   >
     <div
-      className="rst__tree rst_ltr"
+      className="rst__tree"
       style={
         Object {
           "height": "100%",
@@ -3103,8 +3051,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
             }
           >
             <div
-              className="rst__node rst__ltr"
-              direction="ltr"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3116,7 +3063,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom rst__ltr"
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                 style={
                   Object {
                     "width": 44,
@@ -3132,7 +3079,6 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               >
                 <div
-                  direction="ltr"
                   style={
                     Object {
                       "height": "100%",
@@ -3201,8 +3147,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               </div>
             </div>
             <div
-              className="rst__node rst__ltr"
-              direction="ltr"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3214,7 +3159,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="rst__lineBlock rst__lineFullVertical rst__ltr"
+                className="rst__lineBlock rst__lineFullVertical"
                 style={
                   Object {
                     "width": 44,
@@ -3222,7 +3167,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               />
               <div
-                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                 style={
                   Object {
                     "width": 44,
@@ -3238,7 +3183,6 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               >
                 <div
-                  direction="ltr"
                   style={
                     Object {
                       "height": "100%",
@@ -3281,8 +3225,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               </div>
             </div>
             <div
-              className="rst__node rst__ltr"
-              direction="ltr"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3294,7 +3237,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical rst__ltr"
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
                 style={
                   Object {
                     "width": 44,
@@ -3310,7 +3253,6 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               >
                 <div
-                  direction="ltr"
                   style={
                     Object {
                       "height": "100%",
@@ -3379,8 +3321,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               </div>
             </div>
             <div
-              className="rst__node rst__ltr"
-              direction="ltr"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3392,7 +3333,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="rst__lineBlock rst__lineFullVertical rst__ltr"
+                className="rst__lineBlock rst__lineFullVertical"
                 style={
                   Object {
                     "width": 44,
@@ -3400,7 +3341,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               />
               <div
-                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                 style={
                   Object {
                     "width": 44,
@@ -3416,7 +3357,6 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               >
                 <div
-                  direction="ltr"
                   style={
                     Object {
                       "height": "100%",
@@ -3459,8 +3399,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               </div>
             </div>
             <div
-              className="rst__node rst__ltr"
-              direction="ltr"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3472,7 +3411,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical rst__ltr"
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
                 style={
                   Object {
                     "width": 44,
@@ -3488,7 +3427,6 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               >
                 <div
-                  direction="ltr"
                   style={
                     Object {
                       "height": "100%",
@@ -3536,8 +3474,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               </div>
             </div>
             <div
-              className="rst__node rst__ltr"
-              direction="ltr"
+              className="rst__node"
               style={
                 Object {
                   "height": 62,
@@ -3549,7 +3486,7 @@ exports[`Storyshots Basics Prevent drop 1`] = `
               }
             >
               <div
-                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                 style={
                   Object {
                     "width": 44,
@@ -3565,7 +3502,6 @@ exports[`Storyshots Basics Prevent drop 1`] = `
                 }
               >
                 <div
-                  direction="ltr"
                   style={
                     Object {
                       "height": "100%",
@@ -3701,7 +3637,7 @@ exports[`Storyshots Basics Search 1`] = `
       }
     >
       <div
-        className="rst__tree rst_ltr"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -3746,8 +3682,7 @@ exports[`Storyshots Basics Search 1`] = `
               }
             >
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -3759,7 +3694,7 @@ exports[`Storyshots Basics Search 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -3775,7 +3710,6 @@ exports[`Storyshots Basics Search 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -3875,7 +3809,7 @@ exports[`Storyshots Basics Themes 1`] = `
     }
   >
     <div
-      className="rst__tree rst_ltr"
+      className="rst__tree"
       style={
         Object {
           "height": "100%",
@@ -3921,7 +3855,7 @@ exports[`Storyshots Basics Themes 1`] = `
           >
             <div
               className="rstcustom__node"
-              direction="ltr"
+              direction={null}
               style={
                 Object {
                   "height": 25,
@@ -3933,7 +3867,7 @@ exports[`Storyshots Basics Themes 1`] = `
               }
             >
               <div
-                direction="ltr"
+                direction={null}
                 style={
                   Object {
                     "height": "100%",
@@ -4001,7 +3935,7 @@ exports[`Storyshots Basics Themes 1`] = `
             </div>
             <div
               className="rstcustom__node"
-              direction="ltr"
+              direction={null}
               style={
                 Object {
                   "height": 25,
@@ -4013,7 +3947,7 @@ exports[`Storyshots Basics Themes 1`] = `
               }
             >
               <div
-                direction="ltr"
+                direction={null}
                 style={
                   Object {
                     "height": "100%",
@@ -4089,7 +4023,7 @@ exports[`Storyshots Basics Themes 1`] = `
             </div>
             <div
               className="rstcustom__node"
-              direction="ltr"
+              direction={null}
               style={
                 Object {
                   "height": 25,
@@ -4101,7 +4035,7 @@ exports[`Storyshots Basics Themes 1`] = `
               }
             >
               <div
-                direction="ltr"
+                direction={null}
                 style={
                   Object {
                     "height": "100%",
@@ -4182,7 +4116,7 @@ exports[`Storyshots Basics Themes 1`] = `
             </div>
             <div
               className="rstcustom__node"
-              direction="ltr"
+              direction={null}
               style={
                 Object {
                   "height": 25,
@@ -4194,7 +4128,7 @@ exports[`Storyshots Basics Themes 1`] = `
               }
             >
               <div
-                direction="ltr"
+                direction={null}
                 style={
                   Object {
                     "height": "100%",
@@ -4251,7 +4185,7 @@ exports[`Storyshots Basics Themes 1`] = `
             </div>
             <div
               className="rstcustom__node"
-              direction="ltr"
+              direction={null}
               style={
                 Object {
                   "height": 25,
@@ -4263,7 +4197,7 @@ exports[`Storyshots Basics Themes 1`] = `
               }
             >
               <div
-                direction="ltr"
+                direction={null}
                 style={
                   Object {
                     "height": "100%",
@@ -4370,7 +4304,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
       }
     >
       <div
-        className="rst__tree rst_ltr"
+        className="rst__tree"
         style={
           Object {
             "height": "100%",
@@ -4415,8 +4349,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
               }
             >
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -4428,7 +4361,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom rst__ltr"
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
                   style={
                     Object {
                       "width": 44,
@@ -4444,7 +4377,6 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",
@@ -4487,8 +4419,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                 </div>
               </div>
               <div
-                className="rst__node rst__ltr"
-                direction="ltr"
+                className="rst__node"
                 style={
                   Object {
                     "height": 62,
@@ -4500,7 +4431,7 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                 }
               >
                 <div
-                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__ltr"
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
                   style={
                     Object {
                       "width": 44,
@@ -4516,7 +4447,6 @@ exports[`Storyshots Basics treeData import/export 1`] = `
                   }
                 >
                   <div
-                    direction="ltr"
                     style={
                       Object {
                         "height": "100%",

@@ -22,11 +22,11 @@ class TreeNode extends Component {
       getPrevRow, // Delete from otherProps
       node, // Delete from otherProps
       path, // Delete from otherProps
+      direction,
       ...otherProps
     } = this.props;
 
-    const directionClass = this.props.direction === 'rtl' ? 'rst__rtl' : 'rst__ltr';
-
+    const directionClass = direction === 'rtl' ? 'rst__rtl' : null;
 
     // Construct the scaffold representing the structure of the tree
     const scaffoldBlockCount = lowerSiblingCounts.length;
@@ -105,49 +105,48 @@ class TreeNode extends Component {
           highlightLineClass = 'rst__highlightLineVertical';
         }
 
-
         let style;
-        if (this.props.direction === 'rtl') {
+        if (direction === 'rtl') {
           style = {
             width: scaffoldBlockPxWidth,
             right: scaffoldBlockPxWidth * i,
-          }
+          };
         } else {
           //Default ltr
           style = {
             width: scaffoldBlockPxWidth,
             left: scaffoldBlockPxWidth * i,
-          }
+          };
         }
-
 
         scaffold.push(
           <div
             // eslint-disable-next-line react/no-array-index-key
             key={i}
             style={style}
-            className={classnames('rst__absoluteLineBlock', highlightLineClass, directionClass)}
+            className={classnames(
+              'rst__absoluteLineBlock',
+              highlightLineClass,
+              directionClass
+            )}
           />
         );
       }
     });
 
     let style;
-    if (this.props.direction === 'rtl') {
-      style = {right: scaffoldBlockPxWidth * scaffoldBlockCount}
+    if (direction === 'rtl') {
+      style = { right: scaffoldBlockPxWidth * scaffoldBlockCount };
     } else {
-      //Default ltr
-      style = {left: scaffoldBlockPxWidth * scaffoldBlockCount}
+      // Default ltr
+      style = { left: scaffoldBlockPxWidth * scaffoldBlockCount };
     }
 
     return connectDropTarget(
       <div {...otherProps} className={classnames('rst__node', directionClass)}>
         {scaffold}
 
-        <div
-          className="rst__nodeContent"
-          style={style}
-        >
+        <div className="rst__nodeContent" style={style}>
           {Children.map(children, child =>
             cloneElement(child, {
               isOver,
@@ -193,6 +192,9 @@ TreeNode.propTypes = {
   path: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,
+
+  // rtl support
+  direction: PropTypes.string,
 };
 
 export default TreeNode;

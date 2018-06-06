@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.rst__rtl.rst__rowWrapper {
+  padding: 10px 0 10px 10px;
+}
+
 .rst__row {
   height: 100%;
   white-space: nowrap;
@@ -85,13 +89,28 @@
   background-color: white;
 }
 
+.rst__rtl.rst__rowContents {
+  border-right: none;
+  border-left: solid #bbb 1px;
+  padding: 0 10px 0 5px;
+}
+
 .rst__rowContentsDragDisabled {
+  border-left: solid #bbb 1px;
+}
+
+.rst__rtl.rst__rowContentsDragDisabled {
+  border-right: solid #bbb 1px;
   border-left: solid #bbb 1px;
 }
 
 .rst__rowLabel {
   flex: 0 1 auto;
   padding-right: 20px;
+}
+.rst__rtl.rst__rowLabel {
+  padding-left: 20px;
+  padding-right: inherit;
 }
 
 .rst__rowToolbar {
@@ -143,6 +162,12 @@
   left: 0;
   top: 0;
 }
+
+.rst__rtl.rst__loadingCirclePoint {
+  right: 0;
+  left: initial;
+}
+
 .rst__loadingCirclePoint::before {
   content: '';
   display: block;
@@ -253,6 +278,10 @@
   transform: translate(-50%, -50%);
   cursor: pointer;
 }
+.rst__rtl.rst__collapseButton,
+.rst__rtl.rst__expandButton {
+  transform: translate(50%, -50%);
+}
 .rst__collapseButton:focus,
 .rst__expandButton:focus {
   outline: none;
@@ -293,4 +322,9 @@
   left: 50%;
   bottom: 0;
   height: 10px;
+}
+
+.rst__rtl.rst__lineChildren::after {
+  right: 50%;
+  left: initial;
 }
