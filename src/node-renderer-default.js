@@ -29,10 +29,12 @@ class NodeRendererDefault extends Component {
       treeId,
       isOver, // Not needed, but preserved for other renderers
       parentNode, // Needed for dndManager
+      rowDirection,
       ...otherProps
     } = this.props;
     const nodeTitle = title || node.title;
     const nodeSubtitle = subtitle || node.subtitle;
+    const rowDirectionClass = rowDirection === 'rtl' ? 'rst__rtl' : null;
 
     let handle;
     if (canDrag) {
@@ -46,7 +48,10 @@ class NodeRendererDefault extends Component {
                 <div
                   // eslint-disable-next-line react/no-array-index-key
                   key={index}
-                  className="rst__loadingCirclePoint"
+                  className={classnames(
+                    'rst__loadingCirclePoint',
+                    rowDirectionClass
+                  )}
                 />
               ))}
             </div>
@@ -63,6 +68,11 @@ class NodeRendererDefault extends Component {
     const isDraggedDescendant = draggedNode && isDescendant(draggedNode, node);
     const isLandingPadActive = !didDrop && isDragging;
 
+    let buttonStyle = { left: -0.5 * scaffoldBlockPxWidth };
+    if (rowDirection === 'rtl') {
+      buttonStyle = { right: -0.5 * scaffoldBlockPxWidth };
+    }
+
     return (
       <div style={{ height: '100%' }} {...otherProps}>
         {toggleChildrenVisibility &&
@@ -72,10 +82,11 @@ class NodeRendererDefault extends Component {
               <button
                 type="button"
                 aria-label={node.expanded ? 'Collapse' : 'Expand'}
-                className={
-                  node.expanded ? 'rst__collapseButton' : 'rst__expandButton'
-                }
-                style={{ left: -0.5 * scaffoldBlockPxWidth }}
+                className={classnames(
+                  node.expanded ? 'rst__collapseButton' : 'rst__expandButton',
+                  rowDirectionClass
+                )}
+                style={buttonStyle}
                 onClick={() =>
                   toggleChildrenVisibility({
                     node,
@@ -89,13 +100,16 @@ class NodeRendererDefault extends Component {
                 !isDragging && (
                   <div
                     style={{ width: scaffoldBlockPxWidth }}
-                    className="rst__lineChildren"
+                    className={classnames(
+                      'rst__lineChildren',
+                      rowDirectionClass
+                    )}
                   />
                 )}
             </div>
           )}
 
-        <div className="rst__rowWrapper">
+        <div className={classnames('rst__rowWrapper', rowDirectionClass)}>
           {/* Set the row preview to be used during drag and drop */}
           {connectDragPreview(
             <div
@@ -105,6 +119,7 @@ class NodeRendererDefault extends Component {
                 isLandingPadActive && !canDrop && 'rst__rowCancelPad',
                 isSearchMatch && 'rst__rowSearchMatch',
                 isSearchFocus && 'rst__rowSearchFocus',
+                rowDirectionClass,
                 className
               )}
               style={{
@@ -117,10 +132,11 @@ class NodeRendererDefault extends Component {
               <div
                 className={classnames(
                   'rst__rowContents',
-                  !canDrag && 'rst__rowContentsDragDisabled'
+                  !canDrag && 'rst__rowContentsDragDisabled',
+                  rowDirectionClass
                 )}
               >
-                <div className="rst__rowLabel">
+                <div className={classnames('rst__rowLabel', rowDirectionClass)}>
                   <span
                     className={classnames(
                       'rst__rowTitle',
@@ -181,6 +197,7 @@ NodeRendererDefault.defaultProps = {
   canDrop: false,
   title: null,
   subtitle: null,
+  rowDirection: 'ltr',
 };
 
 NodeRendererDefault.propTypes = {
@@ -212,6 +229,9 @@ NodeRendererDefault.propTypes = {
   // Drop target
   isOver: PropTypes.bool.isRequired,
   canDrop: PropTypes.bool,
+
+  // rtl support
+  rowDirection: PropTypes.string,
 };
 
 export default NodeRendererDefault;
