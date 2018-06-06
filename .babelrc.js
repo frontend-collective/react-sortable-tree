@@ -23,6 +23,7 @@ if (env === 'rollup') {
 if (env === 'development') {
   module.exports = {
     presets: ['react', 'stage-2'],
+    plugins: ['react-hot-loader/babel'],
   };
 }
 
