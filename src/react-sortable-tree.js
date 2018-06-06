@@ -565,6 +565,7 @@ class ReactSortableTree extends Component {
       node,
       path,
       treeId: this.treeId,
+      direction: this.props.direction === 'rtl' ? 'rtl' : 'ltr'
     };
 
     return (
@@ -613,6 +614,7 @@ class ReactSortableTree extends Component {
     } = this.state;
 
     const treeData = this.state.draggingTreeData || instanceProps.treeData;
+    const directionClass = this.props.direction === 'rtl' ? 'rst__rtl' : 'rst_ltr';
 
     let rows;
     let swapFrom = null;
@@ -741,7 +743,7 @@ class ReactSortableTree extends Component {
 
     return (
       <div
-        className={classnames('rst__tree', className)}
+        className={classnames('rst__tree', className, directionClass)}
         style={containerStyle}
       >
         {list}
