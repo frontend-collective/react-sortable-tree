@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader'; // eslint-disable-line import/no-extraneous-dependencies
 import {
   SortableTreeWithoutDndContext as SortableTree,
   toggleExpandedForAll,
@@ -351,4 +352,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default hot(module)(App);
