@@ -278,7 +278,6 @@ class App extends Component {
           </form>
           <div style={treeContainerStyle}>
             <SortableTree
-              direction="rtl"
               treeData={treeData}
               onChange={this.updateTreeData}
               onMoveNode={({ node, treeIndex, path }) =>
