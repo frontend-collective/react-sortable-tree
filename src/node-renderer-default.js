@@ -29,12 +29,12 @@ class NodeRendererDefault extends Component {
       treeId,
       isOver, // Not needed, but preserved for other renderers
       parentNode, // Needed for dndManager
-      direction,
+      rowDirection,
       ...otherProps
     } = this.props;
     const nodeTitle = title || node.title;
     const nodeSubtitle = subtitle || node.subtitle;
-    const directionClass = direction === 'rtl' ? 'rst__rtl' : null;
+    const rowDirectionClass = rowDirection === 'rtl' ? 'rst__rtl' : null;
 
     let handle;
     if (canDrag) {
@@ -50,7 +50,7 @@ class NodeRendererDefault extends Component {
                   key={index}
                   className={classnames(
                     'rst__loadingCirclePoint',
-                    directionClass
+                    rowDirectionClass
                   )}
                 />
               ))}
@@ -69,7 +69,7 @@ class NodeRendererDefault extends Component {
     const isLandingPadActive = !didDrop && isDragging;
 
     let buttonStyle = { left: -0.5 * scaffoldBlockPxWidth };
-    if (direction === 'rtl') {
+    if (rowDirection === 'rtl') {
       buttonStyle = { right: -0.5 * scaffoldBlockPxWidth };
     }
 
@@ -84,7 +84,7 @@ class NodeRendererDefault extends Component {
                 aria-label={node.expanded ? 'Collapse' : 'Expand'}
                 className={classnames(
                   node.expanded ? 'rst__collapseButton' : 'rst__expandButton',
-                  directionClass
+                  rowDirectionClass
                 )}
                 style={buttonStyle}
                 onClick={() =>
@@ -100,13 +100,16 @@ class NodeRendererDefault extends Component {
                 !isDragging && (
                   <div
                     style={{ width: scaffoldBlockPxWidth }}
-                    className={classnames('rst__lineChildren', directionClass)}
+                    className={classnames(
+                      'rst__lineChildren',
+                      rowDirectionClass
+                    )}
                   />
                 )}
             </div>
           )}
 
-        <div className={classnames('rst__rowWrapper', directionClass)}>
+        <div className={classnames('rst__rowWrapper', rowDirectionClass)}>
           {/* Set the row preview to be used during drag and drop */}
           {connectDragPreview(
             <div
@@ -116,7 +119,7 @@ class NodeRendererDefault extends Component {
                 isLandingPadActive && !canDrop && 'rst__rowCancelPad',
                 isSearchMatch && 'rst__rowSearchMatch',
                 isSearchFocus && 'rst__rowSearchFocus',
-                directionClass,
+                rowDirectionClass,
                 className
               )}
               style={{
@@ -130,10 +133,10 @@ class NodeRendererDefault extends Component {
                 className={classnames(
                   'rst__rowContents',
                   !canDrag && 'rst__rowContentsDragDisabled',
-                  directionClass
+                  rowDirectionClass
                 )}
               >
-                <div className={classnames('rst__rowLabel', directionClass)}>
+                <div className={classnames('rst__rowLabel', rowDirectionClass)}>
                   <span
                     className={classnames(
                       'rst__rowTitle',
@@ -194,6 +197,7 @@ NodeRendererDefault.defaultProps = {
   canDrop: false,
   title: null,
   subtitle: null,
+  rowDirection: 'ltr',
 };
 
 NodeRendererDefault.propTypes = {
@@ -227,7 +231,7 @@ NodeRendererDefault.propTypes = {
   canDrop: PropTypes.bool,
 
   // rtl support
-  direction: PropTypes.string,
+  rowDirection: PropTypes.string,
 };
 
 export default NodeRendererDefault;

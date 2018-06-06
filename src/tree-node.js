@@ -22,11 +22,11 @@ class TreeNode extends Component {
       getPrevRow, // Delete from otherProps
       node, // Delete from otherProps
       path, // Delete from otherProps
-      direction,
+      rowDirection,
       ...otherProps
     } = this.props;
 
-    const directionClass = direction === 'rtl' ? 'rst__rtl' : null;
+    const rowDirectionClass = rowDirection === 'rtl' ? 'rst__rtl' : null;
 
     // Construct the scaffold representing the structure of the tree
     const scaffoldBlockCount = lowerSiblingCounts.length;
@@ -84,7 +84,7 @@ class TreeNode extends Component {
         <div
           key={`pre_${1 + i}`}
           style={{ width: scaffoldBlockPxWidth }}
-          className={classnames('rst__lineBlock', lineClass, directionClass)}
+          className={classnames('rst__lineBlock', lineClass, rowDirectionClass)}
         />
       );
 
@@ -106,13 +106,13 @@ class TreeNode extends Component {
         }
 
         let style;
-        if (direction === 'rtl') {
+        if (rowDirection === 'rtl') {
           style = {
             width: scaffoldBlockPxWidth,
             right: scaffoldBlockPxWidth * i,
           };
         } else {
-          //Default ltr
+          // Default ltr
           style = {
             width: scaffoldBlockPxWidth,
             left: scaffoldBlockPxWidth * i,
@@ -127,7 +127,7 @@ class TreeNode extends Component {
             className={classnames(
               'rst__absoluteLineBlock',
               highlightLineClass,
-              directionClass
+              rowDirectionClass
             )}
           />
         );
@@ -135,7 +135,7 @@ class TreeNode extends Component {
     });
 
     let style;
-    if (direction === 'rtl') {
+    if (rowDirection === 'rtl') {
       style = { right: scaffoldBlockPxWidth * scaffoldBlockCount };
     } else {
       // Default ltr
@@ -143,7 +143,10 @@ class TreeNode extends Component {
     }
 
     return connectDropTarget(
-      <div {...otherProps} className={classnames('rst__node', directionClass)}>
+      <div
+        {...otherProps}
+        className={classnames('rst__node', rowDirectionClass)}
+      >
         {scaffold}
 
         <div className="rst__nodeContent" style={style}>
@@ -166,6 +169,7 @@ TreeNode.defaultProps = {
   swapLength: null,
   canDrop: false,
   draggedNode: null,
+  rowDirection: 'ltr',
 };
 
 TreeNode.propTypes = {
@@ -194,7 +198,7 @@ TreeNode.propTypes = {
   ).isRequired,
 
   // rtl support
-  direction: PropTypes.string,
+  rowDirection: PropTypes.string,
 };
 
 export default TreeNode;

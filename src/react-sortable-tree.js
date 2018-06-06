@@ -537,7 +537,7 @@ class ReactSortableTree extends Component {
       generateNodeProps,
       scaffoldBlockPxWidth,
       searchFocusOffset,
-      direction,
+      rowDirection,
     } = mergeTheme(this.props);
     const TreeNodeRenderer = this.treeNodeRenderer;
     const NodeContentRenderer = this.nodeContentRenderer;
@@ -566,7 +566,7 @@ class ReactSortableTree extends Component {
       node,
       path,
       treeId: this.treeId,
-      direction: direction === 'rtl' ? 'rtl' : null,
+      rowDirection,
     };
 
     return (
@@ -604,7 +604,7 @@ class ReactSortableTree extends Component {
       placeholderRenderer,
       reactVirtualizedListProps,
       getNodeKey,
-      direction,
+      rowDirection,
     } = mergeTheme(this.props);
     const {
       searchMatches,
@@ -616,7 +616,7 @@ class ReactSortableTree extends Component {
     } = this.state;
 
     const treeData = this.state.draggingTreeData || instanceProps.treeData;
-    const directionClass = direction === 'rtl' ? 'rst__rtl' : null;
+    const rowDirectionClass = rowDirection === 'rtl' ? 'rst__rtl' : null;
 
     let rows;
     let swapFrom = null;
@@ -745,7 +745,7 @@ class ReactSortableTree extends Component {
 
     return (
       <div
-        className={classnames('rst__tree', className, directionClass)}
+        className={classnames('rst__tree', className, rowDirectionClass)}
         style={containerStyle}
       >
         {list}
@@ -878,7 +878,7 @@ ReactSortableTree.propTypes = {
   onlyExpandSearchedNodes: PropTypes.bool,
 
   // rtl support
-  direction: PropTypes.string,
+  rowDirection: PropTypes.string,
 };
 
 ReactSortableTree.defaultProps = {
@@ -909,7 +909,7 @@ ReactSortableTree.defaultProps = {
   theme: {},
   onDragStateChanged: () => {},
   onlyExpandSearchedNodes: false,
-  direction: null,
+  rowDirection: 'ltr',
 };
 
 ReactSortableTree.contextTypes = {

@@ -88,7 +88,7 @@ export default class DndManager {
         blocksOffset = dropTargetProps.path.length;
       }
     } else {
-      let direction = dropTargetProps.direction === 'rtl' ? -1 : 1;
+      const direction = dropTargetProps.direction === 'rtl' ? -1 : 1;
 
       blocksOffset = Math.round(
         (direction * monitor.getDifferenceFromInitialOffset().x) /

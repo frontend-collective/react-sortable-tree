@@ -3855,7 +3855,7 @@ exports[`Storyshots Basics Themes 1`] = `
           >
             <div
               className="rstcustom__node"
-              direction={null}
+              rowDirection="ltr"
               style={
                 Object {
                   "height": 25,
@@ -3867,7 +3867,7 @@ exports[`Storyshots Basics Themes 1`] = `
               }
             >
               <div
-                direction={null}
+                rowDirection="ltr"
                 style={
                   Object {
                     "height": "100%",
@@ -3935,7 +3935,7 @@ exports[`Storyshots Basics Themes 1`] = `
             </div>
             <div
               className="rstcustom__node"
-              direction={null}
+              rowDirection="ltr"
               style={
                 Object {
                   "height": 25,
@@ -3947,7 +3947,7 @@ exports[`Storyshots Basics Themes 1`] = `
               }
             >
               <div
-                direction={null}
+                rowDirection="ltr"
                 style={
                   Object {
                     "height": "100%",
@@ -4023,7 +4023,7 @@ exports[`Storyshots Basics Themes 1`] = `
             </div>
             <div
               className="rstcustom__node"
-              direction={null}
+              rowDirection="ltr"
               style={
                 Object {
                   "height": 25,
@@ -4035,7 +4035,7 @@ exports[`Storyshots Basics Themes 1`] = `
               }
             >
               <div
-                direction={null}
+                rowDirection="ltr"
                 style={
                   Object {
                     "height": "100%",
@@ -4116,7 +4116,7 @@ exports[`Storyshots Basics Themes 1`] = `
             </div>
             <div
               className="rstcustom__node"
-              direction={null}
+              rowDirection="ltr"
               style={
                 Object {
                   "height": 25,
@@ -4128,7 +4128,7 @@ exports[`Storyshots Basics Themes 1`] = `
               }
             >
               <div
-                direction={null}
+                rowDirection="ltr"
                 style={
                   Object {
                     "height": "100%",
@@ -4185,7 +4185,7 @@ exports[`Storyshots Basics Themes 1`] = `
             </div>
             <div
               className="rstcustom__node"
-              direction={null}
+              rowDirection="ltr"
               style={
                 Object {
                   "height": 25,
@@ -4197,7 +4197,7 @@ exports[`Storyshots Basics Themes 1`] = `
               }
             >
               <div
-                direction={null}
+                rowDirection="ltr"
                 style={
                   Object {
                     "height": "100%",
