@@ -30,7 +30,7 @@ For example:
 
 ```js
 // This only needs to be done once; probably during your application's bootstrapping process.
-import 'react-sortable-tree/styles.css';
+import 'react-sortable-tree/style.css';
 
 // You can import the default tree with dnd context
 import SortableTree from 'react-sortable-tree';
