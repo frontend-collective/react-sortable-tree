@@ -12,6 +12,11 @@
   overflow: visible !important;
 }
 
+.rst__rtl .ReactVirtualized__Grid__innerScrollContainer{
+  direction: rtl;
+}
+
+
 .ReactVirtualized__Grid {
   outline: none;
 }
