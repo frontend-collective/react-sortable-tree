@@ -15,6 +15,7 @@ import ThemesExample from './themes';
 import TouchSupportExample from './touch-support';
 import TreeDataIOExample from './tree-data-io';
 import TreeToTreeExample from './tree-to-tree';
+import RowDirectionExample from './rtl-support';
 import './generic.css';
 
 import { handleClick, SANDBOX_URL } from './sandbox-utils';
@@ -57,7 +58,10 @@ storiesOf('Basics', module)
   .add('Prevent drop', () => wrapWithSource(<CanDropExample />, 'can-drop.js'))
   .add('Search', () => wrapWithSource(<SearchExample />, 'search.js'))
   .add('Themes', () => wrapWithSource(<ThemesExample />, 'themes.js'))
-  .add('Callbacks', () => wrapWithSource(<CallbacksExample />, 'callbacks.js'));
+  .add('Callbacks', () => wrapWithSource(<CallbacksExample />, 'callbacks.js'))
+  .add('Row direction support', () =>
+    wrapWithSource(<RowDirectionExample />, 'rtl-support.js')
+  );
 
 storiesOf('Advanced', module)
   .add('Drag from external source', () =>
