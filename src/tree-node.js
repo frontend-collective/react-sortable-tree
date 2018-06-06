@@ -25,7 +25,7 @@ class TreeNode extends Component {
       ...otherProps
     } = this.props;
 
-    const directionClass = this.props.direction === 'rtl' ? 'rst__rtl' : '';
+    const directionClass = this.props.direction === 'rtl' ? 'rst__rtl' : 'rst__ltr';
 
 
     // Construct the scaffold representing the structure of the tree
@@ -84,7 +84,7 @@ class TreeNode extends Component {
         <div
           key={`pre_${1 + i}`}
           style={{ width: scaffoldBlockPxWidth }}
-          className={`${'rst__lineBlock'} ${lineClass} ${directionClass}`}
+          className={classnames('rst__lineBlock', lineClass, directionClass)}
         />
       );
 

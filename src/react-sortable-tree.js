@@ -565,7 +565,7 @@ class ReactSortableTree extends Component {
       node,
       path,
       treeId: this.treeId,
-      direction: this.props.direction
+      direction: this.props.direction === 'rtl' ? 'rtl' : 'ltr'
     };
 
     return (
