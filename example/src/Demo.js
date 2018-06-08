@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SortableTree, { toggleExpandedForAll } from 'react-sortable-tree';
+import styles from './Demo.module.css';
 
 const maxDepth = 5;
 
@@ -17,9 +18,6 @@ const alertNodeInfo = ({ node, path, treeIndex }) => {
       `treeIndex: ${treeIndex}`
   );
 };
-
-const isVirtualized = true;
-const treeContainerStyle = isVirtualized ? { height: 450 } : {};
 
 export default class Demo extends Component {
   constructor(props) {
@@ -211,7 +209,7 @@ export default class Demo extends Component {
     } = this.state;
 
     return (
-      <div style={treeContainerStyle}>
+      <div className={styles.demoWrapper}>
         <SortableTree
           treeData={treeData}
           onChange={this.updateTreeData}
@@ -237,7 +235,7 @@ export default class Demo extends Component {
                 matches.length > 0 ? searchFocusIndex % matches.length : 0,
             })
           }
-          isVirtualized={isVirtualized}
+          isVirtualized={true}
           generateNodeProps={rowInfo => ({
             buttons: [
               <button

@@ -3,7 +3,11 @@ import Demo from './Demo';
 
 class App extends Component {
   render() {
-    return <Demo />;
+    return (
+      <div>
+        <Demo />
+      </div>
+    );
   }
 }
 
