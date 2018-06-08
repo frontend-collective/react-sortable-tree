@@ -10,7 +10,7 @@ setOptions({
 
 function loadStories() {
   // eslint-disable-next-line global-require
-  require('../examples/storybooks');
+  require('../stories');
 }
 
 configure(loadStories, module);

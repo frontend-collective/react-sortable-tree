@@ -9,9 +9,9 @@ export const SANDBOX_URL = 'https://codesandbox.io/api/v1/sandboxes/define';
 // full url for github api call
 const getURL = filename => `${GIT_URL}/examples/storybooks/${filename}`;
 
-// strip ../../src from the src
+// strip ../src from the src
 const strip = code =>
-  code.replace('../../src', 'react-sortable-tree').replace(
+  code.replace('../src', 'react-sortable-tree').replace(
     `// In your own app, you would need to use import styles once in the app
 // import 'react-sortable-tree/styles.css';`,
     ''

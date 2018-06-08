@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { Component } from 'react';
 import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
-import SortableTree from '../../src';
+import SortableTree from '../src';
 // In your own app, you would need to use import styles once in the app
 // import 'react-sortable-tree/styles.css';
 

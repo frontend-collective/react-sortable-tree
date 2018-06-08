@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SortableTree from '../../src';
+import SortableTree from '../src';
 // In your own app, you would need to use import styles once in the app
 // import 'react-sortable-tree/styles.css';
 
@@ -9,27 +9,15 @@ export default class App extends Component {
 
     this.state = {
       treeData: [
-        {
-          title: 'Chicken',
-          expanded: true,
-          children: [
-            { title: 'Egg' },
-            { title: 'Egg' },
-            { title: 'Egg' },
-            { title: 'Egg' },
-            { title: 'Egg' },
-            { title: 'Egg' },
-          ],
-        },
+        { title: 'Chicken', expanded: true, children: [{ title: 'Egg' }] },
       ],
     };
   }
 
   render() {
     return (
-      <div style={{ height: 300, width: 600 }}>
+      <div style={{ height: 300 }}>
         <SortableTree
-          rowDirection="rtl"
           treeData={this.state.treeData}
           onChange={treeData => this.setState({ treeData })}
         />
