@@ -53,9 +53,9 @@
     "start": "node scripts/start.js",
     "now-start": "serve --single ./build",
     "predeploy": "npm run build",
-    "deploy": "now deploy ./build && now alias",
+    "deploy": "surge ./build react-sortable-tree.surge.sh",
     "build": "node scripts/build.js",
-    "postbuild": "rimraf 'build/**/*.map' && cp ./now.json ./build/",
+    "postbuild": "rimraf 'build/**/*.map'",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
