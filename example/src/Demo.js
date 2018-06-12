@@ -82,8 +82,12 @@ export default class Demo extends Component {
       <div className={styles.demoWrapper}>
         <div className={styles.buttons}>
           <div>
-            <button onClick={this.expandAll}>Expand All</button>
-            <button onClick={this.collapseAll}>Collapse All</button>
+            <button className="btn btn-primary" onClick={this.expandAll}>
+              Expand All
+            </button>
+            <button className="btn btn-warning" onClick={this.collapseAll}>
+              Collapse All
+            </button>
           </div>
           <form
             style={{ display: 'inline-block' }}
@@ -104,6 +108,7 @@ export default class Demo extends Component {
             </label>
 
             <button
+              className="btn btn-info"
               type="button"
               disabled={!searchFoundCount}
               onClick={this.selectPrevMatch}
@@ -112,6 +117,7 @@ export default class Demo extends Component {
             </button>
 
             <button
+              className="btn btn-info"
               type="submit"
               disabled={!searchFoundCount}
               onClick={this.selectNextMatch}
@@ -157,6 +163,7 @@ export default class Demo extends Component {
             generateNodeProps={rowInfo => ({
               buttons: [
                 <button
+                  className="btn btn-outline-success"
                   style={{
                     verticalAlign: 'middle',
                   }}

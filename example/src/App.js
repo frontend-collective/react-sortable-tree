@@ -24,6 +24,7 @@ class App extends Component {
   componentDidMount() {
     if (this._editor) {
       this._editor.set(treeData);
+      this._editor.expandAll();
     }
   }
 
