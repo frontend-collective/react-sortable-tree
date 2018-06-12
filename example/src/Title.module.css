@@ -1,0 +1,13 @@
+.brand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.brandImage {
+  padding-right: 5px;
+}
+
+.github {
+  margin-top: 15px;
+}

@@ -11,7 +11,7 @@
 [![Build Status](https://travis-ci.org/frontend-collective/react-sortable-tree.svg?branch=master)](https://travis-ci.org/frontend-collective/react-sortable-tree)
 [![Coverage Status](https://coveralls.io/repos/github/frontend-collective/react-sortable-tree/badge.svg?branch=master)](https://coveralls.io/github/frontend-collective/react-sortable-tree?branch=master)
 
-> A React component for Drag-and-drop sortable representation of hierarchical data. Checkout [the demo](https://frontend-collective.github.io/react-sortable-tree/) for some examples. Checkout the [storybook](https://frontend-collective.github.io/react-sortable-tree/storybook/index.html) for advanced usage. Play with the code on [CodeSandbox.io](https://codesandbox.io/s/wkxvy3z15w).
+> A React component for Drag-and-drop sortable representation of hierarchical data. Checkout the [demo](https://react-sortable-tree.surge.sh/) for a demonstration of some basic features. Checkout the [storybook](https://frontend-collective.github.io/react-sortable-tree/storybook/index.html) for advanced usage. Play with the code on [CodeSandbox.io](https://codesandbox.io/s/wkxvy3z15w).
 
 <div align="center">
   <img src="https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif"/>
