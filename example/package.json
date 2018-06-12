@@ -1,6 +1,6 @@
 {
   "name": "react-sortable-tree-docs",
-  "homepage": "https://react-sortable-tree.now.sh",
+  "homepage": "https://react-sortable-tree.surge.sh",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
