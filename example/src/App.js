@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import SplitPane from 'react-split-pane';
+import { toggleExpandedForAll } from 'react-sortable-tree';
 import Demo from './Demo';
 import Editor from './Editor';
 import Title from './Title';
@@ -17,6 +18,7 @@ class App extends Component {
     this.onChangeTreeData = this.onChangeTreeData.bind(this);
     this.getNewTreeData = this.getNewTreeData.bind(this);
     this.editorRef = this.editorRef.bind(this);
+    this.expand = this.expand.bind(this);
   }
 
   componentDidMount() {
@@ -46,15 +48,35 @@ class App extends Component {
     this._editor = editor;
   }
 
+  expand(expanded) {
+    const newTreeData = toggleExpandedForAll({
+      treeData: this.state.treeData,
+      expanded,
+    });
+
+    this._editor.set(treeData);
+
+    this.setState({
+      treeData: newTreeData,
+    });
+  }
+
   render() {
     const { treeData } = this.state;
 
     return (
       <Fragment>
         <Title />
-        <SplitPane split="vertical" defaultSize={700}>
-          <Demo onChangeTreeData={this.onChangeTreeData} treeData={treeData} />
+        <SplitPane split="vertical" defaultSize="50%">
+          <Demo
+            onChangeTreeData={this.onChangeTreeData}
+            treeData={treeData}
+            expand={this.expand}
+          />
+          {/* <SplitPane split="horizontal" defaultSize="25%">
+            <div /> */}
           <Editor onChange={this.getNewTreeData} editorRef={this.editorRef} />
+          {/* </SplitPane> */}
         </SplitPane>
       </Fragment>
     );

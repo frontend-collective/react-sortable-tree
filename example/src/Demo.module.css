@@ -1,3 +1,14 @@
 .demoWrapper {
   height: 100%;
 }
+
+.treeWrapper {
+  height: calc(100% - 30px);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}

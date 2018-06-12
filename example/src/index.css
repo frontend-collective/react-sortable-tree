@@ -51,5 +51,17 @@
 }
 
 .SplitPane.vertical {
-  height: calc(100% - 140px) !important;
+  height: calc(100% - 80px) !important;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+.container {
+  margin-left: 0;
 }

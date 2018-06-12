@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import SortableTree, { toggleExpandedForAll } from 'react-sortable-tree';
+import SortableTree from 'react-sortable-tree';
 import styles from './Demo.module.css';
 
 const maxDepth = 5;
-
-// const renderDepthTitle = ({ path }) => `Depth: ${path.length}`;
 
 const alertNodeInfo = ({ node, path, treeIndex }) => {
   const objectString = Object.keys(node)
@@ -23,7 +21,6 @@ export default class Demo extends Component {
   constructor(props) {
     super(props);
 
-    // this.updateTreeData = this.updateTreeData.bind(this);
     this.expandAll = this.expandAll.bind(this);
     this.collapseAll = this.collapseAll.bind(this);
     this.selectNextMatch = this.selectNextMatch.bind(this);
@@ -33,28 +30,20 @@ export default class Demo extends Component {
       searchString: '',
       searchFocusIndex: 0,
       searchFoundCount: null,
+      treeData: [],
     };
   }
 
-  // updateTreeData(treeData) {
-  //   this.setState({ treeData });
-  // }
-
-  expand(expanded) {
-    this.setState({
-      treeData: toggleExpandedForAll({
-        treeData: this.state.treeData,
-        expanded,
-      }),
-    });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return { treeData: nextProps.treeData };
   }
 
   expandAll() {
-    this.expand(true);
+    this.props.expand(true);
   }
 
   collapseAll() {
-    this.expand(false);
+    this.props.expand(false);
   }
 
   selectPrevMatch() {
@@ -81,56 +70,104 @@ export default class Demo extends Component {
 
   render() {
     const {
-      // treeData,
+      treeData,
       searchString,
       searchFocusIndex,
       searchFoundCount,
     } = this.state;
 
-    const { onChangeTreeData, treeData } = this.props;
+    const { onChangeTreeData } = this.props;
 
     return (
       <div className={styles.demoWrapper}>
-        <SortableTree
-          treeData={treeData}
-          // onChange={this.updateTreeData}
-          onChange={onChangeTreeData}
-          onMoveNode={({ node, treeIndex, path }) =>
-            global.console.debug(
-              'node:',
-              node,
-              'treeIndex:',
-              treeIndex,
-              'path:',
-              path
-            )
-          }
-          maxDepth={maxDepth}
-          searchQuery={searchString}
-          searchFocusOffset={searchFocusIndex}
-          canDrag={({ node }) => !node.noDragging}
-          canDrop={({ nextParent }) => !nextParent || !nextParent.noChildren}
-          searchFinishCallback={matches =>
-            this.setState({
-              searchFoundCount: matches.length,
-              searchFocusIndex:
-                matches.length > 0 ? searchFocusIndex % matches.length : 0,
-            })
-          }
-          isVirtualized={true}
-          generateNodeProps={rowInfo => ({
-            buttons: [
-              <button
-                style={{
-                  verticalAlign: 'middle',
-                }}
-                onClick={() => alertNodeInfo(rowInfo)}
-              >
-                ℹ
-              </button>,
-            ],
-          })}
-        />
+        <div className={styles.buttons}>
+          <div>
+            <button onClick={this.expandAll}>Expand All</button>
+            <button onClick={this.collapseAll}>Collapse All</button>
+          </div>
+          <form
+            style={{ display: 'inline-block' }}
+            onSubmit={event => {
+              event.preventDefault();
+            }}
+          >
+            <label htmlFor="find-box">
+              Search:&nbsp;
+              <input
+                id="find-box"
+                type="text"
+                value={searchString}
+                onChange={event =>
+                  this.setState({ searchString: event.target.value })
+                }
+              />
+            </label>
+
+            <button
+              type="button"
+              disabled={!searchFoundCount}
+              onClick={this.selectPrevMatch}
+            >
+              &lt;
+            </button>
+
+            <button
+              type="submit"
+              disabled={!searchFoundCount}
+              onClick={this.selectNextMatch}
+            >
+              &gt;
+            </button>
+
+            <span>
+              &nbsp;
+              {searchFoundCount > 0 ? searchFocusIndex + 1 : 0}
+              {' / '}
+              {searchFoundCount || 0}
+            </span>
+          </form>
+        </div>
+        <div className={styles.treeWrapper}>
+          <SortableTree
+            treeData={treeData}
+            onChange={onChangeTreeData}
+            onMoveNode={({ node, treeIndex, path }) =>
+              global.console.debug(
+                'node:',
+                node,
+                'treeIndex:',
+                treeIndex,
+                'path:',
+                path
+              )
+            }
+            maxDepth={maxDepth}
+            searchQuery={searchString}
+            searchFocusOffset={searchFocusIndex}
+            canDrag={({ node }) => !node.noDragging}
+            canDrop={({ nextParent }) => !nextParent || !nextParent.noChildren}
+            searchFinishCallback={matches =>
+              this.setState({
+                searchFoundCount: matches.length,
+                searchFocusIndex:
+                  matches.length > 0 ? searchFocusIndex % matches.length : 0,
+              })
+            }
+            isVirtualized={true}
+            generateNodeProps={rowInfo => ({
+              buttons: [
+                <button
+                  style={{
+                    verticalAlign: 'middle',
+                  }}
+                  onClick={() => alertNodeInfo(rowInfo)}
+                >
+                  ℹ
+                </button>,
+              ],
+            })}
+          />
+        </div>
       </div>
     );
   }

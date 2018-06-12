@@ -1,53 +1,13 @@
-/* octocat */
-.githubCorner:hover .octoArm {
-  animation: octocat-wave 560ms ease-in-out;
-}
-@keyframes octocat-wave {
-  0%,
-  100% {
-    transform: rotate(0);
-  }
-  20%,
-  60% {
-    transform: rotate(-25deg);
-  }
-  40%,
-  80% {
-    transform: rotate(10deg);
-  }
-}
-@media (max-width: 500px) {
-  .githubCorner:hover .octoArm {
-    animation: none;
-  }
-  .githubCorner .octoArm {
-    animation: octocat-wave 560ms ease-in-out;
-  }
+.brand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.triangle {
-  fill: #fd6c6c;
-  color: #fff;
-  position: absolute;
-  top: 0;
-  border: 0;
-  right: 0;
+.brandImage {
+  padding-right: 5px;
 }
 
-.octoArm {
-  transform-origin: 130px 106px;
-}
-
-.title {
-  height: 110px;
-  border-bottom: 5px solid #fd6c6c;
-  margin-bottom: 10px;
-}
-
-.titleText {
-  width: 100%;
-  text-align: center;
-  font-family: 'Montserrat', sans-serif;
-  font-family: 'Sunflower', sans-serif;
-  font-size: 90px;
+.github {
+  margin-top: 15px;
 }
