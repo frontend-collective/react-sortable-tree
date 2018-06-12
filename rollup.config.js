@@ -2,20 +2,23 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import postcss from 'rollup-plugin-postcss';
-import { uglify } from 'rollup-plugin-uglify';
+
+import pkg from './package.json';
 
 export default {
   input: './src/index.js',
-  output: {
-    exports: 'named',
-    file: 'dist/umd/react-sortable-tree.js',
-    format: 'umd',
-    name: 'ReactSortableTree',
-    globals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
+  output: [
+    {
+      file: pkg.main,
+      format: 'cjs',
+      exports: 'named'
     },
-  },
+    {
+      file: pkg.module,
+      format: 'esm',
+      exports: 'named'
+    },
+  ],
   external: [
     'react',
     'react-dom',
@@ -34,13 +37,6 @@ export default {
     }),
     babel({
       exclude: 'node_modules/**',
-    }),
-    uglify({
-      mangle: false,
-      output: {
-        comments: true,
-        beautify: true,
-      },
     }),
   ],
 };

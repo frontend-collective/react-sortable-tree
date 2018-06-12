@@ -25,7 +25,7 @@ Install `react-sortable-tree` using npm.
 npm install react-sortable-tree --save
 ```
 
-ES6, CommonJS, and UMD builds are available with each distribution.
+ES6 and CommonJS builds are available with each distribution.
 For example:
 
 ```js
@@ -38,18 +38,11 @@ import SortableTree from 'react-sortable-tree';
 // Or you can import the tree without the dnd context as a named export. eg
 import { SortableTreeWithoutDndContext as SortableTree } from 'react-sortable-tree';
 
-// Importing from commonjs (default)
-import SortableTree from 'react-sortable-tree/dist/commonjs';
+// Importing from esm (default)
+import SortableTree from 'react-sortable-tree/dist/index.esm.js';
 
-// Importing from es
-import SortableTree from 'react-sortable-tree/dist/es';
-```
-
-You can also use a global-friendly UMD build:
-
-```html
-<link rel="stylesheet" href="path-to-react-sortable-tree/styles.css">
-<script src="path-to-react-sortable-tree/dist/umd/react-sortable-tree.js"></script>
+// Importing from cjs
+import SortableTree from 'react-sortable-tree/dist/index.cjs.js';
 ```
 
 ## Usage
@@ -140,13 +133,11 @@ Using the `theme` prop along with an imported theme module, you can easily overr
 
 ### Featured themes
 
-| ![File Explorer Theme](https://user-images.githubusercontent.com/4413963/32144502-1df1ae08-bcfd-11e7-8f63-8b836dace1a4.png) | <img alt="Full Node Drag Theme" src="https://user-images.githubusercontent.com/4413963/33521792-61dc2c50-d81f-11e7-8ab1-359661a11ca4.png" width="300"> | <img alt="MINIMAL THEME" src="https://github.com/lifejuggler/react-sortable-tree-theme-minimal/blob/master/example-resource/main.png" width="300"> |
-| :-------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                      **File Explorer**                                                      |                                                                   **Full Node Drag**                                                                   |                                                  **Minimalistic theme inspired from MATERIAL UI**                                                  |
-|                                           react-sortable-tree-theme-file-explorer                                           |                                                        react-sortable-tree-theme-full-node-drag                                                        |                                                         react-sortable-tree-theme-minimal                                                          |
-
-| [Github](https://github.com/
-/react-sortable-tree-theme-file-explorer) \| [NPM](https://www.npmjs.com/package/react-sortable-tree-theme-file-explorer) | [Github](https://github.com/frontend-collective/react-sortable-tree-theme-full-node-drag) \| [NPM](https://www.npmjs.com/package/react-sortable-tree-theme-full-node-drag) | [Github](https://github.com/lifejuggler/react-sortable-tree-theme-minimal) \| [NPM](https://www.npmjs.com/package/react-sortable-tree-theme-minimal) |
+|                       ![File Explorer Theme](https://user-images.githubusercontent.com/4413963/32144502-1df1ae08-bcfd-11e7-8f63-8b836dace1a4.png)                        |           <img alt="Full Node Drag Theme" src="https://user-images.githubusercontent.com/4413963/33521792-61dc2c50-d81f-11e7-8ab1-359661a11ca4.png" width="300">           |  <img alt="MINIMAL THEME" src="https://github.com/lifejuggler/react-sortable-tree-theme-minimal/blob/master/example-resource/main.png" width="300">  |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                            **File Explorer**                                                                             |                                                                             **Full Node Drag**                                                                             |                                                   **Minimalistic theme inspired from MATERIAL UI**                                                   |
+|                                                                 react-sortable-tree-theme-file-explorer                                                                  |                                                                  react-sortable-tree-theme-full-node-drag                                                                  |                                                          react-sortable-tree-theme-minimal                                                           |
+| [Github](https://github.com/frontend-collective/react-sortable-tree-theme-file-explorer) \| [NPM](https://www.npmjs.com/package/react-sortable-tree-theme-file-explorer) | [Github](https://github.com/frontend-collective/react-sortable-tree-theme-full-node-drag) \| [NPM](https://www.npmjs.com/package/react-sortable-tree-theme-full-node-drag) | [Github](https://github.com/lifejuggler/react-sortable-tree-theme-minimal) \| [NPM](https://www.npmjs.com/package/react-sortable-tree-theme-minimal) |
 
 **Help Wanted** - As the themes feature has just been enabled, there are very few (only _two_ at the time of this writing) theme modules available. If you've customized the appearance of your tree to be especially cool or easy to use, I would be happy to feature it in this readme with a link to the Github repo and NPM page if you convert it to a theme. You can use my [file explorer theme repo](https://github.com/frontend-collective/react-sortable-tree-theme-file-explorer) as a template to plug in your own stuff.
 

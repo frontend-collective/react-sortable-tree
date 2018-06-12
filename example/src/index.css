@@ -65,3 +65,10 @@ body {
 .container {
   margin-left: 0;
 }
+
+.btn {
+  margin-left: 3px;
+  margin-right: 3px;
+  padding-top: 0;
+  padding-bottom: 0;
+}

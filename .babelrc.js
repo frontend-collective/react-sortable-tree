@@ -1,37 +1,18 @@
 const env = process.env.NODE_ENV;
 
-if (env === 'commonjs' || env === 'es') {
-  module.exports = {
-    ignore: ['*.test.*'],
-    plugins: ['transform-runtime'],
-    presets: [['env', { modules: false }], 'react', 'stage-2'],
-  };
-
-  if (env === 'commonjs') {
-    module.exports.plugins.push('transform-es2015-modules-commonjs');
-  }
-}
-
 if (env === 'rollup') {
   module.exports = {
-    comments: false,
+    presets: [
+      [
+        'env',
+        {
+          modules: false,
+        },
+      ],
+      'stage-2',
+      'react',
+    ],
     plugins: ['external-helpers'],
-    presets: [['env', { modules: false }], 'react', 'stage-2'],
-  };
-}
-
-if (env === 'development') {
-  module.exports = {
-    presets: ['react', 'stage-2'],
-    plugins: ['react-hot-loader/babel'],
-  };
-}
-
-if (env === 'production') {
-  module.exports = {
-    comments: false,
-    plugins: ['transform-runtime'],
-    presets: ['env', 'react', 'stage-2'],
   };
 }
 
