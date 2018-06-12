@@ -57,8 +57,7 @@
     "predeploy": "npm run build && npm run build:storybook --prefix ..",
     "deploy": "surge ./build react-sortable-tree.surge.sh",
     "build": "node scripts/build.js",
-    "postbuild": "rimraf 'build/**/*.map'",
-    "test": "node scripts/test.js --env=jsdom"
+    "postbuild": "rimraf 'build/**/*.map'"
   },
   "jest": {
     "collectCoverageFrom": [
