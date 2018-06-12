@@ -55,7 +55,7 @@ class App extends Component {
       expanded,
     });
 
-    this._editor.set(treeData);
+    this._editor.set(newTreeData);
 
     this.setState({
       treeData: newTreeData,
