@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/frontend-collective/react-sortable-tree/compare/v2.1.2...v2.2.0) (2018-06-12)
+
+
+### Bug Fixes
+
+* correct link to react-virtualized props ([#349](https://github.com/frontend-collective/react-sortable-tree/issues/349)) ([46961ed](https://github.com/frontend-collective/react-sortable-tree/commit/46961ed))
+* remove the extra s on style.css ([#342](https://github.com/frontend-collective/react-sortable-tree/issues/342)) ([77451bc](https://github.com/frontend-collective/react-sortable-tree/commit/77451bc))
+
+
+### Features
+
+* commonjs, es6, umd build supports ([#327](https://github.com/frontend-collective/react-sortable-tree/issues/327)) ([6556e4d](https://github.com/frontend-collective/react-sortable-tree/commit/6556e4d))
+* NEW DOCS + SITE ([#343](https://github.com/frontend-collective/react-sortable-tree/issues/343)) ([176b8c3](https://github.com/frontend-collective/react-sortable-tree/commit/176b8c3))
+* Only serve cjs and esm builds  ([#351](https://github.com/frontend-collective/react-sortable-tree/issues/351)) ([2c01832](https://github.com/frontend-collective/react-sortable-tree/commit/2c01832))
+* row direction support ([#337](https://github.com/frontend-collective/react-sortable-tree/issues/337)) ([5bef44b](https://github.com/frontend-collective/react-sortable-tree/commit/5bef44b))
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/frontend-collective/react-sortable-tree/compare/v2.1.1...v2.1.2) (2018-05-23)
 
