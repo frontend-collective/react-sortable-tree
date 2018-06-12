@@ -4,7 +4,7 @@
   "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
     "prebuild": "npm run lint",
-    "build": "npm run clean && rollup -c",
+    "build": "npm run clean && NODE_ENV=rollup rollup -c",
     "build:storybook": "npm run clean:storybook && build-storybook -o example/build/storybook",
     "clean": "rimraf dist",
     "clean:storybook": "rimraf example/build/storybook",
@@ -18,6 +18,11 @@
   },
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
+  "babel": {
+    "presets": [
+      "./.babelrc.js"
+    ]
+  },
   "files": [
     "dist",
     "style.css"
