@@ -11,6 +11,7 @@ import ExternalNodeExample from './external-node';
 import GenerateNodePropsExample from './generate-node-props';
 import ModifyNodesExample from './modify-nodes';
 import SearchExample from './search';
+import OnlyExpandSearchedNodesExample from './only-expand-searched-node';
 import ThemesExample from './themes';
 import TouchSupportExample from './touch-support';
 import TreeDataIOExample from './tree-data-io';
@@ -78,4 +79,10 @@ storiesOf('Advanced', module)
   )
   .add('Drag out to remove', () =>
     wrapWithSource(<DragOutToRemoveExample />, 'drag-out-to-remove.js')
+  )
+  .add('onlyExpandSearchedNodes', () =>
+    wrapWithSource(
+      <OnlyExpandSearchedNodesExample />,
+      'only-expand-searched-node.js'
+    )
   );
