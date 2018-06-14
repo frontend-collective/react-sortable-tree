@@ -11,18 +11,33 @@
 [![Build Status](https://travis-ci.org/frontend-collective/react-sortable-tree.svg?branch=master)](https://travis-ci.org/frontend-collective/react-sortable-tree)
 [![Coverage Status](https://coveralls.io/repos/github/frontend-collective/react-sortable-tree/badge.svg?branch=master)](https://coveralls.io/github/frontend-collective/react-sortable-tree?branch=master)
 
-> A React component for Drag-and-drop sortable representation of hierarchical data. Checkout the [demo](https://react-sortable-tree.surge.sh/) for a demonstration of some basic features. Checkout the [storybook](https://react-sortable-tree.surge.sh/storybook/index.html) for advanced usage. Play with the code on [CodeSandbox.io](https://codesandbox.io/s/wkxvy3z15w).
+> A React component for Drag-and-drop sortable representation of hierarchical data. Checkout the [demo](https://react-sortable-tree.surge.sh/) for a demonstration of some basic features. Checkout the [storybook](https://frontend-collective.github.io/react-sortable-tree/) for advanced usage. Play with the code on [CodeSandbox.io](https://codesandbox.io/s/wkxvy3z15w).
 
 <div align="center">
   <img src="https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif"/>
 </div>
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Props](#props)
+- [Data Helpers](#data-helper-functions)
+- [Themes](#themes)
+- [Browser Compatibility](#browser-compatibility)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
 
 ## Getting started
 
 Install `react-sortable-tree` using npm.
 
 ```sh
+# NPM
 npm install react-sortable-tree --save
+
+# YARN
+yarn add react-sortable-tree
 ```
 
 ES6 and CommonJS builds are available with each distribution.
@@ -38,11 +53,12 @@ import SortableTree from 'react-sortable-tree';
 // Or you can import the tree without the dnd context as a named export. eg
 import { SortableTreeWithoutDndContext as SortableTree } from 'react-sortable-tree';
 
-// Importing from esm (default)
-import SortableTree from 'react-sortable-tree/dist/index.esm.js';
-
-// Importing from cjs
+// Importing from cjs (default)
 import SortableTree from 'react-sortable-tree/dist/index.cjs.js';
+import SortableTree from 'react-sortable-tree';
+
+// Importing from esm
+import SortableTree from 'react-sortable-tree/dist/index.esm.js';
 ```
 
 ## Usage
@@ -74,7 +90,7 @@ export default class Tree extends Component {
 }
 ```
 
-## Options
+## Props
 
 | Prop                           |      Type      | <div style="width: 400px;">Description</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | :----------------------------- | :------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -114,18 +130,23 @@ Need a hand turning your flat data into nested tree data?
 Want to perform add/remove operations on the tree data without creating your own recursive function?
 Check out the helper functions exported from [`tree-data-utils.js`](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js).
 
-Notable among the available functions:
-
-- **`getTreeFromFlatData`**: Convert flat data (like that from a database) into nested tree data
-- **`getFlatDataFromTree`**: Convert tree data back to flat data
-- **`addNodeUnderParent`**: Add a node under the parent node at the given path
-- **`removeNode`**: For a given path, get the node at that path and the treeData with that node removed.
-- **`changeNodeAtPath`**: Modify the node object at the given path
-- **`map`**: Perform a change on every node in the tree
-- **`walk`**: Visit every node in the tree in order
-
-Documentation for each method is only available in the code at this time. You can also refer to the tests for simple usage examples.
-If your hobbies happen to include writing documentation, by all means submit a pull request. It would really help out.
+- [**`getTreeFromFlatData`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L972): Convert flat data (like that from a database) into nested tree data.
+- [**`getFlatDataFromTree`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L939): Convert tree data back to flat data.
+- [**`addNodeUnderParent`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L612): Add a node under the parent node at the given path.
+- [**`removeNode`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L533): For a given path, get the node at that path, treeIndex, and the treeData with that node removed.
+- [**`removeNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L505): For a given path, remove the node and return the treeData.
+- [**`changeNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L409): Modify the node object at the given path.
+- [**`map`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L359): Perform a change on every node in the tree.
+- [**`walk`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L326): Visit every node in the tree in order.
+- [**`getDescendantCount`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L60): Count how many descendants this node has.
+- [**`getVisibleNodeCount`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L248): Count how many visible descendants this node has.
+- [**`getVisibleNodeInfoAtIndex`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L286): Get the <targetIndex>th visible node in the tree data.
+- [**`toggleExpandedForAll`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L389): Expand or close every node in the tree.
+- [**`getNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L572): Get the node at the input path.
+- [**`insertNode`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L878): Insert the input node at the specified depth and minimumTreeIndex.
+- [**`find`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1070): Find nodes matching a search query in the tree.
+- [**`isDescendant`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1020): Check if a node is a descendant of another node.
+- [**`getDepth`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1038): Get the longest path in the tree.
 
 ## Themes
 
@@ -172,7 +193,7 @@ import { SortableTreeWithoutDndContext as SortableTree } from 'react-sortable-tr
 
 ## Contributing
 
-Please read the [Code of Conduct](CODE_OF_CONDUCT.md).
+Please read the [Code of Conduct](CODE_OF_CONDUCT.md). I actively welcome pull requests :)
 
 After cloning the repository and running `npm install` inside, you can use the following commands to develop and build the project.
 
