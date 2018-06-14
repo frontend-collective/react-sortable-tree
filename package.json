@@ -5,16 +5,17 @@
   "scripts": {
     "prebuild": "npm run lint",
     "build": "npm run clean && NODE_ENV=rollup rollup -c",
-    "build:storybook": "npm run clean:storybook && build-storybook -o example/build/storybook",
+    "build:storybook": "npm run clean:storybook && build-storybook -o build",
     "clean": "rimraf dist",
-    "clean:storybook": "rimraf example/build/storybook",
+    "clean:storybook": "rimraf build",
     "lint": "eslint src",
     "prettier": "prettier --write \"{src,example/src,stories}/**/*.{js,css,md}\"",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
     "release": "standard-version",
     "test": "cross-env NODE_ENV=test jest",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
-    "storybook": "start-storybook -p ${PORT:-3001} -h 0.0.0.0"
+    "storybook": "start-storybook -p ${PORT:-3001} -h 0.0.0.0",
+    "deploy": "gh-pages -d build"
   },
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",

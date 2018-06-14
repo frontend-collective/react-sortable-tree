@@ -35,7 +35,10 @@ export default class Title extends Component {
           >
             Docs
           </NavItem>
-          <NavItem eventKey={2} href="/storybook/index.html">
+          <NavItem
+            eventKey={2}
+            href="https://frontend-collective.github.io/react-sortable-tree"
+          >
             Storybook
           </NavItem>
           <NavItem

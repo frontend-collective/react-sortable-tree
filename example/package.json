@@ -42,7 +42,6 @@
     "react-sortable-tree": "link:..",
     "react-split-pane": "^0.1.77",
     "resolve": "1.6.0",
-    "serve": "^8.1.1",
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.6.2",
@@ -53,11 +52,9 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "now-start": "serve --single ./build",
-    "predeploy": "npm run build && npm run build:storybook --prefix ..",
+    "predeploy": "npm run build",
     "deploy": "surge ./build react-sortable-tree.surge.sh",
-    "build": "node scripts/build.js",
-    "postbuild": "rimraf 'build/**/*.map'"
+    "build": "node scripts/build.js"
   },
   "jest": {
     "collectCoverageFrom": [

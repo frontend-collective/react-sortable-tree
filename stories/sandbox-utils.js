@@ -7,7 +7,7 @@ const GIT_URL =
 export const SANDBOX_URL = 'https://codesandbox.io/api/v1/sandboxes/define';
 
 // full url for github api call
-const getURL = filename => `${GIT_URL}/examples/storybooks/${filename}`;
+const getURL = filename => `${GIT_URL}/stories/${filename}`;
 
 // strip ../src from the src
 const strip = code =>
