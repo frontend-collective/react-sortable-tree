@@ -10,6 +10,7 @@
 [![NPM monthly downloads](https://img.shields.io/npm/dm/react-sortable-tree.svg?style=flat)](https://npmcharts.com/compare/react-sortable-tree?minimal=true)
 [![Build Status](https://travis-ci.org/frontend-collective/react-sortable-tree.svg?branch=master)](https://travis-ci.org/frontend-collective/react-sortable-tree)
 [![Coverage Status](https://coveralls.io/repos/github/frontend-collective/react-sortable-tree/badge.svg?branch=master)](https://coveralls.io/github/frontend-collective/react-sortable-tree?branch=master)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 > A React component for Drag-and-drop sortable representation of hierarchical data. Checkout the [demo](https://react-sortable-tree.surge.sh/) for a demonstration of some basic features. Checkout the [storybook](https://frontend-collective.github.io/react-sortable-tree/) for advanced usage. Play with the code on [CodeSandbox.io](https://codesandbox.io/s/wkxvy3z15w).
 

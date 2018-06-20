@@ -31,7 +31,7 @@ export default class Title extends Component {
         <Nav>
           <NavItem
             eventKey={1}
-            href="https://github.com/frontend-collective/react-sortable-tree#options"
+            href="https://github.com/frontend-collective/react-sortable-tree#props"
           >
             Docs
           </NavItem>
