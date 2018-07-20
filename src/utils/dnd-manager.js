@@ -60,9 +60,6 @@ export default class DndManager {
   get isNodeDepthFixed(){
     return this.treeRef.props.isNodeDepthFixed;
   }
-  get tempo(){
-    return this.treeRef.state.tempo;
-  }
 
   getTargetDepth(dropTargetProps, monitor, component) {
     let dropTargetDepth = 0;
@@ -132,6 +129,8 @@ export default class DndManager {
     const abovePath = rowAbove ? rowAbove.path : [];
     const aboveNode = rowAbove ? rowAbove.node : {};
     const targetDepth = this.getTargetDepth(dropTargetProps, monitor, null);
+    
+    //Cannot drop if depth is fixed and destination is not of equal depth
     if(monitor.getItem().path.length -1 !== targetDepth && this.isNodeDepthFixed)
       return false;
     // Cannot drop if we're adding to the children of the row above and
@@ -152,7 +151,6 @@ export default class DndManager {
         minimumTreeIndex: dropTargetProps.listIndex,
         expandParent: true,
       });
-
       return this.customCanDrop({
         node,
         prevPath: monitor.getItem().path,
@@ -241,7 +239,6 @@ export default class DndManager {
         if (!needsRedraw) {
           return;
         }
-        console.log(this.tempo);
         if((targetDepth === monitor.getItem().path.length-1 && this.isNodeDepthFixed) || !this.isNodeDepthFixed) {
           this.dragHover({
             node: draggedNode,

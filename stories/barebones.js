@@ -63,11 +63,11 @@ export default class App extends Component {
 
   render() {
     return (
-      <div style={{ height: 600 }}>
-        <SortableTree
-          scaffoldBlockPxWidth = { 100 }
+      <div style={{ height: 900 }}>
+        <SortableTreepwd
           treeData={this.state.treeData}
           isNodeDepthFixed = { false }
+          isParentNodeFixed = { true }
           onChange={treeData => this.setState({ treeData })}
         />
       </div>

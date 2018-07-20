@@ -110,8 +110,7 @@ class ReactSortableTree extends Component {
       searchFocusTreeIndex: null,
       dragging: false,
       parentBeforeDrag: null,
-      temp: false,
-      tempo: 'kiran',
+      sameParent: false,
 
       // props that need to be used in gDSFP or static functions will be stored here
       instanceProps: {
@@ -257,8 +256,7 @@ class ReactSortableTree extends Component {
     depth,
     minimumTreeIndex,
   }) {
-    console.log(this.temp);
-    if(!this.temp)
+    if(this.props.isParentNodeFixed && !this.sameParent)
       return;
     const {
       treeData,
@@ -366,19 +364,18 @@ class ReactSortableTree extends Component {
         path,
         getNodeKey: this.props.getNodeKey,
       });
-      const addedResult = memoizedInsertNode({
-        treeData: draggingTreeData,
-        newNode: draggedNode,
-        depth: path.length -1,
-        minimumTreeIndex: draggedMinimumTreeIndex,
-        expandParent: true,
-        getNodeKey: this.props.getNodeKey,
-      });
-      const rows = this.getRows(addedResult.treeData);
-      const expandedParentPath = rows[addedResult.treeIndex].path;
-    /*  const rows = this.getRows(draggingTreeData);
-      const expandedParentPath = rows[draggedMinimumTreeIndex].path;*/
-      this.parentBeforeDrag = expandedParentPath;
+      if(this.props.isParentNodeFixed) {
+        const addedResult = memoizedInsertNode({
+          treeData: draggingTreeData,
+          newNode: draggedNode,
+          depth: path.length -1,
+          minimumTreeIndex: draggedMinimumTreeIndex,
+          expandParent: true,
+          getNodeKey: this.props.getNodeKey,
+        });
+        const rows = this.getRows(addedResult.treeData);
+        this.parentBeforeDrag = rows[addedResult.treeIndex].path;
+      }
       return {
         draggingTreeData,
         draggedNode,
@@ -419,24 +416,25 @@ class ReactSortableTree extends Component {
     });
     const rows = this.getRows(addedResult.treeData);
     const expandedParentPath = rows[addedResult.treeIndex].path;
-    const toParent = rows[addedResult.treeIndex].parentNode || '_root_';
-    //console.log(expandedParentPath);
-  //  console.log(this.parentBeforeDrag);
-    if(expandedParentPath.length === this.parentBeforeDrag.length) {
-      //console.log('same depth');
-      this.isParentNodeFixed = true;
-      let temp3 = 0;
-      const temp1 = expandedParentPath;//.slice(0,expandedParentPath.length -1);
-      const temp2 = this.parentBeforeDrag;//.slice(0,this.parentBeforeDrag.length -1);
-      for(let i=0;i<temp1.length -1;i++)
-      {
-        if(temp1[i] != temp2[i])
-          {temp3++; this.temp = false;return; }
+    if(this.props.isParentNodeFixed) {
+      const toParent = rows[addedResult.treeIndex].parentNode || '_root_';
+      if(expandedParentPath.length === this.parentBeforeDrag.length) {
+        this.isParentNodeFixed = true;
+        let flag = 0;
+        for(let i=0;i<this.isParentNodeFixed.length -1;i++)
+        {
+          if(expandedParentPath[i] != this.parentBeforeDrag[i]) {
+            flag++;
+            this.sameParent = false;
+            return;
+          }
+        }
+        this.sameParent = true;
+      } else {
+          this.sameParent = false;
+          return;
       }
-      console.log(temp3);
-      this.temp = true;
-    } else
-      { this.temp = false;return;}
+    }
     this.setState({
       draggedNode,
       draggedDepth,
