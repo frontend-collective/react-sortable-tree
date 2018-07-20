@@ -57,6 +57,13 @@ export default class DndManager {
     return this.treeRef.props.maxDepth;
   }
 
+  get isNodeDepthFixed(){
+    return this.treeRef.props.isNodeDepthFixed;
+  }
+  get tempo(){
+    return this.treeRef.state.tempo;
+  }
+
   getTargetDepth(dropTargetProps, monitor, component) {
     let dropTargetDepth = 0;
 
@@ -125,7 +132,8 @@ export default class DndManager {
     const abovePath = rowAbove ? rowAbove.path : [];
     const aboveNode = rowAbove ? rowAbove.node : {};
     const targetDepth = this.getTargetDepth(dropTargetProps, monitor, null);
-
+    if(monitor.getItem().path.length -1 !== targetDepth && this.isNodeDepthFixed)
+      return false;
     // Cannot drop if we're adding to the children of the row above and
     //  the row above is a function
     if (
@@ -134,7 +142,6 @@ export default class DndManager {
     ) {
       return false;
     }
-
     if (typeof this.customCanDrop === 'function') {
       const { node } = monitor.getItem();
       const addedResult = memoizedInsertNode({
@@ -164,7 +171,6 @@ export default class DndManager {
     const nodeDragSource = {
       beginDrag: props => {
         this.startDrag(props);
-
         return {
           node: props.node,
           parentNode: props.parentNode,
@@ -219,7 +225,7 @@ export default class DndManager {
         return result;
       },
 
-      hover: (dropTargetProps, monitor, component) => {
+      hover: (dropTargetProps, monitor, component, props) => {
         const targetDepth = this.getTargetDepth(
           dropTargetProps,
           monitor,
@@ -235,13 +241,15 @@ export default class DndManager {
         if (!needsRedraw) {
           return;
         }
-
-        this.dragHover({
-          node: draggedNode,
-          path: monitor.getItem().path,
-          minimumTreeIndex: dropTargetProps.listIndex,
-          depth: targetDepth,
-        });
+        console.log(this.tempo);
+        if((targetDepth === monitor.getItem().path.length-1 && this.isNodeDepthFixed) || !this.isNodeDepthFixed) {
+          this.dragHover({
+            node: draggedNode,
+            path: monitor.getItem().path,
+            minimumTreeIndex: dropTargetProps.listIndex,
+            depth: targetDepth,
+          });
+        }
       },
 
       canDrop: this.canDrop.bind(this),

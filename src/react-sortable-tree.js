@@ -109,6 +109,9 @@ class ReactSortableTree extends Component {
       searchMatches: [],
       searchFocusTreeIndex: null,
       dragging: false,
+      parentBeforeDrag: null,
+      temp: false,
+      tempo: 'kiran',
 
       // props that need to be used in gDSFP or static functions will be stored here
       instanceProps: {
@@ -254,6 +257,9 @@ class ReactSortableTree extends Component {
     depth,
     minimumTreeIndex,
   }) {
+    console.log(this.temp);
+    if(!this.temp)
+      return;
     const {
       treeData,
       treeIndex,
@@ -360,7 +366,19 @@ class ReactSortableTree extends Component {
         path,
         getNodeKey: this.props.getNodeKey,
       });
-
+      const addedResult = memoizedInsertNode({
+        treeData: draggingTreeData,
+        newNode: draggedNode,
+        depth: path.length -1,
+        minimumTreeIndex: draggedMinimumTreeIndex,
+        expandParent: true,
+        getNodeKey: this.props.getNodeKey,
+      });
+      const rows = this.getRows(addedResult.treeData);
+      const expandedParentPath = rows[addedResult.treeIndex].path;
+    /*  const rows = this.getRows(draggingTreeData);
+      const expandedParentPath = rows[draggedMinimumTreeIndex].path;*/
+      this.parentBeforeDrag = expandedParentPath;
       return {
         draggingTreeData,
         draggedNode,
@@ -399,10 +417,26 @@ class ReactSortableTree extends Component {
       expandParent: true,
       getNodeKey: this.props.getNodeKey,
     });
-
     const rows = this.getRows(addedResult.treeData);
     const expandedParentPath = rows[addedResult.treeIndex].path;
-
+    const toParent = rows[addedResult.treeIndex].parentNode || '_root_';
+    //console.log(expandedParentPath);
+  //  console.log(this.parentBeforeDrag);
+    if(expandedParentPath.length === this.parentBeforeDrag.length) {
+      //console.log('same depth');
+      this.isParentNodeFixed = true;
+      let temp3 = 0;
+      const temp1 = expandedParentPath;//.slice(0,expandedParentPath.length -1);
+      const temp2 = this.parentBeforeDrag;//.slice(0,this.parentBeforeDrag.length -1);
+      for(let i=0;i<temp1.length -1;i++)
+      {
+        if(temp1[i] != temp2[i])
+          {temp3++; this.temp = false;return; }
+      }
+      console.log(temp3);
+      this.temp = true;
+    } else
+      { this.temp = false;return;}
     this.setState({
       draggedNode,
       draggedDepth,
@@ -877,6 +911,12 @@ ReactSortableTree.propTypes = {
   // Specify that nodes that do not match search will be collapsed
   onlyExpandSearchedNodes: PropTypes.bool,
 
+  // fixes the depth of the node such that the children do not expand on drag
+  isNodeDepthFixed: PropTypes.bool,
+
+  // restricts node to parent
+  isParentNodeFixed: PropTypes.bool,
+
   // rtl support
   rowDirection: PropTypes.string,
 };
@@ -909,6 +949,8 @@ ReactSortableTree.defaultProps = {
   theme: {},
   onDragStateChanged: () => {},
   onlyExpandSearchedNodes: false,
+  isNodeDepthFixed: false,
+  isParentNodeFixed: false,
   rowDirection: 'ltr',
 };
 
