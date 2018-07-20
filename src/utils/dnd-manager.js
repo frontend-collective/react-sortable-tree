@@ -129,7 +129,7 @@ export default class DndManager {
     const abovePath = rowAbove ? rowAbove.path : [];
     const aboveNode = rowAbove ? rowAbove.node : {};
     const targetDepth = this.getTargetDepth(dropTargetProps, monitor, null);
-    
+
     //Cannot drop if depth is fixed and destination is not of equal depth
     if(monitor.getItem().path.length -1 !== targetDepth && this.isNodeDepthFixed)
       return false;
@@ -223,7 +223,7 @@ export default class DndManager {
         return result;
       },
 
-      hover: (dropTargetProps, monitor, component, props) => {
+      hover: (dropTargetProps, monitor, component) => {
         const targetDepth = this.getTargetDepth(
           dropTargetProps,
           monitor,
@@ -239,6 +239,7 @@ export default class DndManager {
         if (!needsRedraw) {
           return;
         }
+        
         if((targetDepth === monitor.getItem().path.length-1 && this.isNodeDepthFixed) || !this.isNodeDepthFixed) {
           this.dragHover({
             node: draggedNode,

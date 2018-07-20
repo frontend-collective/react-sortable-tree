@@ -419,14 +419,10 @@ class ReactSortableTree extends Component {
     const rows = this.getRows(addedResult.treeData);
     const expandedParentPath = rows[addedResult.treeIndex].path;
     if(this.props.isParentNodeFixed) {
-      const toParent = rows[addedResult.treeIndex].parentNode || '_root_';
       if(expandedParentPath.length === this.parentBeforeDrag.length) {
-        this.isParentNodeFixed = true;
-        let flag = 0;
-        for(let i=0;i<this.isParentNodeFixed.length -1;i++)
+        for(let i=0;i<this.parentBeforeDrag.length -1;i++)
         {
           if(expandedParentPath[i] != this.parentBeforeDrag[i]) {
-            flag++;
             this.sameParent = false;
             return;
           }
