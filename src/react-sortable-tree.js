@@ -364,6 +364,7 @@ class ReactSortableTree extends Component {
         path,
         getNodeKey: this.props.getNodeKey,
       });
+
       if(this.props.isParentNodeFixed) {
         const addedResult = memoizedInsertNode({
           treeData: draggingTreeData,
@@ -373,6 +374,7 @@ class ReactSortableTree extends Component {
           expandParent: true,
           getNodeKey: this.props.getNodeKey,
         });
+
         const rows = this.getRows(addedResult.treeData);
         this.parentBeforeDrag = rows[addedResult.treeIndex].path;
       }
