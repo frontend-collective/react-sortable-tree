@@ -843,6 +843,13 @@ ReactSortableTree.propTypes = {
 
   // Set to false to disable virtualization.
   // NOTE: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
+
+  // fixes the depth of the node such that the children do not expand on drag
+  isNodeDepthFixed: PropTypes.bool,
+
+  // restricts node to parent
+  isParentNodeFixed: PropTypes.bool,
+
   isVirtualized: PropTypes.bool,
 
   treeNodeRenderer: PropTypes.func,
@@ -907,12 +914,6 @@ ReactSortableTree.propTypes = {
   // Specify that nodes that do not match search will be collapsed
   onlyExpandSearchedNodes: PropTypes.bool,
 
-  // fixes the depth of the node such that the children do not expand on drag
-  isNodeDepthFixed: PropTypes.bool,
-
-  // restricts node to parent
-  isParentNodeFixed: PropTypes.bool,
-
   // rtl support
   rowDirection: PropTypes.string,
 };
@@ -925,6 +926,8 @@ ReactSortableTree.defaultProps = {
   generateNodeProps: null,
   getNodeKey: defaultGetNodeKey,
   innerStyle: {},
+  isNodeDepthFixed: false,
+  isParentNodeFixed: false,
   isVirtualized: true,
   maxDepth: null,
   treeNodeRenderer: null,
@@ -945,8 +948,6 @@ ReactSortableTree.defaultProps = {
   theme: {},
   onDragStateChanged: () => {},
   onlyExpandSearchedNodes: false,
-  isNodeDepthFixed: false,
-  isParentNodeFixed: false,
   rowDirection: 'ltr',
 };
 
