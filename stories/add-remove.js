@@ -60,6 +60,7 @@ export default class App extends Component {
 
     this.state = {
       treeData: [{ title: 'Peter Olofsson' }, { title: 'Karl Johansson' }],
+      addAsFirstChild: false,
     };
   }
 
@@ -88,6 +89,7 @@ export default class App extends Component {
                             node.title.split(' ')[0]
                           }sson`,
                         },
+                        addAsFirstChild: state.addAsFirstChild,
                       }).treeData,
                     }))
                   }
@@ -123,6 +125,18 @@ export default class App extends Component {
         >
           Add more
         </button>
+        <br />
+        <label Htmlfor="addAsFirstChild">
+          Add new nodes at start
+          <input
+            name="addAsFirstChild"
+            type="checkbox"
+            checked={this.state.addAsFirstChild}
+            onChange={() => this.setState(state => ({
+              addAsFirstChild: !state.addAsFirstChild,
+            }))}
+          />
+        </label>
       </div>
     );
   }

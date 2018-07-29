@@ -1112,6 +1112,33 @@ describe('addNodeUnderParent', () => {
     );
     expect(result.treeIndex).toEqual(5);
   });
+
+  it('should add new node as last child by default', () => {
+    const result = addNodeUnderParent({
+      ...nestedParams,
+      parentKey: 0,
+      getNodeKey: keyFromKey,
+    });
+
+    const [existingChild0, existingChild1, expectedNewNode] = result.treeData[0].children;
+
+    expect(expectedNewNode).toEqual(nestedParams.newNode);
+    expect([existingChild0, existingChild1]).toEqual(nestedParams.treeData[0].children);
+  });
+
+  it('should add new node as first child if addAsFirstChild is true', () => {
+    const result = addNodeUnderParent({
+      ...nestedParams,
+      parentKey: 0,
+      getNodeKey: keyFromKey,
+      addAsFirstChild: true,
+    });
+
+    const [expectedNewNode, ...previousChildren] = result.treeData[0].children;
+
+    expect(expectedNewNode).toEqual(nestedParams.newNode);
+    expect(previousChildren).toEqual(nestedParams.treeData[0].children);
+  });
 });
 
 describe('insertNode', () => {

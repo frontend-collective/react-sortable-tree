@@ -616,6 +616,7 @@ export function addNodeUnderParent({
   getNodeKey,
   ignoreCollapsed = true,
   expandParent = false,
+  addAsFirstChild = false,
 }) {
   if (parentKey === null) {
     return {
@@ -668,9 +669,13 @@ export function addNodeUnderParent({
 
       insertedTreeIndex = nextTreeIndex;
 
+      const children = addAsFirstChild
+        ? [ newNode, ...parentNode.children]
+        : [...parentNode.children, newNode];
+
       return {
         ...parentNode,
-        children: [...parentNode.children, newNode],
+        children,
       };
     },
   });
