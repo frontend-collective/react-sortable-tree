@@ -60,7 +60,7 @@ function getNodeDataAtTreeIndexOrNextIndex({
 export function getDescendantCount({ node, ignoreCollapsed = true }) {
   return (
     getNodeDataAtTreeIndexOrNextIndex({
-      getNodeKey: () => {},
+      getNodeKey: () => { },
       ignoreCollapsed,
       node,
       currentIndex: 0,
@@ -106,12 +106,12 @@ function walkDescendants({
   const selfInfo = isPseudoRoot
     ? null
     : {
-        node,
-        parentNode,
-        path: selfPath,
-        lowerSiblingCounts,
-        treeIndex: currentIndex,
-      };
+      node,
+      parentNode,
+      path: selfPath,
+      lowerSiblingCounts,
+      treeIndex: currentIndex,
+    };
 
   if (!isPseudoRoot) {
     const callbackResult = callback(selfInfo);
@@ -604,6 +604,7 @@ export function getNodeAtPath({
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  * @param {boolean=} expandParent - If true, expands the parentNode specified by parentPath
+ * @param {boolean=} addAsFirstChild - If true, adds new node as first child of tree
  *
  * @return {Object} result
  * @return {Object[]} result.treeData - The updated tree data
@@ -670,7 +671,7 @@ export function addNodeUnderParent({
       insertedTreeIndex = nextTreeIndex;
 
       const children = addAsFirstChild
-        ? [ newNode, ...parentNode.children]
+        ? [newNode, ...parentNode.children]
         : [...parentNode.children, newNode];
 
       return {
@@ -885,7 +886,7 @@ export function insertNode({
   depth: targetDepth,
   minimumTreeIndex,
   newNode,
-  getNodeKey = () => {},
+  getNodeKey = () => { },
   ignoreCollapsed = true,
   expandParent = false,
 }) {
@@ -1093,9 +1094,9 @@ export function find({
     const extraInfo = isPseudoRoot
       ? null
       : {
-          path: selfPath,
-          treeIndex: currentIndex,
-        };
+        path: selfPath,
+        treeIndex: currentIndex,
+      };
 
     // Nodes with with children that aren't lazy
     const hasChildren =
