@@ -58,6 +58,15 @@ export default class DndManager {
   }
 
   getTargetDepth(dropTargetProps, monitor, component) {
+    const draggedNode = monitor.getItem().node;
+
+    if (draggedNode.depth) {
+      const depth = draggedNode.depth;
+      if (typeof this.maxDepth === 'undefined' || this.maxDepth === null || this.maxDepth >= depth) {
+        return depth;
+      }
+    }
+
     let dropTargetDepth = 0;
 
     const rowAbove = dropTargetProps.getPrevRow();
