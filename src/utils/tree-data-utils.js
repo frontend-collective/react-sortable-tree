@@ -60,7 +60,7 @@ function getNodeDataAtTreeIndexOrNextIndex({
 export function getDescendantCount({ node, ignoreCollapsed = true }) {
   return (
     getNodeDataAtTreeIndexOrNextIndex({
-      getNodeKey: () => { },
+      getNodeKey: () => {},
       ignoreCollapsed,
       node,
       currentIndex: 0,
@@ -106,12 +106,12 @@ function walkDescendants({
   const selfInfo = isPseudoRoot
     ? null
     : {
-      node,
-      parentNode,
-      path: selfPath,
-      lowerSiblingCounts,
-      treeIndex: currentIndex,
-    };
+        node,
+        parentNode,
+        path: selfPath,
+        lowerSiblingCounts,
+        treeIndex: currentIndex,
+      };
 
   if (!isPseudoRoot) {
     const callbackResult = callback(selfInfo);
@@ -886,7 +886,7 @@ export function insertNode({
   depth: targetDepth,
   minimumTreeIndex,
   newNode,
-  getNodeKey = () => { },
+  getNodeKey = () => {},
   ignoreCollapsed = true,
   expandParent = false,
 }) {
@@ -1094,9 +1094,9 @@ export function find({
     const extraInfo = isPseudoRoot
       ? null
       : {
-        path: selfPath,
-        treeIndex: currentIndex,
-      };
+          path: selfPath,
+          treeIndex: currentIndex,
+        };
 
     // Nodes with with children that aren't lazy
     const hasChildren =

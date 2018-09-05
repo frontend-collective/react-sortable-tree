@@ -132,9 +132,11 @@ export default class App extends Component {
             name="addAsFirstChild"
             type="checkbox"
             checked={this.state.addAsFirstChild}
-            onChange={() => this.setState(state => ({
-              addAsFirstChild: !state.addAsFirstChild,
-            }))}
+            onChange={() =>
+              this.setState(state => ({
+                addAsFirstChild: !state.addAsFirstChild,
+              }))
+            }
           />
         </label>
       </div>

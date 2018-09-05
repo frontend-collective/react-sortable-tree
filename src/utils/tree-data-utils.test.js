@@ -1120,10 +1120,16 @@ describe('addNodeUnderParent', () => {
       getNodeKey: keyFromKey,
     });
 
-    const [existingChild0, existingChild1, expectedNewNode] = result.treeData[0].children;
+    const [
+      existingChild0,
+      existingChild1,
+      expectedNewNode,
+    ] = result.treeData[0].children;
 
     expect(expectedNewNode).toEqual(nestedParams.newNode);
-    expect([existingChild0, existingChild1]).toEqual(nestedParams.treeData[0].children);
+    expect([existingChild0, existingChild1]).toEqual(
+      nestedParams.treeData[0].children
+    );
   });
 
   it('should add new node as first child if addAsFirstChild is true', () => {
