@@ -2243,6 +2243,18 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
     >
       Add more
     </button>
+    <br />
+    <label
+      Htmlfor="addAsFirstChild"
+    >
+      Add new nodes at start
+      <input
+        checked={false}
+        name="addAsFirstChild"
+        onChange={[Function]}
+        type="checkbox"
+      />
+    </label>
   </div>
   <br />
   <form
