@@ -14,11 +14,11 @@ export default class App extends Component {
         children: [{
           title: 'Rob',
           children: [],
-          hasNoChildren: true
+          isPerson: true
         }, {
           title: 'Joe',
           children: [],
-          hasNoChildren: true
+          isPerson: true
         }]
       }, {
         title: 'Clerks',
@@ -26,11 +26,11 @@ export default class App extends Component {
         children: [{
           title: 'Bertha',
           children: [],
-          hasNoChildren: true
+          isPerson: true
         }, {
           title: 'Billy',
           children: [],
-          hasNoChildren: true
+          isPerson: true
         }]
       }],
     };
@@ -42,7 +42,7 @@ export default class App extends Component {
         <div style={{ height: 300 }}>
           <SortableTree
             treeData={this.state.treeData}
-            canNodeHaveChildren={node => !node.hasNoChildren}
+            canNodeHaveChildren={node => !node.isPerson}
             onChange={treeData => this.setState({ treeData })}
           />
         </div>
