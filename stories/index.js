@@ -86,9 +86,7 @@ storiesOf('Advanced', module)
       <OnlyExpandSearchedNodesExample />,
       'only-expand-searched-node.js'
     )
-  );
-
-storiesOf('Custom', module)
-  .add('Some nodes should not preview drop as child', () =>
-    wrapWithSource(<ChildlessNodes />, 'childless-nodes.js')
   )
+  .add('Prevent some nodes from having children', () =>
+    wrapWithSource(<ChildlessNodes />, 'childless-nodes.js')
+  );
