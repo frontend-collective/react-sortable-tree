@@ -479,6 +479,14 @@ class ReactSortableTree extends Component {
     this.moveNode(dropResult);
   }
 
+  canNodeHaveChildren(node) {
+    const { canNodeHaveChildren } = this.props;
+    if (canNodeHaveChildren) {
+      return canNodeHaveChildren(node);
+    }
+    return true;
+  }
+
   // Load any children in the tree that are given by a function
   // calls the onChange callback on the new treeData
   static loadLazyChildren(props, state) {

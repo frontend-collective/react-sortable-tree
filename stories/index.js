@@ -6,6 +6,7 @@ import AddRemoveExample from './add-remove';
 import BarebonesExample from './barebones';
 import CallbacksExample from './callbacks';
 import CanDropExample from './can-drop';
+import ChildlessNodes from './childless-nodes';
 import DragOutToRemoveExample from './drag-out-to-remove';
 import ExternalNodeExample from './external-node';
 import GenerateNodePropsExample from './generate-node-props';
@@ -86,3 +87,8 @@ storiesOf('Advanced', module)
       'only-expand-searched-node.js'
     )
   );
+
+storiesOf('Custom', module)
+  .add('Some nodes should not preview drop as child', () =>
+    wrapWithSource(<ChildlessNodes />, 'childless-nodes.js')
+  )

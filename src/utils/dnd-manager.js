@@ -62,9 +62,15 @@ export default class DndManager {
 
     const rowAbove = dropTargetProps.getPrevRow();
     if (rowAbove) {
+      let { path } = rowAbove;
+      const aboveNodeCannotHaveChildren = !this.treeRef.canNodeHaveChildren(rowAbove.node);
+      if (aboveNodeCannotHaveChildren) {
+        path = path.slice(0, path.length - 1);
+      }
+
       // Limit the length of the path to the deepest possible
       dropTargetDepth = Math.min(
-        rowAbove.path.length,
+        path.length,
         dropTargetProps.path.length
       );
     }
