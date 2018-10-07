@@ -6,6 +6,7 @@ import AddRemoveExample from './add-remove';
 import BarebonesExample from './barebones';
 import CallbacksExample from './callbacks';
 import CanDropExample from './can-drop';
+import ChildlessNodes from './childless-nodes';
 import DragOutToRemoveExample from './drag-out-to-remove';
 import ExternalNodeExample from './external-node';
 import GenerateNodePropsExample from './generate-node-props';
@@ -85,4 +86,7 @@ storiesOf('Advanced', module)
       <OnlyExpandSearchedNodesExample />,
       'only-expand-searched-node.js'
     )
+  )
+  .add('Prevent some nodes from having children', () =>
+    wrapWithSource(<ChildlessNodes />, 'childless-nodes.js')
   );

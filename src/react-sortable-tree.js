@@ -479,6 +479,14 @@ class ReactSortableTree extends Component {
     this.moveNode(dropResult);
   }
 
+  canNodeHaveChildren(node) {
+    const { canNodeHaveChildren } = this.props;
+    if (canNodeHaveChildren) {
+      return canNodeHaveChildren(node);
+    }
+    return true;
+  }
+
   // Load any children in the tree that are given by a function
   // calls the onChange callback on the new treeData
   static loadLazyChildren(props, state) {
@@ -859,6 +867,9 @@ ReactSortableTree.propTypes = {
   // Determine whether a node can be dropped based on its path and parents'.
   canDrop: PropTypes.func,
 
+  // Determine whether a node can have children
+  canNodeHaveChildren: PropTypes.func,
+
   // When true, or a callback returning true, dropping nodes to react-dnd
   // drop targets outside of this tree will not remove them from this tree
   shouldCopyOnOutsideDrop: PropTypes.oneOfType([
@@ -884,6 +895,7 @@ ReactSortableTree.propTypes = {
 ReactSortableTree.defaultProps = {
   canDrag: true,
   canDrop: null,
+  canNodeHaveChildren: () => true,
   className: '',
   dndType: null,
   generateNodeProps: null,
