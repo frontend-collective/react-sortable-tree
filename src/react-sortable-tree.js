@@ -109,6 +109,8 @@ class ReactSortableTree extends Component {
       searchMatches: [],
       searchFocusTreeIndex: null,
       dragging: false,
+      parentBeforeDrag: null,
+      sameParent: false,
 
       // props that need to be used in gDSFP or static functions will be stored here
       instanceProps: {
@@ -254,6 +256,8 @@ class ReactSortableTree extends Component {
     depth,
     minimumTreeIndex,
   }) {
+    if(this.props.isParentNodeFixed && !this.sameParent)
+      return;
     const {
       treeData,
       treeIndex,
@@ -361,6 +365,19 @@ class ReactSortableTree extends Component {
         getNodeKey: this.props.getNodeKey,
       });
 
+      if(this.props.isParentNodeFixed) {
+        const addedResult = memoizedInsertNode({
+          treeData: draggingTreeData,
+          newNode: draggedNode,
+          depth: path.length -1,
+          minimumTreeIndex: draggedMinimumTreeIndex,
+          expandParent: true,
+          getNodeKey: this.props.getNodeKey,
+        });
+
+        const rows = this.getRows(addedResult.treeData);
+        this.parentBeforeDrag = rows[addedResult.treeIndex].path;
+      }
       return {
         draggingTreeData,
         draggedNode,
@@ -399,10 +416,23 @@ class ReactSortableTree extends Component {
       expandParent: true,
       getNodeKey: this.props.getNodeKey,
     });
-
     const rows = this.getRows(addedResult.treeData);
     const expandedParentPath = rows[addedResult.treeIndex].path;
-
+    if(this.props.isParentNodeFixed) {
+      if(expandedParentPath.length === this.parentBeforeDrag.length) {
+        for(let i=0;i<this.parentBeforeDrag.length -1;i++)
+        {
+          if(expandedParentPath[i] != this.parentBeforeDrag[i]) {
+            this.sameParent = false;
+            return;
+          }
+        }
+        this.sameParent = true;
+      } else {
+          this.sameParent = false;
+          return;
+      }
+    }
     this.setState({
       draggedNode,
       draggedDepth,
@@ -821,6 +851,13 @@ ReactSortableTree.propTypes = {
 
   // Set to false to disable virtualization.
   // NOTE: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
+
+  // fixes the depth of the node such that the children do not expand on drag
+  isNodeDepthFixed: PropTypes.bool,
+
+  // restricts node to parent
+  isParentNodeFixed: PropTypes.bool,
+
   isVirtualized: PropTypes.bool,
 
   treeNodeRenderer: PropTypes.func,
@@ -901,6 +938,8 @@ ReactSortableTree.defaultProps = {
   generateNodeProps: null,
   getNodeKey: defaultGetNodeKey,
   innerStyle: {},
+  isNodeDepthFixed: false,
+  isParentNodeFixed: false,
   isVirtualized: true,
   maxDepth: null,
   treeNodeRenderer: null,
