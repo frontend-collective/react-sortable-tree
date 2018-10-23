@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/frontend-collective/react-sortable-tree/compare/v2.2.0...v2.3.0) (2018-10-23)
+
+
+### Bug Fixes
+
+* deploy storybook to main site. fix links ([599f2ed](https://github.com/frontend-collective/react-sortable-tree/commit/599f2ed))
+* propagate the expanded treeData to editor ([bd0df92](https://github.com/frontend-collective/react-sortable-tree/commit/bd0df92))
+* update links to new website ([d68c3bf](https://github.com/frontend-collective/react-sortable-tree/commit/d68c3bf))
+* update props link + added PRs welcome badge ([c83c2aa](https://github.com/frontend-collective/react-sortable-tree/commit/c83c2aa))
+* update screenshot tests ([4977cb1](https://github.com/frontend-collective/react-sortable-tree/commit/4977cb1))
+
+
+### Features
+
+* add storybook for onlyExpandSearchedNode prop ([#354](https://github.com/frontend-collective/react-sortable-tree/issues/354)) ([c4a41d1](https://github.com/frontend-collective/react-sortable-tree/commit/c4a41d1))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/frontend-collective/react-sortable-tree/compare/v2.1.2...v2.2.0) (2018-06-12)
 

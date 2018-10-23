@@ -1,6 +1,6 @@
 {
   "name": "react-sortable-tree",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
     "prebuild": "npm run lint",
