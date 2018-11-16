@@ -6,6 +6,7 @@ import withScrolling, {
   createVerticalStrength,
   createHorizontalStrength,
 } from 'react-dnd-scrollzone';
+import { Consumer as DragDropContextConsumer } from 'react-dnd/lib/DragDropContext'
 import { polyfill } from 'react-lifecycles-compat';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
@@ -142,7 +143,7 @@ class ReactSortableTree extends Component {
     // Hook into react-dnd state changes to detect when the drag ends
     // TODO: This is very brittle, so it needs to be replaced if react-dnd
     // offers a more official way to detect when a drag ends
-    this.clearMonitorSubscription = this.context.dragDropManager
+    this.clearMonitorSubscription = this.props.dragDropManager
       .getMonitor()
       .subscribeToStateChange(this.handleDndMonitorChange);
   }
@@ -218,7 +219,7 @@ class ReactSortableTree extends Component {
   }
 
   handleDndMonitorChange() {
-    const monitor = this.context.dragDropManager.getMonitor();
+    const monitor = this.props.dragDropManager.getMonitor();
     // If the drag ends and the tree is still in a mid-drag state,
     // it means that the drag was canceled or the dragSource dropped
     // elsewhere, and we should reset the state of this tree
@@ -762,6 +763,8 @@ class ReactSortableTree extends Component {
 }
 
 ReactSortableTree.propTypes = {
+  dragDropManager: PropTypes.shape({}).isRequired,
+
   // Tree data in the following format:
   // [{title: 'main', subtitle: 'sub'}, { title: 'value2', expanded: true, children: [{ title: 'value3') }] }]
   // `title` is the primary label for the node
@@ -923,15 +926,19 @@ ReactSortableTree.defaultProps = {
   rowDirection: 'ltr',
 };
 
-ReactSortableTree.contextTypes = {
-  dragDropManager: PropTypes.shape({}),
-};
-
 polyfill(ReactSortableTree);
 
+const SortableTreeWithoutDndContext = (props) =>
+  <DragDropContextConsumer >
+    {({ dragDropManager }) => (
+      dragDropManager === undefined
+        ? null
+        : <ReactSortableTree {...props} dragDropManager={dragDropManager} />
+    )}
+  </DragDropContextConsumer >
 // Export the tree component without the react-dnd DragDropContext,
 // for when component is used with other components using react-dnd.
 // see: https://github.com/gaearon/react-dnd/issues/186
-export { ReactSortableTree as SortableTreeWithoutDndContext };
+export { SortableTreeWithoutDndContext };
 
-export default DndManager.wrapRoot(ReactSortableTree);
+export default DndManager.wrapRoot(SortableTreeWithoutDndContext);

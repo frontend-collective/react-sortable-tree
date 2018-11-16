@@ -3,6 +3,7 @@
   "version": "2.3.0",
   "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
+    "postinstall": "cd node_modules/react-dnd-scrollzone && npm run build",
     "prebuild": "npm run lint",
     "build": "npm run clean && NODE_ENV=rollup rollup -c",
     "build:storybook": "npm run clean:storybook && build-storybook -o build",
@@ -59,9 +60,9 @@
   "dependencies": {
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.6.1",
-    "react-dnd": "3.0.2",
-    "react-dnd-html5-backend": "3.0.2",
-    "react-dnd-scrollzone": "^4.0.0",
+    "react-dnd": "^6.0.0",
+    "react-dnd-html5-backend": "^6.0.0",
+    "react-dnd-scrollzone": "github:eaglus/react-dnd-scrollzone.git#4.0.0-spotware-patch-3",
     "react-lifecycles-compat": "^3.0.4",
     "react-virtualized": "^9.19.1"
   },
@@ -106,8 +107,8 @@
     "prettier": "^1.13.3",
     "react": "^16.4.0",
     "react-addons-shallow-compare": "^15.6.2",
-    "react-dnd-test-backend": "3.0.2",
-    "react-dnd-touch-backend": "0.4.0",
+    "react-dnd-test-backend": "6.0.0",
+    "react-dnd-touch-backend": "0.6.0",
     "react-dom": "^16.4.0",
     "react-hot-loader": "^4.3.0",
     "react-sortable-tree-theme-file-explorer": "^1.1.2",
