@@ -376,8 +376,6 @@ class ReactSortableTree extends Component {
     depth: draggedDepth,
     minimumTreeIndex: draggedMinimumTreeIndex,
   }) {
-    const { instanceProps } = this.state;
-
     // Ignore this hover if it is at the same position as the last hover
     if (
       this.state.draggedDepth === draggedDepth &&
@@ -386,37 +384,38 @@ class ReactSortableTree extends Component {
       return;
     }
 
-    // Fall back to the tree data if something is being dragged in from
-    //  an external element
-    const draggingTreeData =
-      this.state.draggingTreeData || instanceProps.treeData;
+    this.setState(({ draggingTreeData, instanceProps }) => {
+      // Fall back to the tree data if something is being dragged in from
+      //  an external element
+      const newDraggingTreeData = draggingTreeData || instanceProps.treeData;
 
-    const addedResult = memoizedInsertNode({
-      treeData: draggingTreeData,
-      newNode: draggedNode,
-      depth: draggedDepth,
-      minimumTreeIndex: draggedMinimumTreeIndex,
-      expandParent: true,
-      getNodeKey: this.props.getNodeKey,
-    });
-
-    const rows = this.getRows(addedResult.treeData);
-    const expandedParentPath = rows[addedResult.treeIndex].path;
-
-    this.setState({
-      draggedNode,
-      draggedDepth,
-      draggedMinimumTreeIndex,
-      draggingTreeData: changeNodeAtPath({
-        treeData: draggingTreeData,
-        path: expandedParentPath.slice(0, -1),
-        newNode: ({ node }) => ({ ...node, expanded: true }),
+      const addedResult = memoizedInsertNode({
+        treeData: newDraggingTreeData,
+        newNode: draggedNode,
+        depth: draggedDepth,
+        minimumTreeIndex: draggedMinimumTreeIndex,
+        expandParent: true,
         getNodeKey: this.props.getNodeKey,
-      }),
-      // reset the scroll focus so it doesn't jump back
-      // to a search result while dragging
-      searchFocusTreeIndex: null,
-      dragging: true,
+      });
+
+      const rows = this.getRows(addedResult.treeData);
+      const expandedParentPath = rows[addedResult.treeIndex].path;
+
+    return {
+        draggedNode,
+        draggedDepth,
+        draggedMinimumTreeIndex,
+        draggingTreeData: changeNodeAtPath({
+          treeData: newDraggingTreeData,
+          path: expandedParentPath.slice(0, -1),
+          newNode: ({ node }) => ({ ...node, expanded: true }),
+          getNodeKey: this.props.getNodeKey,
+        }),
+        // reset the scroll focus so it doesn't jump back
+        // to a search result while dragging
+        searchFocusTreeIndex: null,
+        dragging: true,
+      }
     });
   }
 
