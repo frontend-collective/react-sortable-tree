@@ -401,7 +401,7 @@ class ReactSortableTree extends Component {
       const rows = this.getRows(addedResult.treeData);
       const expandedParentPath = rows[addedResult.treeIndex].path;
 
-    return {
+      return {
         draggedNode,
         draggedDepth,
         draggedMinimumTreeIndex,
@@ -415,7 +415,7 @@ class ReactSortableTree extends Component {
         // to a search result while dragging
         searchFocusTreeIndex: null,
         dragging: true,
-      }
+      };
     });
   }
 

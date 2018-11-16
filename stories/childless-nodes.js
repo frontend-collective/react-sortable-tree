@@ -8,31 +8,40 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      treeData: [{
-        title: 'Managers',
-        expanded: true,
-        children: [{
-          title: 'Rob',
-          children: [],
-          isPerson: true
-        }, {
-          title: 'Joe',
-          children: [],
-          isPerson: true
-        }]
-      }, {
-        title: 'Clerks',
-        expanded: true,
-        children: [{
-          title: 'Bertha',
-          children: [],
-          isPerson: true
-        }, {
-          title: 'Billy',
-          children: [],
-          isPerson: true
-        }]
-      }],
+      treeData: [
+        {
+          title: 'Managers',
+          expanded: true,
+          children: [
+            {
+              title: 'Rob',
+              children: [],
+              isPerson: true,
+            },
+            {
+              title: 'Joe',
+              children: [],
+              isPerson: true,
+            },
+          ],
+        },
+        {
+          title: 'Clerks',
+          expanded: true,
+          children: [
+            {
+              title: 'Bertha',
+              children: [],
+              isPerson: true,
+            },
+            {
+              title: 'Billy',
+              children: [],
+              isPerson: true,
+            },
+          ],
+        },
+      ],
     };
   }
 

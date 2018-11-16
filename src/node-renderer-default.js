@@ -96,16 +96,12 @@ class NodeRendererDefault extends Component {
                 }
               />
 
-              {node.expanded &&
-                !isDragging && (
-                  <div
-                    style={{ width: scaffoldBlockPxWidth }}
-                    className={classnames(
-                      'rst__lineChildren',
-                      rowDirectionClass
-                    )}
-                  />
-                )}
+              {node.expanded && !isDragging && (
+                <div
+                  style={{ width: scaffoldBlockPxWidth }}
+                  className={classnames('rst__lineChildren', rowDirectionClass)}
+                />
+              )}
             </div>
           )}
 
