@@ -9678,26 +9678,17 @@ react-dnd-html5-backend@^6.0.0:
     dnd-core "^6.0.0"
     lodash "^4.17.11"
 
-react-dnd-scrollzone@^4.0.0:
+react-dnd-scrollzone@^4.0.0, "react-dnd-scrollzone@github:dolezel/react-dnd-scrollzone.git#41203ef00c991f744aa87e897d7d518d32f6a994":
   version "4.0.0"
-  resolved "https://registry.yarnpkg.com/react-dnd-scrollzone/-/react-dnd-scrollzone-4.0.0.tgz#d707170c0cd3b7ab3d991dd6a8cc0b3712454139"
-  integrity sha1-1wcXDAzTt6s9mR3WqMwLNxJFQTk=
+  resolved "git://github.com/dolezel/react-dnd-scrollzone#41203ef00c991f744aa87e897d7d518d32f6a994"
   dependencies:
-    hoist-non-react-statics "^1.2.0"
+    hoist-non-react-statics "^3.1.0"
     lodash.throttle "^4.0.1"
     prop-types "^15.5.9"
     raf "^3.2.0"
+    react "^16.3.0"
     react-display-name "^0.2.0"
-
-"react-dnd-scrollzone@github:eaglus/react-dnd-scrollzone.git#4.0.0-spotware-patch-3":
-  version "4.0.0-spotware-patch-3"
-  resolved "https://codeload.github.com/eaglus/react-dnd-scrollzone/tar.gz/bf512572090ebcef30e04262e8755ef283a774b7"
-  dependencies:
-    hoist-non-react-statics "^1.2.0"
-    lodash.throttle "^4.0.1"
-    prop-types "^15.5.9"
-    raf "^3.2.0"
-    react-display-name "^0.2.0"
+    react-dom "^16.3.0"
 
 react-dnd-test-backend@6.0.0:
   version "6.0.0"
@@ -9751,7 +9742,7 @@ react-docgen@^3.0.0-rc.1:
     node-dir "^0.1.10"
     recast "^0.16.0"
 
-react-dom@^16.4.0:
+react-dom@^16.3.0, react-dom@^16.4.0:
   version "16.6.3"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.6.3.tgz#8fa7ba6883c85211b8da2d0efeffc9d3825cccc0"
   integrity sha512-8ugJWRCWLGXy+7PmNh8WJz3g1TaTUt1XyoIcFN+x0Zbkoz+KKdUyx1AQLYJdbFXjuF41Nmjn5+j//rxvhFjgSQ==
@@ -9897,7 +9888,7 @@ react-virtualized@^9.13.0, react-virtualized@^9.19.1:
     prop-types "^15.6.0"
     react-lifecycles-compat "^3.0.4"
 
-react@^16.4.0:
+react@^16.3.0, react@^16.4.0:
   version "16.6.3"
   resolved "https://registry.yarnpkg.com/react/-/react-16.6.3.tgz#25d77c91911d6bbdd23db41e70fb094cc1e0871c"
   integrity sha512-zCvmH2vbEolgKxtqXL2wmGCUxUyNheYn/C+PD1YAjfxHC54+MhdruyhO7QieQrYsYeTxrn93PM2y0jRH1zEExw==

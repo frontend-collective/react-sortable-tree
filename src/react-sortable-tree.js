@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { AutoSizer, List } from 'react-virtualized';
 import isEqual from 'lodash.isequal';
 import withScrolling, {
+  createScrollingComponent,
   createVerticalStrength,
   createHorizontalStrength,
 } from 'react-dnd-scrollzone';
@@ -97,7 +98,7 @@ class ReactSortableTree extends Component {
 
     // Prepare scroll-on-drag options for this list
     if (isVirtualized) {
-      this.scrollZoneVirtualList = withScrolling(List);
+      this.scrollZoneVirtualList = (createScrollingComponent || withScrolling)(List);
       this.vStrength = createVerticalStrength(slideRegionSize);
       this.hStrength = createHorizontalStrength(slideRegionSize);
     }
@@ -604,6 +605,7 @@ class ReactSortableTree extends Component {
 
   render() {
     const {
+      dragDropManager,
       style,
       className,
       innerStyle,
@@ -684,6 +686,7 @@ class ReactSortableTree extends Component {
           {({ height, width }) => (
             <ScrollZoneVirtualList
               {...scrollToInfo}
+              dragDropManager={dragDropManager}
               verticalStrength={this.vStrength}
               horizontalStrength={this.hStrength}
               speed={30}
