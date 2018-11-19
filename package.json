@@ -3,7 +3,7 @@
   "version": "2.3.0",
   "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
-    "postinstall": "cd node_modules/react-dnd-scrollzone && npm run build",
+    "postinstall": "cd node_modules/react-dnd-scrollzone && npm i --ignore-scripts && npm run build",
     "prebuild": "npm run lint",
     "build": "npm run clean && NODE_ENV=rollup rollup -c",
     "build:storybook": "npm run clean:storybook && build-storybook -o build",
