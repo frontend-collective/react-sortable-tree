@@ -1602,7 +1602,8 @@ describe('walk', () => {
           if (node.key === 2) {
             // Cut walk short with false
             return false;
-          } else if (node.key === 3) {
+          }
+          if (node.key === 3) {
             throw new Error('walk not terminated by false');
           }
 

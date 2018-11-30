@@ -14,6 +14,7 @@ coverage
 *.DS_Store
 
 # Build directories (Will be preserved by npm)
+.cache
 dist
 build
 style.css

@@ -2829,7 +2829,7 @@ exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
     </button>
     <br />
     <label
-      Htmlfor="addAsFirstChild"
+      htmlFor="addAsFirstChild"
     >
       Add new nodes at start
       <input

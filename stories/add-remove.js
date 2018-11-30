@@ -126,7 +126,7 @@ export default class App extends Component {
           Add more
         </button>
         <br />
-        <label Htmlfor="addAsFirstChild">
+        <label htmlFor="addAsFirstChild">
           Add new nodes at start
           <input
             name="addAsFirstChild"

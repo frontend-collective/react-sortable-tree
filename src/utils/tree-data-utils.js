@@ -432,7 +432,8 @@ export function changeNodeAtPath({
       return typeof newNode === 'function'
         ? newNode({ node, treeIndex: currentTreeIndex })
         : newNode;
-    } else if (!node.children) {
+    }
+    if (!node.children) {
       // If this node is part of the path, but has no children, return the unchanged node
       throw new Error('Path referenced children of node with no children.');
     }

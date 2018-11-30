@@ -74,8 +74,7 @@ class UnwrappedApp extends Component {
             dndType={externalNodeType}
           />
         </div>
-        <YourExternalNodeComponent node={{ title: 'Baby Rabbit' }} />
-        ← drag this
+        <YourExternalNodeComponent node={{ title: 'Baby Rabbit' }} />← drag this
       </div>
     );
   }

@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { AutoSizer, List } from 'react-virtualized';
 import isEqual from 'lodash.isequal';
 import withScrolling, {
+  createScrollingComponent,
   createVerticalStrength,
   createHorizontalStrength,
 } from 'react-dnd-scrollzone';
+import { Consumer as DragDropContextConsumer } from 'react-dnd/lib/DragDropContext'
 import { polyfill } from 'react-lifecycles-compat';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
@@ -96,7 +98,7 @@ class ReactSortableTree extends Component {
 
     // Prepare scroll-on-drag options for this list
     if (isVirtualized) {
-      this.scrollZoneVirtualList = withScrolling(List);
+      this.scrollZoneVirtualList = (createScrollingComponent || withScrolling)(List);
       this.vStrength = createVerticalStrength(slideRegionSize);
       this.hStrength = createHorizontalStrength(slideRegionSize);
     }
@@ -142,7 +144,7 @@ class ReactSortableTree extends Component {
     // Hook into react-dnd state changes to detect when the drag ends
     // TODO: This is very brittle, so it needs to be replaced if react-dnd
     // offers a more official way to detect when a drag ends
-    this.clearMonitorSubscription = this.context.dragDropManager
+    this.clearMonitorSubscription = this.props.dragDropManager
       .getMonitor()
       .subscribeToStateChange(this.handleDndMonitorChange);
   }
@@ -218,7 +220,7 @@ class ReactSortableTree extends Component {
   }
 
   handleDndMonitorChange() {
-    const monitor = this.context.dragDropManager.getMonitor();
+    const monitor = this.props.dragDropManager.getMonitor();
     // If the drag ends and the tree is still in a mid-drag state,
     // it means that the drag was canceled or the dragSource dropped
     // elsewhere, and we should reset the state of this tree
@@ -376,8 +378,6 @@ class ReactSortableTree extends Component {
     depth: draggedDepth,
     minimumTreeIndex: draggedMinimumTreeIndex,
   }) {
-    const { instanceProps } = this.state;
-
     // Ignore this hover if it is at the same position as the last hover
     if (
       this.state.draggedDepth === draggedDepth &&
@@ -386,37 +386,38 @@ class ReactSortableTree extends Component {
       return;
     }
 
-    // Fall back to the tree data if something is being dragged in from
-    //  an external element
-    const draggingTreeData =
-      this.state.draggingTreeData || instanceProps.treeData;
+    this.setState(({ draggingTreeData, instanceProps }) => {
+      // Fall back to the tree data if something is being dragged in from
+      //  an external element
+      const newDraggingTreeData = draggingTreeData || instanceProps.treeData;
 
-    const addedResult = memoizedInsertNode({
-      treeData: draggingTreeData,
-      newNode: draggedNode,
-      depth: draggedDepth,
-      minimumTreeIndex: draggedMinimumTreeIndex,
-      expandParent: true,
-      getNodeKey: this.props.getNodeKey,
-    });
-
-    const rows = this.getRows(addedResult.treeData);
-    const expandedParentPath = rows[addedResult.treeIndex].path;
-
-    this.setState({
-      draggedNode,
-      draggedDepth,
-      draggedMinimumTreeIndex,
-      draggingTreeData: changeNodeAtPath({
-        treeData: draggingTreeData,
-        path: expandedParentPath.slice(0, -1),
-        newNode: ({ node }) => ({ ...node, expanded: true }),
+      const addedResult = memoizedInsertNode({
+        treeData: newDraggingTreeData,
+        newNode: draggedNode,
+        depth: draggedDepth,
+        minimumTreeIndex: draggedMinimumTreeIndex,
+        expandParent: true,
         getNodeKey: this.props.getNodeKey,
-      }),
-      // reset the scroll focus so it doesn't jump back
-      // to a search result while dragging
-      searchFocusTreeIndex: null,
-      dragging: true,
+      });
+
+      const rows = this.getRows(addedResult.treeData);
+      const expandedParentPath = rows[addedResult.treeIndex].path;
+
+      return {
+        draggedNode,
+        draggedDepth,
+        draggedMinimumTreeIndex,
+        draggingTreeData: changeNodeAtPath({
+          treeData: newDraggingTreeData,
+          path: expandedParentPath.slice(0, -1),
+          newNode: ({ node }) => ({ ...node, expanded: true }),
+          getNodeKey: this.props.getNodeKey,
+        }),
+        // reset the scroll focus so it doesn't jump back
+        // to a search result while dragging
+        searchFocusTreeIndex: null,
+        dragging: true,
+      };
     });
   }
 
@@ -604,6 +605,7 @@ class ReactSortableTree extends Component {
 
   render() {
     const {
+      dragDropManager,
       style,
       className,
       innerStyle,
@@ -684,6 +686,7 @@ class ReactSortableTree extends Component {
           {({ height, width }) => (
             <ScrollZoneVirtualList
               {...scrollToInfo}
+              dragDropManager={dragDropManager}
               verticalStrength={this.vStrength}
               horizontalStrength={this.hStrength}
               speed={30}
@@ -763,6 +766,8 @@ class ReactSortableTree extends Component {
 }
 
 ReactSortableTree.propTypes = {
+  dragDropManager: PropTypes.shape({}).isRequired,
+
   // Tree data in the following format:
   // [{title: 'main', subtitle: 'sub'}, { title: 'value2', expanded: true, children: [{ title: 'value3') }] }]
   // `title` is the primary label for the node
@@ -924,15 +929,20 @@ ReactSortableTree.defaultProps = {
   rowDirection: 'ltr',
 };
 
-ReactSortableTree.contextTypes = {
-  dragDropManager: PropTypes.shape({}),
-};
-
 polyfill(ReactSortableTree);
+
+const SortableTreeWithoutDndContext = (props) =>
+  <DragDropContextConsumer>
+    {({ dragDropManager }) => (
+      dragDropManager === undefined
+        ? null
+        : <ReactSortableTree {...props} dragDropManager={dragDropManager} />
+    )}
+  </DragDropContextConsumer>
 
 // Export the tree component without the react-dnd DragDropContext,
 // for when component is used with other components using react-dnd.
 // see: https://github.com/gaearon/react-dnd/issues/186
-export { ReactSortableTree as SortableTreeWithoutDndContext };
+export { SortableTreeWithoutDndContext };
 
-export default DndManager.wrapRoot(ReactSortableTree);
+export default DndManager.wrapRoot(SortableTreeWithoutDndContext);

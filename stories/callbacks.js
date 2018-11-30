@@ -50,9 +50,9 @@ export default class App extends Component {
         </div>
         {lastMoveNode && (
           <div>
-            Node &quot;{lastMoveNode.title}&quot; moved from path [{lastMovePrevPath.join(
-              ','
-            )}] to path [{lastMoveNextPath.join(',')}].
+            Node &quot;{lastMoveNode.title}&quot; moved from path [
+            {lastMovePrevPath.join(',')}] to path [{lastMoveNextPath.join(',')}
+            ].
           </div>
         )}
       </div>
