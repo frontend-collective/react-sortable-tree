@@ -3,7 +3,7 @@
   "version": "2.3.0",
   "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
-    "postinstall": "cd node_modules/react-dnd-scrollzone && npm i --ignore-scripts && npm run build",
+    "postinstall": "patch-package",
     "prebuild": "npm run lint",
     "build": "npm run clean && NODE_ENV=rollup rollup -c",
     "build:storybook": "npm run clean:storybook && build-storybook -o build",
@@ -60,15 +60,16 @@
   "dependencies": {
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.6.1",
-    "react-dnd": "^6.0.0",
-    "react-dnd-html5-backend": "^6.0.0",
-    "react-dnd-scrollzone": "github:dolezel/react-dnd-scrollzone.git#41203ef00c991f744aa87e897d7d518d32f6a994",
+    "react-dnd": "^7.0.1",
+    "react-dnd-html5-backend": "^7.0.1",
+    "react-dnd-scrollzone": "4.0.0",
     "react-lifecycles-compat": "^3.0.4",
     "react-virtualized": "^9.19.1"
   },
   "peerDependencies": {
-    "react": "^15.3.0 || ^16.0.0",
-    "react-dom": "^15.3.0 || ^16.0.0"
+    "react": "^16.3.0",
+    "react-dnd": "^6.0.0 || ^7.0.0",
+    "react-dom": "^16.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
@@ -103,12 +104,14 @@
     "jest": "^23.1.0",
     "jest-enzyme": "^7.0.1",
     "json-loader": "^0.5.7",
+    "patch-package": "^5.1.1",
     "postcss-loader": "^3.0.0",
+    "postinstall-postinstall": "^2.0.0",
     "prettier": "^1.13.3",
     "react": "^16.4.0",
     "react-addons-shallow-compare": "^15.6.2",
-    "react-dnd-test-backend": "6.0.0",
-    "react-dnd-touch-backend": "0.6.0",
+    "react-dnd-test-backend": "^7.0.1",
+    "react-dnd-touch-backend": "^0.6.0",
     "react-dom": "^16.4.0",
     "react-hot-loader": "^4.3.0",
     "react-sortable-tree-theme-file-explorer": "^1.1.2",
