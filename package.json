@@ -60,8 +60,8 @@
   "dependencies": {
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.6.1",
-    "react-dnd": "^6.0.0",
-    "react-dnd-html5-backend": "^6.0.0",
+    "react-dnd": "^7.0.2",
+    "react-dnd-html5-backend": "^7.0.2",
     "react-dnd-scrollzone": "github:dolezel/react-dnd-scrollzone.git#41203ef00c991f744aa87e897d7d518d32f6a994",
     "react-lifecycles-compat": "^3.0.4",
     "react-virtualized": "^9.19.1"
