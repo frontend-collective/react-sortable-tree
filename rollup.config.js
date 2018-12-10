@@ -11,24 +11,17 @@ export default {
     {
       file: pkg.main,
       format: 'cjs',
-      exports: 'named'
+      exports: 'named',
     },
     {
       file: pkg.module,
       format: 'esm',
-      exports: 'named'
+      exports: 'named',
     },
   ],
   external: [
-    'react',
-    'react-dom',
-    'react-dnd',
-    'react-dnd/lib/DragDropContext',
-    'prop-types',
-    'react-dnd-html5-backend',
-    'react-dnd-scrollzone',
-    'react-virtualized',
-    'lodash.isequal',
+    ...Object.keys(pkg.dependencies),
+    ...Object.keys(pkg.peerDependencies),
   ],
   plugins: [
     nodeResolve(),
