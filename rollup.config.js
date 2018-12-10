@@ -20,8 +20,15 @@ export default {
     },
   ],
   external: [
-    ...Object.keys(pkg.dependencies),
-    ...Object.keys(pkg.peerDependencies),
+    'react',
+    'react-dom',
+    'react-dnd',
+    'react-dnd/lib/DragDropContext',
+    'prop-types',
+    'react-dnd-html5-backend',
+    'react-dnd-scrollzone',
+    'react-virtualized',
+    'lodash.isequal',
   ],
   plugins: [
     nodeResolve(),
