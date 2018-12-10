@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/frontend-collective/react-sortable-tree/compare/v2.4.0...v2.5.0) (2018-12-10)
+
+
+### Bug Fixes
+
+* postinstall -> prepare ([#430](https://github.com/frontend-collective/react-sortable-tree/issues/430)) ([5f94ace](https://github.com/frontend-collective/react-sortable-tree/commit/5f94ace))
+* rollup external dependencies ([7b8afd4](https://github.com/frontend-collective/react-sortable-tree/commit/7b8afd4))
+
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/frontend-collective/react-sortable-tree/compare/v2.3.0...v2.4.0) (2018-12-10)
 
