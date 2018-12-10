@@ -3,7 +3,7 @@
   "version": "2.4.0",
   "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
-    "postinstall": "patch-package",
+    "prepare": "patch-package",
     "prebuild": "npm run lint && npm run clean",
     "build": "rollup -c",
     "build:storybook": "npm run clean:storybook && build-storybook -o build",
