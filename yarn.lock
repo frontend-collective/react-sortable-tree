@@ -4978,10 +4978,10 @@ from2@^2.1.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
 
-frontend-collective-react-dnd-scrollzone@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/frontend-collective-react-dnd-scrollzone/-/frontend-collective-react-dnd-scrollzone-1.0.0.tgz#945fafd149c9b838486c7259b0e2534d0cbf8db2"
-  integrity sha512-hHyMj++4FGjcCTqYLHxtLOrNMRUOV4NQeyxD696Jabtf6JgECTtMPnnW/zfxpPG7vasP4zbflQDicWSAo3YONQ==
+frontend-collective-react-dnd-scrollzone@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/frontend-collective-react-dnd-scrollzone/-/frontend-collective-react-dnd-scrollzone-1.0.1.tgz#0b70901c316c2783f76c3d55ec9c5bb2673914c4"
+  integrity sha512-N1i4hkN4z3BABWGixx+wYaF8OcTX/hamJnwa47ydmI6cMuKf3vJtBPfMfE4rsnHd0VukvV/b6wNMInyqFIHFsg==
   dependencies:
     hoist-non-react-statics "^3.1.0"
     lodash.throttle "^4.0.1"
