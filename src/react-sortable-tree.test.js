@@ -24,7 +24,7 @@ describe('<SortableTree />', () => {
   });
 
   it('should render nodes for flat data', () => {
-    let wrapper
+    let wrapper;
 
     // No nodes
     wrapper = mount(<SortableTree treeData={[]} onChange={() => {}} />);
@@ -40,7 +40,7 @@ describe('<SortableTree />', () => {
   });
 
   it('should render nodes for nested, expanded data', () => {
-    let wrapper
+    let wrapper;
 
     // Single Nested
     wrapper = mount(
@@ -76,7 +76,7 @@ describe('<SortableTree />', () => {
   });
 
   it('should render nodes for nested, collapsed data', () => {
-    let wrapper
+    let wrapper;
 
     // Single Nested
     wrapper = mount(
@@ -438,9 +438,8 @@ describe('<SortableTree />', () => {
       .getBackend();
 
     // Retrieve our DnD-wrapped node component type
-    const wrappedNodeType = wrapper
-      .find('ReactSortableTree')
-      .instance().nodeContentRenderer;
+    const wrappedNodeType = wrapper.find('ReactSortableTree').instance()
+      .nodeContentRenderer;
 
     // And get the first such component
     const nodeInstance = wrapper
