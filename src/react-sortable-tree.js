@@ -6,8 +6,8 @@ import withScrolling, {
   createScrollingComponent,
   createVerticalStrength,
   createHorizontalStrength,
-} from 'react-dnd-scrollzone';
-import { Consumer as DragDropContextConsumer } from 'react-dnd/lib/DragDropContext'
+} from 'frontend-collective-react-dnd-scrollzone';
+import { Consumer as DragDropContextConsumer } from 'react-dnd/lib/DragDropContext';
 import { polyfill } from 'react-lifecycles-compat';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
@@ -98,7 +98,9 @@ class ReactSortableTree extends Component {
 
     // Prepare scroll-on-drag options for this list
     if (isVirtualized) {
-      this.scrollZoneVirtualList = (createScrollingComponent || withScrolling)(List);
+      this.scrollZoneVirtualList = (createScrollingComponent || withScrolling)(
+        List
+      );
       this.vStrength = createVerticalStrength(slideRegionSize);
       this.hStrength = createHorizontalStrength(slideRegionSize);
     }
@@ -931,14 +933,15 @@ ReactSortableTree.defaultProps = {
 
 polyfill(ReactSortableTree);
 
-const SortableTreeWithoutDndContext = (props) =>
+const SortableTreeWithoutDndContext = props => (
   <DragDropContextConsumer>
-    {({ dragDropManager }) => (
-      dragDropManager === undefined
-        ? null
-        : <ReactSortableTree {...props} dragDropManager={dragDropManager} />
-    )}
+    {({ dragDropManager }) =>
+      dragDropManager === undefined ? null : (
+        <ReactSortableTree {...props} dragDropManager={dragDropManager} />
+      )
+    }
   </DragDropContextConsumer>
+);
 
 // Export the tree component without the react-dnd DragDropContext,
 // for when component is used with other components using react-dnd.

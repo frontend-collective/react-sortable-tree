@@ -3,7 +3,6 @@
   "version": "2.5.0",
   "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
-    "prepare": "patch-package",
     "prebuild": "npm run lint && npm run clean",
     "build": "rollup -c",
     "build:storybook": "npm run clean:storybook && build-storybook -o build",
@@ -58,11 +57,11 @@
     "> 1%"
   ],
   "dependencies": {
+    "frontend-collective-react-dnd-scrollzone": "^1.0.1",
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.6.1",
     "react-dnd": "^7.0.1",
     "react-dnd-html5-backend": "^7.0.1",
-    "react-dnd-scrollzone": "4.0.0",
     "react-lifecycles-compat": "^3.0.4",
     "react-virtualized": "^9.19.1"
   },
@@ -84,11 +83,9 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "babel-loader": "^8.0.4",
     "codesandbox": "^1.2.10",
     "coveralls": "^3.0.1",
     "cross-env": "^5.1.6",
-    "css-loader": "^1.0.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^5.9.0",
@@ -97,16 +94,9 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^2.0.0",
     "gh-pages": "^2.0.1",
-    "html-webpack-plugin": "^3.2.0",
     "jest": "^23.1.0",
     "jest-enzyme": "^7.0.1",
-    "json-loader": "^0.5.7",
-    "patch-package": "^5.1.1",
-    "postcss-loader": "^3.0.0",
-    "postinstall-postinstall": "^2.0.0",
     "prettier": "^1.13.3",
     "react": "^16.4.0",
     "react-addons-shallow-compare": "^15.6.2",
@@ -122,12 +112,7 @@
     "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-postcss": "^1.6.2",
-    "standard-version": "^4.4.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.10.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.4",
-    "webpack-node-externals": "^1.7.2"
+    "standard-version": "^4.4.0"
   },
   "keywords": [
     "react",
