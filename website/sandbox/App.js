@@ -1,5 +1,5 @@
 import React from 'react';
-import SortableTree from 'react-sortable-tree';
+import SortableTree, { toggleExpandedForAll } from 'react-sortable-tree';
 
 import treeData from './treeData';
 
@@ -58,12 +58,35 @@ export default class App extends React.Component {
     });
   };
 
+  toggleNodeExpansion = expanded => {
+    this.setState(prevState => ({
+      treeData: toggleExpandedForAll({
+        treeData: prevState.treeData,
+        expanded,
+      }),
+    }));
+  };
+
   render() {
-    const { treeData, searchString, searchFocusIndex } = this.state;
+    const {
+      treeData,
+      searchString,
+      searchFocusIndex,
+      searchFoundCount,
+    } = this.state;
 
     return (
       <div className="wrapper">
         <div className="bar-wrapper">
+          <button onClick={this.toggleNodeExpansion.bind(this, true)}>
+            Expand all
+          </button>
+          <button
+            className="collapse"
+            onClick={this.toggleNodeExpansion.bind(this, false)}
+          >
+            Collapse all
+          </button>
           <label>Search: </label>
           <input onChange={this.handleSearchOnChange} />
           <button className="previous" onClick={this.selectPrevMatch}>
@@ -72,6 +95,9 @@ export default class App extends React.Component {
           <button className="next" onClick={this.selectNextMatch}>
             Next
           </button>
+          <label>
+            {searchFocusIndex} / {searchFoundCount}
+          </label>
         </div>
         <div className="tree-wrapper">
           <SortableTree

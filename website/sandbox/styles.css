@@ -25,6 +25,8 @@ html,
   margin-left: 10px;
 }
 
-.next {
+.next,
+.collapse {
+  margin-right: 10px;
   margin-left: 5px;
 }

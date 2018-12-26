@@ -7,7 +7,7 @@
     "prebuild": "npm run lint && npm run clean",
     "build": "rollup -c",
     "build:storybook": "npm run clean:storybook && build-storybook -o build/storybook",
-    "build:website": "npm run clean:website && parcel build website/index.html -d build",
+    "build:website": "npm run clean:website && parcel build website/index.html -d build --public-url /react-sortable-tree/",
     "clean": "rimraf dist",
     "clean:storybook": "rimraf build/storybook",
     "clean:website": "rimraf build",
