@@ -34,7 +34,7 @@ class App extends React.Component {
           Drag-and-drop sortable component for nested data and hierarchies
         </div>
         <iframe
-          src="https://codesandbox.io/embed/xj7mmx93xz?odemirror=1&view=preview"
+          src="https://codesandbox.io/embed/github/frontend-collective/react-sortable-tree/tree/master/website/sandbox?odemirror=1&view=preview"
           sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
         />
       </div>
