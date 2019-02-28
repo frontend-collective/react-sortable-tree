@@ -155,10 +155,12 @@ class ReactSortableTree extends Component {
     const { instanceProps } = prevState;
     const newState = {};
 
+    const isTreeDataEqual = isEqual(instanceProps.treeData, nextProps.treeData);
+
     // make sure we have the most recent version of treeData
     instanceProps.treeData = nextProps.treeData;
 
-    if (!isEqual(instanceProps.treeData, nextProps.treeData)) {
+    if (!isTreeDataEqual) {
       if (instanceProps.ignoreOneTreeUpdate) {
         instanceProps.ignoreOneTreeUpdate = false;
       } else {
