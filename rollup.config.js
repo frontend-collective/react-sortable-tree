@@ -23,7 +23,7 @@ export default {
     'react',
     'react-dom',
     'react-dnd',
-    'react-dnd/lib/DragDropContext',
+    'react-dnd/lib/cjs/DragDropContext',
     'prop-types',
     'react-dnd-html5-backend',
     'frontend-collective-react-dnd-scrollzone',

@@ -7,7 +7,7 @@ import withScrolling, {
   createVerticalStrength,
   createHorizontalStrength,
 } from 'frontend-collective-react-dnd-scrollzone';
-import { Consumer as DragDropContextConsumer } from 'react-dnd/lib/DragDropContext';
+import { Consumer as DragDropContextConsumer } from 'react-dnd/lib/cjs/DragDropContext';
 import { polyfill } from 'react-lifecycles-compat';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
@@ -770,7 +770,9 @@ class ReactSortableTree extends Component {
 }
 
 ReactSortableTree.propTypes = {
-  dragDropManager: PropTypes.shape({}).isRequired,
+  dragDropManager: PropTypes.shape({
+    getMonitor: PropTypes.func,
+  }).isRequired,
 
   // Tree data in the following format:
   // [{title: 'main', subtitle: 'sub'}, { title: 'value2', expanded: true, children: [{ title: 'value3') }] }]
