@@ -60,7 +60,7 @@
     "> 1%"
   ],
   "dependencies": {
-    "frontend-collective-react-dnd-scrollzone": "^1.0.1",
+    "frontend-collective-react-dnd-scrollzone": "^1.0.2",
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.6.1",
     "react-dnd": "^7.3.0",
