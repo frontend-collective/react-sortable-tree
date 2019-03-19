@@ -7,7 +7,7 @@ import withScrolling, {
   createVerticalStrength,
   createHorizontalStrength,
 } from 'frontend-collective-react-dnd-scrollzone';
-import { Consumer as DragDropContextConsumer } from 'react-dnd/lib/DragDropContext';
+import { DragDropContextConsumer } from 'react-dnd';
 import { polyfill } from 'react-lifecycles-compat';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';

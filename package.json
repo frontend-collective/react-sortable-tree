@@ -60,10 +60,10 @@
     "> 1%"
   ],
   "dependencies": {
-    "frontend-collective-react-dnd-scrollzone": "^1.0.1",
+    "frontend-collective-react-dnd-scrollzone": "^1.0.2",
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.6.1",
-    "react-dnd": "^6.0.0 || ~7.0.0",
+    "react-dnd": "^7.3.0",
     "react-dnd-html5-backend": "^7.0.1",
     "react-lifecycles-compat": "^3.0.4",
     "react-sortable-tree": "^2.6.0",
@@ -71,7 +71,7 @@
   },
   "peerDependencies": {
     "react": "^16.3.0",
-    "react-dnd": "^6.0.0 || ~7.0.0",
+    "react-dnd": "^7.3.0",
     "react-dom": "^16.3.0"
   },
   "devDependencies": {
