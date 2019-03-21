@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.6.2"></a>
+## [2.6.2](https://github.com/frontend-collective/react-sortable-tree/compare/v2.6.1...v2.6.2) (2019-03-21)
+
+
+### Bug Fixes
+
+* Using DragDropContextConsumer directly ([#466](https://github.com/frontend-collective/react-sortable-tree/issues/466)) ([7bc9995](https://github.com/frontend-collective/react-sortable-tree/commit/7bc9995))
+
+
+
 <a name="2.6.1"></a>
 ## [2.6.1](https://github.com/frontend-collective/react-sortable-tree/compare/v2.6.0...v2.6.1) (2019-03-19)
 
