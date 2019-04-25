@@ -1145,6 +1145,20 @@ describe('addNodeUnderParent', () => {
     expect(expectedNewNode).toEqual(nestedParams.newNode);
     expect(previousChildren).toEqual(nestedParams.treeData[0].children);
   });
+
+  it('should add new node as first child under root if addAsFirstChild is true', () => {
+    const result = addNodeUnderParent({
+      ...nestedParams,
+      parentKey: null,
+      getNodeKey: keyFromKey,
+      addAsFirstChild: true,
+    });
+
+    const [expectedNewNode, ...previousTreeData] = result.treeData;
+
+    expect(expectedNewNode).toEqual(nestedParams.newNode);
+    expect(previousTreeData).toEqual(nestedParams.treeData);
+  });
 });
 
 describe('insertNode', () => {
@@ -1913,9 +1927,9 @@ describe('map', () => {
           !node.children
             ? node
             : {
-                ...node,
-                children: node.children.sort((a, b) => a.key - b.key),
-              },
+              ...node,
+              children: node.children.sort((a, b) => a.key - b.key),
+            },
         treeData: [
           {
             key: 1,
