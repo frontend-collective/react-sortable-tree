@@ -132,11 +132,11 @@ Need a hand turning your flat data into nested tree data?
 Want to perform add/remove operations on the tree data without creating your own recursive function?
 Check out the helper functions exported from [`tree-data-utils.js`](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js).
 
-- [**`getTreeFromFlatData`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L972): Convert flat data (like that from a database) into nested tree data.
-- [**`getFlatDataFromTree`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L939): Convert tree data back to flat data.
-- [**`addNodeUnderParent`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L612): Add a node under the parent node at the given path.
-- [**`removeNode`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L533): For a given path, get the node at that path, treeIndex, and the treeData with that node removed.
-- [**`removeNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L505): For a given path, remove the node and return the treeData.
+- [**`getTreeFromFlatData`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L979): Convert flat data (like that from a database) into nested tree data.
+- [**`getFlatDataFromTree`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L946): Convert tree data back to flat data.
+- [**`addNodeUnderParent`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L614): Add a node under the parent node at the given path.
+- [**`removeNode`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L534): For a given path, get the node at that path, treeIndex, and the treeData with that node removed.
+- [**`removeNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L506): For a given path, remove the node and return the treeData.
 - [**`changeNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L409): Modify the node object at the given path.
 - [**`map`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L359): Perform a change on every node in the tree.
 - [**`walk`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L326): Visit every node in the tree in order.
@@ -144,11 +144,11 @@ Check out the helper functions exported from [`tree-data-utils.js`](https://gith
 - [**`getVisibleNodeCount`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L248): Count how many visible descendants this node has.
 - [**`getVisibleNodeInfoAtIndex`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L286): Get the <targetIndex>th visible node in the tree data.
 - [**`toggleExpandedForAll`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L389): Expand or close every node in the tree.
-- [**`getNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L572): Get the node at the input path.
-- [**`insertNode`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L878): Insert the input node at the specified depth and minimumTreeIndex.
-- [**`find`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1070): Find nodes matching a search query in the tree.
-- [**`isDescendant`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1020): Check if a node is a descendant of another node.
-- [**`getDepth`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1038): Get the longest path in the tree.
+- [**`getNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L573): Get the node at the input path.
+- [**`insertNode`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L885): Insert the input node at the specified depth and minimumTreeIndex.
+- [**`find`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1077): Find nodes matching a search query in the tree.
+- [**`isDescendant`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1027): Check if a node is a descendant of another node.
+- [**`getDepth`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1045): Get the longest path in the tree.
 
 ## Themes
 
