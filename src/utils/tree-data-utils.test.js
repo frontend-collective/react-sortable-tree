@@ -1927,9 +1927,9 @@ describe('map', () => {
           !node.children
             ? node
             : {
-              ...node,
-              children: node.children.sort((a, b) => a.key - b.key),
-            },
+                ...node,
+                children: node.children.sort((a, b) => a.key - b.key),
+              },
         treeData: [
           {
             key: 1,
