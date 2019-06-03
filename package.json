@@ -17,6 +17,7 @@
     "release": "standard-version",
     "test": "jest",
     "test:watch": "jest --watchAll",
+    "test:visual": "npx eyes-storybook",
     "storybook": "start-storybook -p ${PORT:-3001} -h 0.0.0.0",
     "deploy": "gh-pages -d build"
   },
@@ -60,6 +61,7 @@
     "> 1%"
   ],
   "dependencies": {
+    "@applitools/eyes-storybook": "^2.6.20",
     "frontend-collective-react-dnd-scrollzone": "^1.0.2",
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.6.1",
