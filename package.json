@@ -17,7 +17,7 @@
     "release": "standard-version",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "test:visual": "npx eyes-storybook",
+    "test:visual": "eyes-storybook -p ${PORT:-3001} -h 0.0.0.0",
     "storybook": "start-storybook -p ${PORT:-3001} -h 0.0.0.0",
     "deploy": "gh-pages -d build"
   },
