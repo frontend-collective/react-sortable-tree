@@ -88,7 +88,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
-    "codesandbox": "^1.2.10",
+    "codesandbox": "~1.2.10",
     "coveralls": "^3.0.1",
     "cross-env": "^5.1.6",
     "enzyme": "^3.3.0",
