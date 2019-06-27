@@ -241,11 +241,15 @@ export default class DndManager {
           return;
         }
 
-        this.dragHover({
-          node: draggedNode,
-          path: monitor.getItem().path,
-          minimumTreeIndex: dropTargetProps.listIndex,
-          depth: targetDepth,
+        // throttle `dragHover` work to available animation frames
+        cancelAnimationFrame(this.rafId);
+        this.rafId = requestAnimationFrame(() => {
+          this.dragHover({
+            node: draggedNode,
+            path: monitor.getItem().path,
+            minimumTreeIndex: dropTargetProps.listIndex,
+            depth: targetDepth,
+          });
         });
       },
 
