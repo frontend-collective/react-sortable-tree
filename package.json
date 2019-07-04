@@ -62,17 +62,17 @@
   "dependencies": {
     "frontend-collective-react-dnd-scrollzone": "^1.0.2",
     "lodash.isequal": "^4.5.0",
-    "prop-types": "^15.6.1",
-    "react-dnd": "^7.3.0",
-    "react-dnd-html5-backend": "^7.0.1",
+    "prop-types": "^15.7.2",
+    "react-dnd": "^9.0.0",
+    "react-dnd-html5-backend": "^9.0.0",
     "react-lifecycles-compat": "^3.0.4",
     "react-sortable-tree": "^2.6.0",
     "react-virtualized": "^9.19.1"
   },
   "peerDependencies": {
-    "react": "^16.3.0",
-    "react-dnd": "^7.3.0",
-    "react-dom": "^16.3.0"
+    "react": "^16.8.6",
+    "react-dnd": "^9.0.0",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
@@ -104,11 +104,11 @@
     "jest-enzyme": "^7.0.1",
     "parcel-bundler": "^1.11.0",
     "prettier": "^1.13.3",
-    "react": "^16.3.0",
+    "react": "^16.8.6",
     "react-addons-shallow-compare": "^15.6.2",
-    "react-dnd-test-backend": "^7.0.1",
-    "react-dnd-touch-backend": "^0.6.0",
-    "react-dom": "^16.3.0",
+    "react-dnd-test-backend": "^9.0.0",
+    "react-dnd-touch-backend": "^9.0.0",
+    "react-dom": "^16.8.6",
     "react-hot-loader": "^4.3.0",
     "react-sortable-tree-theme-file-explorer": "^1.1.2",
     "react-test-renderer": "^16.4.0",
