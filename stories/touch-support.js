@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { Component } from 'react';
-import { DragDropContext } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
 import { SortableTreeWithoutDndContext as SortableTree } from '../src';
@@ -10,7 +10,7 @@ import { SortableTreeWithoutDndContext as SortableTree } from '../src';
 // https://stackoverflow.com/a/4819886/1601953
 const isTouchDevice = !!('ontouchstart' in window || navigator.maxTouchPoints);
 
-class UnwrappedApp extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -22,7 +22,7 @@ class UnwrappedApp extends Component {
   }
 
   render() {
-    return (
+    return (<DndProvider backend={isTouchDevice ? TouchBackend : HTML5Backend}>
       <div>
         <span>
           This is {!isTouchDevice && 'not '}a touch-supporting browser
@@ -35,11 +35,8 @@ class UnwrappedApp extends Component {
           />
         </div>
       </div>
-    );
+    </DndProvider>);
   }
 }
 
-const App = DragDropContext(isTouchDevice ? TouchBackend : HTML5Backend)(
-  UnwrappedApp
-);
 export default App;

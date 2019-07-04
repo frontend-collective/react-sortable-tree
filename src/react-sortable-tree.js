@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { AutoSizer, List } from 'react-virtualized';
 import isEqual from 'lodash.isequal';
@@ -7,7 +7,7 @@ import withScrolling, {
   createVerticalStrength,
   createHorizontalStrength,
 } from 'frontend-collective-react-dnd-scrollzone';
-import { DragDropContextConsumer } from 'react-dnd';
+import { DndContext } from 'react-dnd';
 import { polyfill } from 'react-lifecycles-compat';
 import 'react-virtualized/styles.css';
 import TreeNode from './tree-node';
@@ -935,15 +935,12 @@ ReactSortableTree.defaultProps = {
 
 polyfill(ReactSortableTree);
 
-const SortableTreeWithoutDndContext = props => (
-  <DragDropContextConsumer>
-    {({ dragDropManager }) =>
-      dragDropManager === undefined ? null : (
-        <ReactSortableTree {...props} dragDropManager={dragDropManager} />
-      )
-    }
-  </DragDropContextConsumer>
-);
+const SortableTreeWithoutDndContext = props => {
+  const { dragDropManager } = useContext(DndContext);
+  return (
+    <ReactSortableTree {...props} dragDropManager={dragDropManager} />
+  );
+};
 
 // Export the tree component without the react-dnd DragDropContext,
 // for when component is used with other components using react-dnd.

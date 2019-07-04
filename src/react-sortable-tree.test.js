@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { List } from 'react-virtualized';
-import { DragDropContext } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
 import SortableTree, {
@@ -401,35 +401,28 @@ describe('<SortableTree />', () => {
   });
 
   it('loads using SortableTreeWithoutDndContext', () => {
-    const HTML5Wrapped = DragDropContext(HTML5Backend)(
-      SortableTreeWithoutDndContext
-    );
-    const TouchWrapped = DragDropContext(TouchBackend)(
-      SortableTreeWithoutDndContext
-    );
-
     expect(
-      mount(<HTML5Wrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
+      mount(<DndProvider backend={HTML5Backend}>
+        <SortableTreeWithoutDndContext treeData={[{ title: 'a' }]} onChange={() => {}} />
+      </DndProvider>)
     ).toBeDefined();
     expect(
-      mount(<TouchWrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
+      mount(<DndProvider backend={TouchBackend}>
+        <TouchWrapped treeData={[{ title: 'a' }]} onChange={() => {}} />
+      </DndProvider>)
     ).toBeDefined();
   });
 
   it('loads using SortableTreeWithoutDndContext', () => {
-    const TestWrapped = DragDropContext(HTML5Backend)(
-      SortableTreeWithoutDndContext
-    );
-
     const onDragStateChanged = jest.fn();
     const treeData = [{ title: 'a' }, { title: 'b' }];
-    const wrapper = mount(
-      <TestWrapped
+    const wrapper = mount(<DndProvider backend={HTML5Backend}>
+      <SortableTreeWithoutDndContext
         treeData={treeData}
         onDragStateChanged={onDragStateChanged}
         onChange={() => {}}
       />
-    );
+    </DndProvider>);
 
     // Obtain a reference to the backend
     const backend = wrapper

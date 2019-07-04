@@ -1,7 +1,7 @@
 import {
-  DragDropContext as dragDropContext,
   DragSource as dragSource,
   DropTarget as dropTarget,
+  DndProvider,
 } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { findDOMNode } from 'react-dom';
@@ -13,8 +13,12 @@ export default class DndManager {
     this.treeRef = treeRef;
   }
 
-  static wrapRoot(el) {
-    return dragDropContext(HTML5Backend)(el);
+  static wrapRoot(Comp) {
+    return ((props) => (
+      <DndProvider backend={HTML5Backend}>
+        <Comp {...props} />
+      </DndProvider>
+    ));
   }
 
   get startDrag() {
