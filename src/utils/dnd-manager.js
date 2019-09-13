@@ -1,9 +1,4 @@
-import {
-  DragDropContext as dragDropContext,
-  DragSource as dragSource,
-  DropTarget as dropTarget,
-} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { DragSource as dragSource, DropTarget as dropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom';
 import { getDepth } from './tree-data-utils';
 import { memoizedInsertNode } from './memoized-tree-data-utils';
@@ -11,10 +6,6 @@ import { memoizedInsertNode } from './memoized-tree-data-utils';
 export default class DndManager {
   constructor(treeRef) {
     this.treeRef = treeRef;
-  }
-
-  static wrapRoot(el) {
-    return dragDropContext(HTML5Backend)(el);
   }
 
   get startDrag() {

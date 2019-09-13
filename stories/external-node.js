@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DragDropContext, DragSource } from 'react-dnd';
+import { DndProvider, DragSource } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { SortableTreeWithoutDndContext as SortableTree } from '../src';
 // In your own app, you would need to use import styles once in the app
@@ -55,7 +55,7 @@ const YourExternalNodeComponent = DragSource(
   externalNodeCollect
 )(externalNodeBaseComponent);
 
-class UnwrappedApp extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -66,19 +66,21 @@ class UnwrappedApp extends Component {
 
   render() {
     return (
-      <div>
-        <div style={{ height: 300 }}>
-          <SortableTree
-            treeData={this.state.treeData}
-            onChange={treeData => this.setState({ treeData })}
-            dndType={externalNodeType}
-          />
+      <DndProvider backend={HTML5Backend}>
+        <div>
+          <div style={{ height: 300 }}>
+            <SortableTree
+              treeData={this.state.treeData}
+              onChange={treeData => this.setState({ treeData })}
+              dndType={externalNodeType}
+            />
+          </div>
+          <YourExternalNodeComponent node={{ title: 'Baby Rabbit' }} />← drag
+          this
         </div>
-        <YourExternalNodeComponent node={{ title: 'Baby Rabbit' }} />← drag this
-      </div>
+      </DndProvider>
     );
   }
 }
 
-const App = DragDropContext(HTML5Backend)(UnwrappedApp);
 export default App;
