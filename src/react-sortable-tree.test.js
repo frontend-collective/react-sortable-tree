@@ -1,9 +1,11 @@
+/* eslint-disable react/no-multi-comp */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { List } from 'react-virtualized';
-import { DndProvider } from 'react-dnd';
+import { DndProvider, DndContext } from 'react-dnd';
+import TestBackend from 'react-dnd-test-utils';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
 import SortableTree, {
@@ -426,8 +428,15 @@ describe('<SortableTree />', () => {
   it('loads using SortableTreeWithoutDndContext', () => {
     const onDragStateChanged = jest.fn();
     const treeData = [{ title: 'a' }, { title: 'b' }];
+    let manager = null;
+
     const wrapper = mount(
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={TestBackend}>
+        <DndContext.Consumer>
+          {({ dragDropManager }) => {
+            manager = dragDropManager;
+          }}
+        </DndContext.Consumer>
         <SortableTreeWithoutDndContext
           treeData={treeData}
           onDragStateChanged={onDragStateChanged}
@@ -437,10 +446,7 @@ describe('<SortableTree />', () => {
     );
 
     // Obtain a reference to the backend
-    const backend = wrapper
-      .instance()
-      .getManager()
-      .getBackend();
+    const backend = manager.getBackend();
 
     // Retrieve our DnD-wrapped node component type
     const wrappedNodeType = wrapper.find('ReactSortableTree').instance()
