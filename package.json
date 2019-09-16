@@ -13,7 +13,7 @@
     "clean:website": "rimraf build",
     "lint": "eslint src",
     "prettier": "prettier --write \"{src,example/src,stories}/**/*.{js,css,md}\"",
-    "prepare": "npm run lint && npm run test && npm run build",
+    "prepare": "npm run test && npm run build",
     "release": "standard-version",
     "test": "jest",
     "test:watch": "jest --watchAll",
