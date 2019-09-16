@@ -11285,11 +11285,6 @@ react-dnd-test-backend@^9.3.4:
   dependencies:
     dnd-core "^9.3.4"
 
-react-dnd-test-utils@^9.3.4:
-  version "9.3.4"
-  resolved "https://registry.yarnpkg.com/react-dnd-test-utils/-/react-dnd-test-utils-9.3.4.tgz#f816115eeaee08d72c00bc14073461240d80a5cd"
-  integrity sha512-YRoZGF5ued3KuP6ZJ2n9u4duNlGiuE8atOI7kDKvRX1d60jnAWwKWoC5gyDs6/fQGlYqNAZ+ZWndNZph6g3Cbw==
-
 react-dnd-touch-backend@^9.3.4:
   version "9.3.4"
   resolved "https://registry.yarnpkg.com/react-dnd-touch-backend/-/react-dnd-touch-backend-9.3.4.tgz#6a93d06967a400dad2154b49e273f93aeee1cdfe"
