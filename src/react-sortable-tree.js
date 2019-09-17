@@ -541,7 +541,7 @@ class ReactSortableTree extends Component {
 
   renderRow(
     row,
-    { listIndex, style, getPrevRow, matchKeys, swapFrom, swapDepth, swapLength }
+    { listIndex, style, getPrevRow, matchKeys, swapFrom, swapDepth, swapLength, draggedNodePath }
   ) {
     const { node, parentNode, path, lowerSiblingCounts, treeIndex } = row;
 
@@ -592,6 +592,7 @@ class ReactSortableTree extends Component {
         swapFrom={swapFrom}
         swapLength={swapLength}
         swapDepth={swapDepth}
+        draggedNodePath={draggedNodePath}
         {...sharedProps}
       >
         <NodeContentRenderer
@@ -635,6 +636,7 @@ class ReactSortableTree extends Component {
     let rows;
     let swapFrom = null;
     let swapLength = null;
+    let draggedNodePath = null;
     if (draggedNode && draggedMinimumTreeIndex !== null) {
       const addedResult = memoizedInsertNode({
         treeData,
@@ -654,6 +656,7 @@ class ReactSortableTree extends Component {
         swapTo,
         swapLength
       );
+      draggedNodePath = addedResult.path;
     } else {
       rows = this.getRows(treeData);
     }
@@ -726,6 +729,7 @@ class ReactSortableTree extends Component {
                   swapFrom,
                   swapDepth: draggedDepth,
                   swapLength,
+                  draggedNodePath,
                 })
               }
               {...reactVirtualizedListProps}
@@ -754,6 +758,7 @@ class ReactSortableTree extends Component {
           swapFrom,
           swapDepth: draggedDepth,
           swapLength,
+          draggedNodePath,
         })
       );
     }
