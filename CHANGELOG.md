@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.7.0"></a>
+# [2.7.0](https://github.com/frontend-collective/react-sortable-tree/compare/v2.6.2...v2.7.0) (2019-10-14)
+
+
+### Features
+
+* update react-dnd ([#531](https://github.com/frontend-collective/react-sortable-tree/issues/531)) ([c449524](https://github.com/frontend-collective/react-sortable-tree/commit/c449524))
+
+
+
 <a name="2.6.2"></a>
 ## [2.6.2](https://github.com/frontend-collective/react-sortable-tree/compare/v2.6.1...v2.6.2) (2019-03-21)
 
