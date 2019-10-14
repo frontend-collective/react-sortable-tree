@@ -621,10 +621,15 @@ export function addNodeUnderParent({
   addAsFirstChild = false,
 }) {
   if (parentKey === null) {
-    return {
-      treeData: [...(treeData || []), newNode],
-      treeIndex: (treeData || []).length,
-    };
+    return addAsFirstChild
+      ? {
+          treeData: [newNode, ...(treeData || [])],
+          treeIndex: 0,
+        }
+      : {
+          treeData: [...(treeData || []), newNode],
+          treeIndex: (treeData || []).length,
+        };
   }
 
   let insertedTreeIndex = null;
