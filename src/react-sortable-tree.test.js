@@ -1,9 +1,11 @@
+/* eslint-disable react/no-multi-comp */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { List } from 'react-virtualized';
-import { DragDropContext } from 'react-dnd';
+import { DndProvider, DndContext } from 'react-dnd';
+import TestBackend from 'react-dnd-test-backend';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
 import SortableTree, {
@@ -401,41 +403,50 @@ describe('<SortableTree />', () => {
   });
 
   it('loads using SortableTreeWithoutDndContext', () => {
-    const HTML5Wrapped = DragDropContext(HTML5Backend)(
-      SortableTreeWithoutDndContext
-    );
-    const TouchWrapped = DragDropContext(TouchBackend)(
-      SortableTreeWithoutDndContext
-    );
-
     expect(
-      mount(<HTML5Wrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
+      mount(
+        <DndProvider backend={HTML5Backend}>
+          <SortableTreeWithoutDndContext
+            treeData={[{ title: 'a' }]}
+            onChange={() => {}}
+          />
+        </DndProvider>
+      )
     ).toBeDefined();
     expect(
-      mount(<TouchWrapped treeData={[{ title: 'a' }]} onChange={() => {}} />)
+      mount(
+        <DndProvider backend={TouchBackend}>
+          <SortableTreeWithoutDndContext
+            treeData={[{ title: 'a' }]}
+            onChange={() => {}}
+          />
+        </DndProvider>
+      )
     ).toBeDefined();
   });
 
   it('loads using SortableTreeWithoutDndContext', () => {
-    const TestWrapped = DragDropContext(HTML5Backend)(
-      SortableTreeWithoutDndContext
-    );
-
     const onDragStateChanged = jest.fn();
     const treeData = [{ title: 'a' }, { title: 'b' }];
+    let manager = null;
+
     const wrapper = mount(
-      <TestWrapped
-        treeData={treeData}
-        onDragStateChanged={onDragStateChanged}
-        onChange={() => {}}
-      />
+      <DndProvider backend={TestBackend}>
+        <DndContext.Consumer>
+          {({ dragDropManager }) => {
+            manager = dragDropManager;
+          }}
+        </DndContext.Consumer>
+        <SortableTreeWithoutDndContext
+          treeData={treeData}
+          onDragStateChanged={onDragStateChanged}
+          onChange={() => {}}
+        />
+      </DndProvider>
     );
 
     // Obtain a reference to the backend
-    const backend = wrapper
-      .instance()
-      .getManager()
-      .getBackend();
+    const backend = manager.getBackend();
 
     // Retrieve our DnD-wrapped node component type
     const wrappedNodeType = wrapper.find('ReactSortableTree').instance()
