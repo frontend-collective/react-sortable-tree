@@ -74,7 +74,10 @@ export default class Tree extends Component {
     super(props);
 
     this.state = {
-      treeData: [{ title: 'Chicken', children: [{ title: 'Egg' }] }],
+      treeData: [
+        { title: 'Chicken', children: [{ title: 'Egg' }] },
+        { title: 'Fish', children: [{ title: 'fingerline'}] }
+      ],
     };
   }
 
