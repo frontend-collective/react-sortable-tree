@@ -9,6 +9,7 @@ function getReactElementText(parent) {
   }
 
   if (
+    parent === null ||
     typeof parent !== 'object' ||
     !parent.props ||
     !parent.props.children ||
