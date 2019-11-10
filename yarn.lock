@@ -10959,15 +10959,7 @@ prop-types-exact@^1.2.0:
     object.assign "^4.1.0"
     reflect.ownkeys "^0.2.0"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
-  version "15.6.2"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
-  integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
-  dependencies:
-    loose-envify "^1.3.1"
-    object-assign "^4.1.1"
-
-prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -11418,10 +11410,10 @@ react-modal@^3.6.1:
     react-lifecycles-compat "^3.0.0"
     warning "^3.0.0"
 
-react-sortable-tree-theme-file-explorer@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/react-sortable-tree-theme-file-explorer/-/react-sortable-tree-theme-file-explorer-1.1.2.tgz#513f1371524af0707486db4a1d9368e576109b31"
-  integrity sha512-5RKbWYSgLFGPb5LubS/svTlCCRvULIe2j9c/V7438VMPHoSkW5RkDu9psfHhpBJp666MIn5oOL5a1jw5hfWcpA==
+react-sortable-tree-theme-file-explorer@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-sortable-tree-theme-file-explorer/-/react-sortable-tree-theme-file-explorer-2.0.0.tgz#4f0da481738b4f5be538723172bd851c70efe244"
+  integrity sha512-44U3pl56Ucy5Zv1xOEKshFHJU085cO1XZ3w9j2fA/ga15aQ6PzlaNdNfFIeyrhb9J8aem7SvCLiCBNEzhkF0Uw==
   dependencies:
     lodash.isequal "^4.4.0"
     prop-types "^15.6.0"
