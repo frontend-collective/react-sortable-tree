@@ -74,7 +74,9 @@
     "react-dnd-html5-backend": "^9.3.4",
     "react-lifecycles-compat": "^3.0.4",
     "react-sortable-tree": "^2.6.0",
-    "react-virtualized": "^9.19.1"
+    "react-virtualized": "^9.19.1",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.7.1"
   },
   "peerDependencies": {
     "react": "^16.3.0",
