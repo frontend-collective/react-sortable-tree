@@ -1,5 +1,5 @@
 import React from 'react';
-import SortableTree, { toggleExpandedForAll } from 'react-sortable-tree';
+import SortableTree, { toggleExpandedForAll } from '../../src';
 
 import treeData from './treeData';
 

@@ -3535,11 +3535,6 @@ chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.3.1, chalk@^2.4.1, chalk@^2.4
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-change-emitter@^0.1.2:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/change-emitter/-/change-emitter-0.1.6.tgz#e8b2fe3d7f1ab7d69a32199aff91ea6931409515"
-  integrity sha1-6LL+PX8at9aaMhma/5HqaTFAlRU=
-
 chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
@@ -4882,16 +4877,6 @@ dnd-core@^2.5.4:
     lodash "^4.2.0"
     redux "^3.7.1"
 
-dnd-core@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-7.0.1.tgz#b417ceb0244f12f97896f9ef41c7f6519c2a923b"
-  integrity sha512-DKrmSHdmPJEXebt2yaNgZj7xhCdmgT96ujwoadnVsTwgnFMawO1JjFt8OFccxTF7vzX6sCKqNZXt227vTlGcCA==
-  dependencies:
-    asap "^2.0.6"
-    invariant "^2.2.4"
-    lodash "^4.17.11"
-    redux "^4.0.1"
-
 dnd-core@^9.3.4, dnd-core@^9.4.0:
   version "9.4.0"
   resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-9.4.0.tgz#ccf605d36887f18cdde8fd5576ca3145d2e69fa8"
@@ -5904,7 +5889,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.1, fbjs@^0.8.4, fbjs@^0.8.9:
+fbjs@^0.8.4, fbjs@^0.8.9:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   integrity sha1-xNWY6taUkRJlPWWIsBpc3Nn5D90=
@@ -6180,19 +6165,6 @@ from2@^2.1.0:
   dependencies:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
-
-frontend-collective-react-dnd-scrollzone@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/frontend-collective-react-dnd-scrollzone/-/frontend-collective-react-dnd-scrollzone-1.0.1.tgz#0b70901c316c2783f76c3d55ec9c5bb2673914c4"
-  integrity sha512-N1i4hkN4z3BABWGixx+wYaF8OcTX/hamJnwa47ydmI6cMuKf3vJtBPfMfE4rsnHd0VukvV/b6wNMInyqFIHFsg==
-  dependencies:
-    hoist-non-react-statics "^3.1.0"
-    lodash.throttle "^4.0.1"
-    prop-types "^15.5.9"
-    raf "^3.2.0"
-    react "^16.3.0"
-    react-display-name "^0.2.0"
-    react-dom "^16.3.0"
 
 frontend-collective-react-dnd-scrollzone@^1.0.2:
   version "1.0.2"
@@ -6813,7 +6785,7 @@ hoist-non-react-statics@1.x.x, hoist-non-react-statics@^1.2.0:
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
   integrity sha1-qkSM8JhtVcxAdzsXF0t90GbLfPs=
 
-hoist-non-react-statics@^2.1.0, hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
+hoist-non-react-statics@^2.1.0, hoist-non-react-statics@^2.5.0:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
   integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
@@ -11279,14 +11251,6 @@ react-dnd-html5-backend@2.5.4:
   dependencies:
     lodash "^4.2.0"
 
-react-dnd-html5-backend@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-7.0.1.tgz#b19d648b261288c83634ded13294499125e68f13"
-  integrity sha512-pfSMPucNfMsrgbf4gh0xoYBdjFXrrSI0G3ybKfr8T/j+1p+Qy9tmBfBtXv5ZS4QQm85gPpplG2CV68mMB770PA==
-  dependencies:
-    dnd-core "^7.0.1"
-    lodash "^4.17.11"
-
 react-dnd-html5-backend@^9.3.4:
   version "9.4.0"
   resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-9.4.0.tgz#5b1d192f57d103298657cde1fe0eabdbf2726311"
@@ -11332,18 +11296,6 @@ react-dnd@2.5.4:
     invariant "^2.1.0"
     lodash "^4.2.0"
     prop-types "^15.5.10"
-
-react-dnd@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-7.0.1.tgz#155f2f14054ac29c2ae87cb9543e98a3adb71025"
-  integrity sha512-Iql5+6v2KQzJlLY9rC0uMjmgN86HoiLpTFADKGTQKU0+vIVqUBsuBChmpkpPh4+1XmWs9Dn8AY9wyBlwZ2Cibw==
-  dependencies:
-    dnd-core "^7.0.1"
-    hoist-non-react-statics "^3.1.0"
-    invariant "^2.1.0"
-    lodash "^4.17.11"
-    recompose "^0.30.0"
-    shallowequal "^1.1.0"
 
 react-dnd@^9.3.4:
   version "9.3.4"
@@ -11420,7 +11372,7 @@ react-is@^16.10.2, react-is@^16.3.2, react-is@^16.6.3, react-is@^16.7.0, react-i
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
   integrity sha512-gbBVYR2p8mnriqAwWx9LbuUrShnAuSCNnuPGyc7GJrMVQtPDAh8iLpv7FRuMPFb56KkaVZIYSz1PrjI9q0QPCw==
 
-react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
+react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
@@ -11446,19 +11398,6 @@ react-sortable-tree-theme-file-explorer@^1.1.2:
     react-dnd-html5-backend "2.5.4"
     react-dnd-scrollzone "^4.0.0"
     react-virtualized "^9.13.0"
-
-react-sortable-tree@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/react-sortable-tree/-/react-sortable-tree-2.6.0.tgz#206c15ffaf7cb8297c3d50bc057ccb72272c4b43"
-  integrity sha512-XRAm8mK48xylJtLtk/ENPdV0+cAvx+vCDRxWJq9Nhc4vI+dKx4flEGJc1cFmvt5OvXaaX/KWQFB59/4gYkEPXw==
-  dependencies:
-    frontend-collective-react-dnd-scrollzone "^1.0.1"
-    lodash.isequal "^4.5.0"
-    prop-types "^15.6.1"
-    react-dnd "^7.0.1"
-    react-dnd-html5-backend "^7.0.1"
-    react-lifecycles-compat "^3.0.4"
-    react-virtualized "^9.19.1"
 
 react-split-pane@^0.1.84:
   version "0.1.84"
@@ -11669,18 +11608,6 @@ rechoir@^0.6.2:
   integrity sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q=
   dependencies:
     resolve "^1.1.6"
-
-recompose@^0.30.0:
-  version "0.30.0"
-  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.30.0.tgz#82773641b3927e8c7d24a0d87d65aeeba18aabd0"
-  integrity sha512-ZTrzzUDa9AqUIhRk4KmVFihH0rapdCSMFXjhHbNrjAWxBuUD/guYlyysMnuHjlZC/KRiOKRtB4jf96yYSkKE8w==
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    change-emitter "^0.1.2"
-    fbjs "^0.8.1"
-    hoist-non-react-statics "^2.3.1"
-    react-lifecycles-compat "^3.0.2"
-    symbol-observable "^1.0.4"
 
 recursive-readdir@2.2.2:
   version "2.2.2"
@@ -13089,7 +13016,7 @@ svgo@^1.0.0, svgo@^1.0.5:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-symbol-observable@^1.0.3, symbol-observable@^1.0.4, symbol-observable@^1.2.0:
+symbol-observable@^1.0.3, symbol-observable@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
   integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
