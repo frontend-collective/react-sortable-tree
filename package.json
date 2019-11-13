@@ -88,7 +88,7 @@
     "@babel/preset-react": "^7.0.0",
     "@storybook/addon-options": "^4.0.0-alpha.4",
     "@storybook/addon-storyshots": "^4.0.0-alpha.4",
-    "@storybook/react": "^4.0.0-alpha.4",
+    "@storybook/react": "^5.2.6",
     "autoprefixer": "^9.3.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
