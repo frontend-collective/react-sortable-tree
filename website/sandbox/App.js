@@ -19,12 +19,16 @@ const alertNodeInfo = ({ node, path, treeIndex }) => {
 };
 
 export default class App extends React.Component {
-  state = {
-    searchString: '',
-    searchFocusIndex: 0,
-    searchFoundCount: null,
-    treeData,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchString: '',
+      searchFocusIndex: 0,
+      searchFoundCount: null,
+      treeData,
+    };
+  }
 
   handleTreeOnChange = treeData => {
     this.setState({ treeData });
@@ -78,21 +82,29 @@ export default class App extends React.Component {
     return (
       <div className="wrapper">
         <div className="bar-wrapper">
-          <button onClick={this.toggleNodeExpansion.bind(this, true)}>
+          <button
+            type="button"
+            onClick={this.toggleNodeExpansion.bind(this, true)}
+          >
             Expand all
           </button>
           <button
+            type="button"
             className="collapse"
             onClick={this.toggleNodeExpansion.bind(this, false)}
           >
             Collapse all
           </button>
           <label>Search: </label>
-          <input onChange={this.handleSearchOnChange} />
-          <button className="previous" onClick={this.selectPrevMatch}>
+          <input type="text" onChange={this.handleSearchOnChange} />
+          <button
+            type="button"
+            className="previous"
+            onClick={this.selectPrevMatch}
+          >
             Previous
           </button>
-          <button className="next" onClick={this.selectNextMatch}>
+          <button type="button" className="next" onClick={this.selectNextMatch}>
             Next
           </button>
           <label>
@@ -125,10 +137,11 @@ export default class App extends React.Component {
                   matches.length > 0 ? searchFocusIndex % matches.length : 0,
               })
             }
-            isVirtualized={true}
+            isVirtualized
             generateNodeProps={rowInfo => ({
               buttons: [
                 <button
+                  type="button"
                   className="btn btn-outline-success"
                   style={{
                     verticalAlign: 'middle',
