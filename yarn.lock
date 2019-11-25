@@ -4744,10 +4744,10 @@ dnd-core@^2.5.4:
     lodash "^4.2.0"
     redux "^3.7.1"
 
-dnd-core@^9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-9.4.0.tgz#ccf605d36887f18cdde8fd5576ca3145d2e69fa8"
-  integrity sha512-Kg+8VwU8s7TgdR/BUYGUHrvFiS+5ePMZ0Q0XD7p+cFVJvgKqykBaeQDuaziuauFMPm8QxtnUy8Pncey9flXW3Q==
+dnd-core@^9.4.0, dnd-core@^9.5.0:
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-9.5.0.tgz#3fb1fe1f24036c4352587002711e2590cb8c0e9a"
+  integrity sha512-UZyNMJKhxukwJHcTCXJg/PtmOwPnSQLCmYCIrgUOf+UX6gS3lKRiik/hJzIX0HzqadyMrLAO7PxazF6UmFLsBQ==
   dependencies:
     "@types/asap" "^2.0.0"
     "@types/invariant" "^2.2.30"
@@ -10901,11 +10901,11 @@ react-dnd-html5-backend@2.5.4:
     lodash "^4.2.0"
 
 react-dnd-html5-backend@^9.3.4:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-9.4.0.tgz#5b1d192f57d103298657cde1fe0eabdbf2726311"
-  integrity sha512-gehPwLp505F6RoFkQiDX7Q4mbpbyfyT0TbIoZop/m4vkBw6yUE/QLrnxBQdNpDPSwL/9XkZxxd/PrbeMCQ+WrQ==
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-9.5.0.tgz#2bdc2defc8d2cbdc55abb73263c26bb7d510c859"
+  integrity sha512-0kLZoUIXRfSFBjssRRc4oU0v+nGI+21GfKHQukRvvGGOtlsJNmdqpNxJ9BjStNEYub59TbbgPIjKM/Ba6IDbVw==
   dependencies:
-    dnd-core "^9.4.0"
+    dnd-core "^9.5.0"
 
 react-dnd-scrollzone@^4.0.0:
   version "4.0.0"
