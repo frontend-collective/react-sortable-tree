@@ -3949,24 +3949,24 @@ codesandbox-import-util-types@^2.1.9:
   resolved "https://registry.yarnpkg.com/codesandbox-import-util-types/-/codesandbox-import-util-types-2.1.9.tgz#24ba5ec3d966f51f18b78c48d32e6411da90aa74"
   integrity sha512-Vc4qh+neVfHtS3RG+7wvaErMoEKdNTnLFnyj4Dcbn3NV7v9nlPj/z6MGhHp9S+vAjegWorFzxg9lKB1WGHTt5Q==
 
-codesandbox-import-utils@^2.1.9:
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.1.9.tgz#8126c08e9ab509d00a164ef5583c549b9252c7c1"
-  integrity sha512-fsymevaFbWFhT0jYHwyDvJTaEz5kBzR5celw9vbqj3uIaqjdh1CLBbZS+FtiOnJisOu+xGV9ZndnKEn5y08JGA==
+codesandbox-import-utils@^2.1.11:
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.1.11.tgz#171ce53a77b8dcd196fdcfaf0f6bc52b1206444a"
+  integrity sha512-vkA0drdzO2ArMUzl8/AhEuzaW6qX3ic1SXPmruVS7bo/3K1P8H+S9CbuUNPo67X54/LzHwMnAZgZMXwN8vrw7Q==
   dependencies:
     codesandbox-import-util-types "^2.1.9"
     istextorbinary "^2.2.1"
     lz-string "^1.4.4"
 
 codesandbox@~2.1.10:
-  version "2.1.10"
-  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.10.tgz#61cd1ae35b62dd99aae829085335f6270fb514d0"
-  integrity sha512-p62wtmTLUX/j8i7VVvogVXD5FHbxNHco9jpN/DptkPIV5iLz2tnF6XPpXWNzZbJCgBAltpdbTbP+ch2vxds7Pg==
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.11.tgz#3c37ca56f6feea37e282c275a91c805f7b4f9f90"
+  integrity sha512-ACUBMNk6Ppuu5KpQh0eqs5LePOPXeIW1bKtNNWzbJfybzbpr3F236BHPReRqYqMO8DXHlf370gAlknX/Z48oCQ==
   dependencies:
     axios "^0.16.2"
     chalk "^2.4.1"
     codesandbox-import-util-types "^2.1.9"
-    codesandbox-import-utils "^2.1.9"
+    codesandbox-import-utils "^2.1.11"
     commander "^2.9.0"
     datauri "^1.1.0"
     filesize "^3.6.1"
