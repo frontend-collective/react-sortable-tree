@@ -11478,14 +11478,13 @@ react-dnd-test-backend@^10.0.2:
   dependencies:
     dnd-core "^10.0.2"
 
-react-dnd-touch-backend@^9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/react-dnd-touch-backend/-/react-dnd-touch-backend-9.4.0.tgz#6784e71fad0904723e33e6710caafe36c62192a4"
-  integrity sha512-yJjFhgslriSTIEXQ/Q5MrLnETJaoyRct+AsJ//e96WOH2pUNMGSxkl8RIb/IMhNysVnMc8frLIyT8dQxXAcmGA==
+react-dnd-touch-backend@^10.0.2:
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/react-dnd-touch-backend/-/react-dnd-touch-backend-10.0.2.tgz#90cb916655539b838d49b8895e1813f8b874b3b4"
+  integrity sha512-+lW/Ern0dKyHToD0oP+Wc/ZD6l7qJazosLqbjzL7OnPlig6WxdlrHkJylOLkeAdZj41fIJJ551Lb57pIL0CcPw==
   dependencies:
-    "@types/invariant" "^2.2.30"
-    dnd-core "^9.4.0"
-    invariant "^2.2.4"
+    "@react-dnd/invariant" "^2.0.0"
+    dnd-core "^10.0.2"
 
 react-dnd@2.5.4:
   version "2.5.4"
