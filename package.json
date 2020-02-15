@@ -13,7 +13,7 @@
     "clean:storybook": "rimraf build/storybook",
     "clean:website": "rimraf build",
     "lint": "eslint src website",
-    "prettier": "prettier --write \"{src,example/src,stories}/**/*.{js,css,md}\"",
+    "prettier": "prettier --write \"{src,website,stories}/**/*.{js,jsx,ts,tsx,css,md}\"",
     "prepublishOnly": "yarn run test && yarn run build",
     "release": "standard-version",
     "test": "jest",
