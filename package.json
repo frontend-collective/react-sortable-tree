@@ -3,7 +3,7 @@
   "version": "2.7.1",
   "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
-    "start": "parcel website/index.html",
+    "start": "./start.sh",
     "prebuild": "yarn run lint && yarn run clean",
     "build": "rollup -c",
     "buildOnly": "rollup -c",
@@ -49,6 +49,8 @@
     "moduleFileExtensions": [
       "js",
       "jsx",
+      "ts",
+      "tsx",
       "json"
     ],
     "moduleDirectories": [
@@ -71,6 +73,7 @@
   ],
   "dependencies": {
     "lodash.isequal": "^4.5.0",
+    "memoize-one": "^5.1.1",
     "prop-types": "^15.6.1",
     "react-dnd-html5-backend": "^10.0.2",
     "react-dnd-scrollzone": "^5.0.0",
@@ -87,6 +90,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.1.0",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@storybook/addon-options": "^5.3.13",
@@ -125,7 +129,8 @@
     "rollup": "^1.31.1",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-postcss": "^2.0.6",
-    "standard-version": "^7.1.0"
+    "standard-version": "^7.1.0",
+    "typescript": "^3.7.5"
   },
   "keywords": [
     "react",
