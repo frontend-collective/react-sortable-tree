@@ -1699,7 +1699,10 @@ describe('getTreeFromFlatData', () => {
   it('should handle [depth == 2] data', () => {
     [
       {
-        flatData: [{ key: 1, parentKey: rootKey }, { key: 2, parentKey: 1 }],
+        flatData: [
+          { key: 1, parentKey: rootKey },
+          { key: 2, parentKey: 1 },
+        ],
         expected: [
           {
             key: 1,
@@ -1764,7 +1767,10 @@ describe('getTreeFromFlatData', () => {
               {
                 key: 2,
                 parentKey: 1,
-                children: [{ key: 4, parentKey: 2 }, { key: 3, parentKey: 2 }],
+                children: [
+                  { key: 4, parentKey: 2 },
+                  { key: 3, parentKey: 2 },
+                ],
               },
               { key: 6, parentKey: 1 },
             ],

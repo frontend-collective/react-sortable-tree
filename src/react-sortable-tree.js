@@ -947,9 +947,9 @@ const SortableTreeWithoutDndContext = props => (
 
 const SortableTree = props => (
   <DndProvider backend={HTML5Backend}>
-    <SortableTreeWithoutDndContext {...props}/>
+    <SortableTreeWithoutDndContext {...props} />
   </DndProvider>
-)
+);
 
 // Export the tree component without the react-dnd DragDropContext,
 // for when component is used with other components using react-dnd.
