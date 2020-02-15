@@ -29,19 +29,25 @@ export default class App extends React.Component {
       searchFoundCount: null,
       treeData,
     };
+
+    this.handleTreeOnChange = this.handleTreeOnChange.bind(this);
+    this.handleSearchOnChange = this.handleSearchOnChange.bind(this);
+    this.selectPrevMatch = this.selectPrevMatch.bind(this);
+    this.selectNextMatch = this.selectNextMatch.bind(this);
+    this.toggleNodeExpansion = this.toggleNodeExpansion.bind(this);
   }
 
-  handleTreeOnChange = treeData => {
+  handleTreeOnChange(treeData) {
     this.setState({ treeData });
-  };
+  }
 
-  handleSearchOnChange = e => {
+  handleSearchOnChange(e) {
     this.setState({
       searchString: e.target.value,
     });
-  };
+  }
 
-  selectPrevMatch = () => {
+  selectPrevMatch() {
     const { searchFocusIndex, searchFoundCount } = this.state;
 
     this.setState({
@@ -50,9 +56,9 @@ export default class App extends React.Component {
           ? (searchFoundCount + searchFocusIndex - 1) % searchFoundCount
           : searchFoundCount - 1,
     });
-  };
+  }
 
-  selectNextMatch = () => {
+  selectNextMatch() {
     const { searchFocusIndex, searchFoundCount } = this.state;
 
     this.setState({
@@ -61,16 +67,16 @@ export default class App extends React.Component {
           ? (searchFocusIndex + 1) % searchFoundCount
           : 0,
     });
-  };
+  }
 
-  toggleNodeExpansion = expanded => {
+  toggleNodeExpansion(expanded) {
     this.setState(prevState => ({
       treeData: toggleExpandedForAll({
         treeData: prevState.treeData,
         expanded,
       }),
     }));
-  };
+  }
 
   render() {
     const {

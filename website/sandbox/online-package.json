@@ -5,5 +5,8 @@
     "react": "^16",
     "react-dom": "^16",
     "react-sortable-tree": "^2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4"
   }
 }

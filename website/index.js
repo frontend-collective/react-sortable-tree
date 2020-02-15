@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import './index.css';
 import '../style.css';
+import './sandbox/styles.css';
+import SandboxApp from './sandbox/App';
 
 class App extends React.Component {
   render() {
@@ -33,11 +35,14 @@ class App extends React.Component {
         <div className="description">
           Drag-and-drop sortable component for nested data and hierarchies
         </div>
+        <SandboxApp />
+        {/*
         <iframe
           title="sandbox"
           src="https://codesandbox.io/embed/github/frontend-collective/react-sortable-tree/tree/master/website/sandbox?odemirror=1&view=preview"
           sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
         />
+        */}
       </div>
     );
   }
