@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { AutoSizer, List } from 'react-virtualized';
 import isEqual from 'lodash.isequal';
-import withScrolling, {
-  createScrollingComponent,
-  createVerticalStrength,
-  createHorizontalStrength,
-} from 'frontend-collective-react-dnd-scrollzone';
 import { DndProvider, DndContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import 'react-virtualized/styles.css';
@@ -81,7 +76,6 @@ class ReactSortableTree extends Component {
       nodeContentRenderer,
       treeNodeRenderer,
       isVirtualized,
-      slideRegionSize,
     } = mergeTheme(props);
 
     this.dndManager = new DndManager(this);
@@ -98,11 +92,7 @@ class ReactSortableTree extends Component {
 
     // Prepare scroll-on-drag options for this list
     if (isVirtualized) {
-      this.scrollZoneVirtualList = (createScrollingComponent || withScrolling)(
-        List
-      );
-      this.vStrength = createVerticalStrength(slideRegionSize);
-      this.hStrength = createHorizontalStrength(slideRegionSize);
+      this.scrollZoneVirtualList = List;
     }
 
     this.state = {
@@ -129,7 +119,7 @@ class ReactSortableTree extends Component {
     this.dragHover = this.dragHover.bind(this);
     this.endDrag = this.endDrag.bind(this);
     this.drop = this.drop.bind(this);
-    this.handleDndMonitorChange = this.handleDndMonitorChange.bind(this);
+    // this.handleDndMonitorChange = this.handleDndMonitorChange.bind(this);
   }
 
   componentDidMount() {
@@ -143,12 +133,12 @@ class ReactSortableTree extends Component {
     );
     this.setState(stateUpdate);
 
-    // Hook into react-dnd state changes to detect when the drag ends
-    // TODO: This is very brittle, so it needs to be replaced if react-dnd
-    // offers a more official way to detect when a drag ends
-    this.clearMonitorSubscription = this.props.dragDropManager
-      .getMonitor()
-      .subscribeToStateChange(this.handleDndMonitorChange);
+    // // Hook into react-dnd state changes to detect when the drag ends
+    // // TODO: This is very brittle, so it needs to be replaced if react-dnd
+    // // offers a more official way to detect when a drag ends
+    // this.clearMonitorSubscription = this.props.dragDropManager
+    //   .getMonitor()
+    //   .subscribeToStateChange(this.handleDndMonitorChange);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -211,9 +201,9 @@ class ReactSortableTree extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.clearMonitorSubscription();
-  }
+  // componentWillUnmount() {
+  //   this.clearMonitorSubscription();
+  // }
 
   getRows(treeData) {
     return memoizedGetFlatDataFromTree({
@@ -683,23 +673,22 @@ class ReactSortableTree extends Component {
     } else if (isVirtualized) {
       containerStyle = { height: '100%', ...containerStyle };
 
-      const ScrollZoneVirtualList = this.scrollZoneVirtualList;
       // Render list with react-virtualized
       list = (
         <AutoSizer>
           {({ height, width }) => (
-            <ScrollZoneVirtualList
+            <List
               {...scrollToInfo}
               dragDropManager={dragDropManager}
-              verticalStrength={this.vStrength}
-              horizontalStrength={this.hStrength}
-              speed={30}
+              // verticalStrength={this.vStrength}
+              // horizontalStrength={this.hStrength}
+              // speed={30}
               scrollToAlignment="start"
               className="rst__virtualScrollOverride"
               width={width}
-              onScroll={({ scrollTop }) => {
-                this.scrollTop = scrollTop;
-              }}
+              // onScroll={({ scrollTop }) => {
+              //   this.scrollTop = scrollTop;
+              // }}
               height={height}
               style={innerStyle}
               rowCount={rows.length}
