@@ -54,6 +54,7 @@ export default class App extends Component {
                 title: `${playerColor} ${
                   path.length === 1 ? 'Captain' : node.position
                 }`,
+                subtitle: `${playerColor} Team`,
                 onClick: () => {
                   this.setState(state => ({
                     treeData: changeNodeAtPath({

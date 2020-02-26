@@ -836,9 +836,14 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                             className="rst__rowLabel"
                           >
                             <span
-                              className="rst__rowTitle"
+                              className="rst__rowTitle rst__rowTitleWithSubtitle"
                             >
                               Red Captain
+                            </span>
+                            <span
+                              className="rst__rowSubtitle"
+                            >
+                              Red Team
                             </span>
                           </div>
                           <div
@@ -909,9 +914,14 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                             className="rst__rowLabel"
                           >
                             <span
-                              className="rst__rowTitle"
+                              className="rst__rowTitle rst__rowTitleWithSubtitle"
                             >
                               Black Captain
+                            </span>
+                            <span
+                              className="rst__rowSubtitle"
+                            >
+                              Black Team
                             </span>
                           </div>
                           <div
@@ -995,9 +1005,14 @@ exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
                             className="rst__rowLabel"
                           >
                             <span
-                              className="rst__rowTitle"
+                              className="rst__rowTitle rst__rowTitleWithSubtitle"
                             >
                               Green Captain
+                            </span>
+                            <span
+                              className="rst__rowSubtitle"
+                            >
+                              Green Team
                             </span>
                           </div>
                           <div
