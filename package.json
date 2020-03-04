@@ -98,7 +98,7 @@
     "babel-loader": "^8.0.4",
     "codesandbox": "~2.1.10",
     "coveralls": "^3.0.1",
-    "cross-env": "^6.0.3",
+    "cross-env": "^7.0.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^6.6.0",
