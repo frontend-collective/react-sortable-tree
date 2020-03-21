@@ -1418,11 +1418,11 @@
   integrity sha512-xL4RCQBCBDJ+GRwKTFhGUW8GXa4yoDfJrPbLblc3U09ciS+9ZJXJ3Qrcs/x2IODOdIE5kQxvMmE2UKyqUictUw==
 
 "@storybook/addon-options@^5.2.6":
-  version "5.2.6"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-options/-/addon-options-5.2.6.tgz#a9b5d3d81a6c4e4004ae8d048c4f06076ae5029e"
-  integrity sha512-M/+9H4UmjZCv2tpmQKwLcxN/ptAgcTK7Fg6xXH4z/jSqSJ084JrRXMrh8MHvMQwSMpqADyo8AeHxzgs6jSdoeQ==
+  version "5.3.17"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-options/-/addon-options-5.3.17.tgz#971d22f9902420cd6d16e1f78c219ebfb5f850a5"
+  integrity sha512-6Cm8czEIg+8FnCMfj/cI8q1nl8Khlxhe4sYw5fwWXRKbOld6PBVhnTUqWv2lWzlkxpbDgVeUJYnMjXsza/RNaA==
   dependencies:
-    "@storybook/addons" "5.2.6"
+    "@storybook/addons" "5.3.17"
     core-js "^3.0.1"
     util-deprecate "^1.0.2"
 
