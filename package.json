@@ -69,7 +69,7 @@
     "frontend-collective-react-dnd-scrollzone": "^1.0.2",
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.6.1",
-    "react-dnd": "^9.4.0",
+    "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
     "react-lifecycles-compat": "^3.0.4",
     "react-virtualized": "^9.21.2"
