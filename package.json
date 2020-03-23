@@ -88,6 +88,7 @@
     "@storybook/addon-storyshots": "^5.2.6",
     "@storybook/addons": "^5.3.17",
     "@storybook/react": "^5.2.6",
+    "@storybook/theming": "^5.3.17",
     "autoprefixer": "^9.7.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
