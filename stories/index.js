@@ -20,73 +20,22 @@ import TreeToTreeExample from './tree-to-tree';
 import RowDirectionExample from './rtl-support';
 import './generic.css';
 
-import { handleClick, SANDBOX_URL } from './sandbox-utils';
-
-const wrapWithSource = (node, src) => (
-  <div>
-    {node}
-
-    <br />
-    <form id="codesandbox-form" action={SANDBOX_URL} method="POST">
-      <input id="codesandbox-parameters" type="hidden" name="parameters" />
-    </form>
-    <button className="sandboxButton" onClick={handleClick(src)}>
-      PLAY WITH THIS CODE →
-    </button>
-    <a
-      href={`https://github.com/frontend-collective/react-sortable-tree/blob/master/stories/${src}`}
-      target="_top"
-      rel="noopener noreferrer"
-      className="sourceLink"
-    >
-      VIEW SOURCE →
-    </a>
-  </div>
-);
-
 storiesOf('Basics', module)
-  .add('Minimal implementation', () =>
-    wrapWithSource(<BarebonesExample />, 'barebones.js')
-  )
-  .add('treeData import/export', () =>
-    wrapWithSource(<TreeDataIOExample />, 'tree-data-io.js')
-  )
-  .add('Add and remove nodes programmatically', () =>
-    wrapWithSource(<AddRemoveExample />, 'add-remove.js')
-  )
-  .add('Modify nodes', () =>
-    wrapWithSource(<ModifyNodesExample />, 'modify-nodes.js')
-  )
-  .add('Prevent drop', () => wrapWithSource(<CanDropExample />, 'can-drop.js'))
-  .add('Search', () => wrapWithSource(<SearchExample />, 'search.js'))
-  .add('Themes', () => wrapWithSource(<ThemesExample />, 'themes.js'))
-  .add('Callbacks', () => wrapWithSource(<CallbacksExample />, 'callbacks.js'))
-  .add('Row direction support', () =>
-    wrapWithSource(<RowDirectionExample />, 'rtl-support.js')
-  );
+  .add('Minimal implementation', () => <BarebonesExample />)
+  .add('treeData import/export', () => <TreeDataIOExample />)
+  .add('Add and remove nodes programmatically', () => <AddRemoveExample />)
+  .add('Modify nodes', () => <ModifyNodesExample />)
+  .add('Prevent drop', () => <CanDropExample />)
+  .add('Search', () => <SearchExample />)
+  .add('Themes', () => <ThemesExample />)
+  .add('Callbacks', () => <CallbacksExample />)
+  .add('Row direction support', () => <RowDirectionExample />);
 
 storiesOf('Advanced', module)
-  .add('Drag from external source', () =>
-    wrapWithSource(<ExternalNodeExample />, 'external-node.js')
-  )
-  .add('Touch support (Experimental)', () =>
-    wrapWithSource(<TouchSupportExample />, 'touch-support.js')
-  )
-  .add('Tree-to-tree dragging', () =>
-    wrapWithSource(<TreeToTreeExample />, 'tree-to-tree.js')
-  )
-  .add('Playing with generateNodeProps', () =>
-    wrapWithSource(<GenerateNodePropsExample />, 'generate-node-props.js')
-  )
-  .add('Drag out to remove', () =>
-    wrapWithSource(<DragOutToRemoveExample />, 'drag-out-to-remove.js')
-  )
-  .add('onlyExpandSearchedNodes', () =>
-    wrapWithSource(
-      <OnlyExpandSearchedNodesExample />,
-      'only-expand-searched-node.js'
-    )
-  )
-  .add('Prevent some nodes from having children', () =>
-    wrapWithSource(<ChildlessNodes />, 'childless-nodes.js')
-  );
+  .add('Drag from external source', () => <ExternalNodeExample />)
+  .add('Touch support (Experimental)', () => <TouchSupportExample />)
+  .add('Tree-to-tree dragging', () => <TreeToTreeExample />, 'tree-to-tree.js')
+  .add('Playing with generateNodeProps', () => <GenerateNodePropsExample />)
+  .add('Drag out to remove', () => <DragOutToRemoveExample />)
+  .add('onlyExpandSearchedNodes', () => <OnlyExpandSearchedNodesExample />)
+  .add('Prevent some nodes from having children', () => <ChildlessNodes />);
