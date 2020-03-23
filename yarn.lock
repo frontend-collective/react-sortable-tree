@@ -1350,15 +1350,6 @@
   resolved "https://registry.yarnpkg.com/@react-dnd/invariant/-/invariant-2.0.0.tgz#09d2e81cd39e0e767d7da62df9325860f24e517e"
   integrity sha512-xL4RCQBCBDJ+GRwKTFhGUW8GXa4yoDfJrPbLblc3U09ciS+9ZJXJ3Qrcs/x2IODOdIE5kQxvMmE2UKyqUictUw==
 
-"@storybook/addon-options@^5.2.6":
-  version "5.3.17"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-options/-/addon-options-5.3.17.tgz#971d22f9902420cd6d16e1f78c219ebfb5f850a5"
-  integrity sha512-6Cm8czEIg+8FnCMfj/cI8q1nl8Khlxhe4sYw5fwWXRKbOld6PBVhnTUqWv2lWzlkxpbDgVeUJYnMjXsza/RNaA==
-  dependencies:
-    "@storybook/addons" "5.3.17"
-    core-js "^3.0.1"
-    util-deprecate "^1.0.2"
-
 "@storybook/addon-storyshots@^5.2.6":
   version "5.3.17"
   resolved "https://registry.yarnpkg.com/@storybook/addon-storyshots/-/addon-storyshots-5.3.17.tgz#eb8a5ccfd506a520e661b636792f81945a7732e6"
@@ -1380,7 +1371,7 @@
     regenerator-runtime "^0.13.3"
     ts-dedent "^1.1.0"
 
-"@storybook/addons@5.3.17":
+"@storybook/addons@5.3.17", "@storybook/addons@^5.3.17":
   version "5.3.17"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.3.17.tgz#8efab65904040b0b8578eedc9a5772dbcbf6fa83"
   integrity sha512-zg6O1bmffRsHXJOWAnSD2O3tPnVMoD8Yfu+a5zBVXDiUP1E/TGzgjjjYBUUCU3yQg1Ted5rIn4o6ql/rZNNlgA==
