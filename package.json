@@ -113,7 +113,7 @@
     "react": "^16.11.0",
     "react-addons-shallow-compare": "^15.6.2",
     "react-dnd-test-backend": "^10.0.2",
-    "react-dnd-touch-backend": "^9.4.0",
+    "react-dnd-touch-backend": "^11.1.2",
     "react-dom": "^16.11.0",
     "react-hot-loader": "^4.12.17",
     "react-sortable-tree-theme-file-explorer": "^2.0.0",
