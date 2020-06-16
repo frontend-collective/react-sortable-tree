@@ -136,6 +136,7 @@ Want to perform add/remove operations on the tree data without creating your own
 Check out the helper functions exported from [`tree-data-utils.js`](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js).
 
 - [**`getTreeFromFlatData`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L979): Convert flat data (like that from a database) into nested tree data.
+- [**`getUniqueTreeFromFlatData`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L979): Convert flat data (like that from a database) into nested tree data. (It removes duplicate records)
 - [**`getFlatDataFromTree`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L946): Convert tree data back to flat data.
 - [**`addNodeUnderParent`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L614): Add a node under the parent node at the given path.
 - [**`removeNode`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L534): For a given path, get the node at that path, treeIndex, and the treeData with that node removed.
