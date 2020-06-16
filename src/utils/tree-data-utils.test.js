@@ -4,6 +4,7 @@ import {
   changeNodeAtPath,
   addNodeUnderParent,
   getTreeFromFlatData,
+  getUniqueTreeFromFlatData,
   getNodeAtPath,
   getFlatDataFromTree,
   walk,
@@ -1754,6 +1755,137 @@ describe('getTreeFromFlatData', () => {
           { key: 1, parentKey: rootKey },
           { key: 2, parentKey: 1 },
           { key: 6, parentKey: 1 },
+        ],
+        expected: [
+          { key: 7, parentKey: rootKey },
+          {
+            key: 1,
+            parentKey: rootKey,
+            children: [
+              {
+                key: 2,
+                parentKey: 1,
+                children: [{ key: 4, parentKey: 2 }, { key: 3, parentKey: 2 }],
+              },
+              { key: 6, parentKey: 1 },
+            ],
+          },
+        ],
+      },
+    ].forEach(checkFunction);
+  });
+});
+
+describe('getUniqueTreeFromFlatData', () => {
+  const rootKey = -1;
+  const argDefaults = {
+    rootKey,
+    getKey: node => node.key,
+    getParentKey: node => node.parentKey,
+  };
+
+  const checkFunction = ({ flatData, expected }) => {
+    expect(
+      getUniqueTreeFromFlatData({
+        ...argDefaults,
+        flatData,
+      })
+    ).toEqual(expected);
+  };
+
+  it('should handle empty data', () => {
+    [
+      { flatData: [], expected: [] },
+      { flatData: null, expected: [] },
+      { flatData: undefined, expected: [] },
+    ].forEach(checkFunction);
+  });
+
+  it('should handle [depth == 1] data', () => {
+    [
+      {
+        flatData: [
+          { key: 1, parentKey: rootKey },
+          { key: 2, parentKey: rootKey },
+        ],
+        expected: [
+          { key: 1, parentKey: rootKey },
+          { key: 2, parentKey: rootKey },
+        ],
+      },
+      {
+        flatData: [
+          { key: '1', parentKey: rootKey },
+          { key: '2', parentKey: rootKey },
+        ],
+        expected: [
+          { key: '1', parentKey: rootKey },
+          { key: '2', parentKey: rootKey },
+        ],
+      },
+    ].forEach(checkFunction);
+  });
+
+  it('should handle [depth == 2] data', () => {
+    [
+      {
+        flatData: [{ key: 1, parentKey: rootKey }, { key: 2, parentKey: 1 }],
+        expected: [
+          {
+            key: 1,
+            parentKey: rootKey,
+            children: [{ key: 2, parentKey: 1 }],
+          },
+        ],
+      },
+      {
+        flatData: [
+          { key: '1', parentKey: rootKey },
+          { key: '2', parentKey: '1' },
+        ],
+        expected: [
+          {
+            key: '1',
+            parentKey: rootKey,
+            children: [{ key: '2', parentKey: '1' }],
+          },
+        ],
+      },
+    ].forEach(checkFunction);
+  });
+
+  it('should handle [depth > 2] nested data', () => {
+    [
+      {
+        flatData: [
+          { key: 3, parentKey: 2 },
+          { key: 1, parentKey: rootKey },
+          { key: 2, parentKey: 1 },
+        ],
+        expected: [
+          {
+            key: 1,
+            parentKey: rootKey,
+            children: [
+              {
+                key: 2,
+                parentKey: 1,
+                children: [{ key: 3, parentKey: 2 }],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        flatData: [
+          { key: 4, parentKey: 2 },
+          { key: 3, parentKey: 2 },
+          { key: 6, parentKey: 3 },
+          { key: 7, parentKey: rootKey },
+          { key: 1, parentKey: rootKey },
+          { key: 2, parentKey: 1 },
+          { key: 6, parentKey: 1 },
+          { key: 6, parentKey: 3 },
         ],
         expected: [
           { key: 7, parentKey: rootKey },
