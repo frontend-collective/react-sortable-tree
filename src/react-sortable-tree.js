@@ -194,8 +194,8 @@ class ReactSortableTree extends Component {
 
     instanceProps.searchQuery = nextProps.searchQuery;
     instanceProps.searchFocusOffset = nextProps.searchFocusOffset;
-    newState.instanceProps = instanceProps;
-
+    newState.instanceProps = {...instanceProps, ...newState.instanceProps };
+    
     return newState;
   }
 
@@ -313,7 +313,7 @@ class ReactSortableTree extends Component {
       return { searchMatches: [] };
     }
 
-    const newState = {};
+    const newState = { instanceProps: {} };
 
     // if onlyExpandSearchedNodes collapse the tree and search
     const { treeData: expandedTreeData, matches: searchMatches } = find({
@@ -333,7 +333,7 @@ class ReactSortableTree extends Component {
 
     // Update the tree with data leaving all paths leading to matching nodes open
     if (expand) {
-      newState.ignoreOneTreeUpdate = true; // Prevents infinite loop
+      newState.instanceProps.ignoreOneTreeUpdate = true; // Prevents infinite loop
       onChange(expandedTreeData);
     }
 
