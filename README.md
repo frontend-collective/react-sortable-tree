@@ -12,7 +12,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/frontend-collective/react-sortable-tree/badge.svg?branch=master)](https://coveralls.io/github/frontend-collective/react-sortable-tree?branch=master)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-> A React component for Drag-and-drop sortable representation of hierarchical data. Checkout the [demo](https://frontend-collective.github.io/react-sortable-tree/) for a demonstration of some basic features. Checkout the [storybook](https://frontend-collective.github.io/react-sortable-tree/storybook) for advanced usage.
+> A React component for Drag-and-drop sortable representation of hierarchical data. Checkout the [Storybook](https://frontend-collective.github.io/react-sortable-tree/) for a demonstration of some basic and advanced features.
 
 <div align="center">
   <img src="https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif"/>
