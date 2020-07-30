@@ -195,7 +195,7 @@ class ReactSortableTree extends Component {
     instanceProps.searchQuery = nextProps.searchQuery;
     instanceProps.searchFocusOffset = nextProps.searchFocusOffset;
     newState.instanceProps = {...instanceProps, ...newState.instanceProps };
-    
+ 
     return newState;
   }
 
