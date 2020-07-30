@@ -1,4 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import TestBackend from 'react-dnd-test-backend';
+import { TestBackend } from 'react-dnd-test-backend';
 
-module.exports = TestBackend;
+module.exports = { HTML5Backend: TestBackend };
