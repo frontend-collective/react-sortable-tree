@@ -30,6 +30,12 @@ class NodeRendererDefault extends Component {
       isOver, // Not needed, but preserved for other renderers
       parentNode, // Needed for dndManager
       rowDirection,
+
+      // virtualized row props
+      isScrolling,
+      isVisible,
+      parent,
+
       ...otherProps
     } = this.props;
     const nodeTitle = title || node.title;
@@ -194,6 +200,9 @@ NodeRendererDefault.defaultProps = {
   title: null,
   subtitle: null,
   rowDirection: 'ltr',
+  isScrolling: false,
+  isVisible: true,
+  parent: {},
 };
 
 NodeRendererDefault.propTypes = {
@@ -228,6 +237,11 @@ NodeRendererDefault.propTypes = {
 
   // rtl support
   rowDirection: PropTypes.string,
+
+  // virtualized row props
+  isScrolling: PropTypes.bool,
+  isVisible: PropTypes.bool,
+  parent: PropTypes.shape({}),
 };
 
 export default NodeRendererDefault;
