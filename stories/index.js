@@ -11,6 +11,7 @@ import ChildlessNodes from './childless-nodes';
 import DragOutToRemoveExample from './drag-out-to-remove';
 import ExternalNodeExample from './external-node';
 import GenerateNodePropsExample from './generate-node-props';
+import DynamicRowHeightExample from './dynamic-row-height';
 import './generic.css';
 import ModifyNodesExample from './modify-nodes';
 import OnlyExpandSearchedNodesExample from './only-expand-searched-node';
@@ -30,7 +31,8 @@ storiesOf('Basics', module)
   .add('Search', () => <SearchExample />)
   .add('Themes', () => <ThemesExample />)
   .add('Callbacks', () => <CallbacksExample />)
-  .add('Row direction support', () => <RowDirectionExample />);
+  .add('Row direction support', () => <RowDirectionExample />)
+  .add('Dynamic row height', () => <DynamicRowHeightExample />);
 
 storiesOf('Advanced', module)
   .add('Drag from external source', () => <ExternalNodeExample />)
