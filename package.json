@@ -105,7 +105,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "gh-pages": "^2.1.1",
-    "jest": "^24.9.0",
+    "jest": "^26.4.2",
     "jest-enzyme": "^7.1.2",
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1",
