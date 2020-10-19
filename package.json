@@ -91,7 +91,7 @@
     "autoprefixer": "^9.7.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^26.6.0",
     "babel-loader": "^8.0.4",
     "codesandbox": "~2.1.10",
     "coveralls": "^3.0.1",
