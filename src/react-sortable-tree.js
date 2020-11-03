@@ -613,6 +613,7 @@ class ReactSortableTree extends Component {
       dragDropManager,
       style,
       className,
+      cssNonce,
       innerStyle,
       rowHeight,
       isVirtualized,
@@ -687,7 +688,7 @@ class ReactSortableTree extends Component {
       const ScrollZoneVirtualList = this.scrollZoneVirtualList;
       // Render list with react-virtualized
       list = (
-        <AutoSizer>
+        <AutoSizer nonce={cssNonce}>
           {({ height, width }) => (
             <ScrollZoneVirtualList
               {...scrollToInfo}
@@ -835,6 +836,9 @@ ReactSortableTree.propTypes = {
   // NOTE: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
   isVirtualized: PropTypes.bool,
 
+  // Content-Security-Policy nonce to use with inline `<style>` tags in virtualized mode.
+  cssNonce: PropTypes.string,
+
   treeNodeRenderer: PropTypes.func,
 
   // Override the default component for rendering nodes (but keep the scaffolding generator)
@@ -909,6 +913,7 @@ ReactSortableTree.defaultProps = {
   canDrop: null,
   canNodeHaveChildren: () => true,
   className: '',
+  cssNonce: null,
   dndType: null,
   generateNodeProps: null,
   getNodeKey: defaultGetNodeKey,
