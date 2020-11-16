@@ -1,0 +1,5805 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Advanced Drag from external source 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "height": 300,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 124,
+                "maxHeight": 124,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Mama Rabbit
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 62,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Papa Rabbit
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "background": "blue",
+        "color": "white",
+        "display": "inline-block",
+        "padding": "3px 5px",
+      }
+    }
+  >
+    Baby Rabbit
+  </div>
+  ← drag this
+</div>
+`;
+
+exports[`Storyshots Advanced Drag out to remove 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "background": "transparent",
+        "height": "100vh",
+        "padding": 50,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "height": 250,
+        }
+      }
+    >
+      <div
+        className="rst__tree"
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+      >
+        <div>
+          <div
+            aria-label="grid"
+            aria-readonly={true}
+            className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+            onScroll={[Function]}
+            role="grid"
+            style={
+              Object {
+                "WebkitOverflowScrolling": "touch",
+                "boxSizing": "border-box",
+                "direction": "ltr",
+                "height": 99999,
+                "overflowX": "hidden",
+                "overflowY": "hidden",
+                "position": "relative",
+                "width": 200,
+                "willChange": "transform",
+              }
+            }
+            tabIndex={0}
+          >
+            <div
+              className="ReactVirtualized__Grid__innerScrollContainer"
+              role="rowgroup"
+              style={
+                Object {
+                  "height": 310,
+                  "maxHeight": 310,
+                  "maxWidth": 200,
+                  "overflow": "hidden",
+                  "pointerEvents": "",
+                  "position": "relative",
+                  "width": "auto",
+                }
+              }
+            >
+              <div
+                className="rst__node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 0,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="rst__nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__rowWrapper"
+                    >
+                      <div
+                        className="rst__row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="rst__moveHandle"
+                        />
+                        <div
+                          className="rst__rowContents"
+                        >
+                          <div
+                            className="rst__rowLabel"
+                          >
+                            <span
+                              className="rst__rowTitle"
+                            >
+                              1
+                            </span>
+                          </div>
+                          <div
+                            className="rst__rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="rst__node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 62,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="rst__nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__rowWrapper"
+                    >
+                      <div
+                        className="rst__row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="rst__moveHandle"
+                        />
+                        <div
+                          className="rst__rowContents"
+                        >
+                          <div
+                            className="rst__rowLabel"
+                          >
+                            <span
+                              className="rst__rowTitle"
+                            >
+                              2
+                            </span>
+                          </div>
+                          <div
+                            className="rst__rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="rst__node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 124,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="rst__nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__rowWrapper"
+                    >
+                      <div
+                        className="rst__row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="rst__moveHandle"
+                        />
+                        <div
+                          className="rst__rowContents"
+                        >
+                          <div
+                            className="rst__rowLabel"
+                          >
+                            <span
+                              className="rst__rowTitle"
+                            >
+                              3
+                            </span>
+                          </div>
+                          <div
+                            className="rst__rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="rst__node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 186,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="rst__nodeContent"
+                  style={
+                    Object {
+                      "left": 44,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div>
+                      <button
+                        aria-label="Collapse"
+                        className="rst__collapseButton"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "left": -22,
+                          }
+                        }
+                        type="button"
+                      />
+                      <div
+                        className="rst__lineChildren"
+                        style={
+                          Object {
+                            "width": 44,
+                          }
+                        }
+                      />
+                    </div>
+                    <div
+                      className="rst__rowWrapper"
+                    >
+                      <div
+                        className="rst__row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="rst__moveHandle"
+                        />
+                        <div
+                          className="rst__rowContents"
+                        >
+                          <div
+                            className="rst__rowLabel"
+                          >
+                            <span
+                              className="rst__rowTitle"
+                            >
+                              4
+                            </span>
+                          </div>
+                          <div
+                            className="rst__rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="rst__node"
+                style={
+                  Object {
+                    "height": 62,
+                    "left": 0,
+                    "position": "absolute",
+                    "top": 248,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__lineBlock"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                  style={
+                    Object {
+                      "width": 44,
+                    }
+                  }
+                />
+                <div
+                  className="rst__nodeContent"
+                  style={
+                    Object {
+                      "left": 88,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "height": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__rowWrapper"
+                    >
+                      <div
+                        className="rst__row"
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="rst__moveHandle"
+                        />
+                        <div
+                          className="rst__rowContents"
+                        >
+                          <div
+                            className="rst__rowLabel"
+                          >
+                            <span
+                              className="rst__rowTitle"
+                            >
+                              5
+                            </span>
+                          </div>
+                          <div
+                            className="rst__rowToolbar"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Advanced Minimal implementation without Dnd Context 1`] = `
+<div
+  style={
+    Object {
+      "height": 300,
+    }
+  }
+>
+  <div
+    className="rst__tree"
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  >
+    <div>
+      <div
+        aria-label="grid"
+        aria-readonly={true}
+        className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+        onScroll={[Function]}
+        role="grid"
+        style={
+          Object {
+            "WebkitOverflowScrolling": "touch",
+            "boxSizing": "border-box",
+            "direction": "ltr",
+            "height": 99999,
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "position": "relative",
+            "width": 200,
+            "willChange": "transform",
+          }
+        }
+        tabIndex={0}
+      >
+        <div
+          className="ReactVirtualized__Grid__innerScrollContainer"
+          role="rowgroup"
+          style={
+            Object {
+              "height": 124,
+              "maxHeight": 124,
+              "maxWidth": 200,
+              "overflow": "hidden",
+              "pointerEvents": "",
+              "position": "relative",
+              "width": "auto",
+            }
+          }
+        >
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 0,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 44,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div>
+                  <button
+                    aria-label="Collapse"
+                    className="rst__collapseButton"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "left": -22,
+                      }
+                    }
+                    type="button"
+                  />
+                  <div
+                    className="rst__lineChildren"
+                    style={
+                      Object {
+                        "width": 44,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Chicken
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 62,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Egg
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Advanced Playing with generateNodeProps 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "height": 300,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 186,
+                "maxHeight": 186,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "boxShadow": "0 0 0 4px red",
+                          "opacity": 1,
+                          "textShadow": "1px 1px 1px red",
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Red Captain
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 62,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "boxShadow": "0 0 0 4px black",
+                          "opacity": 1,
+                          "textShadow": "1px 1px 1px black",
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Black Captain
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 124,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <button
+                      aria-label="Expand"
+                      className="rst__expandButton"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "left": -22,
+                        }
+                      }
+                      type="button"
+                    />
+                  </div>
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "boxShadow": "0 0 0 4px green",
+                          "opacity": 1,
+                          "textShadow": "1px 1px 1px green",
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Green Captain
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Advanced Prevent some nodes from having children 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "height": 300,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 372,
+                "maxHeight": 372,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <button
+                      aria-label="Collapse"
+                      className="rst__collapseButton"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "left": -22,
+                        }
+                      }
+                      type="button"
+                    />
+                    <div
+                      className="rst__lineChildren"
+                      style={
+                        Object {
+                          "width": 44,
+                        }
+                      }
+                    />
+                  </div>
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Managers
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 62,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineFullVertical"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 88,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Rob
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 124,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineFullVertical"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 88,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Joe
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 186,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <button
+                      aria-label="Collapse"
+                      className="rst__collapseButton"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "left": -22,
+                        }
+                      }
+                      type="button"
+                    />
+                    <div
+                      className="rst__lineChildren"
+                      style={
+                        Object {
+                          "width": 44,
+                        }
+                      }
+                    />
+                  </div>
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Clerks
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 248,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 88,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Bertha
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 310,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 88,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Billy
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Advanced Touch support (Experimental) 1`] = `
+<div>
+  <span>
+    This is 
+    not 
+    a touch-supporting browser
+  </span>
+  <div
+    style={
+      Object {
+        "height": 300,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 124,
+                "maxHeight": 124,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <button
+                      aria-label="Collapse"
+                      className="rst__collapseButton"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "left": -22,
+                        }
+                      }
+                      type="button"
+                    />
+                    <div
+                      className="rst__lineChildren"
+                      style={
+                        Object {
+                          "width": 44,
+                        }
+                      }
+                    />
+                  </div>
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Chicken
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 62,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 88,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Egg
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Advanced Tree-to-tree dragging 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "border": "solid black 1px",
+        "float": "left",
+        "height": 350,
+        "width": 350,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 124,
+                "maxHeight": 124,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <button
+                      aria-label="Expand"
+                      className="rst__expandButton"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "left": -22,
+                        }
+                      }
+                      type="button"
+                    />
+                  </div>
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            node1
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 62,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            node2
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "border": "solid black 1px",
+        "float": "left",
+        "height": 350,
+        "width": 350,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 124,
+                "maxHeight": 124,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            node3
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 62,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            node4
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "clear": "both",
+      }
+    }
+  />
+  <div>
+    <label
+      htmlFor="should-copy"
+      style={
+        Object {
+          "fontSize": "0.8rem",
+        }
+      }
+    >
+      Enable node copy via 
+      <b>
+        shouldCopyOnOutsideDrop
+      </b>
+      :
+      <input
+        id="should-copy"
+        onChange={[Function]}
+        type="checkbox"
+        value={false}
+      />
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Advanced onlyExpandSearchedNodes 1`] = `
+<div>
+  <h2>
+    Find the needle!
+  </h2>
+  <form
+    onSubmit={[Function]}
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
+    <input
+      id="find-box"
+      onChange={[Function]}
+      placeholder="Search..."
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+      type="text"
+      value=""
+    />
+    <button
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      &lt;
+    </button>
+    <button
+      disabled={true}
+      onClick={[Function]}
+      type="submit"
+    >
+      &gt;
+    </button>
+    <span>
+       
+      0
+       / 
+      0
+    </span>
+  </form>
+  <div
+    style={
+      Object {
+        "height": 300,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 62,
+                "maxHeight": 62,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <button
+                      aria-label="Expand"
+                      className="rst__expandButton"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "left": -22,
+                        }
+                      }
+                      type="button"
+                    />
+                  </div>
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Haystack
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics Add and remove nodes programmatically 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "height": 300,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 124,
+                "maxHeight": 124,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Peter Olofsson
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        >
+                          <div
+                            className="rst__toolbarButton"
+                          >
+                            <button
+                              onClick={[Function]}
+                            >
+                              Add Child
+                            </button>
+                          </div>
+                          <div
+                            className="rst__toolbarButton"
+                          >
+                            <button
+                              onClick={[Function]}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 62,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Karl Johansson
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        >
+                          <div
+                            className="rst__toolbarButton"
+                          >
+                            <button
+                              onClick={[Function]}
+                            >
+                              Add Child
+                            </button>
+                          </div>
+                          <div
+                            className="rst__toolbarButton"
+                          >
+                            <button
+                              onClick={[Function]}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    onClick={[Function]}
+  >
+    Add more
+  </button>
+  <br />
+  <label
+    htmlFor="addAsFirstChild"
+  >
+    Add new nodes at start
+    <input
+      checked={false}
+      name="addAsFirstChild"
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </label>
+</div>
+`;
+
+exports[`Storyshots Basics Callbacks 1`] = `
+<div>
+  Open your console to see callback parameter info
+  <div
+    style={
+      Object {
+        "height": 300,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 186,
+                "maxHeight": 186,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <button
+                      aria-label="Collapse"
+                      className="rst__collapseButton"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "left": -22,
+                        }
+                      }
+                      type="button"
+                    />
+                    <div
+                      className="rst__lineChildren"
+                      style={
+                        Object {
+                          "width": 44,
+                        }
+                      }
+                    />
+                  </div>
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            A
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 62,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineFullVertical"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 88,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            B
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 124,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            C
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics Minimal implementation 1`] = `
+<div
+  style={
+    Object {
+      "height": 300,
+    }
+  }
+>
+  <div
+    className="rst__tree"
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  >
+    <div>
+      <div
+        aria-label="grid"
+        aria-readonly={true}
+        className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+        onScroll={[Function]}
+        role="grid"
+        style={
+          Object {
+            "WebkitOverflowScrolling": "touch",
+            "boxSizing": "border-box",
+            "direction": "ltr",
+            "height": 99999,
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "position": "relative",
+            "width": 200,
+            "willChange": "transform",
+          }
+        }
+        tabIndex={0}
+      >
+        <div
+          className="ReactVirtualized__Grid__innerScrollContainer"
+          role="rowgroup"
+          style={
+            Object {
+              "height": 124,
+              "maxHeight": 124,
+              "maxWidth": 200,
+              "overflow": "hidden",
+              "pointerEvents": "",
+              "position": "relative",
+              "width": "auto",
+            }
+          }
+        >
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 0,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 44,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div>
+                  <button
+                    aria-label="Collapse"
+                    className="rst__collapseButton"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "left": -22,
+                      }
+                    }
+                    type="button"
+                  />
+                  <div
+                    className="rst__lineChildren"
+                    style={
+                      Object {
+                        "width": 44,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Chicken
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 62,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Egg
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics Modify nodes 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "height": 300,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 186,
+                "maxHeight": 186,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            <input
+                              onChange={[Function]}
+                              style={
+                                Object {
+                                  "fontSize": "1.1rem",
+                                }
+                              }
+                              value="IT Manager"
+                            />
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 62,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <button
+                      aria-label="Collapse"
+                      className="rst__collapseButton"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "left": -22,
+                        }
+                      }
+                      type="button"
+                    />
+                    <div
+                      className="rst__lineChildren"
+                      style={
+                        Object {
+                          "width": 44,
+                        }
+                      }
+                    />
+                  </div>
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            <input
+                              onChange={[Function]}
+                              style={
+                                Object {
+                                  "fontSize": "1.1rem",
+                                }
+                              }
+                              value="Regional Manager"
+                            />
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 124,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 88,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            <input
+                              onChange={[Function]}
+                              style={
+                                Object {
+                                  "fontSize": "1.1rem",
+                                }
+                              }
+                              value="Branch Manager"
+                            />
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics Prevent drop 1`] = `
+<div
+  style={
+    Object {
+      "height": 300,
+    }
+  }
+>
+  <div
+    className="rst__tree"
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  >
+    <div>
+      <div
+        aria-label="grid"
+        aria-readonly={true}
+        className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+        onScroll={[Function]}
+        role="grid"
+        style={
+          Object {
+            "WebkitOverflowScrolling": "touch",
+            "boxSizing": "border-box",
+            "direction": "ltr",
+            "height": 99999,
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "position": "relative",
+            "width": 200,
+            "willChange": "transform",
+          }
+        }
+        tabIndex={0}
+      >
+        <div
+          className="ReactVirtualized__Grid__innerScrollContainer"
+          role="rowgroup"
+          style={
+            Object {
+              "height": 372,
+              "maxHeight": 372,
+              "maxWidth": 200,
+              "overflow": "hidden",
+              "pointerEvents": "",
+              "position": "relative",
+              "width": "auto",
+            }
+          }
+        >
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 0,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 44,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div>
+                  <button
+                    aria-label="Collapse"
+                    className="rst__collapseButton"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "left": -22,
+                      }
+                    }
+                    type="button"
+                  />
+                  <div
+                    className="rst__lineChildren"
+                    style={
+                      Object {
+                        "width": 44,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle rst__rowTitleWithSubtitle"
+                        >
+                          Wicked witch
+                        </span>
+                        <span
+                          className="rst__rowSubtitle"
+                        >
+                          Traps people
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 62,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__lineFullVertical"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Trapped
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 124,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 44,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div>
+                  <button
+                    aria-label="Collapse"
+                    className="rst__collapseButton"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "left": -22,
+                      }
+                    }
+                    type="button"
+                  />
+                  <div
+                    className="rst__lineChildren"
+                    style={
+                      Object {
+                        "width": 44,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle rst__rowTitleWithSubtitle"
+                        >
+                          Jeannie
+                        </span>
+                        <span
+                          className="rst__rowSubtitle"
+                        >
+                          Doesn't allow grandchildren
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 186,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__lineFullVertical"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Jimmy
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 248,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 44,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle rst__rowTitleWithSubtitle"
+                        >
+                          Twin #1
+                        </span>
+                        <span
+                          className="rst__rowSubtitle"
+                        >
+                          Doesn't play with other twin
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 310,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 44,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle rst__rowTitleWithSubtitle"
+                        >
+                          Twin #2
+                        </span>
+                        <span
+                          className="rst__rowSubtitle"
+                        >
+                          Doesn't play with other twin
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics Row direction support 1`] = `
+<div
+  style={
+    Object {
+      "height": 300,
+      "width": 600,
+    }
+  }
+>
+  <div
+    className="rst__tree rst__rtl"
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  >
+    <div>
+      <div
+        aria-label="grid"
+        aria-readonly={true}
+        className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+        onScroll={[Function]}
+        role="grid"
+        style={
+          Object {
+            "WebkitOverflowScrolling": "touch",
+            "boxSizing": "border-box",
+            "direction": "ltr",
+            "height": 99999,
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "position": "relative",
+            "width": 200,
+            "willChange": "transform",
+          }
+        }
+        tabIndex={0}
+      >
+        <div
+          className="ReactVirtualized__Grid__innerScrollContainer"
+          role="rowgroup"
+          style={
+            Object {
+              "height": 434,
+              "maxHeight": 434,
+              "maxWidth": 200,
+              "overflow": "hidden",
+              "pointerEvents": "",
+              "position": "relative",
+              "width": "auto",
+            }
+          }
+        >
+          <div
+            className="rst__node rst__rtl"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 0,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "right": 44,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div>
+                  <button
+                    aria-label="Collapse"
+                    className="rst__collapseButton rst__rtl"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "right": -22,
+                      }
+                    }
+                    type="button"
+                  />
+                  <div
+                    className="rst__lineChildren rst__rtl"
+                    style={
+                      Object {
+                        "width": 44,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="rst__rowWrapper rst__rtl"
+                >
+                  <div
+                    className="rst__row rst__rtl"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents rst__rtl"
+                    >
+                      <div
+                        className="rst__rowLabel rst__rtl"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Chicken
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node rst__rtl"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 62,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "right": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper rst__rtl"
+                >
+                  <div
+                    className="rst__row rst__rtl"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents rst__rtl"
+                    >
+                      <div
+                        className="rst__rowLabel rst__rtl"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Egg
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node rst__rtl"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 124,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "right": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper rst__rtl"
+                >
+                  <div
+                    className="rst__row rst__rtl"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents rst__rtl"
+                    >
+                      <div
+                        className="rst__rowLabel rst__rtl"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Egg
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node rst__rtl"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 186,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "right": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper rst__rtl"
+                >
+                  <div
+                    className="rst__row rst__rtl"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents rst__rtl"
+                    >
+                      <div
+                        className="rst__rowLabel rst__rtl"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Egg
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node rst__rtl"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 248,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "right": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper rst__rtl"
+                >
+                  <div
+                    className="rst__row rst__rtl"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents rst__rtl"
+                    >
+                      <div
+                        className="rst__rowLabel rst__rtl"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Egg
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node rst__rtl"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 310,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "right": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper rst__rtl"
+                >
+                  <div
+                    className="rst__row rst__rtl"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents rst__rtl"
+                    >
+                      <div
+                        className="rst__rowLabel rst__rtl"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Egg
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node rst__rtl"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 372,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight rst__rtl"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "right": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper rst__rtl"
+                >
+                  <div
+                    className="rst__row rst__rtl"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents rst__rtl"
+                    >
+                      <div
+                        className="rst__rowLabel rst__rtl"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Egg
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics Search 1`] = `
+<div>
+  <h2>
+    Find the needle!
+  </h2>
+  <form
+    onSubmit={[Function]}
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
+    <input
+      id="find-box"
+      onChange={[Function]}
+      placeholder="Search..."
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+      type="text"
+      value=""
+    />
+    <button
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      &lt;
+    </button>
+    <button
+      disabled={true}
+      onClick={[Function]}
+      type="submit"
+    >
+      &gt;
+    </button>
+    <span>
+       
+      0
+       / 
+      0
+    </span>
+  </form>
+  <div
+    style={
+      Object {
+        "height": 300,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 62,
+                "maxHeight": 62,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <button
+                      aria-label="Expand"
+                      className="rst__expandButton"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "left": -22,
+                        }
+                      }
+                      type="button"
+                    />
+                  </div>
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            Haystack
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics Themes 1`] = `
+<div
+  style={
+    Object {
+      "height": 300,
+    }
+  }
+>
+  <div
+    className="rst__tree"
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  >
+    <div>
+      <div
+        aria-label="grid"
+        aria-readonly={true}
+        className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+        onScroll={[Function]}
+        role="grid"
+        style={
+          Object {
+            "WebkitOverflowScrolling": "touch",
+            "boxSizing": "border-box",
+            "direction": "ltr",
+            "height": 99999,
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "position": "relative",
+            "width": 200,
+            "willChange": "transform",
+          }
+        }
+        tabIndex={0}
+      >
+        <div
+          className="ReactVirtualized__Grid__innerScrollContainer"
+          role="rowgroup"
+          style={
+            Object {
+              "height": 125,
+              "maxHeight": 125,
+              "maxWidth": 200,
+              "overflow": "hidden",
+              "pointerEvents": "",
+              "position": "relative",
+              "width": "auto",
+            }
+          }
+        >
+          <div
+            className="rstcustom__node"
+            style={
+              Object {
+                "height": 25,
+                "left": 0,
+                "position": "absolute",
+                "top": 0,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            >
+              <button
+                aria-label="Collapse"
+                className="rstcustom__collapseButton"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "left": 7.500000000000001,
+                  }
+                }
+                type="button"
+              />
+              <div
+                className="rstcustom__rowWrapper"
+              >
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                    }
+                  }
+                >
+                  <div
+                    className="rstcustom__lineBlock"
+                    style={
+                      Object {
+                        "width": 25,
+                      }
+                    }
+                  />
+                  <div
+                    className="rstcustom__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rstcustom__rowContents"
+                    >
+                      <div
+                        className="rstcustom__rowToolbar"
+                      />
+                      <div
+                        className="rstcustom__rowLabel"
+                      >
+                        <span>
+                          The file explorer theme
+                        </span>
+                      </div>
+                      <div
+                        className="rstcustom__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rstcustom__node"
+            style={
+              Object {
+                "height": 25,
+                "left": 0,
+                "position": "absolute",
+                "top": 25,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            >
+              <button
+                aria-label="Collapse"
+                className="rstcustom__collapseButton"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "left": 32.5,
+                  }
+                }
+                type="button"
+              />
+              <div
+                className="rstcustom__rowWrapper"
+              >
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                    }
+                  }
+                >
+                  <div
+                    className="rstcustom__lineBlock"
+                    style={
+                      Object {
+                        "width": 25,
+                      }
+                    }
+                  />
+                  <div
+                    className="rstcustom__lineBlock"
+                    style={
+                      Object {
+                        "width": 25,
+                      }
+                    }
+                  />
+                  <div
+                    className="rstcustom__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rstcustom__rowContents"
+                    >
+                      <div
+                        className="rstcustom__rowToolbar"
+                      />
+                      <div
+                        className="rstcustom__rowLabel"
+                      >
+                        <span>
+                          Imported from react-sortable-tree-theme-file-explorer
+                        </span>
+                      </div>
+                      <div
+                        className="rstcustom__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rstcustom__node"
+            style={
+              Object {
+                "height": 25,
+                "left": 0,
+                "position": "absolute",
+                "top": 50,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            >
+              <div
+                className="rstcustom__rowWrapper"
+              >
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                    }
+                  }
+                >
+                  <div
+                    className="rstcustom__lineBlock"
+                    style={
+                      Object {
+                        "width": 25,
+                      }
+                    }
+                  />
+                  <div
+                    className="rstcustom__lineBlock"
+                    style={
+                      Object {
+                        "width": 25,
+                      }
+                    }
+                  />
+                  <div
+                    className="rstcustom__lineBlock"
+                    style={
+                      Object {
+                        "width": 25,
+                      }
+                    }
+                  />
+                  <div
+                    className="rstcustom__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rstcustom__rowContents"
+                    >
+                      <div
+                        className="rstcustom__rowToolbar"
+                      />
+                      <div
+                        className="rstcustom__rowLabel"
+                      >
+                        <span>
+                          <div>
+                            Find it on
+                             
+                            <a
+                              href="https://www.npmjs.com/package/react-sortable-tree-theme-file-explorer"
+                            >
+                              npm
+                            </a>
+                          </div>
+                        </span>
+                      </div>
+                      <div
+                        className="rstcustom__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rstcustom__node"
+            style={
+              Object {
+                "height": 25,
+                "left": 0,
+                "position": "absolute",
+                "top": 75,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            >
+              <div
+                className="rstcustom__rowWrapper"
+              >
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                    }
+                  }
+                >
+                  <div
+                    className="rstcustom__lineBlock"
+                    style={
+                      Object {
+                        "width": 25,
+                      }
+                    }
+                  />
+                  <div
+                    className="rstcustom__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rstcustom__rowContents"
+                    >
+                      <div
+                        className="rstcustom__rowToolbar"
+                      />
+                      <div
+                        className="rstcustom__rowLabel"
+                      >
+                        <span>
+                          More compact than the default
+                        </span>
+                      </div>
+                      <div
+                        className="rstcustom__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rstcustom__node"
+            style={
+              Object {
+                "height": 25,
+                "left": 0,
+                "position": "absolute",
+                "top": 100,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
+            >
+              <div
+                className="rstcustom__rowWrapper"
+              >
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                    }
+                  }
+                >
+                  <div
+                    className="rstcustom__lineBlock"
+                    style={
+                      Object {
+                        "width": 25,
+                      }
+                    }
+                  />
+                  <div
+                    className="rstcustom__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rstcustom__rowContents"
+                    >
+                      <div
+                        className="rstcustom__rowToolbar"
+                      />
+                      <div
+                        className="rstcustom__rowLabel"
+                      >
+                        <span>
+                          <div>
+                            Simply set it to the 
+                            <code>
+                              theme
+                            </code>
+                             prop and you’re done!
+                          </div>
+                        </span>
+                      </div>
+                      <div
+                        className="rstcustom__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Basics treeData import/export 1`] = `
+<div>
+  ↓treeData for this tree was generated from flat data similar to DB rows↓
+  <div
+    style={
+      Object {
+        "height": 250,
+      }
+    }
+  >
+    <div
+      className="rst__tree"
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    >
+      <div>
+        <div
+          aria-label="grid"
+          aria-readonly={true}
+          className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+          onScroll={[Function]}
+          role="grid"
+          style={
+            Object {
+              "WebkitOverflowScrolling": "touch",
+              "boxSizing": "border-box",
+              "direction": "ltr",
+              "height": 99999,
+              "overflowX": "hidden",
+              "overflowY": "hidden",
+              "position": "relative",
+              "width": 200,
+              "willChange": "transform",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            className="ReactVirtualized__Grid__innerScrollContainer"
+            role="rowgroup"
+            style={
+              Object {
+                "height": 124,
+                "maxHeight": 124,
+                "maxWidth": 200,
+                "overflow": "hidden",
+                "pointerEvents": "",
+                "position": "relative",
+                "width": "auto",
+              }
+            }
+          >
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            N1
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="rst__node"
+              style={
+                Object {
+                  "height": 62,
+                  "left": 0,
+                  "position": "absolute",
+                  "top": 62,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+                style={
+                  Object {
+                    "width": 44,
+                  }
+                }
+              />
+              <div
+                className="rst__nodeContent"
+                style={
+                  Object {
+                    "left": 44,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <button
+                      aria-label="Expand"
+                      className="rst__expandButton"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "left": -22,
+                        }
+                      }
+                      type="button"
+                    />
+                  </div>
+                  <div
+                    className="rst__rowWrapper"
+                  >
+                    <div
+                      className="rst__row"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <div
+                        className="rst__moveHandle"
+                      />
+                      <div
+                        className="rst__rowContents"
+                      >
+                        <div
+                          className="rst__rowLabel"
+                        >
+                          <span
+                            className="rst__rowTitle"
+                          >
+                            N2
+                          </span>
+                        </div>
+                        <div
+                          className="rst__rowToolbar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  ↓This flat data is generated from the modified tree data↓
+  <ul>
+    <li>
+      id: 
+      1
+      , name: 
+      N1
+      , parent: 
+      null
+    </li>
+    <li>
+      id: 
+      2
+      , name: 
+      N2
+      , parent: 
+      null
+    </li>
+    <li>
+      id: 
+      3
+      , name: 
+      N3
+      , parent: 
+      2
+    </li>
+    <li>
+      id: 
+      4
+      , name: 
+      N4
+      , parent: 
+      3
+    </li>
+  </ul>
+</div>
+`;

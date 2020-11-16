@@ -1,0 +1,30 @@
+.sourceLink,
+.sandboxButton {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 130px 50px 5px 50px;
+  font: 10px helvetica, sans-serif;
+  display: inline-block;
+  background: rgb(12, 35, 194);
+  color: #fff;
+  text-decoration: none;
+  transform: translate(50%, -50%) rotateZ(45deg);
+  transition: background 100ms;
+}
+.sourceLink:hover:not(:active) {
+  background: rgb(102, 135, 244);
+}
+
+.sandboxButton {
+  top: 30px;
+  right: 30px;
+  background: rgb(12, 194, 68);
+  padding: 130px 100px 5px 100px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+.sandboxButton:hover:not(:active) {
+  background: rgb(128, 242, 137);
+}

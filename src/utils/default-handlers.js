@@ -9,6 +9,7 @@ function getReactElementText(parent) {
   }
 
   if (
+    parent === null ||
     typeof parent !== 'object' ||
     !parent.props ||
     !parent.props.children ||
@@ -34,7 +35,8 @@ function stringSearch(key, searchQuery, node, path, treeIndex) {
     return (
       String(node[key]({ node, path, treeIndex })).indexOf(searchQuery) > -1
     );
-  } else if (typeof node[key] === 'object') {
+  }
+  if (typeof node[key] === 'object') {
     // Search within text inside react elements
     return getReactElementText(node[key]).indexOf(searchQuery) > -1;
   }

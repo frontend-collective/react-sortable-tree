@@ -1,0 +1,259 @@
+.rst__node {
+  min-width: 100%;
+  white-space: nowrap;
+  position: relative;
+  text-align: left;
+}
+
+.rst__node.rst__rtl {
+  text-align: right;
+}
+
+.rst__nodeContent {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+/* ==========================================================================
+   Scaffold
+
+    Line-overlaid blocks used for showing the tree structure
+   ========================================================================== */
+.rst__lineBlock,
+.rst__absoluteLineBlock {
+  height: 100%;
+  position: relative;
+  display: inline-block;
+}
+
+.rst__absoluteLineBlock {
+  position: absolute;
+  top: 0;
+}
+
+.rst__lineHalfHorizontalRight::before,
+.rst__lineFullVertical::after,
+.rst__lineHalfVerticalTop::after,
+.rst__lineHalfVerticalBottom::after {
+  position: absolute;
+  content: '';
+  background-color: black;
+}
+
+/**
+ * +-----+
+ * |     |
+ * |  +--+
+ * |     |
+ * +-----+
+ */
+.rst__lineHalfHorizontalRight::before {
+  height: 1px;
+  top: 50%;
+  right: 0;
+  width: 50%;
+}
+
+.rst__rtl.rst__lineHalfHorizontalRight::before {
+  left: 0;
+  right: initial;
+}
+
+/**
+ * +--+--+
+ * |  |  |
+ * |  |  |
+ * |  |  |
+ * +--+--+
+ */
+.rst__lineFullVertical::after,
+.rst__lineHalfVerticalTop::after,
+.rst__lineHalfVerticalBottom::after {
+  width: 1px;
+  left: 50%;
+  top: 0;
+  height: 100%;
+}
+
+/**
+ * +--+--+
+ * |  |  |
+ * |  |  |
+ * |  |  |
+ * +--+--+
+ */
+.rst__rtl.rst__lineFullVertical::after,
+.rst__rtl.rst__lineHalfVerticalTop::after,
+.rst__rtl.rst__lineHalfVerticalBottom::after {
+  right: 50%;
+  left: initial;
+}
+
+/**
+ * +-----+
+ * |  |  |
+ * |  +  |
+ * |     |
+ * +-----+
+ */
+.rst__lineHalfVerticalTop::after {
+  height: 50%;
+}
+
+/**
+ * +-----+
+ * |     |
+ * |  +  |
+ * |  |  |
+ * +-----+
+ */
+.rst__lineHalfVerticalBottom::after {
+  top: auto;
+  bottom: 0;
+  height: 50%;
+}
+
+/* Highlight line for pointing to dragged row destination
+   ========================================================================== */
+/**
+ * +--+--+
+ * |  |  |
+ * |  |  |
+ * |  |  |
+ * +--+--+
+ */
+.rst__highlightLineVertical {
+  z-index: 3;
+}
+.rst__highlightLineVertical::before {
+  position: absolute;
+  content: '';
+  background-color: #36c2f6;
+  width: 8px;
+  margin-left: -4px;
+  left: 50%;
+  top: 0;
+  height: 100%;
+}
+
+.rst__rtl.rst__highlightLineVertical::before {
+  margin-left: initial;
+  margin-right: -4px;
+  left: initial;
+  right: 50%;
+}
+
+@keyframes arrow-pulse {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  30% {
+    transform: translate(0, 300%);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(0, 700%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 1000%);
+    opacity: 0;
+  }
+}
+.rst__highlightLineVertical::after {
+  content: '';
+  position: absolute;
+  height: 0;
+  margin-left: -4px;
+  left: 50%;
+  top: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid white;
+  animation: arrow-pulse 1s infinite linear both;
+}
+
+.rst__rtl.rst__highlightLineVertical::after {
+  margin-left: initial;
+  margin-right: -4px;
+  right: 50%;
+  left: initial;
+}
+
+/**
+ * +-----+
+ * |     |
+ * |  +--+
+ * |  |  |
+ * +--+--+
+ */
+.rst__highlightTopLeftCorner::before {
+  z-index: 3;
+  content: '';
+  position: absolute;
+  border-top: solid 8px #36c2f6;
+  border-left: solid 8px #36c2f6;
+  box-sizing: border-box;
+  height: calc(50% + 4px);
+  top: 50%;
+  margin-top: -4px;
+  right: 0;
+  width: calc(50% + 4px);
+}
+
+.rst__rtl.rst__highlightTopLeftCorner::before {
+  border-right: solid 8px #36c2f6;
+  border-left: none;
+  left: 0;
+  right: initial;
+}
+
+/**
+ * +--+--+
+ * |  |  |
+ * |  |  |
+ * |  +->|
+ * +-----+
+ */
+.rst__highlightBottomLeftCorner {
+  z-index: 3;
+}
+.rst__highlightBottomLeftCorner::before {
+  content: '';
+  position: absolute;
+  border-bottom: solid 8px #36c2f6;
+  border-left: solid 8px #36c2f6;
+  box-sizing: border-box;
+  height: calc(100% + 4px);
+  top: 0;
+  right: 12px;
+  width: calc(50% - 8px);
+}
+
+.rst__rtl.rst__highlightBottomLeftCorner::before {
+  border-right: solid 8px #36c2f6;
+  border-left: none;
+  left: 12px;
+  right: initial;
+}
+
+.rst__highlightBottomLeftCorner::after {
+  content: '';
+  position: absolute;
+  height: 0;
+  right: 0;
+  top: 100%;
+  margin-top: -12px;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 12px solid #36c2f6;
+}
+
+.rst__rtl.rst__highlightBottomLeftCorner::after {
+  left: 0;
+  right: initial;
+  border-right: 12px solid #36c2f6;
+  border-left: none;
+}

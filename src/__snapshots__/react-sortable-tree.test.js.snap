@@ -2,7 +2,7 @@
 
 exports[`<SortableTree /> should render tree correctly 1`] = `
 <div
-  className="tree"
+  className="rst__tree"
   style={
     Object {
       "height": "100%",
@@ -13,8 +13,7 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
     <div
       aria-label="grid"
       aria-readonly={true}
-      className="ReactVirtualized__Grid ReactVirtualized__List virtualScrollOverride"
-      id={undefined}
+      className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
       onScroll={[Function]}
       role="grid"
       style={
@@ -48,7 +47,7 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
         }
       >
         <div
-          className="node"
+          className="rst__node"
           style={
             Object {
               "height": 62,
@@ -60,7 +59,7 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
           }
         >
           <div
-            className="lineBlock lineHalfHorizontalRight"
+            className="rst__lineBlock rst__lineHalfHorizontalRight"
             style={
               Object {
                 "width": 44,
@@ -68,7 +67,7 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
             }
           />
           <div
-            className="nodeContent"
+            className="rst__nodeContent"
             style={
               Object {
                 "left": 44,
@@ -83,10 +82,10 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
               }
             >
               <div
-                className="rowWrapper"
+                className="rst__rowWrapper"
               >
                 <div
-                  className="row"
+                  className="rst__row"
                   style={
                     Object {
                       "opacity": 1,
@@ -94,20 +93,20 @@ exports[`<SortableTree /> should render tree correctly 1`] = `
                   }
                 >
                   <div
-                    className="moveHandle"
+                    className="rst__moveHandle"
                   />
                   <div
-                    className="rowContents"
+                    className="rst__rowContents"
                   >
                     <div
-                      className="rowLabel"
+                      className="rst__rowLabel"
                     >
                       <span
-                        className="rowTitle"
+                        className="rst__rowTitle"
                       />
                     </div>
                     <div
-                      className="rowToolbar"
+                      className="rst__rowToolbar"
                     />
                   </div>
                 </div>
