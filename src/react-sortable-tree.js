@@ -39,7 +39,7 @@ import {
 
 let treeIdCounter = 1;
 
-const mergeTheme = props => {
+const mergeTheme = (props) => {
   const merged = {
     ...props,
     style: { ...props.theme.style, ...props.style },
@@ -58,7 +58,7 @@ const mergeTheme = props => {
     slideRegionSize: 100,
     treeNodeRenderer: TreeNode,
   };
-  Object.keys(overridableDefaults).forEach(propKey => {
+  Object.keys(overridableDefaults).forEach((propKey) => {
     // If prop has been specified, do not change it
     // If prop is specified in theme, use the theme setting
     // If all else fails, fall back to the default
@@ -194,8 +194,8 @@ class ReactSortableTree extends Component {
 
     instanceProps.searchQuery = nextProps.searchQuery;
     instanceProps.searchFocusOffset = nextProps.searchFocusOffset;
-    newState.instanceProps = {...instanceProps, ...newState.instanceProps };
- 
+    newState.instanceProps = { ...instanceProps, ...newState.instanceProps };
+
     return newState;
   }
 
@@ -229,8 +229,20 @@ class ReactSortableTree extends Component {
     // If the drag ends and the tree is still in a mid-drag state,
     // it means that the drag was canceled or the dragSource dropped
     // elsewhere, and we should reset the state of this tree
+
+    // However, right now react-dnd is still processing its events, and
+    // if we unmount the mid-drag React components immediately (by calling
+    // this.endDrag()), that processing will run into errors (see
+    // https://github.com/react-dnd/react-dnd/issues/1368 for details).
+    // So let react-dnd process its events completely (which happens synchronously)
+    // before we call endDrag).
+
+    // This fix was from this GH isse:
+    // https://github.com/frontend-collective/react-sortable-tree/pull/740/files
     if (!monitor.isDragging() && this.state.draggingTreeData) {
-      this.endDrag();
+      setTimeout(() => {
+        this.endDrag();
+      });
     }
   }
 
@@ -357,7 +369,7 @@ class ReactSortableTree extends Component {
   }
 
   startDrag({ path }) {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       const {
         treeData: draggingTreeData,
         node: draggedNode,
@@ -517,7 +529,7 @@ class ReactSortableTree extends Component {
             treeIndex,
 
             // Provide a helper to append the new data when it is received
-            done: childrenArray =>
+            done: (childrenArray) =>
               props.onChange(
                 changeNodeAtPath({
                   treeData: instanceProps.treeData,
@@ -938,7 +950,7 @@ ReactSortableTree.defaultProps = {
 
 polyfill(ReactSortableTree);
 
-const SortableTreeWithoutDndContext = props => (
+const SortableTreeWithoutDndContext = (props) => (
   <DndContext.Consumer>
     {({ dragDropManager }) =>
       dragDropManager === undefined ? null : (
@@ -948,7 +960,7 @@ const SortableTreeWithoutDndContext = props => (
   </DndContext.Consumer>
 );
 
-const SortableTree = props => (
+const SortableTree = (props) => (
   <DndProvider backend={HTML5Backend}>
     <SortableTreeWithoutDndContext {...props} />
   </DndProvider>
