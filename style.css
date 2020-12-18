@@ -108,7 +108,6 @@
 
 .rst__row {
   height: 100%;
-  white-space: nowrap;
   display: flex;
 }
 .rst__row > * {
@@ -177,20 +176,39 @@
   border: solid #bbb 1px;
   border-left: none;
   box-shadow: 0 2px 2px -2px;
-  padding: 0 5px 0 10px;
+  padding: 10px 5px 10px 10px;
   border-radius: 2px;
   min-width: 230px;
-  flex: 1 0 auto;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: white;
+  max-width: 100%;
+}
+
+.rst__dragged.rst__virtualScrollOverride .rst__rowContents {
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.rst__dragged.rst__virtualScrollOverride .rst__rowContents:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0) 40%,
+    rgb(255, 255, 255) 100%
+  );
 }
 
 .rst__rtl.rst__rowContents {
   border-right: none;
   border-left: solid #bbb 1px;
-  padding: 0 10px 0 5px;
+  padding: 10px 10px 10px 5px;
 }
 
 .rst__rowContentsDragDisabled {
@@ -205,6 +223,13 @@
 .rst__rowLabel {
   flex: 0 1 auto;
   padding-right: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.rst__dynamicRowHeight .rst__rowLabel {
+  overflow: visible;
+  white-space: normal;
 }
 .rst__rtl.rst__rowLabel {
   padding-left: 20px;
@@ -218,7 +243,7 @@
 
 .rst__moveHandle,
 .rst__loadingHandle {
-  height: 100%;
+  flex-shrink: 0;
   width: 44px;
   background: #d9d9d9
     url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiI+PGcgc3Ryb2tlPSIjRkZGIiBzdHJva2Utd2lkdGg9IjIuOSIgPjxwYXRoIGQ9Ik0xNCAxNS43aDE0LjQiLz48cGF0aCBkPSJNMTQgMjEuNGgxNC40Ii8+PHBhdGggZD0iTTE0IDI3LjFoMTQuNCIvPjwvZz4KPC9zdmc+')
@@ -498,9 +523,9 @@
 
 .rst__node {
   min-width: 100%;
-  white-space: nowrap;
   position: relative;
   text-align: left;
+  display: flex;
 }
 
 .rst__node.rst__rtl {
@@ -508,9 +533,7 @@
 }
 
 .rst__nodeContent {
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  max-width: calc(100% - 44px);
 }
 
 /* ==========================================================================
@@ -522,7 +545,7 @@
 .rst__absoluteLineBlock {
   height: 100%;
   position: relative;
-  display: inline-block;
+  flex-shrink: 0;
 }
 
 .rst__absoluteLineBlock {

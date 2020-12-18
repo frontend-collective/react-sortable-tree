@@ -1778,7 +1778,8 @@ function (_Component) {
 
       return React__default.createElement("div", _extends({
         style: {
-          height: '100%'
+          height: '100%',
+          position: "relative"
         }
       }, otherProps), toggleChildrenVisibility && node.children && (node.children.length > 0 || typeof node.children === 'function') && React__default.createElement("div", null, React__default.createElement("button", {
         type: "button",
@@ -2659,6 +2660,12 @@ function (_Component) {
         isVirtualized = _mergeTheme.isVirtualized,
         slideRegionSize = _mergeTheme.slideRegionSize;
 
+    _this.isDynamicRowHeight = _this.props.isDynamicRowHeight;
+    _this.list = null;
+    _this.cellMeasureCache = new reactVirtualized.CellMeasurerCache({
+      fixedWidth: true,
+      minHeight: 34
+    });
     _this.dndManager = new DndManager(_assertThisInitialized(_this)); // Wrapping classes for use with react-dnd
 
     _this.treeId = "rst__".concat(treeIdCounter);
@@ -2829,6 +2836,7 @@ function (_Component) {
       var _this3 = this;
 
       var path = _ref4.path;
+      this.list.container.classList.add('rst__dragged');
       this.setState(function (prevState) {
         var _removeNode = removeNode({
           treeData: prevState.instanceProps.treeData,
@@ -2966,6 +2974,20 @@ function (_Component) {
           prevTreeIndex: treeIndex
         });
       }
+
+      if (this.isDynamicRowHeight) {
+        this.recomputeRowHeights();
+      }
+
+      this.list.container.classList.remove('rst__dragged');
+    }
+  }, {
+    key: "recomputeRowHeights",
+    value: function recomputeRowHeights() {
+      if (this.list) {
+        this.cellMeasureCache.clearAll();
+        this.list.wrappedInstance.current.recomputeRowHeights();
+      }
     }
   }, {
     key: "drop",
@@ -2987,9 +3009,8 @@ function (_Component) {
 
   }, {
     key: "renderRow",
-    value: function renderRow(row, _ref9) {
+    value: function renderRow(row, rowRenderer, _ref9) {
       var listIndex = _ref9.listIndex,
-          style = _ref9.style,
           getPrevRow = _ref9.getPrevRow,
           matchKeys = _ref9.matchKeys,
           swapFrom = _ref9.swapFrom,
@@ -3000,6 +3021,10 @@ function (_Component) {
           path = row.path,
           lowerSiblingCounts = row.lowerSiblingCounts,
           treeIndex = row.treeIndex;
+      var index = rowRenderer.index,
+          parent = rowRenderer.parent,
+          key = rowRenderer.key,
+          style = rowRenderer.style;
 
       var _mergeTheme2 = mergeTheme(this.props),
           canDrag = _mergeTheme2.canDrag,
@@ -3032,9 +3057,9 @@ function (_Component) {
         treeId: this.treeId,
         rowDirection: rowDirection
       };
-      return React__default.createElement(TreeNodeRenderer, _extends({
-        style: style,
+      var Renderers = React__default.createElement(TreeNodeRenderer, _extends({
         key: nodeKey,
+        style: style,
         listIndex: listIndex,
         getPrevRow: getPrevRow,
         lowerSiblingCounts: lowerSiblingCounts,
@@ -3048,6 +3073,13 @@ function (_Component) {
         canDrag: rowCanDrag,
         toggleChildrenVisibility: this.toggleChildrenVisibility
       }, sharedProps, nodeProps)));
+      return React__default.createElement(React__default.Fragment, null, this.isDynamicRowHeight ? React__default.createElement(reactVirtualized.CellMeasurer, {
+        key: key,
+        cache: this.cellMeasureCache,
+        parent: parent,
+        columnIndex: 0,
+        rowIndex: index
+      }, Renderers) : React__default.createElement(React__default.Fragment, null, Renderers));
     }
   }, {
     key: "render",
@@ -3122,42 +3154,57 @@ function (_Component) {
         containerStyle = _objectSpread2({
           height: '100%'
         }, containerStyle);
+        var listClassName = 'rst__virtualScrollOverride';
+        var listRowHeight = typeof rowHeight !== 'function' ? rowHeight : function (_ref11) {
+          var index = _ref11.index;
+          return rowHeight({
+            index: index,
+            treeIndex: index,
+            node: rows[index].node,
+            path: rows[index].path
+          });
+        };
+
+        if (this.isDynamicRowHeight) {
+          listRowHeight = this.cellMeasureCache.rowHeight;
+          listClassName += ' rst__dynamicRowHeight';
+        }
+
         var ScrollZoneVirtualList = this.scrollZoneVirtualList; // Render list with react-virtualized
 
-        list = React__default.createElement(reactVirtualized.AutoSizer, null, function (_ref11) {
-          var height = _ref11.height,
-              width = _ref11.width;
+        list = React__default.createElement(reactVirtualized.AutoSizer, null, function (_ref12) {
+          var height = _ref12.height,
+              width = _ref12.width;
           return React__default.createElement(ScrollZoneVirtualList, _extends({}, scrollToInfo, {
             dragDropManager: dragDropManager,
             verticalStrength: _this6.vStrength,
             horizontalStrength: _this6.hStrength,
             speed: 30,
             scrollToAlignment: "start",
-            className: "rst__virtualScrollOverride",
+            className: listClassName,
             width: width,
-            onScroll: function onScroll(_ref12) {
-              var scrollTop = _ref12.scrollTop;
+            height: height,
+            onScroll: function onScroll(_ref13) {
+              var scrollTop = _ref13.scrollTop;
               _this6.scrollTop = scrollTop;
             },
-            height: height,
             style: innerStyle,
             rowCount: rows.length,
             estimatedRowSize: typeof rowHeight !== 'function' ? rowHeight : undefined,
-            rowHeight: typeof rowHeight !== 'function' ? rowHeight : function (_ref13) {
-              var index = _ref13.index;
-              return rowHeight({
-                index: index,
-                treeIndex: index,
-                node: rows[index].node,
-                path: rows[index].path
-              });
-            },
+            deferredMeasurementCache: _this6.isDynamicRowHeight ? _this6.cellMeasureCache : undefined,
+            rowHeight: listRowHeight,
             rowRenderer: function rowRenderer(_ref14) {
               var index = _ref14.index,
-                  rowStyle = _ref14.style;
+                  parent = _ref14.parent,
+                  key = _ref14.key,
+                  style = _ref14.style;
               return _this6.renderRow(rows[index], {
+                index: index,
+                parent: parent,
+                key: key,
+                style: style
+              }, {
                 listIndex: index,
-                style: rowStyle,
                 getPrevRow: function getPrevRow() {
                   return rows[index - 1] || null;
                 },
@@ -3166,6 +3213,9 @@ function (_Component) {
                 swapDepth: draggedDepth,
                 swapLength: swapLength
               });
+            },
+            ref: function ref(list) {
+              _this6.list = list;
             }
           }, reactVirtualizedListProps));
         });
@@ -3364,6 +3414,8 @@ ReactSortableTree.propTypes = {
   // Either a fixed row height (number) or a function that returns the
   // height of a row given its index: `({ index: number }): number`
   rowHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+  // Set value whether should be row height calculated dynamically or not
+  isDynamicRowHeight: PropTypes.bool,
   // Size in px of the region near the edges that initiates scrolling on dragover
   slideRegionSize: PropTypes.number,
   // Custom properties to hand to the react-virtualized list
@@ -3463,6 +3515,7 @@ ReactSortableTree.defaultProps = {
   placeholderRenderer: null,
   reactVirtualizedListProps: {},
   rowHeight: null,
+  isDynamicRowHeight: false,
   scaffoldBlockPxWidth: null,
   searchFinishCallback: null,
   searchFocusOffset: null,
@@ -3477,21 +3530,22 @@ ReactSortableTree.defaultProps = {
   rowDirection: 'ltr'
 };
 polyfill(ReactSortableTree);
-
-var SortableTreeWithoutDndContext = function SortableTreeWithoutDndContext(props) {
+var SortableTreeWithoutDndContext = React.forwardRef(function (props, ref) {
   return React__default.createElement(reactDnd.DndContext.Consumer, null, function (_ref17) {
     var dragDropManager = _ref17.dragDropManager;
     return dragDropManager === undefined ? null : React__default.createElement(ReactSortableTree, _extends({}, props, {
+      ref: ref,
       dragDropManager: dragDropManager
     }));
   });
-};
-
-var SortableTree = function SortableTree(props) {
+});
+var SortableTree = React.forwardRef(function (props, ref) {
   return React__default.createElement(reactDnd.DndProvider, {
     backend: reactDndHtml5Backend.HTML5Backend
-  }, React__default.createElement(SortableTreeWithoutDndContext, props));
-}; // Export the tree component without the react-dnd DragDropContext,
+  }, React__default.createElement(SortableTreeWithoutDndContext, _extends({}, props, {
+    ref: ref
+  })));
+}); // Export the tree component without the react-dnd DragDropContext,
 
 exports.SortableTreeWithoutDndContext = SortableTreeWithoutDndContext;
 exports.addNodeUnderParent = addNodeUnderParent;

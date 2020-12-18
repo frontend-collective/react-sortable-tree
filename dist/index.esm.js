@@ -1,10 +1,10 @@
 import withScrolling, { createScrollingComponent, createVerticalStrength, createHorizontalStrength } from 'frontend-collective-react-dnd-scrollzone';
 import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
-import React, { Component, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement, forwardRef } from 'react';
 import { DragSource, DropTarget, DndContext, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { List, AutoSizer } from 'react-virtualized';
+import { CellMeasurerCache, List, CellMeasurer, AutoSizer } from 'react-virtualized';
 import { findDOMNode } from 'react-dom';
 
 function _typeof(obj) {
@@ -1770,7 +1770,8 @@ function (_Component) {
 
       return React.createElement("div", _extends({
         style: {
-          height: '100%'
+          height: '100%',
+          position: "relative"
         }
       }, otherProps), toggleChildrenVisibility && node.children && (node.children.length > 0 || typeof node.children === 'function') && React.createElement("div", null, React.createElement("button", {
         type: "button",
@@ -2651,6 +2652,12 @@ function (_Component) {
         isVirtualized = _mergeTheme.isVirtualized,
         slideRegionSize = _mergeTheme.slideRegionSize;
 
+    _this.isDynamicRowHeight = _this.props.isDynamicRowHeight;
+    _this.list = null;
+    _this.cellMeasureCache = new CellMeasurerCache({
+      fixedWidth: true,
+      minHeight: 34
+    });
     _this.dndManager = new DndManager(_assertThisInitialized(_this)); // Wrapping classes for use with react-dnd
 
     _this.treeId = "rst__".concat(treeIdCounter);
@@ -2821,6 +2828,7 @@ function (_Component) {
       var _this3 = this;
 
       var path = _ref4.path;
+      this.list.container.classList.add('rst__dragged');
       this.setState(function (prevState) {
         var _removeNode = removeNode({
           treeData: prevState.instanceProps.treeData,
@@ -2958,6 +2966,20 @@ function (_Component) {
           prevTreeIndex: treeIndex
         });
       }
+
+      if (this.isDynamicRowHeight) {
+        this.recomputeRowHeights();
+      }
+
+      this.list.container.classList.remove('rst__dragged');
+    }
+  }, {
+    key: "recomputeRowHeights",
+    value: function recomputeRowHeights() {
+      if (this.list) {
+        this.cellMeasureCache.clearAll();
+        this.list.wrappedInstance.current.recomputeRowHeights();
+      }
     }
   }, {
     key: "drop",
@@ -2979,9 +3001,8 @@ function (_Component) {
 
   }, {
     key: "renderRow",
-    value: function renderRow(row, _ref9) {
+    value: function renderRow(row, rowRenderer, _ref9) {
       var listIndex = _ref9.listIndex,
-          style = _ref9.style,
           getPrevRow = _ref9.getPrevRow,
           matchKeys = _ref9.matchKeys,
           swapFrom = _ref9.swapFrom,
@@ -2992,6 +3013,10 @@ function (_Component) {
           path = row.path,
           lowerSiblingCounts = row.lowerSiblingCounts,
           treeIndex = row.treeIndex;
+      var index = rowRenderer.index,
+          parent = rowRenderer.parent,
+          key = rowRenderer.key,
+          style = rowRenderer.style;
 
       var _mergeTheme2 = mergeTheme(this.props),
           canDrag = _mergeTheme2.canDrag,
@@ -3024,9 +3049,9 @@ function (_Component) {
         treeId: this.treeId,
         rowDirection: rowDirection
       };
-      return React.createElement(TreeNodeRenderer, _extends({
-        style: style,
+      var Renderers = React.createElement(TreeNodeRenderer, _extends({
         key: nodeKey,
+        style: style,
         listIndex: listIndex,
         getPrevRow: getPrevRow,
         lowerSiblingCounts: lowerSiblingCounts,
@@ -3040,6 +3065,13 @@ function (_Component) {
         canDrag: rowCanDrag,
         toggleChildrenVisibility: this.toggleChildrenVisibility
       }, sharedProps, nodeProps)));
+      return React.createElement(React.Fragment, null, this.isDynamicRowHeight ? React.createElement(CellMeasurer, {
+        key: key,
+        cache: this.cellMeasureCache,
+        parent: parent,
+        columnIndex: 0,
+        rowIndex: index
+      }, Renderers) : React.createElement(React.Fragment, null, Renderers));
     }
   }, {
     key: "render",
@@ -3114,42 +3146,57 @@ function (_Component) {
         containerStyle = _objectSpread2({
           height: '100%'
         }, containerStyle);
+        var listClassName = 'rst__virtualScrollOverride';
+        var listRowHeight = typeof rowHeight !== 'function' ? rowHeight : function (_ref11) {
+          var index = _ref11.index;
+          return rowHeight({
+            index: index,
+            treeIndex: index,
+            node: rows[index].node,
+            path: rows[index].path
+          });
+        };
+
+        if (this.isDynamicRowHeight) {
+          listRowHeight = this.cellMeasureCache.rowHeight;
+          listClassName += ' rst__dynamicRowHeight';
+        }
+
         var ScrollZoneVirtualList = this.scrollZoneVirtualList; // Render list with react-virtualized
 
-        list = React.createElement(AutoSizer, null, function (_ref11) {
-          var height = _ref11.height,
-              width = _ref11.width;
+        list = React.createElement(AutoSizer, null, function (_ref12) {
+          var height = _ref12.height,
+              width = _ref12.width;
           return React.createElement(ScrollZoneVirtualList, _extends({}, scrollToInfo, {
             dragDropManager: dragDropManager,
             verticalStrength: _this6.vStrength,
             horizontalStrength: _this6.hStrength,
             speed: 30,
             scrollToAlignment: "start",
-            className: "rst__virtualScrollOverride",
+            className: listClassName,
             width: width,
-            onScroll: function onScroll(_ref12) {
-              var scrollTop = _ref12.scrollTop;
+            height: height,
+            onScroll: function onScroll(_ref13) {
+              var scrollTop = _ref13.scrollTop;
               _this6.scrollTop = scrollTop;
             },
-            height: height,
             style: innerStyle,
             rowCount: rows.length,
             estimatedRowSize: typeof rowHeight !== 'function' ? rowHeight : undefined,
-            rowHeight: typeof rowHeight !== 'function' ? rowHeight : function (_ref13) {
-              var index = _ref13.index;
-              return rowHeight({
-                index: index,
-                treeIndex: index,
-                node: rows[index].node,
-                path: rows[index].path
-              });
-            },
+            deferredMeasurementCache: _this6.isDynamicRowHeight ? _this6.cellMeasureCache : undefined,
+            rowHeight: listRowHeight,
             rowRenderer: function rowRenderer(_ref14) {
               var index = _ref14.index,
-                  rowStyle = _ref14.style;
+                  parent = _ref14.parent,
+                  key = _ref14.key,
+                  style = _ref14.style;
               return _this6.renderRow(rows[index], {
+                index: index,
+                parent: parent,
+                key: key,
+                style: style
+              }, {
                 listIndex: index,
-                style: rowStyle,
                 getPrevRow: function getPrevRow() {
                   return rows[index - 1] || null;
                 },
@@ -3158,6 +3205,9 @@ function (_Component) {
                 swapDepth: draggedDepth,
                 swapLength: swapLength
               });
+            },
+            ref: function ref(list) {
+              _this6.list = list;
             }
           }, reactVirtualizedListProps));
         });
@@ -3356,6 +3406,8 @@ ReactSortableTree.propTypes = {
   // Either a fixed row height (number) or a function that returns the
   // height of a row given its index: `({ index: number }): number`
   rowHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+  // Set value whether should be row height calculated dynamically or not
+  isDynamicRowHeight: PropTypes.bool,
   // Size in px of the region near the edges that initiates scrolling on dragover
   slideRegionSize: PropTypes.number,
   // Custom properties to hand to the react-virtualized list
@@ -3455,6 +3507,7 @@ ReactSortableTree.defaultProps = {
   placeholderRenderer: null,
   reactVirtualizedListProps: {},
   rowHeight: null,
+  isDynamicRowHeight: false,
   scaffoldBlockPxWidth: null,
   searchFinishCallback: null,
   searchFocusOffset: null,
@@ -3469,21 +3522,22 @@ ReactSortableTree.defaultProps = {
   rowDirection: 'ltr'
 };
 polyfill(ReactSortableTree);
-
-var SortableTreeWithoutDndContext = function SortableTreeWithoutDndContext(props) {
+var SortableTreeWithoutDndContext = forwardRef(function (props, ref) {
   return React.createElement(DndContext.Consumer, null, function (_ref17) {
     var dragDropManager = _ref17.dragDropManager;
     return dragDropManager === undefined ? null : React.createElement(ReactSortableTree, _extends({}, props, {
+      ref: ref,
       dragDropManager: dragDropManager
     }));
   });
-};
-
-var SortableTree = function SortableTree(props) {
+});
+var SortableTree = forwardRef(function (props, ref) {
   return React.createElement(DndProvider, {
     backend: HTML5Backend
-  }, React.createElement(SortableTreeWithoutDndContext, props));
-}; // Export the tree component without the react-dnd DragDropContext,
+  }, React.createElement(SortableTreeWithoutDndContext, _extends({}, props, {
+    ref: ref
+  })));
+}); // Export the tree component without the react-dnd DragDropContext,
 
 export default SortableTree;
 export { SortableTreeWithoutDndContext, addNodeUnderParent, changeNodeAtPath, defaultGetNodeKey, defaultSearchMethod, find, getDepth, getDescendantCount, getFlatDataFromTree, getNodeAtPath, getTreeFromFlatData, getVisibleNodeCount, getVisibleNodeInfoAtIndex, insertNode, isDescendant, map, removeNode, removeNodeAtPath, toggleExpandedForAll, walk };
