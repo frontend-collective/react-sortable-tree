@@ -2982,6 +2982,14 @@ function (_Component) {
       }
     }
   }, {
+    key: "recomputeSingleRowHeight",
+    value: function recomputeSingleRowHeight(index) {
+      if (this.list && index) {
+        this.cellMeasureCache.clear(index, 0);
+        this.list.wrappedInstance.current.recomputeRowHeights(index, 0);
+      }
+    }
+  }, {
     key: "drop",
     value: function drop(dropResult) {
       this.moveNode(dropResult);
@@ -3064,7 +3072,9 @@ function (_Component) {
         isSearchFocus: isSearchFocus,
         canDrag: rowCanDrag,
         toggleChildrenVisibility: this.toggleChildrenVisibility
-      }, sharedProps, nodeProps)));
+      }, sharedProps, nodeProps, {
+        rowIndex: index
+      })));
       return React.createElement(React.Fragment, null, this.isDynamicRowHeight ? React.createElement(CellMeasurer, {
         key: key,
         cache: this.cellMeasureCache,

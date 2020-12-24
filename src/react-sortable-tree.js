@@ -519,6 +519,13 @@ class ReactSortableTree extends Component {
     }
   }
 
+  recomputeSingleRowHeight(index) {
+    if (this.list && index) {
+      this.cellMeasureCache.clear(index, 0);
+      this.list.wrappedInstance.current.recomputeRowHeights(index, 0);
+    }
+  }
+
   drop(dropResult) {
     this.moveNode(dropResult);
   }
@@ -643,6 +650,7 @@ class ReactSortableTree extends Component {
           toggleChildrenVisibility={this.toggleChildrenVisibility}
           {...sharedProps}
           {...nodeProps}
+          rowIndex={index}
         />
       </TreeNodeRenderer>
     );
