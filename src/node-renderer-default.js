@@ -17,6 +17,7 @@ class NodeRendererDefault extends Component {
       node,
       title,
       subtitle,
+      icon,
       draggedNode,
       path,
       treeIndex,
@@ -34,6 +35,7 @@ class NodeRendererDefault extends Component {
     } = this.props;
     const nodeTitle = title || node.title;
     const nodeSubtitle = subtitle || node.subtitle;
+    const nodeIcon = icon || node.icon;
     const rowDirectionClass = rowDirection === 'rtl' ? 'rst__rtl' : null;
 
     let handle;
@@ -132,6 +134,12 @@ class NodeRendererDefault extends Component {
                   rowDirectionClass
                 )}
               >
+                {nodeIcon && (
+                  <div className={classnames('rst__rowIcon', rowDirectionClass)}>
+                    <img alt="icon here" src={nodeIcon} />
+                  </div>
+                )}
+                
                 <div className={classnames('rst__rowLabel', rowDirectionClass)}>
                   <span
                     className={classnames(
@@ -193,6 +201,7 @@ NodeRendererDefault.defaultProps = {
   canDrop: false,
   title: null,
   subtitle: null,
+  icon: null,
   rowDirection: 'ltr',
 };
 
@@ -200,6 +209,7 @@ NodeRendererDefault.propTypes = {
   node: PropTypes.shape({}).isRequired,
   title: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
   subtitle: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+  icon: PropTypes.string,
   path: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,
