@@ -26,26 +26,20 @@
   font-weight: 700;
   text-transform: uppercase;
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
           flex-direction: row;
   -webkit-box-align: center;
-      -ms-flex-align: center;
           align-items: center;
 }
 .ReactVirtualized__Table__row {
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
           flex-direction: row;
   -webkit-box-align: center;
-      -ms-flex-align: center;
           align-items: center;
 }
 
@@ -77,15 +71,12 @@
 
 .ReactVirtualized__Table__sortableHeaderIconContainer {
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
           align-items: center;
 }
 .ReactVirtualized__Table__sortableHeaderIcon {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 24px;
           flex: 0 0 24px;
   height: 1em;
   width: 1em;

@@ -16,6 +16,8 @@ var reactVirtualized = require('react-virtualized');
 var reactDom = require('react-dom');
 
 function _typeof(obj) {
+  "@babel/helpers - typeof";
+
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function (obj) {
       return typeof obj;
@@ -149,6 +151,19 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -201,24 +216,56 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
 function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
 function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
 
 function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
 }
 
 function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 /**
@@ -1662,39 +1709,7 @@ function classnames() {
   return classes.filter(Boolean).join(' ');
 }
 
-function _createSuper(Derived) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
-
-    try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  return function () {
-    var Super = _getPrototypeOf(Derived),
-        result;
-
-    if (isNativeReflectConstruct()) {
-      var NewTarget = _getPrototypeOf(this).constructor;
-
-      result = Reflect.construct(Super, arguments, NewTarget);
-    } else {
-      result = Super.apply(this, arguments);
-    }
-
-    return _possibleConstructorReturn(this, result);
-  };
-}
-
-var NodeRendererDefault =
-/*#__PURE__*/
-function (_Component) {
+var NodeRendererDefault = /*#__PURE__*/function (_Component) {
   _inherits(NodeRendererDefault, _Component);
 
   var _super = _createSuper(NodeRendererDefault);
@@ -1743,12 +1758,12 @@ function (_Component) {
         if (typeof node.children === 'function' && node.expanded) {
           // Show a loading symbol on the handle when the children are expanded
           //  and yet still defined by a function (a callback to fetch the children)
-          handle = React__default.createElement("div", {
+          handle = /*#__PURE__*/React__default.createElement("div", {
             className: "rst__loadingHandle"
-          }, React__default.createElement("div", {
+          }, /*#__PURE__*/React__default.createElement("div", {
             className: "rst__loadingCircle"
           }, _toConsumableArray(new Array(12)).map(function (_, index) {
-            return React__default.createElement("div", {
+            return /*#__PURE__*/React__default.createElement("div", {
               // eslint-disable-next-line react/no-array-index-key
               key: index,
               className: classnames('rst__loadingCirclePoint', rowDirectionClass)
@@ -1756,7 +1771,7 @@ function (_Component) {
           })));
         } else {
           // Show the handle used to initiate a drag-and-drop
-          handle = connectDragSource(React__default.createElement("div", {
+          handle = connectDragSource( /*#__PURE__*/React__default.createElement("div", {
             className: "rst__moveHandle"
           }), {
             dropEffect: 'copy'
@@ -1776,11 +1791,11 @@ function (_Component) {
         };
       }
 
-      return React__default.createElement("div", _extends({
+      return /*#__PURE__*/React__default.createElement("div", _extends({
         style: {
           height: '100%'
         }
-      }, otherProps), toggleChildrenVisibility && node.children && (node.children.length > 0 || typeof node.children === 'function') && React__default.createElement("div", null, React__default.createElement("button", {
+      }, otherProps), toggleChildrenVisibility && node.children && (node.children.length > 0 || typeof node.children === 'function') && /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement("button", {
         type: "button",
         "aria-label": node.expanded ? 'Collapse' : 'Expand',
         className: classnames(node.expanded ? 'rst__collapseButton' : 'rst__expandButton', rowDirectionClass),
@@ -1792,38 +1807,38 @@ function (_Component) {
             treeIndex: treeIndex
           });
         }
-      }), node.expanded && !isDragging && React__default.createElement("div", {
+      }), node.expanded && !isDragging && /*#__PURE__*/React__default.createElement("div", {
         style: {
           width: scaffoldBlockPxWidth
         },
         className: classnames('rst__lineChildren', rowDirectionClass)
-      })), React__default.createElement("div", {
+      })), /*#__PURE__*/React__default.createElement("div", {
         className: classnames('rst__rowWrapper', rowDirectionClass)
-      }, connectDragPreview(React__default.createElement("div", {
+      }, connectDragPreview( /*#__PURE__*/React__default.createElement("div", {
         className: classnames('rst__row', isLandingPadActive && 'rst__rowLandingPad', isLandingPadActive && !canDrop && 'rst__rowCancelPad', isSearchMatch && 'rst__rowSearchMatch', isSearchFocus && 'rst__rowSearchFocus', rowDirectionClass, className),
         style: _objectSpread2({
           opacity: isDraggedDescendant ? 0.5 : 1
         }, style)
-      }, handle, React__default.createElement("div", {
+      }, handle, /*#__PURE__*/React__default.createElement("div", {
         className: classnames('rst__rowContents', !canDrag && 'rst__rowContentsDragDisabled', rowDirectionClass)
-      }, React__default.createElement("div", {
+      }, /*#__PURE__*/React__default.createElement("div", {
         className: classnames('rst__rowLabel', rowDirectionClass)
-      }, React__default.createElement("span", {
+      }, /*#__PURE__*/React__default.createElement("span", {
         className: classnames('rst__rowTitle', node.subtitle && 'rst__rowTitleWithSubtitle')
       }, typeof nodeTitle === 'function' ? nodeTitle({
         node: node,
         path: path,
         treeIndex: treeIndex
-      }) : nodeTitle), nodeSubtitle && React__default.createElement("span", {
+      }) : nodeTitle), nodeSubtitle && /*#__PURE__*/React__default.createElement("span", {
         className: "rst__rowSubtitle"
       }, typeof nodeSubtitle === 'function' ? nodeSubtitle({
         node: node,
         path: path,
         treeIndex: treeIndex
-      }) : nodeSubtitle)), React__default.createElement("div", {
+      }) : nodeSubtitle)), /*#__PURE__*/React__default.createElement("div", {
         className: "rst__rowToolbar"
       }, buttons.map(function (btn, index) {
-        return React__default.createElement("div", {
+        return /*#__PURE__*/React__default.createElement("div", {
           key: index // eslint-disable-line react/no-array-index-key
           ,
           className: "rst__toolbarButton"
@@ -1884,7 +1899,7 @@ NodeRendererDefault.propTypes = {
 var PlaceholderRendererDefault = function PlaceholderRendererDefault(_ref) {
   var isOver = _ref.isOver,
       canDrop = _ref.canDrop;
-  return React__default.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: classnames('rst__placeholder', canDrop && 'rst__placeholderLandingPad', canDrop && !isOver && 'rst__placeholderCancelPad')
   });
 };
@@ -1898,42 +1913,10 @@ PlaceholderRendererDefault.propTypes = {
   canDrop: PropTypes.bool
 };
 
-function _createSuper$1(Derived) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
-
-    try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  return function () {
-    var Super = _getPrototypeOf(Derived),
-        result;
-
-    if (isNativeReflectConstruct()) {
-      var NewTarget = _getPrototypeOf(this).constructor;
-
-      result = Reflect.construct(Super, arguments, NewTarget);
-    } else {
-      result = Super.apply(this, arguments);
-    }
-
-    return _possibleConstructorReturn(this, result);
-  };
-}
-
-var TreeNode =
-/*#__PURE__*/
-function (_Component) {
+var TreeNode = /*#__PURE__*/function (_Component) {
   _inherits(TreeNode, _Component);
 
-  var _super = _createSuper$1(TreeNode);
+  var _super = _createSuper(TreeNode);
 
   function TreeNode() {
     _classCallCheck(this, TreeNode);
@@ -2016,7 +1999,7 @@ function (_Component) {
           lineClass = 'rst__lineHalfVerticalTop rst__lineHalfHorizontalRight';
         }
 
-        scaffold.push(React__default.createElement("div", {
+        scaffold.push( /*#__PURE__*/React__default.createElement("div", {
           key: "pre_".concat(1 + i),
           style: {
             width: scaffoldBlockPxWidth
@@ -2056,7 +2039,7 @@ function (_Component) {
             };
           }
 
-          scaffold.push(React__default.createElement("div", {
+          scaffold.push( /*#__PURE__*/React__default.createElement("div", {
             // eslint-disable-next-line react/no-array-index-key
             key: i,
             style: _style,
@@ -2077,13 +2060,13 @@ function (_Component) {
         };
       }
 
-      return connectDropTarget(React__default.createElement("div", _extends({}, otherProps, {
+      return connectDropTarget( /*#__PURE__*/React__default.createElement("div", _extends({}, otherProps, {
         className: classnames('rst__node', rowDirectionClass)
-      }), scaffold, React__default.createElement("div", {
+      }), scaffold, /*#__PURE__*/React__default.createElement("div", {
         className: "rst__nodeContent",
         style: style
       }, React.Children.map(children, function (child) {
-        return React.cloneElement(child, {
+        return /*#__PURE__*/React.cloneElement(child, {
           isOver: isOver,
           canDrop: canDrop,
           draggedNode: draggedNode
@@ -2126,42 +2109,10 @@ TreeNode.propTypes = {
   rowDirection: PropTypes.string
 };
 
-function _createSuper$2(Derived) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
-
-    try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  return function () {
-    var Super = _getPrototypeOf(Derived),
-        result;
-
-    if (isNativeReflectConstruct()) {
-      var NewTarget = _getPrototypeOf(this).constructor;
-
-      result = Reflect.construct(Super, arguments, NewTarget);
-    } else {
-      result = Super.apply(this, arguments);
-    }
-
-    return _possibleConstructorReturn(this, result);
-  };
-}
-
-var TreePlaceholder =
-/*#__PURE__*/
-function (_Component) {
+var TreePlaceholder = /*#__PURE__*/function (_Component) {
   _inherits(TreePlaceholder, _Component);
 
-  var _super = _createSuper$2(TreePlaceholder);
+  var _super = _createSuper(TreePlaceholder);
 
   function TreePlaceholder() {
     _classCallCheck(this, TreePlaceholder);
@@ -2179,8 +2130,8 @@ function (_Component) {
           drop = _this$props.drop,
           otherProps = _objectWithoutProperties(_this$props, ["children", "connectDropTarget", "treeId", "drop"]);
 
-      return connectDropTarget(React__default.createElement("div", null, React.Children.map(children, function (child) {
-        return React.cloneElement(child, _objectSpread2({}, otherProps));
+      return connectDropTarget( /*#__PURE__*/React__default.createElement("div", null, React.Children.map(children, function (child) {
+        return /*#__PURE__*/React.cloneElement(child, _objectSpread2({}, otherProps));
       })));
     }
   }]);
@@ -2283,9 +2234,7 @@ var memoizedInsertNode = memoize(insertNode);
 var memoizedGetFlatDataFromTree = memoize(getFlatDataFromTree);
 var memoizedGetDescendantCount = memoize(getDescendantCount);
 
-var DndManager =
-/*#__PURE__*/
-function () {
+var DndManager = /*#__PURE__*/function () {
   function DndManager(treeRef) {
     _classCallCheck(this, DndManager);
 
@@ -2293,6 +2242,56 @@ function () {
   }
 
   _createClass(DndManager, [{
+    key: "startDrag",
+    get: function get() {
+      return this.treeRef.startDrag;
+    }
+  }, {
+    key: "dragHover",
+    get: function get() {
+      return this.treeRef.dragHover;
+    }
+  }, {
+    key: "endDrag",
+    get: function get() {
+      return this.treeRef.endDrag;
+    }
+  }, {
+    key: "drop",
+    get: function get() {
+      return this.treeRef.drop;
+    }
+  }, {
+    key: "treeId",
+    get: function get() {
+      return this.treeRef.treeId;
+    }
+  }, {
+    key: "dndType",
+    get: function get() {
+      return this.treeRef.dndType;
+    }
+  }, {
+    key: "treeData",
+    get: function get() {
+      return this.treeRef.state.draggingTreeData || this.treeRef.props.treeData;
+    }
+  }, {
+    key: "getNodeKey",
+    get: function get() {
+      return this.treeRef.props.getNodeKey;
+    }
+  }, {
+    key: "customCanDrop",
+    get: function get() {
+      return this.treeRef.props.canDrop;
+    }
+  }, {
+    key: "maxDepth",
+    get: function get() {
+      return this.treeRef.props.maxDepth;
+    }
+  }, {
     key: "getTargetDepth",
     value: function getTargetDepth(dropTargetProps, monitor, component) {
       var dropTargetDepth = 0;
@@ -2519,56 +2518,6 @@ function () {
 
       return reactDnd.DropTarget(this.dndType, placeholderDropTarget, placeholderPropInjection)(el);
     }
-  }, {
-    key: "startDrag",
-    get: function get() {
-      return this.treeRef.startDrag;
-    }
-  }, {
-    key: "dragHover",
-    get: function get() {
-      return this.treeRef.dragHover;
-    }
-  }, {
-    key: "endDrag",
-    get: function get() {
-      return this.treeRef.endDrag;
-    }
-  }, {
-    key: "drop",
-    get: function get() {
-      return this.treeRef.drop;
-    }
-  }, {
-    key: "treeId",
-    get: function get() {
-      return this.treeRef.treeId;
-    }
-  }, {
-    key: "dndType",
-    get: function get() {
-      return this.treeRef.dndType;
-    }
-  }, {
-    key: "treeData",
-    get: function get() {
-      return this.treeRef.state.draggingTreeData || this.treeRef.props.treeData;
-    }
-  }, {
-    key: "getNodeKey",
-    get: function get() {
-      return this.treeRef.props.getNodeKey;
-    }
-  }, {
-    key: "customCanDrop",
-    get: function get() {
-      return this.treeRef.props.canDrop;
-    }
-  }, {
-    key: "maxDepth",
-    get: function get() {
-      return this.treeRef.props.maxDepth;
-    }
   }]);
 
   return DndManager;
@@ -2581,35 +2530,6 @@ function slideRows(rows, fromIndex, toIndex) {
   return [].concat(_toConsumableArray(rowsWithoutMoved.slice(0, toIndex)), _toConsumableArray(rows.slice(fromIndex, fromIndex + count)), _toConsumableArray(rowsWithoutMoved.slice(toIndex)));
 }
 
-function _createSuper$3(Derived) {
-  function isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
-
-    try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  return function () {
-    var Super = _getPrototypeOf(Derived),
-        result;
-
-    if (isNativeReflectConstruct()) {
-      var NewTarget = _getPrototypeOf(this).constructor;
-
-      result = Reflect.construct(Super, arguments, NewTarget);
-    } else {
-      result = Super.apply(this, arguments);
-    }
-
-    return _possibleConstructorReturn(this, result);
-  };
-}
 var treeIdCounter = 1;
 
 var mergeTheme = function mergeTheme(props) {
@@ -2638,12 +2558,10 @@ var mergeTheme = function mergeTheme(props) {
   return merged;
 };
 
-var ReactSortableTree =
-/*#__PURE__*/
-function (_Component) {
+var ReactSortableTree = /*#__PURE__*/function (_Component) {
   _inherits(ReactSortableTree, _Component);
 
-  var _super = _createSuper$3(ReactSortableTree);
+  var _super = _createSuper(ReactSortableTree);
 
   function ReactSortableTree(props) {
     var _this;
@@ -2713,8 +2631,8 @@ function (_Component) {
     }
   }, {
     key: "componentDidUpdate",
-    // listen to dragging
-    value: function componentDidUpdate(prevProps, prevState) {
+    value: // listen to dragging
+    function componentDidUpdate(prevProps, prevState) {
       // if it is not the same then call the onDragStateChanged
       if (this.state.dragging !== prevState.dragging) {
         if (this.props.onDragStateChanged) {
@@ -3011,7 +2929,7 @@ function (_Component) {
       var TreeNodeRenderer = this.treeNodeRenderer;
       var NodeContentRenderer = this.nodeContentRenderer;
       var nodeKey = path[path.length - 1];
-      var isSearchMatch = nodeKey in matchKeys;
+      var isSearchMatch = (nodeKey in matchKeys);
       var isSearchFocus = isSearchMatch && matchKeys[nodeKey] === searchFocusOffset;
       var callbackParams = {
         node: node,
@@ -3032,7 +2950,7 @@ function (_Component) {
         treeId: this.treeId,
         rowDirection: rowDirection
       };
-      return React__default.createElement(TreeNodeRenderer, _extends({
+      return /*#__PURE__*/React__default.createElement(TreeNodeRenderer, _extends({
         style: style,
         key: nodeKey,
         listIndex: listIndex,
@@ -3041,7 +2959,7 @@ function (_Component) {
         swapFrom: swapFrom,
         swapLength: swapLength,
         swapDepth: swapDepth
-      }, sharedProps), React__default.createElement(NodeContentRenderer, _extends({
+      }, sharedProps), /*#__PURE__*/React__default.createElement(NodeContentRenderer, _extends({
         parentNode: parentNode,
         isSearchMatch: isSearchMatch,
         isSearchFocus: isSearchFocus,
@@ -3114,20 +3032,20 @@ function (_Component) {
       if (rows.length < 1) {
         var Placeholder = this.treePlaceholderRenderer;
         var PlaceholderContent = placeholderRenderer;
-        list = React__default.createElement(Placeholder, {
+        list = /*#__PURE__*/React__default.createElement(Placeholder, {
           treeId: this.treeId,
           drop: this.drop
-        }, React__default.createElement(PlaceholderContent, null));
+        }, /*#__PURE__*/React__default.createElement(PlaceholderContent, null));
       } else if (isVirtualized) {
         containerStyle = _objectSpread2({
           height: '100%'
         }, containerStyle);
         var ScrollZoneVirtualList = this.scrollZoneVirtualList; // Render list with react-virtualized
 
-        list = React__default.createElement(reactVirtualized.AutoSizer, null, function (_ref11) {
+        list = /*#__PURE__*/React__default.createElement(reactVirtualized.AutoSizer, null, function (_ref11) {
           var height = _ref11.height,
               width = _ref11.width;
-          return React__default.createElement(ScrollZoneVirtualList, _extends({}, scrollToInfo, {
+          return /*#__PURE__*/React__default.createElement(ScrollZoneVirtualList, _extends({}, scrollToInfo, {
             dragDropManager: dragDropManager,
             verticalStrength: _this6.vStrength,
             horizontalStrength: _this6.hStrength,
@@ -3193,7 +3111,7 @@ function (_Component) {
         });
       }
 
-      return React__default.createElement("div", {
+      return /*#__PURE__*/React__default.createElement("div", {
         className: classnames('rst__tree', className, rowDirectionClass),
         style: containerStyle
       }, list);
@@ -3479,18 +3397,18 @@ ReactSortableTree.defaultProps = {
 polyfill(ReactSortableTree);
 
 var SortableTreeWithoutDndContext = function SortableTreeWithoutDndContext(props) {
-  return React__default.createElement(reactDnd.DndContext.Consumer, null, function (_ref17) {
+  return /*#__PURE__*/React__default.createElement(reactDnd.DndContext.Consumer, null, function (_ref17) {
     var dragDropManager = _ref17.dragDropManager;
-    return dragDropManager === undefined ? null : React__default.createElement(ReactSortableTree, _extends({}, props, {
+    return dragDropManager === undefined ? null : /*#__PURE__*/React__default.createElement(ReactSortableTree, _extends({}, props, {
       dragDropManager: dragDropManager
     }));
   });
 };
 
 var SortableTree = function SortableTree(props) {
-  return React__default.createElement(reactDnd.DndProvider, {
+  return /*#__PURE__*/React__default.createElement(reactDnd.DndProvider, {
     backend: reactDndHtml5Backend.HTML5Backend
-  }, React__default.createElement(SortableTreeWithoutDndContext, props));
+  }, /*#__PURE__*/React__default.createElement(SortableTreeWithoutDndContext, props));
 }; // Export the tree component without the react-dnd DragDropContext,
 
 exports.SortableTreeWithoutDndContext = SortableTreeWithoutDndContext;
