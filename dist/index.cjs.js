@@ -2886,6 +2886,13 @@ var ReactSortableTree = /*#__PURE__*/function (_Component) {
       }
     }
   }, {
+    key: "recomputeSingleRowHeight",
+    value: function recomputeSingleRowHeight(index) {
+      if (this.list && index !== undefined) {
+        this.list.wrappedInstance.current.recomputeRowHeights(index, 0);
+      }
+    }
+  }, {
     key: "drop",
     value: function drop(dropResult) {
       this.moveNode(dropResult);
@@ -3084,6 +3091,9 @@ var ReactSortableTree = /*#__PURE__*/function (_Component) {
                 swapDepth: draggedDepth,
                 swapLength: swapLength
               });
+            },
+            ref: function ref(list) {
+              _this6.list = list;
             }
           }, reactVirtualizedListProps));
         });
@@ -3395,21 +3405,22 @@ ReactSortableTree.defaultProps = {
   rowDirection: 'ltr'
 };
 polyfill(ReactSortableTree);
-
-var SortableTreeWithoutDndContext = function SortableTreeWithoutDndContext(props) {
+var SortableTreeWithoutDndContext = /*#__PURE__*/React.forwardRef(function (props, ref) {
   return /*#__PURE__*/React__default.createElement(reactDnd.DndContext.Consumer, null, function (_ref17) {
     var dragDropManager = _ref17.dragDropManager;
     return dragDropManager === undefined ? null : /*#__PURE__*/React__default.createElement(ReactSortableTree, _extends({}, props, {
+      ref: ref,
       dragDropManager: dragDropManager
     }));
   });
-};
-
-var SortableTree = function SortableTree(props) {
+});
+var SortableTree = /*#__PURE__*/React.forwardRef(function (props, ref) {
   return /*#__PURE__*/React__default.createElement(reactDnd.DndProvider, {
     backend: reactDndHtml5Backend.HTML5Backend
-  }, /*#__PURE__*/React__default.createElement(SortableTreeWithoutDndContext, props));
-}; // Export the tree component without the react-dnd DragDropContext,
+  }, /*#__PURE__*/React__default.createElement(SortableTreeWithoutDndContext, _extends({}, props, {
+    ref: ref
+  })));
+}); // Export the tree component without the react-dnd DragDropContext,
 
 exports.SortableTreeWithoutDndContext = SortableTreeWithoutDndContext;
 exports.addNodeUnderParent = addNodeUnderParent;

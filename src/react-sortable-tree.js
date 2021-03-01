@@ -5,7 +5,7 @@ import withScrolling, {
 } from 'frontend-collective-react-dnd-scrollzone';
 import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, forwardRef } from 'react';
 import { DndContext, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { polyfill } from 'react-lifecycles-compat';
@@ -39,7 +39,7 @@ import {
 
 let treeIdCounter = 1;
 
-const mergeTheme = (props) => {
+const mergeTheme = props => {
   const merged = {
     ...props,
     style: { ...props.theme.style, ...props.style },
@@ -58,7 +58,7 @@ const mergeTheme = (props) => {
     slideRegionSize: 100,
     treeNodeRenderer: TreeNode,
   };
-  Object.keys(overridableDefaults).forEach((propKey) => {
+  Object.keys(overridableDefaults).forEach(propKey => {
     // If prop has been specified, do not change it
     // If prop is specified in theme, use the theme setting
     // If all else fails, fall back to the default
@@ -369,7 +369,7 @@ class ReactSortableTree extends Component {
   }
 
   startDrag({ path }) {
-    this.setState((prevState) => {
+    this.setState(prevState => {
       const {
         treeData: draggingTreeData,
         node: draggedNode,
@@ -493,6 +493,12 @@ class ReactSortableTree extends Component {
     }
   }
 
+  recomputeSingleRowHeight(index) {
+    if (this.list && index !== undefined) {
+      this.list.wrappedInstance.current.recomputeRowHeights(index, 0);
+    }
+  }
+
   drop(dropResult) {
     this.moveNode(dropResult);
   }
@@ -529,7 +535,7 @@ class ReactSortableTree extends Component {
             treeIndex,
 
             // Provide a helper to append the new data when it is received
-            done: (childrenArray) =>
+            done: childrenArray =>
               props.onChange(
                 changeNodeAtPath({
                   treeData: instanceProps.treeData,
@@ -741,6 +747,9 @@ class ReactSortableTree extends Component {
                   swapLength,
                 })
               }
+              ref={list => {
+                this.list = list;
+              }}
               {...reactVirtualizedListProps}
             />
           )}
@@ -950,21 +959,27 @@ ReactSortableTree.defaultProps = {
 
 polyfill(ReactSortableTree);
 
-const SortableTreeWithoutDndContext = (props) => (
-  <DndContext.Consumer>
-    {({ dragDropManager }) =>
-      dragDropManager === undefined ? null : (
-        <ReactSortableTree {...props} dragDropManager={dragDropManager} />
-      )
-    }
-  </DndContext.Consumer>
-);
+const SortableTreeWithoutDndContext = forwardRef((props, ref) => {
+  return (
+    <DndContext.Consumer>
+      {({ dragDropManager }) =>
+        dragDropManager === undefined ? null : (
+          <ReactSortableTree
+            {...props}
+            ref={ref}
+            dragDropManager={dragDropManager}
+          />
+        )
+      }
+    </DndContext.Consumer>
+  );
+});
 
-const SortableTree = (props) => (
+const SortableTree = forwardRef((props, ref) => (
   <DndProvider backend={HTML5Backend}>
-    <SortableTreeWithoutDndContext {...props} />
+    <SortableTreeWithoutDndContext {...props} ref={ref} />
   </DndProvider>
-);
+));
 
 // Export the tree component without the react-dnd DragDropContext,
 // for when component is used with other components using react-dnd.

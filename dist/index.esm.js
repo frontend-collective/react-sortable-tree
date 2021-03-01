@@ -1,7 +1,7 @@
 import withScrolling, { createScrollingComponent, createVerticalStrength, createHorizontalStrength } from 'frontend-collective-react-dnd-scrollzone';
 import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
-import React, { Component, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement, forwardRef } from 'react';
 import { DragSource, DropTarget, DndContext, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { List, AutoSizer } from 'react-virtualized';
@@ -2878,6 +2878,13 @@ var ReactSortableTree = /*#__PURE__*/function (_Component) {
       }
     }
   }, {
+    key: "recomputeSingleRowHeight",
+    value: function recomputeSingleRowHeight(index) {
+      if (this.list && index !== undefined) {
+        this.list.wrappedInstance.current.recomputeRowHeights(index, 0);
+      }
+    }
+  }, {
     key: "drop",
     value: function drop(dropResult) {
       this.moveNode(dropResult);
@@ -3076,6 +3083,9 @@ var ReactSortableTree = /*#__PURE__*/function (_Component) {
                 swapDepth: draggedDepth,
                 swapLength: swapLength
               });
+            },
+            ref: function ref(list) {
+              _this6.list = list;
             }
           }, reactVirtualizedListProps));
         });
@@ -3387,21 +3397,22 @@ ReactSortableTree.defaultProps = {
   rowDirection: 'ltr'
 };
 polyfill(ReactSortableTree);
-
-var SortableTreeWithoutDndContext = function SortableTreeWithoutDndContext(props) {
+var SortableTreeWithoutDndContext = /*#__PURE__*/forwardRef(function (props, ref) {
   return /*#__PURE__*/React.createElement(DndContext.Consumer, null, function (_ref17) {
     var dragDropManager = _ref17.dragDropManager;
     return dragDropManager === undefined ? null : /*#__PURE__*/React.createElement(ReactSortableTree, _extends({}, props, {
+      ref: ref,
       dragDropManager: dragDropManager
     }));
   });
-};
-
-var SortableTree = function SortableTree(props) {
+});
+var SortableTree = /*#__PURE__*/forwardRef(function (props, ref) {
   return /*#__PURE__*/React.createElement(DndProvider, {
     backend: HTML5Backend
-  }, /*#__PURE__*/React.createElement(SortableTreeWithoutDndContext, props));
-}; // Export the tree component without the react-dnd DragDropContext,
+  }, /*#__PURE__*/React.createElement(SortableTreeWithoutDndContext, _extends({}, props, {
+    ref: ref
+  })));
+}); // Export the tree component without the react-dnd DragDropContext,
 
 export default SortableTree;
 export { SortableTreeWithoutDndContext, addNodeUnderParent, changeNodeAtPath, defaultGetNodeKey, defaultSearchMethod, find, getDepth, getDescendantCount, getFlatDataFromTree, getNodeAtPath, getTreeFromFlatData, getVisibleNodeCount, getVisibleNodeInfoAtIndex, insertNode, isDescendant, map, removeNode, removeNodeAtPath, toggleExpandedForAll, walk };
