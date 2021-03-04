@@ -638,6 +638,7 @@ class ReactSortableTree extends Component {
       reactVirtualizedListProps,
       getNodeKey,
       rowDirection,
+      forceFocusIndex,
     } = mergeTheme(this.props);
     const {
       searchMatches,
@@ -684,10 +685,13 @@ class ReactSortableTree extends Component {
     });
 
     // Seek to the focused search result if there is one specified
-    const scrollToInfo =
-      searchFocusTreeIndex !== null
-        ? { scrollToIndex: searchFocusTreeIndex }
-        : {};
+    const scrollToInfo = {};
+
+    if (forceFocusIndex !== null && forceFocusIndex !== undefined) {
+      scrollToInfo.scrollToIndex = forceFocusIndex;
+    } else if (searchFocusTreeIndex !== null) {
+      scrollToInfo.scrollToIndex = searchFocusTreeIndex;
+    }
 
     let containerStyle = style;
     let list;
@@ -841,6 +845,11 @@ ReactSortableTree.propTypes = {
   // Should be a string for the default `searchMethod`, but can be anything when using a custom search.
   searchQuery: PropTypes.any, // eslint-disable-line react/forbid-prop-types
 
+  // Force focus to specific index. Node and full path must be expanded. You will need to manually
+  // set this prop back to null to avoid unwanted focusing in subsequent interactions.
+  // this will also take precendent over off-the-shelf search focus logic
+  forceFocusIndex: PropTypes.number,
+
   // Outline the <`searchFocusOffset`>th node and scroll to it.
   searchFocusOffset: PropTypes.number,
 
@@ -945,6 +954,7 @@ ReactSortableTree.defaultProps = {
   rowHeight: null,
   scaffoldBlockPxWidth: null,
   searchFinishCallback: null,
+  forceFocusIndex: null,
   searchFocusOffset: null,
   searchMethod: null,
   searchQuery: null,

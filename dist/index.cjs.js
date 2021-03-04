@@ -2989,7 +2989,8 @@ var ReactSortableTree = /*#__PURE__*/function (_Component) {
           placeholderRenderer = _mergeTheme3.placeholderRenderer,
           reactVirtualizedListProps = _mergeTheme3.reactVirtualizedListProps,
           getNodeKey = _mergeTheme3.getNodeKey,
-          rowDirection = _mergeTheme3.rowDirection;
+          rowDirection = _mergeTheme3.rowDirection,
+          forceFocusIndex = _mergeTheme3.forceFocusIndex;
 
       var _this$state = this.state,
           searchMatches = _this$state.searchMatches,
@@ -3030,9 +3031,14 @@ var ReactSortableTree = /*#__PURE__*/function (_Component) {
         matchKeys[path[path.length - 1]] = i;
       }); // Seek to the focused search result if there is one specified
 
-      var scrollToInfo = searchFocusTreeIndex !== null ? {
-        scrollToIndex: searchFocusTreeIndex
-      } : {};
+      var scrollToInfo = {};
+
+      if (forceFocusIndex !== null && forceFocusIndex !== undefined) {
+        scrollToInfo.scrollToIndex = forceFocusIndex;
+      } else if (searchFocusTreeIndex !== null) {
+        scrollToInfo.scrollToIndex = searchFocusTreeIndex;
+      }
+
       var containerStyle = style;
       var list;
 
@@ -3310,6 +3316,10 @@ ReactSortableTree.propTypes = {
   // Should be a string for the default `searchMethod`, but can be anything when using a custom search.
   searchQuery: PropTypes.any,
   // eslint-disable-line react/forbid-prop-types
+  // Force focus to specific index. Node and full path must be expanded. You will need to manually
+  // set this prop back to null to avoid unwanted focusing in subsequent interactions.
+  // this will also take precendent over off-the-shelf search focus logic
+  forceFocusIndex: PropTypes.number,
   // Outline the <`searchFocusOffset`>th node and scroll to it.
   searchFocusOffset: PropTypes.number,
   // Get the nodes that match the search criteria. Used for counting total matches, etc.
@@ -3393,6 +3403,7 @@ ReactSortableTree.defaultProps = {
   rowHeight: null,
   scaffoldBlockPxWidth: null,
   searchFinishCallback: null,
+  forceFocusIndex: null,
   searchFocusOffset: null,
   searchMethod: null,
   searchQuery: null,
