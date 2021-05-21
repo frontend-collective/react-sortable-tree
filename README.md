@@ -12,7 +12,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/frontend-collective/react-sortable-tree/badge.svg?branch=master)](https://coveralls.io/github/frontend-collective/react-sortable-tree?branch=master)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-> A React component for Drag-and-drop sortable representation of hierarchical data. Checkout the [demo](https://frontend-collective.github.io/react-sortable-tree/) for a demonstration of some basic features. Checkout the [storybook](https://frontend-collective.github.io/react-sortable-tree/storybook) for advanced usage.
+> A React component for Drag-and-drop sortable representation of hierarchical data. Checkout the [Storybook](https://frontend-collective.github.io/react-sortable-tree/) for a demonstration of some basic and advanced features.
 
 <div align="center">
   <img src="https://cloud.githubusercontent.com/assets/4413963/19334888/2be8261c-913a-11e6-9508-4b347ae114b4.gif"/>
@@ -76,7 +76,7 @@ export default class Tree extends Component {
     this.state = {
       treeData: [
         { title: 'Chicken', children: [{ title: 'Egg' }] },
-        { title: 'Fish', children: [{ title: 'fingerline'}] }
+        { title: 'Fish', children: [{ title: 'fingerline' }] },
       ],
     };
   }
@@ -116,7 +116,7 @@ export default class Tree extends Component {
 | searchFocusOffset              |     number     | Outline the <`searchFocusOffset`>th node and scroll to it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | onlyExpandSearchedNodes        |    boolean     | Only expand the nodes that match searches. Collapses all other nodes. Defaults to `false`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | searchFinishCallback           |      func      | Get the nodes that match the search criteria. Used for counting total matches, etc.<div>`(matches: { node: object, path: number[] or string[], treeIndex: number }[]): void`</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| dndType                        |     string     | String value used by [react-dnd](https://react-dnd.github.io/react-dnd/about) (see overview at the link) for dropTargets and dragSources types. If not set explicitly, a default value is applied by react-sortable-tree for you for its internal use. **NOTE:** Must be explicitly set and the same value used in order for correct functioning of external nodes                                                                                                                                                                                                                                                                     |
+| dndType                        |     string     | String value used by [react-dnd](https://react-dnd.github.io/react-dnd/about) (see overview at the link) for dropTargets and dragSources types. If not set explicitly, a default value is applied by react-sortable-tree for you for its internal use. **NOTE:** Must be explicitly set and the same value used in order for correct functioning of external nodes                                                                                                                                                                                                                                                                                 |
 | shouldCopyOnOutsideDrop        |  func or bool  | Return true, or a callback returning true, and dropping nodes to react-dnd drop targets outside of the tree will not remove them from the tree. Defaults to `false`. <div>`({ node: object, prevPath: number[] or string[], prevTreeIndex: number, }): bool`</div>                                                                                                                                                                                                                                                                                                                                                                                 |
 | reactVirtualizedListProps      |     object     | Custom properties to hand to the internal [react-virtualized List](https://github.com/bvaughn/react-virtualized/blob/master/docs/List.md#prop-types)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | style                          |     object     | Style applied to the container wrapping the tree (style defaults to `{height: '100%'}`)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -135,24 +135,23 @@ Need a hand turning your flat data into nested tree data?
 Want to perform add/remove operations on the tree data without creating your own recursive function?
 Check out the helper functions exported from [`tree-data-utils.js`](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js).
 
-- [**`getTreeFromFlatData`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L979): Convert flat data (like that from a database) into nested tree data.
-- [**`getUniqueTreeFromFlatData`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L979): Convert flat data (like that from a database) into nested tree data. (It removes duplicate records)
-- [**`getFlatDataFromTree`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L946): Convert tree data back to flat data.
-- [**`addNodeUnderParent`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L614): Add a node under the parent node at the given path.
-- [**`removeNode`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L534): For a given path, get the node at that path, treeIndex, and the treeData with that node removed.
-- [**`removeNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L506): For a given path, remove the node and return the treeData.
-- [**`changeNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L409): Modify the node object at the given path.
-- [**`map`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L359): Perform a change on every node in the tree.
-- [**`walk`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L326): Visit every node in the tree in order.
-- [**`getDescendantCount`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L60): Count how many descendants this node has.
-- [**`getVisibleNodeCount`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L248): Count how many visible descendants this node has.
-- [**`getVisibleNodeInfoAtIndex`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L286): Get the <targetIndex>th visible node in the tree data.
-- [**`toggleExpandedForAll`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L389): Expand or close every node in the tree.
-- [**`getNodeAtPath`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L573): Get the node at the input path.
-- [**`insertNode`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L885): Insert the input node at the specified depth and minimumTreeIndex.
-- [**`find`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1077): Find nodes matching a search query in the tree.
-- [**`isDescendant`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1027): Check if a node is a descendant of another node.
-- [**`getDepth`**](https://github.com/frontend-collective/react-sortable-tree/blob/master/src/utils/tree-data-utils.js#L1045): Get the longest path in the tree.
+- **`getTreeFromFlatData`**: Convert flat data (like that from a database) into nested tree data.
+- **`getFlatDataFromTree`**: Convert tree data back to flat data.
+- **`addNodeUnderParent`**: Add a node under the parent node at the given path.
+- **`removeNode`**: For a given path, get the node at that path, treeIndex, and the treeData with that node removed.
+- **`removeNodeAtPath`**: For a given path, remove the node and return the treeData.
+- **`changeNodeAtPath`**: Modify the node object at the given path.
+- **`map`**: Perform a change on every node in the tree.
+- **`walk`**: Visit every node in the tree in order.
+- **`getDescendantCount`**: Count how many descendants this node has.
+- **`getVisibleNodeCount`**: Count how many visible descendants this node has.
+- **`getVisibleNodeInfoAtIndex`**: Get the <targetIndex>th visible node in the tree data.
+- **`toggleExpandedForAll`**: Expand or close every node in the tree.
+- **`getNodeAtPath`**: Get the node at the input path.
+- **`insertNode`**: Insert the input node at the specified depth and minimumTreeIndex.
+- **`find`**: Find nodes matching a search query in the tree.
+- **`isDescendant`**: Check if a node is a descendant of another node.
+- **`getDepth`**: Get the longest path in the tree.
 
 ## Themes
 

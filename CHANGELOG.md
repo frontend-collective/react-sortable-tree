@@ -1,6 +1,27 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.8.0](https://github.com/frontend-collective/react-sortable-tree/compare/v2.7.1...v2.8.0) (2020-08-10)
+
+
+### Features
+
+* adding FUNDING.yml ([8e87804](https://github.com/frontend-collective/react-sortable-tree/commit/8e87804195fcc6cfc98ac0c8ae3a6f8511c05898))
+* remove current codesandbox website ([30749c7](https://github.com/frontend-collective/react-sortable-tree/commit/30749c74deba9b254c674bc0ded4fe2e6eb4cdce))
+
+
+### Bug Fixes
+
+* accidentally deleted own styling ([c664ade](https://github.com/frontend-collective/react-sortable-tree/commit/c664adee1cc045a76a9f89c38b644aa996f38365))
+* don't prettify changelog ([8615412](https://github.com/frontend-collective/react-sortable-tree/commit/86154120b0814a72ad45b23b4a24f45f2bbac225))
+* open collective link ([d55561e](https://github.com/frontend-collective/react-sortable-tree/commit/d55561e91b6abc7268be261c55c95a1fac5627e9))
+* remove outdated links from readme ([7a07263](https://github.com/frontend-collective/react-sortable-tree/commit/7a07263719044709ea177cd7d59ed0c0d56e86d0))
+* scroll to search focused tree item ([#756](https://github.com/frontend-collective/react-sortable-tree/issues/756)) ([e528a4c](https://github.com/frontend-collective/react-sortable-tree/commit/e528a4c6167cf64a6c0ff43caf22be45cccb21e3))
+* set themes using new api ([c2c1075](https://github.com/frontend-collective/react-sortable-tree/commit/c2c1075dfab844412f375174697ab30692b6055b))
+* site ([95cb249](https://github.com/frontend-collective/react-sortable-tree/commit/95cb249e24fb8cab2134567f71447bd728228c1e))
+* website imports ([8e7f83d](https://github.com/frontend-collective/react-sortable-tree/commit/8e7f83dc483c4697edd5ae29080316cf68de248a))
+* website pt 2 ([6914959](https://github.com/frontend-collective/react-sortable-tree/commit/69149596c884cb28c83c17f238c7d7d186271c44))
 
 <a name="2.7.1"></a>
 ## [2.7.1](https://github.com/frontend-collective/react-sortable-tree/compare/v2.7.0...v2.7.1) (2019-11-12)
