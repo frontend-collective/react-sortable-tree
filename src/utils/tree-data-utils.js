@@ -1022,6 +1022,72 @@ export function getTreeFromFlatData({
 }
 
 /**
+ * Generate a tree structure from flat data.
+ *
+ * @param {!Object[]} flatData
+ * @param {!function=} getKey - Function to get the key from the nodeData
+ * @param {!function=} getParentKey - Function to get the parent key from the nodeData
+ * @param {string|number=} rootKey - The value returned by `getParentKey` that corresponds to the root node.
+ *                                  For example, if your nodes have id 1-99, you might use rootKey = 0
+ *
+ * @return {Object[]} treeData - The flat data represented as a tree
+ */
+
+export function getUniqueTreeFromFlatData({
+  flatData,
+  getKey = node => node.id,
+  getParentKey = node => node.parentId,
+  rootKey = '0',
+}) {
+  const childrenToParents = {};
+  let childParentList = [];
+  
+  if (!flatData) {
+    return [];
+  }
+  
+  flatData.forEach(child => {
+    const parentKey = getParentKey(child);
+
+    if (parentKey in childrenToParents) {
+      childrenToParents[parentKey].push(child);
+    } else {
+      childrenToParents[parentKey] = [child];
+    }
+  });
+
+  if (!(rootKey in childrenToParents)) {
+    return [];
+  }
+
+  const traverse = parent => {
+    const parentKey = getKey(parent);
+    
+    if (parentKey in childrenToParents) {
+      childrenToParents[parentKey].forEach(child => {
+        childParentList.push({
+          id: child.id,
+          parentId: child.parentId
+        });
+        const sameRecords = childParentList.filter(
+          childParentListIds => childParentListIds.id === child.id &&
+          childParentListIds.parentId === child.parentId);
+        
+        if(sameRecords.length >= 2) childrenToParents[parentKey].length = 0;
+      });
+      return {
+        ...parent,
+        children: childrenToParents[parentKey].map(child => traverse(child)),
+      };
+    }
+
+    return { ...parent };
+  };
+
+  return childrenToParents[rootKey].map(child => traverse(child));
+}
+
+/**
  * Check if a node is a descendant of another node.
  *
  * @param {!Object} older - Potential ancestor of younger node
