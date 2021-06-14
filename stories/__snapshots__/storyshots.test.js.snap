@@ -3176,6 +3176,423 @@ exports[`Storyshots Basics Callbacks 1`] = `
 </div>
 `;
 
+exports[`Storyshots Basics Icon 1`] = `
+<div
+  style={
+    Object {
+      "height": 300,
+    }
+  }
+>
+  <div
+    className="rst__tree"
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  >
+    <div>
+      <div
+        aria-label="grid"
+        aria-readonly={true}
+        className="ReactVirtualized__Grid ReactVirtualized__List rst__virtualScrollOverride"
+        onScroll={[Function]}
+        role="grid"
+        style={
+          Object {
+            "WebkitOverflowScrolling": "touch",
+            "boxSizing": "border-box",
+            "direction": "ltr",
+            "height": 99999,
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "position": "relative",
+            "width": 200,
+            "willChange": "transform",
+          }
+        }
+        tabIndex={0}
+      >
+        <div
+          className="ReactVirtualized__Grid__innerScrollContainer"
+          role="rowgroup"
+          style={
+            Object {
+              "height": 248,
+              "maxHeight": 248,
+              "maxWidth": 200,
+              "overflow": "hidden",
+              "pointerEvents": "",
+              "position": "relative",
+              "width": "auto",
+            }
+          }
+        >
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 0,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 44,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div>
+                  <button
+                    aria-label="Collapse"
+                    className="rst__collapseButton"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "left": -22,
+                      }
+                    }
+                    type="button"
+                  />
+                  <div
+                    className="rst__lineChildren"
+                    style={
+                      Object {
+                        "width": 44,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowIcon"
+                      >
+                        <img
+                          alt="icon here"
+                          src="https://icons.iconarchive.com/icons/jonathan-rey/simpsons/32/Homer-Simpson-04-Happy-icon.png"
+                        />
+                      </div>
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Homer Simpson
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 62,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowIcon"
+                      >
+                        <img
+                          alt="icon here"
+                          src="https://icons.iconarchive.com/icons/jonathan-rey/simpsons/32/Bart-Simpson-01-icon.png"
+                        />
+                      </div>
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Bart Simpson
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 124,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfHorizontalRight rst__lineFullVertical"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowIcon"
+                      >
+                        <img
+                          alt="icon here"
+                          src="https://icons.iconarchive.com/icons/jonathan-rey/simpsons/32/Lisa-Simpson-icon.png"
+                        />
+                      </div>
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Lisa Simpson
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="rst__node"
+            style={
+              Object {
+                "height": 62,
+                "left": 0,
+                "position": "absolute",
+                "top": 186,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="rst__lineBlock"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__lineBlock rst__lineHalfVerticalTop rst__lineHalfHorizontalRight"
+              style={
+                Object {
+                  "width": 44,
+                }
+              }
+            />
+            <div
+              className="rst__nodeContent"
+              style={
+                Object {
+                  "left": 88,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              >
+                <div
+                  className="rst__rowWrapper"
+                >
+                  <div
+                    className="rst__row"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <div
+                      className="rst__moveHandle"
+                    />
+                    <div
+                      className="rst__rowContents"
+                    >
+                      <div
+                        className="rst__rowIcon"
+                      >
+                        <img
+                          alt="icon here"
+                          src="https://icons.iconarchive.com/icons/jonathan-rey/simpsons/32/Maggie-Simpson-icon.png"
+                        />
+                      </div>
+                      <div
+                        className="rst__rowLabel"
+                      >
+                        <span
+                          className="rst__rowTitle"
+                        >
+                          Maggie Simpson
+                        </span>
+                      </div>
+                      <div
+                        className="rst__rowToolbar"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Basics Minimal implementation 1`] = `
 <div
   style={
