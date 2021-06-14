@@ -136,7 +136,7 @@ class NodeRendererDefault extends Component {
                   <span
                     className={classnames(
                       'rst__rowTitle',
-                      node.subtitle && 'rst__rowTitleWithSubtitle'
+                      nodeSubtitle && 'rst__rowTitleWithSubtitle'
                     )}
                   >
                     {typeof nodeTitle === 'function'
