@@ -150,6 +150,7 @@ export default class DndManager {
         nextPath: addedResult.path,
         nextParent: addedResult.parentNode,
         nextTreeIndex: addedResult.treeIndex,
+        treeData: this.treeData
       });
     }
 
