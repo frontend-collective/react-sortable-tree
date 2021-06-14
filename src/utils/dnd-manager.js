@@ -174,6 +174,8 @@ export default class DndManager {
         this.endDrag(monitor.getDropResult());
       },
 
+      canDrag: props => props.canDrag,
+
       isDragging: (props, monitor) => {
         const dropTargetNode = monitor.getItem().node;
         const draggedNode = props.node;
