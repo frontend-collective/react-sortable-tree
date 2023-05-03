@@ -1,3 +1,7 @@
+# Note on maintenance
+
+This library is not actively maintained. [Please find and discuss alternatives here](https://github.com/frontend-collective/react-sortable-tree/discussions/942).
+
 <div align="center">
   <img src="https://cloud.githubusercontent.com/assets/4413963/18860410/26f64de8-84b8-11e6-9284-350308eed30a.png"/>
 </div>
