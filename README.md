@@ -157,6 +157,11 @@ Check out the helper functions exported from [`tree-data-utils.js`](https://gith
 - **`isDescendant`**: Check if a node is a descendant of another node.
 - **`getDepth`**: Get the longest path in the tree.
 
+You can import helpers via named imports. Example:
+```js
+import {removeNode} from 'react-sortable-tree';
+```
+
 ## Themes
 
 Using the `theme` prop along with an imported theme module, you can easily override the default appearance with another standard one.
