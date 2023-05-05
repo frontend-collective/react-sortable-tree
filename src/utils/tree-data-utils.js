@@ -834,7 +834,7 @@ function addNodeAtDepthAndIndex({
         ignoreCollapsed,
         expandParent,
         isLastChild: isLastChild && i === newChildren.length - 1,
-        node: child,
+        node: ((currentDepth + 1 >= targetDepth - 1) && child.expanded === false) ? { ...child, expanded: true } : child,
         currentIndex: childIndex,
         currentDepth: currentDepth + 1,
         getNodeKey,
