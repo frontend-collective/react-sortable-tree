@@ -65,6 +65,7 @@
 }
 
 .rst__rowContents,
+.rst__rowIcon,
 .rst__rowLabel,
 .rst__rowToolbar,
 .rst__moveHandle,
@@ -85,7 +86,7 @@
   flex: 1 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   background-color: white;
 }
 
@@ -102,6 +103,13 @@
 .rst__rtl.rst__rowContentsDragDisabled {
   border-right: solid #bbb 1px;
   border-left: solid #bbb 1px;
+}
+
+.rst__rowIcon {
+  padding-right: 8px;
+}
+.rst__rowIcon img {
+  vertical-align: middle;
 }
 
 .rst__rowLabel {

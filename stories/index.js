@@ -12,6 +12,7 @@ import DragOutToRemoveExample from './drag-out-to-remove';
 import ExternalNodeExample from './external-node';
 import GenerateNodePropsExample from './generate-node-props';
 import './generic.css';
+import IconExample from './icon';
 import ModifyNodesExample from './modify-nodes';
 import OnlyExpandSearchedNodesExample from './only-expand-searched-node';
 import RowDirectionExample from './rtl-support';
@@ -28,6 +29,7 @@ storiesOf('Basics', module)
   .add('Modify nodes', () => <ModifyNodesExample />)
   .add('Prevent drop', () => <CanDropExample />)
   .add('Search', () => <SearchExample />)
+  .add('Icon', () => <IconExample />)
   .add('Themes', () => <ThemesExample />)
   .add('Callbacks', () => <CallbacksExample />)
   .add('Row direction support', () => <RowDirectionExample />);
