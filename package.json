@@ -14,7 +14,7 @@
     "release": "standard-version",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "storybook": "start-storybook -p ${PORT:-3001} -h 0.0.0.0",
+    "storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p ${PORT:-3001} -h 0.0.0.0",
     "deploy": "gh-pages -d build"
   },
   "main": "dist/index.cjs.js",
@@ -71,7 +71,8 @@
     "react-dnd": "^11.1.3",
     "react-dnd-html5-backend": "^11.1.3",
     "react-lifecycles-compat": "^3.0.4",
-    "react-virtualized": "^9.21.2"
+    "react-virtualized": "^9.21.2",
+    "styled-components": "^6.1.13"
   },
   "peerDependencies": {
     "react": "^16.3.0",
